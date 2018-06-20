@@ -65,6 +65,21 @@ class TestResponse
     }
 
     /**
+     * Assert that the response has a 200 status code.
+     *
+     * @return $this
+     */
+    public function assertOk()
+    {
+        PHPUnit::assertTrue(
+            $this->isOk(),
+            'Response status code ['.$this->getStatusCode().'] does not match expected 200 status code.'
+        );
+
+        return $this;
+    }
+
+    /**
      * Assert that the response has a not found status code.
      *
      * @return $this
@@ -795,6 +810,18 @@ class TestResponse
                 PHPUnit::assertContains($value, $errors->get($key, $format));
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Assert that the session has no errors.
+     *
+     * @return $this
+     */
+    public function assertSessionHasNoErrors()
+    {
+        $this->assertSessionMissing('errors');
 
         return $this;
     }

@@ -9,13 +9,19 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+
+    public function isAdmin()
+    {
+        return $this->isAdmin; // this looks for an admin column in your users table
+    }
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'nombre', 'email', 'password','is_admin'
     ];
 
     /**
