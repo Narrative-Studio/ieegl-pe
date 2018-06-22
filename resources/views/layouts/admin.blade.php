@@ -86,6 +86,7 @@
             <li class=" nav-item"><a href="#"><i class="fa fa-graduation-cap"></i><span class="menu-title">Universidades</span></a></li>
             <li class=" nav-item"><a href="#"><i class="fa fa-building"></i><span class="menu-title">Industrias y Sectores</span></a></li>
             <li class=" nav-item"><a href="#"><i class="fa fa-seedling"></i><span class="menu-title">Etapas Emprendimientos</span></a></li>
+            <li class=" nav-item"><a href="#"><i class="fa fa-seedling"></i><span class="menu-title">Términos Capital</span></a></li>
             <hr/>
             <li class=" nav-item"><a href="{{route('logout')}}"><i class="icon-logout"></i><span class="menu-title">Salir</span></a></li>
         </ul>
