@@ -20,6 +20,14 @@
                             </div>
                             <div class="card-content">
                                 <div class="card-body">
+                                    @if(session('error_validado'))
+                                        <div class="alert bg-danger alert-dismissible mb-2" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            Aún no confirmas tu correo electrónico, si no lo ves en bandeja de entrada revisa en correos no deseados.
+                                        </div>
+                                    @endif
                                     <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}" class="form-horizontal" novalidate>
                                         @csrf
                                         <fieldset class="form-group position-relative has-icon-left">
@@ -56,13 +64,13 @@
                                             </div>
                                             <!--<div class="col-md-6 col-12 text-center text-md-right"><a href="recover-password.html" class="card-link">Recuperar Contraseña</a></div>-->
                                         </div>
-                                        <button type="submit" class="btn btn-danger btn-block btn-lg"><i class="ft-unlock"></i> Entrar</button>
+                                        <button type="submit" class="btn btn-primary btn-block btn-lg"><i class="ft-unlock"></i> Entrar</button>
                                     </form>
                                 </div>
                             </div>
                             <div class="card-footer border-0">
                                 <p class="card-subtitle line-on-side text-muted text-center font-small-3 mx-2 my-1">
-                                    <span>¿No tines una cuenta?</span>
+                                    <span>¿No tienes una cuenta?</span>
                                 </p>
                                 <a href="{{route('register')}}" class="btn btn-info btn-block btn-lg mt-3"><i class="ft-user"></i> Crea una cuenta</a>
                             </div>

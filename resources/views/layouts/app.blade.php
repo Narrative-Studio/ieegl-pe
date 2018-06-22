@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="loading" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html class="loading" lang="es" data-textdirection="ltr">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

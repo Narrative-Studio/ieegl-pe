@@ -33,10 +33,14 @@ class TestController extends Controller
         //$result = $this->CollectionHandler->all('users');
         //var_dump($result);
 
-        /*echo '<p>get Admin</p>';
-        $cursor = $this->CollectionHandler->byExample('users', ['_id' => 'users/3050580']);
+        echo '<p>get Admin</p>';
+        $cursor = $this->CollectionHandler->byExample('users', ['email' => 'adanlunas@gmail.com']);
         $usuario = $this->ArangoDB->Document($cursor->getAll());
-        echo $usuario->email;*/
+        if($usuario){
+            echo $usuario->email;
+        }else{
+            echo 'no existe';
+        }
 
         // update a document
         /*$cursor = $this->CollectionHandler->byExample('users', ['email' => 'adanluna@gmail.com']);

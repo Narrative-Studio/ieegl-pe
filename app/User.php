@@ -15,13 +15,18 @@ class User extends Authenticatable
         return $this->isAdmin; // this looks for an admin column in your users table
     }
 
+    public function validated()
+    {
+        return $this->validated; // this looks for an admin column in your users table
+    }
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'nombre', 'email', 'password','is_admin'
+        'nombre', 'email', 'password','is_admin','validated'
     ];
 
     /**

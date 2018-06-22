@@ -104,17 +104,17 @@
                                                         <table>
                                                             <tr>
                                                                 <td valign="top">
-                                                                    <input type="checkbox" id="aceptar" name="aceptar">
+                                                                    <input type="checkbox" id="terminos_y_condiciones" name="terminos_y_condiciones">
                                                                 </td>
                                                                 <td valign="top">
                                                                     He leído los <a href="">Términos y Condiciones de Uso</a> y la <a href="">Política de Privacidad</a>
-                                                                    y dor de mi conocimiento para que STARTUP IDENTIFICATION utilice mi información por motivos y Eventos relacionados al Emprendimiento.
+                                                                    y dar de mi conocimiento para que Startup Identification utilice mi información por motivos y Eventos relacionados al Emprendimiento.
                                                                 </td>
                                                             </tr>
                                                         </table>
-                                                        @if ($errors->has('aceptar'))
+                                                        @if ($errors->has('terminos_y_condiciones'))
                                                             <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $errors->first('aceptar') }}</strong>
+                                                                <strong>{{ $errors->first('terminos_y_condiciones') }}</strong>
                                                             </span>
                                                         @endif
                                                     </div>
