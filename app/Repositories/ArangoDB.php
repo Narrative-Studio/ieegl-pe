@@ -7,6 +7,7 @@ use ArangoDBClient\Connection as ArangoConnection;
 use ArangoDBClient\ConnectionOptions as ArangoConnectionOptions;
 use ArangoDBClient\DocumentHandler as ArangoDocumentHandler;
 use ArangoDBClient\EdgeHandler as ArangoEdgeHandler;
+use ArangoDBClient\Statement as ArangoStatment;
 use ArangoDBClient\Document as ArangoDocument;
 use ArangoDBClient\Exception as ArangoException;
 use ArangoDBClient\Export as ArangoExport;
@@ -72,5 +73,25 @@ class ArangoDB
                 return  json_decode($value. PHP_EOL);
             }
         }
+    }
+
+    public function Query($query){
+        $statement = new ArangoStatment(
+            $this->ConnectionHandler,
+            array(
+                "query"     => $query,
+                "count"     => true,
+                "batchSize" => 1000,
+                "sanitize"  => true
+            )
+        );
+
+        $cursor = $statement->execute();
+        $resultingDocuments = array();
+
+        foreach ($cursor as $key => $value) {
+            $resultingDocuments[$key] = json_decode($value);
+        }
+        return $resultingDocuments;
     }
 }

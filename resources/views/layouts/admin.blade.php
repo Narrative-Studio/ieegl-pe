@@ -83,7 +83,7 @@
                 <span>Catálogos</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Layouts"></i>
             </li>
             <li class=" nav-item"><a href="#"><i class="fa fa-comments"></i><span class="menu-title">Convocatorias TEC</span></a></li>
-            <li class=" nav-item"><a href="#"><i class="fa fa-graduation-cap"></i><span class="menu-title">Universidades</span></a></li>
+            <li class=" nav-item"><a href="{{action('AdminUniversidades@Index')}}"><i class="fa fa-graduation-cap"></i><span class="menu-title">Universidades</span></a></li>
             <li class=" nav-item"><a href="#"><i class="fa fa-building"></i><span class="menu-title">Industrias y Sectores</span></a></li>
             <li class=" nav-item"><a href="#"><i class="fa fa-seedling"></i><span class="menu-title">Etapas Emprendimientos</span></a></li>
             <li class=" nav-item"><a href="#"><i class="fa fa-seedling"></i><span class="menu-title">Términos Capital</span></a></li>

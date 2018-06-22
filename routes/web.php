@@ -20,5 +20,13 @@ Route::prefix('admin')->group(function() {
 
     Route::middleware('is_admin')->group(function () {
         Route::get('/', 'AdminController@Index')->name('admin.dashboard');
+
+        // Universidades
+        Route::get('/universidades', 'AdminUniversidades@Index');
+        Route::get('/universidades/new', 'AdminUniversidades@New');
+        Route::get('/universidades/edit/{id}', 'AdminUniversidades@Edit');
+        Route::post('/universidades/save', 'AdminUniversidades@Save');
+        Route::get('/universidades/delete/{id}', 'AdminUniversidades@Delete');
+
     });
 });

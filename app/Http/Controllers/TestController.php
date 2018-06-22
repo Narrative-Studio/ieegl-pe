@@ -13,7 +13,6 @@ use ArangoDBClient\ClientException as ArangoClientException;
 use ArangoDBClient\ServerException as ArangoServerException;
 use ArangoDBClient\Statement as ArangoStatement;
 use ArangoDBClient\UpdatePolicy as ArangoUpdatePolicy;
-use Illuminate\Support\Facades\Hash;
 
 class TestController extends Controller
 {
