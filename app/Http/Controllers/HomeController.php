@@ -95,8 +95,9 @@ class HomeController extends Controller
         $document->set("telefono",   $data['telefono']);
         $document->set("email",   $data['email']);
         $document->set("email_token", $data['email_token']);
-        $document->set("isAdmin", "0");
-        $document->set("validated", "0");
+        $document->set("isAdmin", 0);
+        $document->set("validated", 0);
+        $document->set("active", 1);
         $document->set("password", Hash::make($data['password']));
 
         $nombre = $data['nombre'].' '.$data['apellidos'];

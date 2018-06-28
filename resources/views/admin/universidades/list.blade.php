@@ -53,6 +53,10 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="col-sm-12"><div class="dataTables_paginate paging_full_numbers">
+                                        {!! $datos->appends(['total' => (int)$total]+\Illuminate\Support\Facades\Input::except('page'))->render() !!}
+                                </div></div>
+
                             @else
                                 <div class="row">
                                     <div class="col-md-3"></div>

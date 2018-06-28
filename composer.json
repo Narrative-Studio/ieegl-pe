@@ -7,11 +7,12 @@
     "require": {
         "php": "^7.1.3",
         "fideloper/proxy": "^4.0",
+        "greggilbert/recaptcha": "dev-master",
+        "intervention/image": "^2.4",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0",
-        "triagens/arangodb" : "*",
-        "laravelcollective/html":"^5.4.0",
-      "greggilbert/recaptcha": "dev-master"
+        "laravelcollective/html": "^5.4.0",
+        "triagens/arangodb": "*"
     },
     "require-dev": {
         "filp/whoops": "^2.0",

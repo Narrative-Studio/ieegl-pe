@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UniversidadRequest;
 use Illuminate\Http\Request;
 use App\Repositories\ArangoDB;
-use ArangoDBClient\Document as ArangoDocument;
 use ArangoDBClient\Exception as ArangoException;
-use ArangoDBClient\Export as ArangoExport;
-use ArangoDBClient\ConnectException as ArangoConnectException;
 use ArangoDBClient\ClientException as ArangoClientException;
 use ArangoDBClient\ServerException as ArangoServerException;
-use ArangoDBClient\Statement as ArangoStatement;
-use ArangoDBClient\UpdatePolicy as ArangoUpdatePolicy;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Session;
 
 
 class AdminUniversidades extends Controller
@@ -20,52 +18,117 @@ class AdminUniversidades extends Controller
     protected $CollectionHandler;
     protected $ArangoDB;
     private $collection = 'universidades';
+    private $controller = 'AdminUniversidades';
+    private $page;
+    private $path;
+    private $perPage = 25;
 
+    /**
+     * Universidad constructor.
+     * @param ArangoDB $ArangoDB
+     */
     public function __construct(ArangoDB $ArangoDB)
     {
         $this->ArangoDB = $ArangoDB;
-        $this->DocumentHandler = $ArangoDB->DocumentHandler();
-        $this->CollectionHandler = $ArangoDB->CollectionHandler();
+        //$this->DocumentHandler = $ArangoDB->DocumentHandler();
+        //$this->CollectionHandler = $ArangoDB->CollectionHandler();
         ArangoException::enableLogging();
         $this->middleware('auth:admin');
+        $this->page = LengthAwarePaginator::resolveCurrentPage('page');
+        $this->path = LengthAwarePaginator::resolveCurrentPath();
     }
 
     /**
-     * Listado de Universidades
+     * Listado de Universidad
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function Index(){
-        $datos = $this->ArangoDB->Query('FOR u IN universidades RETURN u');
-        return view('admin.universidades.list', compact('datos'));
-    }
-
-    /*
-     * Crear nueva universidad
-     */
-    public function New(){
-        return view('admin.universidades.new');
+    public function Index(Request $request){
+        $data = $this->ArangoDB->Query('FOR u IN '.$this->collection.' SORT u.nombre ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'  RETURN u');
+        if($request->get('total')!=''){
+            $total = $request->get('total');
+        }else{
+            $total = $this->ArangoDB->Query('FOR doc IN '.$this->collection.' COLLECT WITH COUNT INTO length RETURN length');
+            $total = (int)$total[0];
+        }
+        $datos = $this->ArangoDB->Pagination($data, $total, $this->PaginationQuery());
+        return view('admin.'.$this->collection.'.list', compact('datos','total'));
     }
 
     /**
-     * Editar la Uniiversidad
+     * Crear nueva Universidad
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function New(){
+        return view('admin.'.$this->collection.'.new');
+    }
+
+    /**
+     * Editar la Universidad
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws ArangoException
      */
     public function Edit($id){
-        $cursor = $this->CollectionHandler->byExample($this->collection, ['_id' => $this->collection.'/'.$id]);
-        $item = $this->ArangoDB->Document($cursor->getAll());
-        if(!$item){
-            return redirect()->action('AdminUniversidades@Index')->with('error','La Universidad no existe');
+        try{
+            $item = $this->ArangoDB->GetById($this->collection, $this->collection.'/'.$id);
+        } catch (ArangoServerException $e) {
+            Session::flash('status_error', $e->getMessage());
+            return redirect()->action($this->controller.'@Index');
         }
-        return view('admin.universidades.edit', compact('item'));
+        if(!$item){
+            return redirect()->action($this->controller.'@Index')->with('status_error','El registro no existe');
+        }
+        return view('admin.'.$this->collection.'.edit', compact('item'));
     }
 
-    public function Save(){
+    /**
+     * Guardar datos de la Universidad
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws ArangoClientException
+     * @throws ArangoException
+     */
+    public function Save(UniversidadRequest $request){
 
+        $document = [];
+        $document['nombre'] = $request->get('nombre');
+
+        // Creando Nuevo Registro
+        if($request->get('id')==''){
+            $documentId = $this->ArangoDB->Save($this->collection, $document);
+            Session::flash('status_success', 'Registro Agregado');
+        }else{
+        // Actualizando Registro
+            $documentId = $this->ArangoDB->Update($this->collection, $this->collection.'/'.$request->get('id'), $document);
+            Session::flash('status_success', 'Registro Actualizado');
+        }
+
+        return redirect()->action($this->controller.'@Index');
     }
 
+    /**
+     * Borrar registro de Universidad
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws ArangoException
+     */
     public function Delete($id){
+        try {
+            $result = $this->ArangoDB->Delete($this->collection, $this->collection.'/'.$id);
+        } catch (ArangoServerException $e) {
+            Session::flash('status_error', $e->getMessage());
+            return redirect()->action($this->controller.'@Index');
+        }
+        Session::flash('status_success', 'Registro Borrado');
+        return redirect()->action($this->controller.'@Index');
+    }
 
+    /**
+     * Regresar variables para paginacion
+     * @return array
+     */
+    public function PaginationQuery(){
+        return ['page'=>$this->page, 'perPage' => $this->perPage, 'path'=>$this->path];
     }
 }

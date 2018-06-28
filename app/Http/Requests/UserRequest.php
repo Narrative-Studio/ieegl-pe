@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Request;
 
 class UserRequest extends FormRequest
 {
@@ -25,7 +26,7 @@ class UserRequest extends FormRequest
                     return [
                         'nombre'                    => 'required|string|max:255',
                         'apellidos'                 => 'required|string|max:255',
-                        'telefono'                  => 'required|min:8',
+                        'telefono'                  => 'required|min:10',
                         'email'                     => 'required|string|email|max:255|confirmed',
                         'password'                  => 'required|string|min:4|max:255|confirmed',
                         'g-recaptcha-response'      => 'required|recaptcha',
@@ -35,12 +36,15 @@ class UserRequest extends FormRequest
                 }
             case 'POST':
                 {
-                    return [
+                    $rules = [
                         'nombre'                    => 'required|string|max:255',
                         'apellidos'                 => 'required|string|max:255',
-                        'telefono'                  => 'required|min:8',
-                        'email'                     => 'required|string|email|max:255|confirmed',
+                        'telefono'                  => 'required|min:10',
                     ];
+                    if (Request::input('password') != null) {
+                        $rules['password']      = 'required|string|min:4|max:255|confirmed';
+                    }
+                    return $rules;
                     break;
                 }
             default:break;

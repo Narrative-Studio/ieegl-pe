@@ -17,6 +17,8 @@
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/charts/morris.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/extensions/unslider.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/weather-icons/climacons.min.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/forms/toggle/bootstrap-switch.min.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/forms/toggle/switchery.min.css">
     <!-- END VENDOR CSS-->
     <!-- BEGIN ROBUST CSS-->
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/app.css">
@@ -24,9 +26,12 @@
     <!-- BEGIN Page Level CSS-->
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/core/menu/menu-types/vertical-menu.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/core/colors/palette-gradient.css">
-    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/core/colors/palette-gradient.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/plugins/calendars/clndr.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/plugins/animate/animate.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/fonts/meteocons/style.min.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/plugins/forms/switch.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/fonts/simple-line-icons/style.min.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/core/colors/palette-switch.css">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
@@ -76,7 +81,7 @@
             <li class=" navigation-header">
                 <span>Usuarios</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Layouts"></i>
             </li>
-            <li class=" nav-item"><a href="#"><i class="ft-users"></i><span class="menu-title">Usuarios</span></a></li>
+            <li class=" nav-item"><a href="{{action('AdminUsuarios@Index')}}"><i class="ft-users"></i><span class="menu-title">Usuarios</span></a></li>
             <li class=" nav-item"><a href="#"><i class="ft-user-plus"></i><span class="menu-title">Administradores</span></a></li>
             <li class=" nav-item"><a href="#"><i class="ft-shield"></i><span class="menu-title">Roles</span></a></li>
             <li class=" navigation-header">
@@ -84,9 +89,9 @@
             </li>
             <li class=" nav-item"><a href="#"><i class="fa fa-comments"></i><span class="menu-title">Convocatorias TEC</span></a></li>
             <li class=" nav-item"><a href="{{action('AdminUniversidades@Index')}}"><i class="fa fa-graduation-cap"></i><span class="menu-title">Universidades</span></a></li>
-            <li class=" nav-item"><a href="#"><i class="fa fa-building"></i><span class="menu-title">Industrias y Sectores</span></a></li>
-            <li class=" nav-item"><a href="#"><i class="fa fa-seedling"></i><span class="menu-title">Etapas Emprendimientos</span></a></li>
-            <li class=" nav-item"><a href="#"><i class="fa fa-seedling"></i><span class="menu-title">Términos Capital</span></a></li>
+            <li class=" nav-item"><a href="{{action("AdminIndustrias@Index")}}"><i class="fa fa-building"></i><span class="menu-title">Industrias y Sectores</span></a></li>
+            <li class=" nav-item"><a href="{{action("AdminEtapas@Index")}}"><i class="fa fa-seedling"></i><span class="menu-title">Etapas Emprendimientos</span></a></li>
+            <li class=" nav-item"><a href="{{action("AdminTerminos@Index")}}"><i class="fa fa-seedling"></i><span class="menu-title">Términos Capital</span></a></li>
             <hr/>
             <li class=" nav-item"><a href="{{route('logout')}}"><i class="icon-logout"></i><span class="menu-title">Salir</span></a></li>
         </ul>
@@ -101,15 +106,40 @@
         <span class="float-md-left d-block d-md-inline-block">Copyright &copy; {{date('Y')}} <a class="text-bold-800 grey darken-2" href="#" target="_blank">Tecnológico de Monterrey </a>, All rights reserved. </span>
     </p>
 </footer>
+
+<!-- MESSAGE BOX-->
+<div class="modal fade text-left" id="danger" tabindex="-1" role="dialog" aria-labelledby="myModalLabel10" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger white">
+                <h4 class="modal-title white" id="myModalLabel10">Eliminar Registro</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Desea eliminar permanentemente el registro?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-danger mb-control-yes" data-dismiss="modal">Si, eliminarlo</button>
+                <button class="btn grey btn-outline-secondary"  data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END MESSAGE BOX-->
+
+
 <!-- BEGIN VENDOR JS-->
 <script src="{{url("/")}}/app-assets/vendors/js/vendors.min.js" type="text/javascript"></script>
 <!-- BEGIN VENDOR JS-->
 <!-- BEGIN PAGE VENDOR JS-->
+<script src="{{url("/")}}/app-assets/vendors/js/forms/toggle/bootstrap-switch.min.js" type="text/javascript"></script>
+<script src="{{url("/")}}/app-assets/vendors/js/forms/toggle/bootstrap-checkbox.min.js" type="text/javascript"></script>
+<script src="{{url("/")}}/app-assets/vendors/js/forms/toggle/switchery.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/charts/raphael-min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/charts/morris.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/charts/chart.min.js" type="text/javascript"></script>
-<script src="{{url("/")}}/app-assets/vendors/js/charts/jvector/jquery-jvectormap-2.0.3.min.js" type="text/javascript"></script>
-<script src="{{url("/")}}/app-assets/vendors/js/charts/jvector/jquery-jvectormap-world-mill.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/extensions/moment.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/extensions/underscore-min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/extensions/clndr.min.js" type="text/javascript"></script>
@@ -122,7 +152,17 @@
 <script src="{{url("/")}}/app-assets/js/scripts/customizer.js" type="text/javascript"></script>
 <!-- END ROBUST JS-->
 <!-- BEGIN PAGE LEVEL JS-->
+<script src="{{url("/")}}/app-assets/js/scripts/forms/switch.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/js/scripts/pages/dashboard-ecommerce.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL JS-->
+<script>
+    function delete_row(row,url){
+        $('#danger').modal('show')
+        $('#danger').find(".mb-control-yes").on("click",function(){
+            window.location.href=url;
+        });
+    }
+</script>
+@yield('js')
 </body>
 </html>

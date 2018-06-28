@@ -13,23 +13,26 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Muli:300,400,500,700" rel="stylesheet">
     <!-- BEGIN VENDOR CSS-->
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/vendors.css">
-    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/charts/jquery-jvectormap-2.0.3.css">
-    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/charts/morris.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/forms/icheck/icheck.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/forms/icheck/custom.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/extensions/unslider.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/weather-icons/climacons.min.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/forms/selects/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/plugins/forms/checkboxes-radios.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/plugins/forms/extended/form-extended.css">
     <!-- END VENDOR CSS-->
     <!-- BEGIN ROBUST CSS-->
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/app.css">
     <!-- END ROBUST CSS-->
     <!-- BEGIN Page Level CSS-->
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/core/menu/menu-types/vertical-menu.css">
-    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/core/colors/palette-gradient.css">
-    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/core/colors/palette-gradient.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/plugins/calendars/clndr.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/fonts/meteocons/style.min.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/fonts/font-awesome/css/font-awesome.min.css">
     <!-- END Page Level CSS-->
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/css/custom.min.css">
     <!-- END Custom CSS-->
 </head>
 <body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar"
@@ -58,12 +61,16 @@
                     <li class="dropdown dropdown-user nav-item">
                         <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                             <span class="avatar avatar-online">
-                                <img src="{{url("/")}}/app-assets/images/portrait/small/avatar-s-1.png" alt="avatar"><i></i>
+                                @if(file_exists(public_path('/users_pics/user_'. auth()->user()->_key .'.jpg')))
+                                    <img src="{{url('/users_pics/user_'. auth()->user()->_key .'.jpg')}}" alt="avatar">
+                                @else
+                                    <img src="{{url("/")}}/app-assets/images/avatar.jpg" alt="avatar">
+                                @endif
                             </span>
                             <span class="user-name">{{auth()->user()->nombre}}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#"><i class="ft-user"></i> Editar Perfil</a>
+                            <a class="dropdown-item" href="{{action('PanelPerfiles@Index')}}"><i class="ft-user"></i> Editar Perfil</a>
                             <div class="dropdown-divider"></div><a class="dropdown-item" href="{{route('logout')}}"><i class="ft-power"></i> Salir</a>
                         </div>
                     </li>
@@ -80,9 +87,9 @@
             <hr/>
             <li class=" nav-item"><a href="#"><i class="ft-user"></i><span class="menu-title">Mi Perfil</span></a>
                 <ul class="menu-content">
-                    <li><a class="menu-item" href="#">Mi Cuenta</a></li>
-                    <li><a class="menu-item" href="#">Datos Personales</a></li>
-                    <li><a class="menu-item" href="#">Estudios</a></li>
+                    <li><a class="menu-item" href="{{action('PanelPerfiles@Cuenta')}}">Mi Cuenta</a></li>
+                    <li><a class="menu-item" href="{{action('PanelPerfiles@Index')}}">Datos Personales</a></li>
+                    <li><a class="menu-item" href="{{action('PanelPerfiles@Estudios')}}">Estudios</a></li>
                     <li><a class="menu-item" href="#">Identidad</a></li>
                 </ul>
             </li>
@@ -114,25 +121,21 @@
 <!-- BEGIN VENDOR JS-->
 <script src="{{url("/")}}/app-assets/vendors/js/vendors.min.js" type="text/javascript"></script>
 <!-- BEGIN VENDOR JS-->
+<script src="{{url("/")}}/app-assets/vendors/js/forms/select/select2.full.min.js" type="text/javascript"></script>
+<script src="{{url("/")}}/app-assets/vendors/js/forms/icheck/icheck.min.js" type="text/javascript"></script>
 <!-- BEGIN PAGE VENDOR JS-->
-<script src="{{url("/")}}/app-assets/vendors/js/charts/raphael-min.js" type="text/javascript"></script>
-<script src="{{url("/")}}/app-assets/vendors/js/charts/morris.min.js" type="text/javascript"></script>
-<script src="{{url("/")}}/app-assets/vendors/js/charts/chart.min.js" type="text/javascript"></script>
-<script src="{{url("/")}}/app-assets/vendors/js/charts/jvector/jquery-jvectormap-2.0.3.min.js" type="text/javascript"></script>
-<script src="{{url("/")}}/app-assets/vendors/js/charts/jvector/jquery-jvectormap-world-mill.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/extensions/moment.min.js" type="text/javascript"></script>
-<script src="{{url("/")}}/app-assets/vendors/js/extensions/underscore-min.js" type="text/javascript"></script>
-<script src="{{url("/")}}/app-assets/vendors/js/extensions/clndr.min.js" type="text/javascript"></script>
-<script src="{{url("/")}}/app-assets/vendors/js/charts/echarts/echarts.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/extensions/unslider-min.js" type="text/javascript"></script>
 <!-- END PAGE VENDOR JS-->
 <!-- BEGIN ROBUST JS-->
 <script src="{{url("/")}}/app-assets/js/core/app-menu.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/js/core/app.js" type="text/javascript"></script>
-<script src="{{url("/")}}/app-assets/js/scripts/customizer.js" type="text/javascript"></script>
+<script src="{{url("/")}}/app-assets/js/scripts/forms/checkbox-radio.js" type="text/javascript"></script>
+<script src="{{url("/")}}/app-assets/vendors/js/forms/extended/maxlength/bootstrap-maxlength.js" type="text/javascript"></script>
+<script src="{{url("/")}}/js/custom.min.js" type="text/javascript"></script>
+@yield('js')
 <!-- END ROBUST JS-->
 <!-- BEGIN PAGE LEVEL JS-->
-<script src="{{url("/")}}/app-assets/js/scripts/pages/dashboard-ecommerce.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL JS-->
 </body>
 </html>

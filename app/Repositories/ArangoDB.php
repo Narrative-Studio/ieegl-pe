@@ -6,6 +6,7 @@ use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
 use ArangoDBClient\Connection as ArangoConnection;
 use ArangoDBClient\ConnectionOptions as ArangoConnectionOptions;
 use ArangoDBClient\DocumentHandler as ArangoDocumentHandler;
+use ArangoDBClient\Edge;
 use ArangoDBClient\EdgeHandler as ArangoEdgeHandler;
 use ArangoDBClient\Statement as ArangoStatment;
 use ArangoDBClient\Document as ArangoDocument;
@@ -16,12 +17,20 @@ use ArangoDBClient\ClientException as ArangoClientException;
 use ArangoDBClient\ServerException as ArangoServerException;
 use ArangoDBClient\Statement as ArangoStatement;
 use ArangoDBClient\UpdatePolicy as ArangoUpdatePolicy;
+use Illuminate\Pagination\LengthAwarePaginator;
 use triagens\ArangoDb\Document;
 
 class ArangoDB
 {
     protected $ConnectionHandler;
+    protected $ArangoDocumentHandler;
+    protected $ArangoCollectionHandler;
+    protected $ArangoEdgeHandler;
 
+    /**
+     * ArangoDB constructor.
+     * @throws ArangoException
+     */
     public function __construct()
     {
         $connectionOptions = array(
@@ -47,15 +56,31 @@ class ArangoDB
             ArangoConnectionOptions::OPTION_UPDATE_POLICY => ArangoUpdatePolicy::LAST,
         );
         $this->ConnectionHandler = new ArangoConnection($connectionOptions);
+        $this->ArangoDocumentHandler = new ArangoDocumentHandler($this->ConnectionHandler);
+        $this->ArangoCollectionHandler = new ArangoCollectionHandler($this->ConnectionHandler);
+        $this->ArangoEdgeHandler = new ArangoEdgeHandler($this->ConnectionHandler);
     }
+
+    /**
+     * Create DocumentHandler
+     * @return ArangoDocumentHandler
+     */
     public function DocumentHandler(){
         return new ArangoDocumentHandler($this->ConnectionHandler);
     }
 
+    /**
+     * Create CollectionHandler
+     * @return ArangoCollectionHandler
+     */
     public function CollectionHandler(){
         return new ArangoCollectionHandler($this->ConnectionHandler);
     }
 
+    /**
+     * Create EdgeHandler
+     * @return ArangoEdgeHandler
+     */
     public  function EdgeHandler(){
         return new ArangoEdgeHandler($this->ConnectionHandler);
     }
@@ -75,7 +100,14 @@ class ArangoDB
         }
     }
 
-    public function Query($query){
+    /**
+     * Query AQL
+     * @param $query
+     * @param bool $array
+     * @return array
+     * @throws ArangoException
+     */
+    public function Query($query, $array=false){
         $statement = new ArangoStatment(
             $this->ConnectionHandler,
             array(
@@ -90,8 +122,108 @@ class ArangoDB
         $resultingDocuments = array();
 
         foreach ($cursor as $key => $value) {
-            $resultingDocuments[$key] = json_decode($value);
+            if($array){
+                $resultingDocuments[$key] = (array)json_decode($value);
+            }else{
+                $resultingDocuments[$key] = json_decode($value);
+            }
         }
         return $resultingDocuments;
+    }
+
+    /**
+     * Obtener formato para Select boxes
+     * @param $array
+     * @param $key
+     * @param $value
+     * @return array
+     */
+    public function SelectFormat($array,$key,$value){
+        $data = [];
+        foreach ($array as $arr){
+            $data[$arr[$key]] = $arr[$value];
+        }
+        return $data;
+    }
+
+    /**
+     * Get Row by ID
+     * @param $collection
+     * @param $id
+     * @return mixed
+     * @throws ArangoException
+     */
+    public function GetById($collection, $id){
+        return json_decode($this->ArangoDocumentHandler->get($collection, $id));
+    }
+
+    /**
+     * Save Row
+     * @param $collection
+     * @param $document
+     * @return mixed
+     * @throws ArangoClientException
+     * @throws ArangoException
+     */
+    public function Save($collection, $document){
+        $data = new ArangoDocument();
+        foreach($document as $key=>$value){
+            $data->set($key, $value);
+        }
+        return $this->ArangoDocumentHandler->save($collection, $data);
+    }
+
+    /**
+     * Update Row
+     * @param $collection
+     * @param $id
+     * @param $document
+     * @return bool
+     * @throws ArangoClientException
+     * @throws ArangoException
+     */
+    public function Update($collection, $id, $document){
+        $data = new ArangoDocument();
+        foreach($document as $key=>$value){
+            $data->set($key, $value);
+        }
+        return $this->ArangoDocumentHandler->updateById($collection, $id, $data);
+    }
+
+    /**
+     * Delete Row
+     * @param $collection
+     * @param $id
+     * @return bool
+     * @throws ArangoException
+     */
+    public function Delete($collection, $id){
+        return $this->ArangoDocumentHandler->removeById($collection, $id);
+    }
+
+    /**
+     * Crear Edge Collection
+     * @param $data
+     * @param $collection
+     * @param $from
+     * @param $to
+     * @return mixed
+     * @throws ArangoClientException
+     * @throws ArangoException
+     */
+    public function CreateEdge($data, $collection, $from, $to){
+        $contentEdge =Edge::createFromArray($data);
+        return $this->ArangoEdgeHandler->saveEdge($collection, $from, $to, $contentEdge);
+    }
+
+    /**
+     * Make Pagination for Laravel
+     * @param $data
+     * @param $total
+     * @param $query
+     * @return LengthAwarePaginator
+     */
+    public function Pagination($data, $total, $query){
+        return new LengthAwarePaginator($data, $total, $query['perPage'], $query['page'], ['path'=>$query['path']]);
     }
 }

@@ -13,14 +13,21 @@ use ArangoDBClient\ServerException as ArangoServerException;
 use ArangoDBClient\Statement as ArangoStatement;
 use ArangoDBClient\UpdatePolicy as ArangoUpdatePolicy;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class PanelController extends Controller
 {
     protected $DocumentHandler;
     protected $CollectionHandler;
+    protected $ArangoDB;
+    protected $EdgeHandler;
 
-    public function __construct()
+    public function __construct(ArangoDB $ArangoDB)
     {
+        $this->ArangoDB = $ArangoDB;
+        $this->DocumentHandler = $ArangoDB->DocumentHandler();
+        $this->CollectionHandler = $ArangoDB->CollectionHandler();
+        $this->EdgeHandler = $ArangoDB->EdgeHandler();
         $this->middleware('is_user');
     }
 
