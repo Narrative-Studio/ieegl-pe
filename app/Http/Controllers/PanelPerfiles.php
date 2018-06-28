@@ -62,7 +62,7 @@ class PanelPerfiles extends Controller
     public function Estudios(){
         //Obteniendo perfil
         $data = $this->ArangoDB->Query('FOR doc IN perfiles FILTER doc.userKey == "'.auth()->user()->_key.'" RETURN doc');
-        $item = $data[0];
+        $item = (count($data)>0)?$data[0]:[];
         // Obteniendo Universidades
         $universidades = $this->ArangoDB->Query('FOR doc IN universidades RETURN doc', true);
         $universidades = $this->ArangoDB->SelectFormat($universidades, '_key','nombre');
