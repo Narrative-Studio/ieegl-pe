@@ -95,9 +95,9 @@
                 </ul>
             </li>
             <li class=" navigation-header">
-                <span data-i18n="nav.category.layouts">Mis Emprendimientos</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Layouts"></i>
+                <span>Mis Emprendimientos</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Layouts"></i>
             </li>
-            <li class=" nav-item"><a href="#"><i class="ft-list"></i><span class="menu-title">Lista</span></a></li>
+            <li class=" nav-item"><a href="{{action('PanelEmprendimientos@Index')}}"><i class="ft-list"></i><span class="menu-title">Lista</span></a></li>
             <li class=" nav-item"><a href="{{action('PanelEmprendimientos@DatosGenerales')}}"><i class="icon-plus"></i><span class="menu-title">Agregar Emprendimiento</span></a></li>
 
             <li class=" navigation-header">

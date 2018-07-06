@@ -24,6 +24,7 @@ Route::prefix('panel')->group(function() {
 
         /** Emprendimiento **/
         // Datos Generales
+        Route::get('/emprendimientos/', 'PanelEmprendimientos@Index');
         Route::get('/emprendimientos/datosGenerales/{id?}', 'PanelEmprendimientos@DatosGenerales');
         Route::put('/emprendimientos/saveDatosGenerales', 'PanelEmprendimientos@SaveDatosGenerales');
         Route::get('/emprendimientos/search-socios', 'PanelEmprendimientos@SearchSocios');

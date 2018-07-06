@@ -39,8 +39,15 @@ class PanelEmprendimientos extends Controller
         $this->path = LengthAwarePaginator::resolveCurrentPath();
     }
 
+    /**
+     * Listado de Emprendimientos del Usuario
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws ArangoException
+     */
     public function Index(){
-        //return view('panel.'.$this->collection.'.datos-personales', compact('paises','estados', 'item'));
+        $niveles = $this->nivel_tlr;
+        $emprendimientos = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc.userKey == "'.auth()->user()->_key.'" RETURN doc');
+        return view('panel.emprendimientos.lista',compact('emprendimientos','niveles'));
     }
 
     /**
@@ -125,6 +132,8 @@ class PanelEmprendimientos extends Controller
             // Agregando variable de modulos
             $document['module_medios'] = false;
             $document['module_ventas'] = false;
+            $document['module_clientes'] = false;
+            $document['module_financiera'] = false;
 
             // Creando Nuevo Registro
             $documentId = $this->ArangoDB->Save($this->collection, $document);

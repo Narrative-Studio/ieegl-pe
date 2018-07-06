@@ -25,7 +25,7 @@
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true">×</span>
                                             </button>
-                                            Aún no confirmas tu correo electrónico, si no lo ves en bandeja de entrada revisa en correos no deseados.
+                                            Aún no confirmas tu correo electrónico, si no lo ves en tu bandeja de entrada revisa en correos no deseados.
                                         </div>
                                     @endif
                                     <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}" class="form-horizontal" novalidate>

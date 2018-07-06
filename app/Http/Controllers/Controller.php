@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+setlocale(LC_TIME, 'es_ES.UTF-8');
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;

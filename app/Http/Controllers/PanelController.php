@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Repositories\ArangoDB;
+use Illuminate\Support\Carbon;
 
 class PanelController extends Controller
 {
@@ -15,12 +17,17 @@ class PanelController extends Controller
     }
 
     public function Index(){
+        $date = Carbon::now();
+        //echo $date->formatLocalized('%A %d %B %Y');exit();
         //Obteniendo perfil
         $data = $this->ArangoDB->Query('FOR doc IN perfiles FILTER doc.userKey == "'.auth()->user()->_key.'" RETURN doc');
         if(count($data)<1){
             return redirect()->action('PanelPerfiles@Index');
         }else{
-            return view('panel.dashboard');
+            $perfil = $data[0];
+            $niveles = $this->nivel_tlr;
+            $emprendimientos = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc.userKey == "'.auth()->user()->_key.'" RETURN doc');
+            return view('panel.dashboard',compact('emprendimientos','perfil','niveles'));
         }
     }
 }
