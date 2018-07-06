@@ -26,6 +26,7 @@
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/app.css">
     <!-- END ROBUST CSS-->
     <!-- BEGIN Page Level CSS-->
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/core/colors/palette-callout.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/core/menu/menu-types/vertical-menu.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/plugins/calendars/clndr.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/fonts/meteocons/style.min.css">
