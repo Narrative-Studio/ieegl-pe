@@ -159,7 +159,7 @@ class PanelEmprendimientos extends Controller
         }
 
         Session::flash('status_success', 'Datos Personales Guardados');
-        return redirect()->action($this->controller.'@MediosDigitales', ['id'=>$documentId]);
+        return redirect()->action($this->controller.'@MediosDigitales', ['id'=>$key]);
     }
 
     /**
