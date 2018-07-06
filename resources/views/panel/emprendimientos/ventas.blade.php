@@ -31,7 +31,7 @@
                     $('#mas_ventas').removeClass('invisible');
                 @endif
             @else
-                @if($item->lanzar_producto=="Si")
+                @if(isset($item->lanzar_producto) && $item->lanzar_producto=="Si")
                     $('#mas_ventas').removeClass('invisible');
                 @endif
             @endif
@@ -43,7 +43,7 @@
                     $(".money").removeAttr('required');
                 @endif
             @else
-                @if($item->realizado_ventas=="Si")
+                @if(isset($item->realizado_ventas) &&  $item->realizado_ventas=="Si")
                     $('#montos_ventas').removeClass('invisible');
                 @else
                     $(".money").removeAttr('required');

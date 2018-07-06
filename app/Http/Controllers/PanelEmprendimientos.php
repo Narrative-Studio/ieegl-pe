@@ -237,7 +237,7 @@ class PanelEmprendimientos extends Controller
         $modelos_ventas = $this->modelos_ventas;
 
         // Meses Anteriores
-        if($item->ventas!=null){
+        if(isset($item->ventas) && $item->ventas!=null){
             $_meses = $this->getItemMeses($item->ventas);
             $montos = $_meses['montos'];
             $meses = $_meses['meses_items'];
