@@ -7,9 +7,9 @@
     <meta name="description" content="Robust admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template.">
     <meta name="keywords" content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
     <meta name="author" content="PIXINVENT">
-    <title>SID - Panel de Administración</title>
-    <link rel="apple-touch-icon" href="{{url("/")}}/app-assets/images/ico/apple-icon-120.png">
-    <link rel="shortcut icon" type="image/x-icon" href="{{url("/")}}/app-assets/images/ico/favicon.ico">
+    <title>Administrador STARTUPS ID</title>
+    <link rel="apple-touch-icon" href="{{url("/")}}/img/icon_sid.png">
+    <link rel="shortcut icon" type="image/x-icon" href="{{url("/")}}/img/icon_sid.png">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Muli:300,400,500,700"
           rel="stylesheet">
     <!-- BEGIN VENDOR CSS-->
@@ -27,6 +27,7 @@
     <!-- END Page Level CSS-->
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/css/custom.min.css">
     <!-- END Custom CSS-->
 </head>
 <body class="vertical-layout vertical-menu 1-column   menu-expanded blank-page blank-page"
@@ -44,7 +45,7 @@
                             <div class="card-header border-0">
                                 <div class="card-title text-center">
                                     <div class="p-1">
-                                        <img src="{{url("/")}}/app-assets/images/logo/logo-dark.png" alt="branding logo">
+                                        <img src="{{url("/")}}/img/logo_SID.png" alt="branding logo" style="height: 60px;">
                                     </div>
                                 </div>
                                 <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2">
@@ -87,7 +88,7 @@
                                             </div>
                                             <div class="col-md-6 col-12 text-center text-md-right"><a href="{{ route('password.request') }}" class="card-link">Recordar Contraseña</a></div>
                                         </div>
-                                        <button type="submit" class="btn btn-info btn-lg btn-block"><i class="ft-unlock"></i> Entrar</button>
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="ft-unlock"></i> Entrar</button>
                                     </form>
                                 </div>
                             </div>

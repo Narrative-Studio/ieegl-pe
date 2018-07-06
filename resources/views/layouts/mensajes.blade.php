@@ -1,5 +1,5 @@
 @if (isset($errors) && count($errors->all()) > 0)
-    <div class="alert alert-icon-left alert-danger alert-dismissible mb-2" role="alert">
+    <!--<div class="alert alert-icon-left alert-danger alert-dismissible mb-2" role="alert">
         <span class="alert-icon"><i class="fa fa-exclamation-triangle"></i></span>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
         <h4 class="alert-heading">Por favor corrige estos errores:</h4>
@@ -8,7 +8,7 @@
                 {!! $message !!}
             @endforeach
         </ul>
-    </div>
+    </div>-->
 @elseif (!is_null(Session::get('status_error')))
     <div class="alert alert-icon-left alert-danger alert-dismissible mb-2" role="alert">
         <span class="alert-icon"><i class="fa fa-exclamation-triangle"></i></span>

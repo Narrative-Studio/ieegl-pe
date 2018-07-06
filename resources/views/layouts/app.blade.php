@@ -9,9 +9,9 @@
     <meta name="author" content="">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>SID</title>
-    <link rel="apple-touch-icon" href="{{url("/")}}/app-assets/images/ico/apple-icon-120.png">
-    <link rel="shortcut icon" type="image/x-icon" href="{{url("/")}}/app-assets/images/ico/favicon.ico">
+    <title>STARTUPS ID</title>
+    <link rel="apple-touch-icon" href="{{url("/")}}/img/icon_sid.png">
+    <link rel="shortcut icon" type="image/x-icon" href="{{url("/")}}/img/icon_sid.png">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Muli:300,400,500,700"
           rel="stylesheet">
     <!-- BEGIN VENDOR CSS-->
@@ -30,9 +30,10 @@
     <!-- END Page Level CSS-->
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/css/custom.min.css">
     <!-- END Custom CSS-->
 </head>
-<body class="vertical-layout vertical-menu 1-column  bg-cyan bg-lighten-2 menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-col="1-column" style="background-color: #b1ddd2 !important;">
+<body class="vertical-layout vertical-menu 1-column  bg-cyan bg-lighten-2 menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu" data-col="1-column" style="background-color: #8ccfc8 !important;">
 <!-- ////////////////////////////////////////////////////////////////////////////-->
 <!-- fixed-top-->
 <nav class="header-navbar navbar-expand-sm navbar navbar-with-menu fixed-top navbar-dark navbar-shadow navbar-border">
@@ -42,7 +43,7 @@
                 <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
                 <li class="nav-item">
                     <a class="navbar-brand" href="{{url("/")}}">
-                        <img class="brand-logo" alt="robust admin logo" src="{{url("/")}}/img/logo_SID.png" style="width: auto;height: 44px;">
+                        <img class="brand-logo" alt="robust admin logo" src="{{url("/")}}/img/logo_SID.png" style="width: auto;height: 34px;">
                     </a>
                 </li>
                 <li class="nav-item d-md-none">

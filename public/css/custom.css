@@ -68,3 +68,28 @@ label small{
     display: block;
     color: #8e8e8e;
 }
+.skin .radio_input{
+    margin-right: 20px;
+}
+.skin .radio_input:last-child{
+    margin-right: 0;
+}
+.nombre_mes{
+    text-transform: capitalize;
+}
+.invisible{
+   height: 0;
+}
+.visible{
+    height: auto;
+}
+.btn-primary{
+    border-color: #33ae93 !important;
+    background-color: #33ae93 !important;
+    color: #FFFFFF;
+}
+.btn-primary:hover {
+    border-color: #227765 !important;
+    background-color: #227765 !important;
+    color: #FFF !important;
+}

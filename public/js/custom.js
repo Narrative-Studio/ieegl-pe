@@ -27,8 +27,32 @@ $(document).ready(function() {
     }
 
     // Multiple Select Placeholder
-    $(".select2-placeholder-multiple").select2({
-        placeholder: "Select State",
+    $(".select2-placeholder-multiple-socios").select2({
+        placeholder: "Selecciona los socios",
+        minimumInputLength: 4,
+        language: "es",
+        ajax: {
+            url: '/panel/emprendimientos/search-socios',
+            dataType: 'json',
+            //delay: 250,
+            /*data: function (params) {
+                return {
+                    q: params.term, // search term
+                    page: params.page
+                };
+            },
+            processResults: function (data, params) {
+                params.page = params.page || 1;
+
+                return {
+                    results: data.items,
+                    pagination: {
+                        more: (params.page * 30) < data.total_count
+                    }
+                };
+            },*/
+            cache: true,
+        },
     });
 
     // Teatarea Maxlength
@@ -36,6 +60,17 @@ $(document).ready(function() {
         alwaysShow: true,
         warningClass: "badge badge-success",
         limitReachedClass: "badge badge-danger",
+    });
+
+    // Money Mask
+    $('.money').inputmask("numeric", {
+        radixPoint: ".",
+        groupSeparator: ",",
+        digits: 2,
+        autoGroup: true,
+        //prefix: '$', //No Space, this will truncate the first character
+        rightAlign: false,
+        oncleared: function () { self.Value(''); }
     });
 
 });

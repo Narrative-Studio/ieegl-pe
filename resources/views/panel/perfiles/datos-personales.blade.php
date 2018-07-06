@@ -6,6 +6,42 @@
 
 @section('js')
     <script type="text/javascript">
+        $(document).ready(function () {
+            @if($item)
+                @if(isset($item->estado))
+                    @if($item->estado=='121')
+                        $('#estado_otro').css('display','none');
+                        $('#estado').css('display','block');
+                    @endif
+                @endif
+                @if(isset($item->estado_otro))
+                    @if($item->estado_otro!='')
+                        $('#estado').css('display','none');
+                        $('#estado_otro').css('display','block');
+                    @endif
+                @endif
+            @else
+                @if(old('estado')!='121')
+                    $('#estado').css('display','none');
+                    $('#estado_otro').css('display','block');
+                @else
+                    $('#estado').css('display','block');
+                    $('#estado_otro').css('display','none');
+                @endif
+            @endif
+            $('#pais').on('select2:select',function (e) {
+                var data = e.params.data;
+                if(data.id=='121'){
+                    $('#estado_otro').css('display','none');
+                    $('#estado_otro').val('');
+                    $('#estado').css('display','block');
+                }else{
+                    $('#estado_otro').css('display','block');
+                    $('#estado').css('display','none');
+                    $('#estado').val('');
+                }
+            })
+        })
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
@@ -135,7 +171,7 @@
                                                     <div class="form-group {{$class}}">
                                                         <label for="">País de residencia <span class="required">*</span></label>
                                                         <?php $class=($errors->has('pais'))?'form-control is-invalid':'form-control'; ?>
-                                                        {!! Form::select('pais', $paises, null, ['placeholder' => 'Selecciona','class'=> 'select2 '.$class]) !!}
+                                                        {!! Form::select('pais', $paises, null, ['placeholder' => 'Selecciona','class'=> 'select2 '.$class, 'id'=>'pais']) !!}
                                                         @if ($errors->has('pais'))
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $errors->first('pais') }}</strong>
@@ -148,10 +184,19 @@
                                                     <div class="form-group {{$class}}">
                                                         <label for="">Estado/Región <span class="required">*</span></label>
                                                         <?php $class=($errors->has('estado'))?'form-control is-invalid':'form-control'; ?>
-                                                        {!! Form::select('estado', $estados, null, ['placeholder' => 'Selecciona','class'=>'select2 '.$class]) !!}
+                                                        <div id="estado">
+                                                            {!! Form::select('estado', $estados, null, ['placeholder' => 'Selecciona','class'=>'select2 '.$class]) !!}
+                                                        </div>
+                                                        <?php $class=($errors->has('estado_otro'))?'form-control is-invalid':'form-control'; ?>
+                                                        {!! Form::text('estado_otro', null, ['class'=>$class, 'id'=>'estado_otro']) !!}
                                                         @if ($errors->has('estado'))
-                                                            <span class="invalid-feedback" role="alert">
+                                                            <span class="invalid-feedback" role="alert" style="display: block;">
                                                                 <strong>{{ $errors->first('estado') }}</strong>
+                                                            </span>
+                                                        @endif
+                                                        @if ($errors->has('estado_otro'))
+                                                            <span class="invalid-feedback" role="alert" style="display: block;">
+                                                                <strong>{{ $errors->first('estado_otro') }}</strong>
                                                             </span>
                                                         @endif
                                                     </div>

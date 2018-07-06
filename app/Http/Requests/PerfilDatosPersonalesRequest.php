@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Request;
 
 class PerfilDatosPersonalesRequest extends FormRequest
 {
@@ -23,15 +24,20 @@ class PerfilDatosPersonalesRequest extends FormRequest
             case 'PUT':
             case 'POST':
                 {
-                    return [
+                    $rules =  [
                         'biografia'             => 'required|max:140',
                         'sexo'                  => 'required',
                         'fecha_nacimiento'      => 'required|date',
                         'a_que_se_dedica'       => 'required',
                         'pais'                  => 'required',
-                        'estado'                => 'required',
                         'ciudad'                => 'required',
                     ];
+                    if (Request::input('pais') != '121') {
+                        $rules['estado_otro']      = 'required';
+                    }else{
+                        $rules['estado']      = 'required';
+                    }
+                    return $rules;
                     break;
                 }
             default:break;

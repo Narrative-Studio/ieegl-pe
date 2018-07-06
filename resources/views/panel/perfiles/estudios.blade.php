@@ -5,9 +5,29 @@
 @section('accion') Estudios @endsection
 
 @section('js')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#universidad').on('select2:select',function (e) {
+                var data = e.params.data;
+                if(data.id=='3961308'){
+                    $('#campus_tec').css('visibility','visible').css('height','auto');
+                }else{
+                    $('#campus_tec').css('visibility','hidden').css('height','0');
+                    $('#camous').val('');
+                    $('#matricula').val('');
+                }
+            })
+        });
+    </script>
 @endsection
 
 @section('content')
+    <style>
+        #campus_tec{
+            visibility: hidden;
+            height: 0;
+        }
+    </style>
         <div class="content-wrapper">
             @include('layouts.breadcrum')
             <div class="content-body">
@@ -62,8 +82,8 @@
                                                 <div class="col-md-6">
                                                     <?php $class=($errors->has('universidad'))?'is-invalid':''; ?>
                                                     <div class="form-group {{$class}}">
-                                                        <label for="">Universidad donde cusaste tus estudios o estás actualmente estudiando <span class="required">*</span></label>
-                                                        {!! Form::select('universidad', $universidades, null, ['placeholder' => 'Selecciona','class'=> 'select2 form-control '.$class]); !!}
+                                                        <label for="">Universidad donde cursaste tus estudios o estás actualmente estudiando <span class="required">*</span></label>
+                                                        {!! Form::select('universidad', $universidades, null, ['placeholder' => 'Selecciona','class'=> 'select2 form-control '.$class, 'id'=>'universidad']); !!}
                                                         @if ($errors->has('universidad'))
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $errors->first('universidad') }}</strong>
@@ -79,6 +99,45 @@
                                                         @if ($errors->has('universidad_otra'))
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $errors->first('universidad_otra') }}</strong>
+                                                            </span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" id="campus_tec"
+                                                    @if($errors->has('campus'))
+                                                        style="visibility: visible;height: auto;"
+                                                    @else
+                                                        @if(old('universidad')=='3961308')
+                                                            style="visibility: visible;height: auto;"
+                                                        @else
+                                                            @if(old('universidad')=='' && isset($item))
+                                                                @if($item->universidad=='3961308')
+                                                                    style="visibility: visible;height: auto;"
+                                                                @endif
+                                                            @endif
+                                                        @endif
+                                                    @endif>
+                                                <div class="col-md-6">
+                                                    <?php $class=($errors->has('campus'))?'is-invalid':''; ?>
+                                                    <div class="form-group {{$class}}">
+                                                        <label for="">Campus <span class="required">*</span></label>
+                                                        {!! Form::select('campus', $campus, null, ['placeholder' => 'Selecciona','class'=> 'select2 form-control '.$class]); !!}
+                                                        @if ($errors->has('campus'))
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $errors->first('campus') }}</strong>
+                                                            </span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="">Matrícula</label>
+                                                        <?php $class=($errors->has('matricula'))?'form-control is-invalid':'form-control'; ?>
+                                                        {!! Form::text('matricula', null, ['class'=>$class]); !!}
+                                                        @if ($errors->has('matricula'))
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $errors->first('matricula') }}</strong>
                                                             </span>
                                                         @endif
                                                     </div>

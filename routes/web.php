@@ -21,6 +21,18 @@ Route::prefix('panel')->group(function() {
         Route::post('/perfil/saveEstudios', 'PanelPerfiles@SaveEstudios');
         Route::get('/perfil/cuenta', 'PanelPerfiles@Cuenta');
         Route::post('/perfil/saveCuenta', 'PanelPerfiles@SaveCuenta');
+
+        /** Emprendimiento **/
+        // Datos Generales
+        Route::get('/emprendimientos/datosGenerales/{id?}', 'PanelEmprendimientos@DatosGenerales');
+        Route::put('/emprendimientos/saveDatosGenerales', 'PanelEmprendimientos@SaveDatosGenerales');
+        Route::get('/emprendimientos/search-socios', 'PanelEmprendimientos@SearchSocios');
+        // Medios Digitales
+        Route::get('/emprendimientos/mediosDigitales/{id}', 'PanelEmprendimientos@MediosDigitales');
+        Route::post('/emprendimientos/saveMediosDigitales', 'PanelEmprendimientos@SaveMediosDigitales');
+        // Ventas
+        Route::get('/emprendimientos/ventas/{id}', 'PanelEmprendimientos@Ventas');
+        Route::post('/emprendimientos/saveVentas', 'PanelEmprendimientos@SaveVentas');
     });
 });
 
