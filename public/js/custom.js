@@ -1,3 +1,14 @@
+// Money Mask
+var mask_obj = {
+    radixPoint: ".",
+    groupSeparator: ",",
+    digits: 2,
+    autoGroup: true,
+    //prefix: '$', //No Space, this will truncate the first character
+    rightAlign: false,
+    oncleared: function () { self.Value(''); }
+};
+
 $(document).ready(function() {
 
     // Basic Select2 select
@@ -63,14 +74,7 @@ $(document).ready(function() {
     });
 
     // Money Mask
-    $('.money').inputmask("numeric", {
-        radixPoint: ".",
-        groupSeparator: ",",
-        digits: 2,
-        autoGroup: true,
-        //prefix: '$', //No Space, this will truncate the first character
-        rightAlign: false,
-        oncleared: function () { self.Value(''); }
-    });
-
+    $('.money').inputmask("numeric", mask_obj);
+    $('.money2').inputmask("numeric", mask_obj);
+    $('.integer').inputmask("numeric");
 });

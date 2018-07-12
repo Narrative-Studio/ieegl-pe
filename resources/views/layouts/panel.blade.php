@@ -127,18 +127,17 @@
 <script src="{{url("/")}}/app-assets/vendors/js/forms/select/select2-es.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/forms/icheck/icheck.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/forms/extended/inputmask/jquery.inputmask.bundle.min.js" type="text/javascript"></script>
-
-<!-- BEGIN PAGE VENDOR JS-->
+<script src="{{url("/")}}/app-assets/vendors/js/forms/repeater/jquery.repeater.min.js"  type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/extensions/moment.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/extensions/unslider-min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/extensions/transition.js" type="text/javascript"></script>
+<script src="{{url("/")}}/app-assets/vendors/js/forms/extended/maxlength/bootstrap-maxlength.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/extensions/zoom.min.js" type="text/javascript"></script>
 <!-- END PAGE VENDOR JS-->
 <!-- BEGIN ROBUST JS-->
 <script src="{{url("/")}}/app-assets/js/core/app-menu.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/js/core/app.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/js/scripts/forms/checkbox-radio.js" type="text/javascript"></script>
-<script src="{{url("/")}}/app-assets/vendors/js/forms/extended/maxlength/bootstrap-maxlength.js" type="text/javascript"></script>
 <script src="{{url("/")}}/js/custom.min.js" type="text/javascript"></script>
 @yield('js')
 <!-- END ROBUST JS-->

@@ -24,24 +24,8 @@
                                 <div class="card-body">
                                     <ul class="nav nav-tabs nav-top-border no-hover-bg nav-justified mb-3">
                                         @if(isset($item->_key))
-                                            <li class="nav-item">
-                                                <a class="nav-link active">Datos Generales</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Medios Digitales</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Ventas</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Clientes/Usuarios</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Inversión</a>
-                                            </li>
-                                            <li class="nav-item ">
-                                                <a class="nav-link" href="#">Información Financiera</a>
-                                            </li>
+                                            <?php $e_active = 'generales';?>
+                                            @include('panel.emprendimientos.inc.nav')
                                         @else
                                             <li class="nav-item">
                                                 <a class="nav-link active">Datos Generales</a>

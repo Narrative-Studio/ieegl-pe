@@ -16,11 +16,12 @@ class Controller extends BaseController
     public $nivel_tlr = ["TRL Nivel 1","TRL Nivel 2","TRL Nivel 3","TRL Nivel 4","TRL Nivel 5","TRL Nivel 6","TRL Nivel 7", "TRL Nivel 8", "TRL Nivel 9"];
     public $modelos_ventas = ["B2B","B2C","B2G","C2C","No lo sé/No estoy seguro"];
     public $n_meses = ["","enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
-    public $meses_montos = 6;
+    public $vehiculos_inversion = ['1'=>'Directo por Equity','2'=>'Nota Convertible','3'=>'Kiss Note', '4'=>'SACE', '5'=>'ABACO'];
+    public $meses_montos = 3;
 
     public function getMeses($cuantos, $time){
         $meses = [];
-        for($i=0;$i<$cuantos;$i++){
+        for($i=1;$i<=$cuantos;$i++){
             $meses[date('Y', strtotime('-'.$i.' month', $time))][] = date('n', strtotime('-'.$i.' month', $time));
         }
         $meses = array_reverse($meses, true);

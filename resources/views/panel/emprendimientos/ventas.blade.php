@@ -65,24 +65,8 @@
                             <div class="card-content collapse show">
                                 <div class="card-body">
                                     <ul class="nav nav-tabs nav-top-border no-hover-bg nav-justified mb-3">
-                                        <li class="nav-item">
-                                            <a class="nav-link">Datos Generales</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">Medios Digitales</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link active" href="#">Ventas</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">Clientes/Usuarios</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">Inversión</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">Información Financiera</a>
-                                        </li>
+                                        <?php $e_active = 'ventas';?>
+                                        @include('panel.emprendimientos.inc.nav')
                                     </ul>
                                     {!! Form::model($item, ['action' => 'PanelEmprendimientos@SaveVentas', 'method' => 'post', 'files'=>'true']) !!}
                                     @if(isset($item->_key))

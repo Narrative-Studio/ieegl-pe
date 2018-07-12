@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EmprendimientosClientesRequest;
 use App\Http\Requests\EmprendimientosDatosGeneralesRequest;
+use App\Http\Requests\EmprendimientosFinancieraRequest;
+use App\Http\Requests\EmprendimientosInversionRequest;
 use App\Http\Requests\EmprendimientosMediosDigitalesRequest;
 use App\Http\Requests\EmprendimientosVentasRequest;
 use App\Http\Requests\PerfilDatosPersonalesRequest;
@@ -134,6 +137,7 @@ class PanelEmprendimientos extends Controller
             $document['module_ventas'] = false;
             $document['module_clientes'] = false;
             $document['module_financiera'] = false;
+            $document['module_inversion'] = false;
 
             // Creando Nuevo Registro
             $documentId = $this->ArangoDB->Save($this->collection, $document);
@@ -296,8 +300,222 @@ class PanelEmprendimientos extends Controller
         $this->ArangoDB->Update($this->collection, $this->collection.'/'.$documentId, $document);
 
         Session::flash('status_success', 'Ventas Guardadas');
-        return redirect()->action($this->controller.'@Ventas', ['id'=>$documentId]);
+        return redirect()->action($this->controller.'@Clientes', ['id'=>$documentId]);
     }
+
+    /**
+     * Clientes/Usuarios del Emprendimiento
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws ArangoException
+     */
+    public function Clientes($id)
+    {
+        // Montos de clientes si es que existe el registro
+        $montos = [];
+
+        //Obteniendo el Emprendimiento
+        $item = $this->getItem($id);
+
+        // Meses Anteriores
+        if(isset($item->clientes) && $item->clientes!=null){
+            $_meses = $this->getItemMeses($item->clientes);
+            $montos = $_meses['montos'];
+            $meses = $_meses['meses_items'];
+        }else{
+            $meses = $this->getMeses($this->meses_montos, time());
+        }
+        $n_meses = $this->n_meses;
+
+        return view('panel.' . $this->collection . '.clientes', compact('item','meses','n_meses','montos'));
+    }
+
+    /**
+     * Guardar datos de Clientes/Usuarios de Emprendimiento
+     * @param EmprendimientosClientesRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws ArangoClientException
+     * @throws ArangoException
+     */
+    public function SaveClientes(EmprendimientosClientesRequest $request){
+        $document = [];
+        $document['usuarios_clientes'] = $request->get('usuarios_clientes');
+        $document['module_clientes'] = true;
+
+        if($request->get('usuarios_clientes')=="Si"){
+
+            $clientes = [];
+            foreach($_REQUEST as $r=>$v){
+                if(preg_match('/mes_[0-9]+_[0-9]+/', $r)){ // obteniendo solo variables request de los clientes
+                    $ex = explode("_", $r);
+                    $clientes[$ex[2]][$ex[1]] = str_replace(',','',$v);
+                }
+            }
+            $document['clientes'] = $clientes;
+            $document['clientes_activos'] = $request->get('clientes_activos');
+
+        }else{
+            $document['clientes_activos'] = null;
+            $document['clientes'] = null;
+        }
+
+        $documentId = $request->get('id');
+        $this->ArangoDB->Update($this->collection, $this->collection.'/'.$documentId, $document);
+
+        Session::flash('status_success', 'Clientes/Usuarios Guardados');
+        return redirect()->action($this->controller.'@Inversion', ['id'=>$documentId]);
+    }
+
+    /**
+     * Inversiones del Emprendimiento
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws ArangoException
+     */
+    public function Inversion($id)
+    {
+
+        //Obteniendo el Emprendimiento
+        $item = $this->getItem($id);
+
+        // Obteniendo los meses del año
+        $meses = $this->n_meses;
+        unset($meses[0]);
+
+        // Vehiculos de Inversion
+        $vehiculos = $this->vehiculos_inversion;
+
+        // Obteniendo Etapas
+        $terminos = $this->ArangoDB->Query('FOR doc IN terminos RETURN doc', true);
+        $terminos = $this->ArangoDB->SelectFormat($terminos, '_key', 'nombre');
+
+        return view('panel.' . $this->collection . '.inversion', compact('item','meses', 'vehiculos', 'terminos'));
+    }
+
+    /**
+     * Guardar datos de Inversion de Emprendimiento
+     * @param EmprendimientosInversionRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws ArangoClientException
+     * @throws ArangoException
+     */
+    public function SaveInversion(EmprendimientosInversionRequest $request){
+        $document = [];
+        $document['invertido_capital'] = $request->get('invertido_capital');
+        $document['module_inversion'] = true;
+
+        if($request->get('invertido_capital')=="Si"){
+            // Si ha tenido inversion de capital de socios
+            $capital = $request->get('capital');
+            $cc = [];
+            foreach($capital as $cap){
+                $cap['monto'] = str_replace(',','',$cap['monto']);
+                $cc[] = $cap;
+            }
+            $document['capital'] = $cc;
+            $document['inversion_otras'] = $request->get('inversion_otras');
+            $document['buscando_capital'] = $request->get('buscando_capital');
+            $document['capital_cuanto'] = str_replace(',','',$request->get('capital_cuanto'));
+            $document['vehiculo_inversion'] = $request->get('vehiculo_inversion');
+
+            // Si ha recibido inversio de otros
+            if($request->get('inversion_otras')=="Si"){
+                $capital = $request->get('capital_otros');
+                $cc = [];
+                foreach($capital as $cap){
+                    $cap['monto'] = str_replace(',','',$cap['monto']);
+                    $cc[] = $cap;
+                }
+                $document['capital_otros'] = $cc;
+            }else{
+                $document['capital_otros'] = null;
+            }
+        }else{
+            $document['inversion_otras'] = null;
+            $document['capital_otros'] = null;
+            $document['buscando_capital'] = null;
+            $document['capital_cuanto'] = null;
+            $document['vehiculo_inversion'] = null;
+        }
+
+        $documentId = $request->get('id');
+        $this->ArangoDB->Update($this->collection, $this->collection.'/'.$documentId, $document);
+
+        Session::flash('status_success', 'Inversion Guardada');
+        return redirect()->action($this->controller.'@Financiera', ['id'=>$documentId]);
+    }
+
+    /**
+     * Informacion Financiera del Emprendimiento
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws ArangoException
+     */
+    public function Financiera($id)
+    {
+        // Montos de información financiera si es que existe el registro
+        $montos = [];
+
+        //Obteniendo el Emprendimiento
+        $item = $this->getItem($id);
+
+        // Meses Anteriores
+        if(isset($item->financiera) && $item->financiera!=null){
+            $_meses = $this->getItemMeses($item->financiera);
+            $montos = $_meses['montos'];
+            $meses = $_meses['meses_items'];
+        }else{
+            $meses = $this->getMeses($this->meses_montos, time());
+        }
+        $n_meses = $this->n_meses;
+
+        return view('panel.' . $this->collection . '.financiera', compact('item','meses','n_meses','montos'));
+    }
+
+    /**
+     * Guardar datos de Informacion Financiera de Emprendimiento
+     * @param EmprendimientosFinancieraRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws ArangoClientException
+     * @throws ArangoException
+     */
+    public function SaveFinanciera(EmprendimientosFinancieraRequest $request){
+        $document = [];
+        $document['module_financiera'] = true;
+        $document['gasto_total'] = str_replace(',','',$request->get('gasto_total'));
+        $document['valoracion_emprendimiento'] = $request->get('valoracion_emprendimiento');
+        $document['monto_valoracion'] = str_replace(',','',$request->get('monto_valoracion'));
+
+        $montos = [];
+        foreach($_REQUEST as $r=>$v){
+            if(preg_match('/mes_[0-9]+_[0-9]+/', $r)){ // obteniendo solo variables request
+                $ex = explode("_", $r);
+                $montos[$ex[2]][$ex[1]] = str_replace(',','',$v);
+            }
+        }
+        $document['financiera'] = $montos;
+
+        $documentId = $request->get('id');
+        $this->ArangoDB->Update($this->collection, $this->collection.'/'.$documentId, $document);
+
+        Session::flash('status_success', 'Información Financiera Guardada');
+        return redirect()->action($this->controller.'@Final', ['id'=>$documentId]);
+    }
+
+    /**
+     * Paso Final del Emprendimiento
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws ArangoException
+     */
+    public function Final($id)
+    {
+        //Obteniendo el Emprendimiento
+        $item = $this->getItem($id);
+
+        return view('panel.' . $this->collection . '.final', compact('item'));
+    }
+
 
     /**
      * Obtener Item desde Arango
