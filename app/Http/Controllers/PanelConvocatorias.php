@@ -114,51 +114,31 @@ class PanelConvocatorias extends Controller
     }
 
     /**
-     * Guardar Datos Personales del Perfil
-     * @param PerfilDatosPersonalesRequest $request
+     *
+     * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      * @throws ArangoClientException
      * @throws ArangoException
      */
-    public function Aplicar($key, PerfilDatosPersonalesRequest $request){
+    public function Aplicar($key, Request $request){
 
-        $document = [];
-        $document['biografia'] = $request->get('biografia');
-        $document['sexo'] = $request->get('sexo');
-        $document['fecha_nacimiento'] = $request->get('fecha_nacimiento');
-        $document['a_que_se_dedica'] = $request->get('a_que_se_dedica');
-        $document['linkedin'] = $request->get('linkedin');
-        $document['pais'] = $request->get('pais');
-        if($request->get('estado_otro')!=''){
-            $document['estado'] = null;
-            $document['estado_otro'] = $request->get('estado_otro');
-        }else{
-            $document['estado'] = $request->get('estado');
-            $document['estado_otro'] = null;
-        }
-        $document['ciudad'] = $request->get('ciudad');
-        $document['userKey'] = auth()->user()->_key;
+        //Obteniendo Convocatoria
+        $query = '
+            FOR convocatoria IN convocatorias
+            FILTER convocatoria._key=="'.$key.'"
+            FOR users IN users
+                FOR entidad IN entidades
+                    FOR quien IN quien
+                        FILTER convocatoria.responsable == users._key AND convocatoria.entidad  == entidad._key AND convocatoria.quien  == quien._key
+                        RETURN merge(convocatoria, {responsable: {username: users.username, nombre: CONCAT(users.nombre," ", users.apellidos)}}, {entidad: entidad.nombre}, {quien: quien.nombre} )';
+        $item = $this->ArangoDB->Query($query);
+        $item = $item[0];
 
-        // Creando Nuevo Registro
-        if($request->get('id')==''){
-            $documentId = $this->ArangoDB->Save($this->collection, $document);
+        //Emprendimientos
+        $emprendimiento = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc._key=="'.$request->get('emprendimiento').'" AND doc.userKey == "'.auth()->user()->_key.'" RETURN doc');
+        $emprendimiento = $emprendimiento[0];
 
-            //Creando Edge
-            $this->ArangoDB->CreateEdge(['label' => 'hasPerfil', 'created_time'=>now()], 'hasPerfil', 'users/'.auth()->user()->_key, $documentId);
-        }else{
-            // Actualizando Registro
-            $documentId = $request->get('id');
-            $this->ArangoDB->Update($this->collection, $this->collection.'/'.$request->get('id'), $document);
-        }
-
-        // Guardando Imagen de Avatar
-        if($_FILES['foto']['size'] != 0 && $_FILES['foto']['error'] == 0){
-            $img = Image::make($_FILES['foto']['tmp_name']);
-            $img->fit(300, 300)->save(public_path('/users_pics/user_'. auth()->user()->_key .'.jpg', 100));
-        }
-
-        Session::flash('status_success', 'Datos Personales Guardados');
-        return redirect()->action($this->controller.'@Estudios');
+        return view('panel.convocatorias.aplicar', compact('item','emprendimiento'));
     }
 
     /**

@@ -94,7 +94,7 @@
                 <div class="form-group row justify-content-md-center">
                     <div class="col-md-3">
                         <?php $class=($errors->has('emprendimiento'))?'form-control is-invalid':'form-control'; ?>
-                        {!! Form::select('emprendimientos', $emprendimientos, null, ['placeholder' => 'Selecciona','class'=> 'select2 '.$class,'required'=>'required']) !!}
+                        {!! Form::select('emprendimiento', $emprendimientos, null, ['placeholder' => 'Selecciona','class'=> 'select2 '.$class,'required'=>'required']) !!}
                         @if ($errors->has('emprendimiento'))
                             <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('emprendimiento') }}</strong></span>
                         @endif

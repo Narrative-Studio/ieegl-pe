@@ -25,7 +25,7 @@
                                             <th>Fecha Inicio</th>
                                             <th>Fecha Fin</th>
                                             <th>¿Quién puede aplicar?</th>
-                                            <th width="210">&nbsp;</th>
+                                            <th width="150">&nbsp;</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -37,8 +37,7 @@
                                                 <td style="text-transform: capitalize;">{{\Illuminate\Support\Carbon::createFromTimestamp($item->fecha_fin_convocatoria)->formatLocalized('%d %B %Y')}}</td>
                                                 <td>{{$item->quien_nombre}}</td>
                                                 <td>
-                                                    <a href="{{action('PanelConvocatorias@Ver',['id'=>$item->_key])}}" class="btn btn-sm btn-info mr-1"><i class="fa fa-eye"></i> Ver</a>
-                                                    <a href="{{action('PanelConvocatorias@Aplicar',['id'=>$item->_key])}}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i> Aplicar</a>
+                                                    <a href="{{action('PanelConvocatorias@Ver',['id'=>$item->_key])}}" class="btn btn-sm btn-success mr-0"><i class="fa fa-edit"></i> Ver/Aplicar</a>
                                                 </td>
                                             </tr>
                                         @endforeach
