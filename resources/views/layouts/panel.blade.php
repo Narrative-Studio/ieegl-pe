@@ -85,7 +85,7 @@
 <div class="main-menu menu-fixed menu-dark menu-accordion    menu-shadow " data-scroll-to-active="true">
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-            <li class=" nav-item"><a href="{{action("PanelController@Index")}}"><i class="icon-home"></i><span class="menu-title">Dashboard</span></a></li>
+            <li class=" nav-item"><a href="{{action("PanelController@Index")}}" style="margin-top: 14px;"><i class="icon-home"></i><span class="menu-title">Dashboard</span></a></li>
             <hr/>
             <li class=" nav-item"><a href="#"><i class="ft-user"></i><span class="menu-title">Mi Perfil</span></a>
                 <ul class="menu-content">
@@ -106,6 +106,11 @@
             </li>
             <li class=" nav-item"><a href="#"><i class="ft-list"></i><span class="menu-title">Lista</span></a></li>
             <li class=" nav-item"><a href="#"><i class="icon-plus"></i><span class="menu-title">Agregar Actividad</span></a></li>
+            <li class=" navigation-header">
+                <span data-i18n="nav.category.general">Convocatorias</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="General"></i>
+            </li>
+            <li class=" nav-item"><a href="{{action('PanelConvocatorias@Index')}}"><i class="ft-list"></i><span class="menu-title">Lista</span></a></li>
+            <li class=" nav-item"><a href="{{action('PanelConvocatorias@Aplicaciones')}}"><i class="icon-check"></i><span class="menu-title">Mis Aplicaciones</span></a></li>
             <hr/>
             <li class=" nav-item"><a href="{{route('logout')}}"><i class="icon-logout"></i><span class="menu-title">Salir</span></a></li>
         </ul>

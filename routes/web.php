@@ -14,7 +14,7 @@ Route::prefix('panel')->group(function() {
     Route::middleware('auth')->group(function () {
         Route::get('/', 'PanelController@Index')->name('dashboard');
 
-        // Perfil
+        /** Perfil **/
         Route::get('/perfil', 'PanelPerfiles@Index');
         Route::post('/perfil/savePersonales', 'PanelPerfiles@SaveDatosPersonales');
         Route::get('/perfil/estudios', 'PanelPerfiles@Estudios');
@@ -45,6 +45,12 @@ Route::prefix('panel')->group(function() {
         Route::post('/emprendimientos/saveFinanciera', 'PanelEmprendimientos@SaveFinanciera');
         // Final
         Route::get('/emprendimientos/final/{id}', 'PanelEmprendimientos@Final');
+
+        /** Convocatorias **/
+        Route::get('/convocatorias', 'PanelConvocatorias@Index');
+        Route::get('/convocatorias/ver/{id}', 'PanelConvocatorias@Ver');
+        Route::get('/convocatorias/aplicaciones', 'PanelConvocatorias@Aplicaciones');
+        Route::post('/convocatorias/aplicar/{id}', 'PanelConvocatorias@Aplicar');
     });
 });
 
@@ -89,5 +95,25 @@ Route::prefix('admin')->group(function() {
         Route::post('/terminos/save', 'AdminTerminos@Save');
         Route::get('/terminos/delete/{id}', 'AdminTerminos@Delete');
 
+        // Entidades
+        Route::get('/entidades', 'AdminEntidades@Index');
+        Route::get('/entidades/new', 'AdminEntidades@New');
+        Route::get('/entidades/edit/{id}', 'AdminEntidades@Edit');
+        Route::post('/entidades/save', 'AdminEntidades@Save');
+        Route::get('/entidades/delete/{id}', 'AdminEntidades@Delete');
+
+        // Quien Aplica
+        Route::get('/quien', 'AdminQuien@Index');
+        Route::get('/quien/new', 'AdminQuien@New');
+        Route::get('/quien/edit/{id}', 'AdminQuien@Edit');
+        Route::post('/quien/save', 'AdminQuien@Save');
+        Route::get('/quien/delete/{id}', 'AdminQuien@Delete');
+
+        // Convocatorias
+        Route::get('/convocatoria', 'AdminConvocatorias@Index');
+        Route::get('/convocatoria/new', 'AdminConvocatorias@New');
+        Route::get('/convocatoria/edit/{id}', 'AdminConvocatorias@Edit');
+        Route::post('/convocatoria/save', 'AdminConvocatorias@Save');
+        Route::get('/convocatoria/delete/{id}', 'AdminConvocatorias@Delete');
     });
 });

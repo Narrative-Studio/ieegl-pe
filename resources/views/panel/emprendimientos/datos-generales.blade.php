@@ -161,7 +161,22 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="">Ciudad <span class="required">*</span></label>
-                                                    <?php $class=($errors->has('ciudad'))?'form-control is-invalid':'form-control'; ?>
+                                                    <<div class="form-group">
+                                                        <label for="">Industria o Sector de Emprendimiento <small>Selecciona todas las que apliquen</small></label>
+                                                        <div class="row skin skin-flat col-sm-12">
+                                                            @foreach($industrias as $item)
+                                                                <div class="radio_input">
+                                                                    <fieldset>
+                                                                        {!! Form::checkbox('industria_o_sector[]', $item->_key, null, ['id'=>'industria_'.$item->_key, 'class'=>'form-control']); !!}
+                                                                        <label for="industria_{{$item->_key}}">{{$item->nombre}}</label>
+                                                                    </fieldset>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                        @if ($errors->has('industria_o_sector'))
+                                                            <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('industria_o_sector') }}</strong></span>
+                                                        @endif
+                                                    </div>?php $class=($errors->has('ciudad'))?'form-control is-invalid':'form-control'; ?>
                                                     {!! Form::text('ciudad', null, ['class'=>$class]); !!}
                                                     @if ($errors->has('ciudad'))
                                                         <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('ciudad') }}</strong></span>
@@ -171,22 +186,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="">Industria o Sector de Emprendimiento <small>Selecciona todas las que apliquen</small></label>
-                                                    <div class="row skin skin-flat col-sm-12">
-                                                        @foreach($industrias as $item)
-                                                        <div class="radio_input">
-                                                            <fieldset>
-                                                                {!! Form::checkbox('industria_o_sector[]', $item->_key, null, ['id'=>'industria_'.$item->_key, 'class'=>'form-control']); !!}
-                                                                <label for="industria_{{$item->_key}}">{{$item->nombre}}</label>
-                                                            </fieldset>
-                                                        </div>
-                                                        @endforeach
-                                                    </div>
-                                                    @if ($errors->has('industria_o_sector'))
-                                                        <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('industria_o_sector') }}</strong></span>
-                                                    @endif
-                                                </div>
+
                                             </div>
                                         </div>
                                         <div class="row">

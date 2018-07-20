@@ -19,6 +19,14 @@
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/weather-icons/climacons.min.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/forms/toggle/bootstrap-switch.min.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/forms/toggle/switchery.min.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/forms/icheck/icheck.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/forms/icheck/custom.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/extensions/unslider.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/weather-icons/climacons.min.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/forms/selects/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/plugins/forms/checkboxes-radios.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/plugins/forms/extended/form-extended.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/extensions/zoom.css">
     <!-- END VENDOR CSS-->
     <!-- BEGIN ROBUST CSS-->
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/app.css">
@@ -86,13 +94,19 @@
             <li class=" nav-item"><a href="#"><i class="ft-user-plus"></i><span class="menu-title">Administradores</span></a></li>
             <li class=" nav-item"><a href="#"><i class="ft-shield"></i><span class="menu-title">Roles</span></a></li>
             <li class=" navigation-header">
+                <span>Convocatorias</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Layouts"></i>
+            </li>
+            <li class=" nav-item"><a href="{{action('AdminConvocatorias@Index')}}"><i class="fa fa-check"></i><span class="menu-title">Solicitudes</span></a></li>
+            <li class=" navigation-header">
                 <span>Catálogos</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Layouts"></i>
             </li>
-            <li class=" nav-item"><a href="#"><i class="fa fa-comments"></i><span class="menu-title">Convocatorias TEC</span></a></li>
+            <li class=" nav-item"><a href="{{action('AdminConvocatorias@Index')}}"><i class="fa fa-comments"></i><span class="menu-title">Convocatorias</span></a></li>
             <li class=" nav-item"><a href="{{action('AdminUniversidades@Index')}}"><i class="fa fa-graduation-cap"></i><span class="menu-title">Universidades</span></a></li>
             <li class=" nav-item"><a href="{{action("AdminIndustrias@Index")}}"><i class="fa fa-building"></i><span class="menu-title">Industrias y Sectores</span></a></li>
             <li class=" nav-item"><a href="{{action("AdminEtapas@Index")}}"><i class="fa fa-seedling"></i><span class="menu-title">Etapas Emprendimientos</span></a></li>
             <li class=" nav-item"><a href="{{action("AdminTerminos@Index")}}"><i class="fa fa-seedling"></i><span class="menu-title">Términos Capital</span></a></li>
+            <li class=" nav-item"><a href="{{action("AdminEntidades@Index")}}"><i class="fa fa-globe"></i><span class="menu-title">Entidades</span></a></li>
+            <li class=" nav-item"><a href="{{action("AdminQuien@Index")}}"><i class="fa fa-address-card"></i><span class="menu-title">Quien Aplica</span></a></li>
             <hr/>
             <li class=" nav-item"><a href="{{route('logout')}}"><i class="icon-logout"></i><span class="menu-title">Salir</span></a></li>
         </ul>
@@ -135,10 +149,14 @@
 <script src="{{url("/")}}/app-assets/vendors/js/vendors.min.js" type="text/javascript"></script>
 <!-- BEGIN VENDOR JS-->
 <!-- BEGIN PAGE VENDOR JS-->
+<script src="{{url("/")}}/app-assets/vendors/js/forms/select/select2.full.min.js" type="text/javascript"></script>
+<script src="{{url("/")}}/app-assets/vendors/js/forms/select/select2-es.js" type="text/javascript"></script>
+<script src="{{url("/")}}/app-assets/vendors/js/forms/icheck/icheck.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/forms/toggle/bootstrap-switch.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/forms/toggle/bootstrap-checkbox.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/forms/toggle/switchery.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/charts/raphael-min.js" type="text/javascript"></script>
+<script src="{{url("/")}}/app-assets/vendors/js/forms/extended/inputmask/jquery.inputmask.bundle.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/charts/morris.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/charts/chart.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/extensions/moment.min.js" type="text/javascript"></script>
@@ -146,15 +164,16 @@
 <script src="{{url("/")}}/app-assets/vendors/js/extensions/clndr.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/charts/echarts/echarts.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/extensions/unslider-min.js" type="text/javascript"></script>
+<script src="{{url("/")}}/app-assets/vendors/js/forms/extended/maxlength/bootstrap-maxlength.js" type="text/javascript"></script>
+<script src="{{url("/")}}/app-assets/vendors/js/extensions/zoom.min.js" type="text/javascript"></script>
 <!-- END PAGE VENDOR JS-->
 <!-- BEGIN ROBUST JS-->
 <script src="{{url("/")}}/app-assets/js/core/app-menu.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/js/core/app.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/js/scripts/customizer.js" type="text/javascript"></script>
-<!-- END ROBUST JS-->
-<!-- BEGIN PAGE LEVEL JS-->
 <script src="{{url("/")}}/app-assets/js/scripts/forms/switch.js" type="text/javascript"></script>
-<script src="{{url("/")}}/app-assets/js/scripts/pages/dashboard-ecommerce.js" type="text/javascript"></script>
+<script src="{{url("/")}}/app-assets/js/scripts/forms/checkbox-radio.js" type="text/javascript"></script>
+<script src="{{url("/")}}/js/custom.min.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL JS-->
 <script>
     function delete_row(row,url){

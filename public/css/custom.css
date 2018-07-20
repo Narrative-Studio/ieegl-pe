@@ -93,3 +93,6 @@ label small{
     background-color: #227765 !important;
     color: #FFF !important;
 }
+.date{
+    text-transform: capitalize;
+}

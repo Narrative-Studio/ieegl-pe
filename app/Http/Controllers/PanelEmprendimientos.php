@@ -138,6 +138,7 @@ class PanelEmprendimientos extends Controller
             $document['module_clientes'] = false;
             $document['module_financiera'] = false;
             $document['module_inversion'] = false;
+            $document['convocatoria'] =  null;
 
             // Creando Nuevo Registro
             $documentId = $this->ArangoDB->Save($this->collection, $document);
