@@ -7,6 +7,7 @@ use App\Http\Requests\EmprendimientosDatosGeneralesRequest;
 use App\Http\Requests\EmprendimientosFinancieraRequest;
 use App\Http\Requests\EmprendimientosInversionRequest;
 use App\Http\Requests\EmprendimientosMediosDigitalesRequest;
+use App\Http\Requests\EmprendimientosUsuariosRequest;
 use App\Http\Requests\EmprendimientosVentasRequest;
 use App\Http\Requests\PerfilDatosPersonalesRequest;
 use App\Http\Requests\PerfilEstudiosRequest;
@@ -136,6 +137,7 @@ class PanelEmprendimientos extends Controller
             $document['module_medios'] = false;
             $document['module_ventas'] = false;
             $document['module_clientes'] = false;
+            $document['module_usuarios'] = false;
             $document['module_financiera'] = false;
             $document['module_inversion'] = false;
             $document['convocatoria'] =  null;
@@ -340,10 +342,10 @@ class PanelEmprendimientos extends Controller
      */
     public function SaveClientes(EmprendimientosClientesRequest $request){
         $document = [];
-        $document['usuarios_clientes'] = $request->get('usuarios_clientes');
+        $document['tiene_clientes'] = $request->get('tiene_clientes');
         $document['module_clientes'] = true;
 
-        if($request->get('usuarios_clientes')=="Si"){
+        if($request->get('tiene_clientes')=="Si"){
 
             $clientes = [];
             foreach($_REQUEST as $r=>$v){
@@ -363,7 +365,70 @@ class PanelEmprendimientos extends Controller
         $documentId = $request->get('id');
         $this->ArangoDB->Update($this->collection, $this->collection.'/'.$documentId, $document);
 
-        Session::flash('status_success', 'Clientes/Usuarios Guardados');
+        Session::flash('status_success', 'Clientes Guardados');
+        return redirect()->action($this->controller.'@Usuarios', ['id'=>$documentId]);
+    }
+
+    /**
+     * Usuarios/Usuarios del Emprendimiento
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws ArangoException
+     */
+    public function Usuarios($id)
+    {
+        // Montos de usuarios si es que existe el registro
+        $montos = [];
+
+        //Obteniendo el Emprendimiento
+        $item = $this->getItem($id);
+
+        // Meses Anteriores
+        if(isset($item->usuarios) && $item->usuarios!=null){
+            $_meses = $this->getItemMeses($item->usuarios);
+            $montos = $_meses['montos'];
+            $meses = $_meses['meses_items'];
+        }else{
+            $meses = $this->getMeses($this->meses_montos, time());
+        }
+        $n_meses = $this->n_meses;
+
+        return view('panel.' . $this->collection . '.usuarios', compact('item','meses','n_meses','montos'));
+    }
+
+    /**
+     * Guardar datos de Usuarios/Usuarios de Emprendimiento
+     * @param EmprendimientosUsuariosRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws ArangoClientException
+     * @throws ArangoException
+     */
+    public function SaveUsuarios(EmprendimientosUsuariosRequest $request){
+        $document = [];
+        $document['tiene_usuarios'] = $request->get('tiene_usuarios');
+        $document['module_usuarios'] = true;
+
+        if($request->get('tiene_usuarios')=="Si"){
+
+            $usuarios = [];
+            foreach($_REQUEST as $r=>$v){
+                if(preg_match('/mes_[0-9]+_[0-9]+/', $r)){ // obteniendo solo variables request de los usuarios
+                    $ex = explode("_", $r);
+                    $usuarios[$ex[2]][$ex[1]] = str_replace(',','',$v);
+                }
+            }
+            $document['usuarios'] = $usuarios;
+            $document['usuarios_activos'] = $request->get('usuarios_activos');
+
+        }else{
+            $document['usuarios_activos'] = null;
+            $document['usuarios'] = null;
+        }
+
+        $documentId = $request->get('id');
+        $this->ArangoDB->Update($this->collection, $this->collection.'/'.$documentId, $document);
+
+        Session::flash('status_success', 'Usuarios Guardados');
         return redirect()->action($this->controller.'@Inversion', ['id'=>$documentId]);
     }
 

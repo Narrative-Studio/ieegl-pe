@@ -37,7 +37,10 @@
                                                 <span class="nav-link">Ventas</span>
                                             </li>
                                             <li class="nav-item">
-                                                <span class="nav-link">Clientes/Usuarios</span>
+                                                <span class="nav-link">Clientes</span>
+                                            </li>
+                                            <li class="nav-item">
+                                                <span class="nav-link">Usuarios</span>
                                             </li>
                                             <li class="nav-item">
                                                 <span class="nav-link">Inversión</span>

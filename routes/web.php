@@ -37,6 +37,9 @@ Route::prefix('panel')->group(function() {
         // Clientes
         Route::get('/emprendimientos/clientes/{id}', 'PanelEmprendimientos@Clientes');
         Route::post('/emprendimientos/saveClientes', 'PanelEmprendimientos@SaveClientes');
+        // Usuarios
+        Route::get('/emprendimientos/usuarios/{id}', 'PanelEmprendimientos@Usuarios');
+        Route::post('/emprendimientos/saveUsuarios', 'PanelEmprendimientos@SaveUsuarios');
         // Inversion
         Route::get('/emprendimientos/inversion/{id}', 'PanelEmprendimientos@Inversion');
         Route::post('/emprendimientos/saveInversion', 'PanelEmprendimientos@SaveInversion');
@@ -49,8 +52,10 @@ Route::prefix('panel')->group(function() {
         /** Convocatorias **/
         Route::get('/convocatorias', 'PanelConvocatorias@Index');
         Route::get('/convocatorias/ver/{id}', 'PanelConvocatorias@Ver');
+        Route::get('/convocatorias/ver-aplicacion/{id}', 'PanelConvocatorias@VerAplicacion');
         Route::get('/convocatorias/aplicaciones', 'PanelConvocatorias@Aplicaciones');
         Route::post('/convocatorias/aplicar/{id}', 'PanelConvocatorias@Aplicar');
+        Route::post('/convocatorias/aplicando/{id}', 'PanelConvocatorias@Aplicacion');
     });
 });
 

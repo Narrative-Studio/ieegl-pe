@@ -127,7 +127,7 @@
     </div>
 </div>
 <div class="form-group row">
-    <label class="col-md-4 label-control" for="">Tiene clientes y usuarios <span class="required">*</span></label>
+    <label class="col-md-4 label-control" for="">Tiene clientes <span class="required">*</span></label>
     <div class="col-md-8">
         <div class="row skin skin-flat">
             <div class="col-sm-1">
@@ -145,6 +145,28 @@
         </div>
         @if ($errors->has('clientes'))
             <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('clientes') }}</strong></span>
+        @endif
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-md-4 label-control" for="">Tiene usuarios <span class="required">*</span></label>
+    <div class="col-md-8">
+        <div class="row skin skin-flat">
+            <div class="col-sm-1">
+                <fieldset>
+                    {!! Form::radio('usuarios', "Si", null, ['id'=>'u1', 'class'=>$class]); !!}
+                    <label for="u1">Si</label>
+                </fieldset>
+            </div>
+            <div class="col-sm-2">
+                <fieldset>
+                    {!! Form::radio('usuarios', "No", null, ['id'=>'u2', 'class'=>$class]); !!}
+                    <label for="u2">No</label>
+                </fieldset>
+            </div>
+        </div>
+        @if ($errors->has('usuarios'))
+            <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('usuarios') }}</strong></span>
         @endif
     </div>
 </div>

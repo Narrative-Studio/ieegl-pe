@@ -140,6 +140,7 @@ class AdminConvocatorias extends Controller
         $document['responsable'] = $request->get('responsable');
         $document['ventas'] = $request->get('ventas');
         $document['clientes'] = $request->get('clientes');
+        $document['usuarios'] = $request->get('usuarios');
         $document['financiera'] = $request->get('financiera');
         $document['comentarios'] = $request->get('comentarios');
         $document['activo'] = $request->get('activo');

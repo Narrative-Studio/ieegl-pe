@@ -10,6 +10,7 @@
                 <th>Medios Dig.</th>
                 <th>Ventas</th>
                 <th>Clientes</th>
+                <th>Usuarios</th>
                 <th>Inversión</th>
                 <th>Inf. Finaciera</th>
                 <th>&nbsp;</th>
@@ -25,6 +26,7 @@
                     <td class="text-center">@if($item->module_medios==true) <i class="fa fa-check-circle success"></i> @else <i class="fa fa-times-circle" style="color: #999;"></i> @endif</td>
                     <td class="text-center">@if($item->module_ventas==true) <i class="fa fa-check-circle success"></i> @else <i class="fa fa-times-circle" style="color: #999;"></i> @endif</td>
                     <td class="text-center">@if($item->module_clientes==true) <i class="fa fa-check-circle success"></i> @else <i class="fa fa-times-circle" style="color: #999;"></i> @endif</td>
+                    <td class="text-center">@if($item->module_usuarios==true) <i class="fa fa-check-circle success"></i> @else <i class="fa fa-times-circle" style="color: #999;"></i> @endif</td>
                     <td class="text-center">@if($item->module_inversion==true) <i class="fa fa-check-circle success"></i> @else <i class="fa fa-times-circle" style="color: #999;"></i> @endif</td>
                     <td class="text-center">@if($item->module_financiera==true) <i class="fa fa-check-circle success"></i> @else <i class="fa fa-times-circle" style="color: #999;"></i> @endif</td>
                     <td>

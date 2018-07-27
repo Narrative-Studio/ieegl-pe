@@ -2,7 +2,7 @@
 
 @section('titulo') Convocatorias @endsection
 @section('seccion') Convocatorias @endsection
-@section('accion') Información @endsection
+@section('accion') Ver Aplicación @endsection
 
 @section('content')
     <div class="content-wrapper">
@@ -13,10 +13,37 @@
                     <div class="card">
                         <div class="card-content collapse show">
                             <div class="card-body">
-                                <h2>{{$item->nombre}}</h2>
+                                <h2>{{$item->convocatoria->nombre}}</h2>
                                 <div class="card-text">
-                                    <p>{{$item->descripcion}}</p>
+                                    <p>{{$item->convocatoria->descripcion}}</p>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-content collapse show">
+                            <div class="card-body">
+                                <div class="card-text">
+                                    <h6>Emprendimiento aplicado: </h6>
+                                    <h4>{{$item->emprendimiento}}</h4>
+                                </div>
+                                <hr/>
+                                <h4>Status:
+                                    @if($item->aprobado==1) <div class="badge badge-warning">Pendiente</div> @endif
+                                    @if($item->aprobado==2) <div class="badge badge-danger">Rechazada</div> @endif
+                                    @if($item->aprobado==3) <div class="badge badge-success">Aprobada</div> @endif
+                                </h4>
+                                @if($item->comentarios!='')
+                                    <hr/>
+                                    <div class="card-text">
+                                        <h4>Comentarios: </h4>
+                                        <p>{{$item->comentarios}}</p>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -38,11 +65,11 @@
                                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                                         <div class="col-6 p-0">
                                             <small class="text-muted">¿Cuándo inicia?</small>
-                                            <h6 class="date">{{\Illuminate\Support\Carbon::createFromTimestamp($item->fecha_inicio_convocatoria)->formatLocalized('%d %B %Y')}}</h6>
+                                            <h6 class="date">{{\Illuminate\Support\Carbon::createFromTimestamp($item->convocatoria->fecha_inicio_convocatoria)->formatLocalized('%d %B %Y')}}</h6>
                                         </div>
                                         <div class="col-6 p-0">
                                             <small class="text-muted">¿Cuándo términa?</small>
-                                            <h6 class="date">{{\Illuminate\Support\Carbon::createFromTimestamp($item->fecha_fin_convocatoria)->formatLocalized('%d %B %Y')}}</h6>
+                                            <h6 class="date">{{\Illuminate\Support\Carbon::createFromTimestamp($item->convocatoria->fecha_fin_convocatoria)->formatLocalized('%d %B %Y')}}</h6>
                                         </div>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between">
@@ -54,17 +81,17 @@
                                     <li class="list-group-item d-flex justify-content-between">
                                         <div class="col-6 p-0">
                                             <small class="text-muted">Fecha de Inicio del Evento</small>
-                                            <h6 class="date">{{\Illuminate\Support\Carbon::createFromTimestamp($item->fecha_inicio_evento)->formatLocalized('%d %B %Y')}}</h6>
+                                            <h6 class="date">{{\Illuminate\Support\Carbon::createFromTimestamp($item->convocatoria->fecha_inicio_evento)->formatLocalized('%d %B %Y')}}</h6>
                                         </div>
                                         <div class="col-6 p-0">
                                             <small class="text-muted">Fecha Final del Evento</small>
-                                            <h6 class="date">{{\Illuminate\Support\Carbon::createFromTimestamp($item->fecha_fin_evento)->formatLocalized('%d %B %Y')}}</h6>
+                                            <h6 class="date">{{\Illuminate\Support\Carbon::createFromTimestamp($item->convocatoria->fecha_fin_evento)->formatLocalized('%d %B %Y')}}</h6>
                                         </div>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between">
                                         <div>
                                             <small class="text-muted">Contacto responsable</small>
-                                            <h6 class="">{{$item->responsable->nombre}}</h6>
+                                            <h6 class="">{{$item->responsable}}</h6>
                                         </div>
                                     </li>
                                 </ul>
@@ -77,50 +104,19 @@
                     <div id="with-header-border-0" class="card">
                         <div class="card-content collapse show">
                             <div class="card-body">
-                                @if(file_exists(public_path('/convocatorias_pics/imagen_'.$item->_key.'.jpg')))
-                                    <img src="{{url('/convocatorias_pics/imagen_'.$item->_key.'.jpg')}}?{{str_random(15)}}" width="100%" height="" border="0" alt="" class="rounded img-fluid" data-aaction="zoom" />
+                                @if(file_exists(public_path('/convocatorias_pics/imagen_'.$item->convocatoria->_key.'.jpg')))
+                                    <img src="{{url('/convocatorias_pics/imagen_'.$item->convocatoria->_key.'.jpg')}}?{{str_random(15)}}" width="100%" height="" border="0" alt="" class="rounded img-fluid" data-aaction="zoom" />
                                 @endif
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-        </div>
-        @if($verificar==true)
             <div class="row mt-2">
                 <div class="col-sm-12 text-center">
-                    <button type="normal" class="btn btn-lg btn-grey mt-2" style="zoom: 1.5;" disabled="disabled"><i class="fa fa-close"></i> No puedes aplicar de nuevo a esta convocatoria</button>
+                    <a href="javascript:window.history.go(-1);" class="btn btn-lg btn-success mt-2" style="zoom: 1;"><i class="fa fa-arrow-left"></i> Regresar a Aplicaciones</a>
                 </div>
             </div>
-        @else
-            @if($item->quien_key!='6375236')
-                {!! Form::open(['action' => ['PanelConvocatorias@Aplicar', $item->_key], 'method'=>'POST', 'class'=>'form', 'files' => false]) !!}
-                <div class="row mt-2">
-                    <div class="col-sm-12 text-center">
-                        <h1>¿Quieres aplicar a esta convocatoria?</h1>
-                            <label>Indica con cual de tus emprendimientos quieres aplicar:</label>
-                            <div class="form-group row justify-content-md-center">
-                                <div class="col-md-3">
-                                    <?php $class=($errors->has('emprendimiento'))?'form-control is-invalid':'form-control'; ?>
-                                    {!! Form::select('emprendimiento', $emprendimientos, null, ['placeholder' => 'Selecciona','class'=> 'select2 '.$class,'required'=>'required']) !!}
-                                    @if ($errors->has('emprendimiento'))
-                                        <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('emprendimiento') }}</strong></span>
-                                    @endif
-                                </div>
-                            </div>
-                        <button type="submit" class="btn btn-lg btn-success mt-2" style="zoom: 1.5;"><i class="fa fa-check"></i> Aplicar a esta convocatoria</button>
-                    </div>
-                </div>
-                {!! Form::close() !!}
-           @else
-                {!! Form::open(['action' => ['PanelConvocatorias@Aplicacion', $item->_key], 'method'=>'POST', 'class'=>'form', 'files' => false]) !!}
-                <div class="row mt-2">
-                    <div class="col-sm-12 text-center">
-                        <button type="submit" class="btn btn-lg btn-success mt-2" style="zoom: 1.5;"><i class="fa fa-check"></i> Aplicar a esta convocatoria</button>
-                    </div>
-                </div>
-                {!! Form::close() !!}
-            @endif
-        @endif
+        </div>
     </div>
 @endsection

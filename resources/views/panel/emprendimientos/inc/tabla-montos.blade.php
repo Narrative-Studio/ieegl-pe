@@ -11,7 +11,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">$</span>
                     </div>
-                    {!! Form::text($nombre_input, (isset($montos[$year][$month]))?$montos[$year][$month]:null, ['class'=>'money form-control', 'required' =>'required']); !!}
+                    {!! Form::text($nombre_input, (isset($montos[$year][$month]))?$montos[$year][$month]:0, ['class'=>'money form-control', 'required' =>'required']); !!}
                     <div class="input-group-append">
                         <span class="input-group-text">USD</span>
                     </div>

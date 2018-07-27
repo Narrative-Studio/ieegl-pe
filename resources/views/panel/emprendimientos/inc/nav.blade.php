@@ -8,7 +8,10 @@
     <a href="{{action('PanelEmprendimientos@Ventas',['id'=>$item->_key])}}" class="nav-link @if($e_active=='ventas') active @endif" href="#">Ventas</a>
 </li>
 <li class="nav-item">
-    <a href="{{action('PanelEmprendimientos@Clientes',['id'=>$item->_key])}}" class="nav-link @if($e_active=='clientes') active @endif" href="#">Clientes/Usuarios</a>
+    <a href="{{action('PanelEmprendimientos@Clientes',['id'=>$item->_key])}}" class="nav-link @if($e_active=='clientes') active @endif" href="#">Clientes</a>
+</li>
+<li class="nav-item">
+    <a href="{{action('PanelEmprendimientos@Usuarios',['id'=>$item->_key])}}" class="nav-link @if($e_active=='usuarios') active @endif" href="#">Usuarios</a>
 </li>
 <li class="nav-item">
     <a href="{{action('PanelEmprendimientos@Inversion',['id'=>$item->_key])}}" class="nav-link @if($e_active=='inversion') active @endif" href="#">Inversión</a>

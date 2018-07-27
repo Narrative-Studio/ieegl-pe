@@ -45,30 +45,28 @@
                                                         <?php $i = 0;?>
                                                         @foreach($meses as $year=>$months)
                                                             @include('panel.emprendimientos.inc.tabla-montos')
-                                                            @if(count($meses)<2)
-                                                                <div class="row">
-                                                                    <div class="@if(count($meses)>1) col-md-8 @else col-md-4 @endif">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="">¿Cuánto fue el gasto total de tu emprendimiento el año pasado? <span class="required">*</span><small>(Si aplica)</small></label>
-                                                                            <?php $class=($errors->has("gasto_total"))?'form-control is-invalid':'form-control'; ?>
-                                                                            <div class="input-group">
-                                                                                <div class="input-group-prepend">
-                                                                                    <span class="input-group-text">$</span>
-                                                                                </div>
-                                                                                {!! Form::text('gasto_total', null, ['class'=>'money '.$class, 'required' =>'required', 'value'=>'0']); !!}
-                                                                                <div class="input-group-append">
-                                                                                    <span class="input-group-text">USD</span>
-                                                                                </div>
-                                                                            </div>
-                                                                            @if ($errors->has('gasto_total'))
-                                                                                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('gasto_total') }}</strong></span>
-                                                                            @endif
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            @endif
                                                             <?php $i++;?>
                                                         @endforeach
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="" class="">¿Cuánto fue el gasto total de tu emprendimiento el año pasado? <small>(Si aplica)</small></label>
+                                                            <?php $class=($errors->has("gasto_total"))?'form-control is-invalid':'form-control'; ?>
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">$</span>
+                                                                </div>
+                                                                {!! Form::text('gasto_total', null, ['class'=>'money '.$class, 'value'=>'0']); !!}
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text">USD</span>
+                                                                </div>
+                                                            </div>
+                                                            @if ($errors->has('gasto_total'))
+                                                                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('gasto_total') }}</strong></span>
+                                                            @endif
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!--/ Meses de montos -->

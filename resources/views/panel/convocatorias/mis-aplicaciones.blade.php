@@ -1,8 +1,8 @@
 @extends('layouts.panel')
 
 @section('titulo') Convocatorias @endsection
-@section('seccion') Listado @endsection
-@section('accion') Listado @endsection
+@section('seccion') Convocatorias @endsection
+@section('accion') Mis Aplicaciones @endsection
 
 @section('content')
     <div class="content-wrapper">
@@ -12,7 +12,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Listado de Convocatorias</h4>
+                            <h4 class="card-title">Listado de Aplicaciones</h4>
                         </div>
                         <div class="card-content collapse show">
                             @if($convocatorias)
@@ -20,24 +20,32 @@
                                     <table class="table mb-0">
                                         <thead class="bg-primary white">
                                         <tr>
-                                            <th>Nombre</th>
-                                            <th>Descripción</th>
-                                            <th>Fecha Inicio</th>
-                                            <th>Fecha Fin</th>
-                                            <th>¿Quién puede aplicar?</th>
+                                            <th>Convocatoria</th>
+                                            <th>Emprendimiento</th>
+                                            <th>Fecha Aplicación</th>
+                                            <th>Estatus</th>
                                             <th width="150">&nbsp;</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @foreach($convocatorias as $item)
                                             <tr>
-                                                <td>{{$item->nombre}}</td>
-                                                <td>{{$item->descripcion}}</td>
-                                                <td style="text-transform: capitalize;">{{\Illuminate\Support\Carbon::createFromTimestamp($item->fecha_inicio_convocatoria)->formatLocalized('%d %B %Y')}}</td>
-                                                <td style="text-transform: capitalize;">{{\Illuminate\Support\Carbon::createFromTimestamp($item->fecha_fin_convocatoria)->formatLocalized('%d %B %Y')}}</td>
-                                                <td>{{$item->quien_nombre}}</td>
+                                                <td>{{$item->nombre}}<br/><small>{{$item->descripcion}}</small></td>
                                                 <td>
-                                                    <a href="{{action('PanelConvocatorias@Ver',['id'=>$item->_key])}}" class="btn btn-sm btn-success mr-0"><i class="fa fa-edit"></i> Ver/Aplicar</a>
+                                                    @if($item->quien!='6375236')
+                                                        {{$item->emprendimiento}}
+                                                    @else
+                                                        <i>No aplica</i>
+                                                    @endif
+                                                </td>
+                                                <td style="text-transform: capitalize;">{{\Illuminate\Support\Carbon::createFromTimestamp($item->fecha_registro)->formatLocalized('%d %B %Y')}}</td>
+                                                <td>
+                                                    @if($item->aprobado==1) <div class="badge badge-warning">Pendiente</div> @endif
+                                                    @if($item->aprobado==2) <div class="badge badge-danger">Rechazada</div> @endif
+                                                    @if($item->aprobado==3) <div class="badge badge-success">Aprobada</div> @endif
+                                                </td>
+                                                <td>
+                                                    <a href="{{action('PanelConvocatorias@VerAplicacion',['id'=>$item->_key])}}" class="btn btn-sm btn-success mr-0"><i class="fa fa-eye"></i> Ver Aplicación</a>
                                                 </td>
                                             </tr>
                                         @endforeach
