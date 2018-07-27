@@ -120,5 +120,8 @@ Route::prefix('admin')->group(function() {
         Route::get('/convocatoria/edit/{id}', 'AdminConvocatorias@Edit');
         Route::post('/convocatoria/save', 'AdminConvocatorias@Save');
         Route::get('/convocatoria/delete/{id}', 'AdminConvocatorias@Delete');
+
+        // Solicitudes
+        Route::get('/solicitudes', 'AdminSolicitudes@Index');
     });
 });

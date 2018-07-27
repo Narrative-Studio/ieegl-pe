@@ -116,13 +116,14 @@ class PanelConvocatorias extends Controller
             FOR conv IN convocatorias
                 FOR emp IN emprendimientos
                     FILTER doc.userKey == "'.auth()->user()->_key.'" AND conv._key  == doc.convocatoria_id AND emp._key == doc.emprendimiento_id
+                    SORT doc._key ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'
                     RETURN merge(doc, {nombre: conv.nombre}, {quien: conv.quien}, {emprendimiento: emp.nombre}, {descripcion: conv.descripcion}, {fecha_inicio_convocatoria: conv.fecha_inicio_convocatoria}, {fecha_fin_convocatoria: conv.fecha_fin_convocatoria} )
         ';
         $data = $this->ArangoDB->Query($query);
         if($request->get('total')!=''){
             $total = $request->get('total');
         }else{
-            $total = $this->ArangoDB->Query('FOR doc IN '.$this->collection.' COLLECT WITH COUNT INTO length RETURN length');
+            $total = $this->ArangoDB->Query('FOR doc IN '.$this->collection.' FILTER doc.userKey == "'.auth()->user()->_key.'" COLLECT WITH COUNT INTO length RETURN length');
             $total = (int)$total[0];
         }
         $convocatorias = $this->ArangoDB->Pagination($data, $total, $this->PaginationQuery());

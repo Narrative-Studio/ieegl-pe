@@ -96,7 +96,7 @@
             <li class=" navigation-header">
                 <span>Convocatorias</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Layouts"></i>
             </li>
-            <li class=" nav-item"><a href="{{action('AdminConvocatorias@Index')}}"><i class="fa fa-check"></i><span class="menu-title">Solicitudes</span></a></li>
+            <li class=" nav-item"><a href="{{action('AdminSolicitudes@Index')}}"><i class="fa fa-check"></i><span class="menu-title">Solicitudes</span></a></li>
             <li class=" navigation-header">
                 <span>Catálogos</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Layouts"></i>
             </li>
