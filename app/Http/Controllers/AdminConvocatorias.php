@@ -81,7 +81,11 @@ class AdminConvocatorias extends Controller
         $quien = $this->ArangoDB->SelectFormat($quien, '_key', 'nombre');
 
         // Obteniendo Usuarios Responsables
-        $usuarios = $this->ArangoDB->Query('FOR doc IN users FILTER doc.isAdmin==1 RETURN doc', true);
+        $usuarios = $this->ArangoDB->Query('
+        FOR doc IN users
+            FOR rol IN roles
+                FILTER doc.isAdmin==1 AND rol._key==doc.rol_id AND rol.permisos LIKE "%solicitudes%"
+                RETURN doc', true);
         $usuarios = $this->ArangoDB->SelectFormat($usuarios, '_key', 'nombre');
 
         return view('admin.'.$this->collection.'.new', compact('entidades','quien','usuarios'));
@@ -106,7 +110,11 @@ class AdminConvocatorias extends Controller
             $quien = $this->ArangoDB->SelectFormat($quien, '_key', 'nombre');
 
             // Obteniendo Usuarios Responsables
-            $usuarios = $this->ArangoDB->Query('FOR doc IN users FILTER doc.isAdmin==1 RETURN doc', true);
+            $usuarios = $this->ArangoDB->Query('
+            FOR doc IN users
+                FOR rol IN roles
+                    FILTER doc.isAdmin==1 AND rol._key==doc.rol_id AND rol.permisos LIKE "%solicitudes%"
+                    RETURN doc', true);
             $usuarios = $this->ArangoDB->SelectFormat($usuarios, '_key', 'nombre');
 
         } catch (ArangoServerException $e) {

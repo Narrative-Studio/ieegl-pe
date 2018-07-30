@@ -87,26 +87,51 @@
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
             <li class=" nav-item"><a href="{{action("AdminController@Index")}}"><i class="icon-home"></i><span class="menu-title">Dashboard</span></a></li>
-            <li class=" navigation-header">
-                <span>Usuarios</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Layouts"></i>
-            </li>
-            <li class=" nav-item"><a href="{{action('AdminUsuarios@Index')}}"><i class="ft-users"></i><span class="menu-title">Usuarios</span></a></li>
-            <li class=" nav-item"><a href="#"><i class="ft-user-plus"></i><span class="menu-title">Administradores</span></a></li>
-            <li class=" nav-item"><a href="#"><i class="ft-shield"></i><span class="menu-title">Roles</span></a></li>
-            <li class=" navigation-header">
-                <span>Convocatorias</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Layouts"></i>
-            </li>
-            <li class=" nav-item"><a href="{{action('AdminSolicitudes@Index')}}"><i class="fa fa-check"></i><span class="menu-title">Solicitudes</span></a></li>
+            <?php if(\App\Http\Controllers\AdminRoles::getAccess('usuarios')):?>
+                <li class=" navigation-header">
+                    <span>Usuarios</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Layouts"></i>
+                </li>
+            <?php endif;?>
+            <?php if(\App\Http\Controllers\AdminRoles::getAccess('usuarios')):?>
+                <li class=" nav-item"><a href="{{action('AdminUsuarios@Index')}}"><i class="ft-users"></i><span class="menu-title">Usuarios</span></a></li>
+            <?php endif;?>
+            <?php if(\App\Http\Controllers\AdminRoles::getAccess('administradores')):?>
+                <li class=" nav-item"><a href="{{action('AdminAdministradores@Index')}}"><i class="ft-user-plus"></i><span class="menu-title">Administradores</span></a></li>
+            <?php endif;?>
+            <?php if(\App\Http\Controllers\AdminRoles::getAccess('roles')):?>
+                <li class=" nav-item"><a href="{{action('\App\Http\Controllers\AdminRoles@Index')}}"><i class="ft-shield"></i><span class="menu-title">Roles</span></a></li>
+            <?php endif;?>
+            <?php if(\App\Http\Controllers\AdminRoles::getAccess('solicitudes')):?>
+                <li class=" navigation-header">
+                    <span>Convocatorias</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Layouts"></i>
+                </li>
+                <li class=" nav-item"><a href="{{action('AdminSolicitudes@Index')}}"><i class="fa fa-check"></i><span class="menu-title">Solicitudes</span></a></li>
+            <?php endif;?>
+
             <li class=" navigation-header">
                 <span>Catálogos</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Layouts"></i>
             </li>
-            <li class=" nav-item"><a href="{{action('AdminConvocatorias@Index')}}"><i class="fa fa-comments"></i><span class="menu-title">Convocatorias</span></a></li>
-            <li class=" nav-item"><a href="{{action('AdminUniversidades@Index')}}"><i class="fa fa-graduation-cap"></i><span class="menu-title">Universidades</span></a></li>
-            <li class=" nav-item"><a href="{{action("AdminIndustrias@Index")}}"><i class="fa fa-building"></i><span class="menu-title">Industrias y Sectores</span></a></li>
-            <li class=" nav-item"><a href="{{action("AdminEtapas@Index")}}"><i class="fa fa-seedling"></i><span class="menu-title">Etapas Emprendimientos</span></a></li>
-            <li class=" nav-item"><a href="{{action("AdminTerminos@Index")}}"><i class="fa fa-seedling"></i><span class="menu-title">Términos Capital</span></a></li>
-            <li class=" nav-item"><a href="{{action("AdminEntidades@Index")}}"><i class="fa fa-globe"></i><span class="menu-title">Entidades</span></a></li>
-            <li class=" nav-item"><a href="{{action("AdminQuien@Index")}}"><i class="fa fa-address-card"></i><span class="menu-title">Quien Aplica</span></a></li>
+            <?php if(\App\Http\Controllers\AdminRoles::getAccess('convocatorias')):?>
+                <li class=" nav-item"><a href="{{action('AdminConvocatorias@Index')}}"><i class="fa fa-comments"></i><span class="menu-title">Convocatorias</span></a></li>
+            <?php endif;?>
+            <?php if(\App\Http\Controllers\AdminRoles::getAccess('universidades')):?>
+                <li class=" nav-item"><a href="{{action('AdminUniversidades@Index')}}"><i class="fa fa-graduation-cap"></i><span class="menu-title">Universidades</span></a></li>
+            <?php endif;?>
+            <?php if(\App\Http\Controllers\AdminRoles::getAccess('industrias_y_sectores')):?>
+                <li class=" nav-item"><a href="{{action("AdminIndustrias@Index")}}"><i class="fa fa-building"></i><span class="menu-title">Industrias y Sectores</span></a></li>
+            <?php endif;?>
+            <?php if(\App\Http\Controllers\AdminRoles::getAccess('etapas_emprendimientos')):?>
+                <li class=" nav-item"><a href="{{action("AdminEtapas@Index")}}"><i class="fa fa-seedling"></i><span class="menu-title">Etapas Emprendimientos</span></a></li>
+            <?php endif;?>
+            <?php if(\App\Http\Controllers\AdminRoles::getAccess('terminos_capital')):?>
+                <li class=" nav-item"><a href="{{action("AdminTerminos@Index")}}"><i class="fa fa-seedling"></i><span class="menu-title">Términos Capital</span></a></li>
+            <?php endif;?>
+            <?php if(\App\Http\Controllers\AdminRoles::getAccess('entidades')):?>
+                <li class=" nav-item"><a href="{{action("AdminEntidades@Index")}}"><i class="fa fa-globe"></i><span class="menu-title">Entidades</span></a></li>
+            <?php endif;?>
+            <?php if(\App\Http\Controllers\AdminRoles::getAccess('quien_aplica')):?>
+                <li class=" nav-item"><a href="{{action("AdminQuien@Index")}}"><i class="fa fa-address-card"></i><span class="menu-title">Quien Aplica</span></a></li>
+            <?php endif;?>
             <hr/>
             <li class=" nav-item"><a href="{{route('logout')}}"><i class="icon-logout"></i><span class="menu-title">Salir</span></a></li>
         </ul>
@@ -155,14 +180,8 @@
 <script src="{{url("/")}}/app-assets/vendors/js/forms/toggle/bootstrap-switch.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/forms/toggle/bootstrap-checkbox.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/forms/toggle/switchery.min.js" type="text/javascript"></script>
-<script src="{{url("/")}}/app-assets/vendors/js/charts/raphael-min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/forms/extended/inputmask/jquery.inputmask.bundle.min.js" type="text/javascript"></script>
-<script src="{{url("/")}}/app-assets/vendors/js/charts/morris.min.js" type="text/javascript"></script>
-<script src="{{url("/")}}/app-assets/vendors/js/charts/chart.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/extensions/moment.min.js" type="text/javascript"></script>
-<script src="{{url("/")}}/app-assets/vendors/js/extensions/underscore-min.js" type="text/javascript"></script>
-<script src="{{url("/")}}/app-assets/vendors/js/extensions/clndr.min.js" type="text/javascript"></script>
-<script src="{{url("/")}}/app-assets/vendors/js/charts/echarts/echarts.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/extensions/unslider-min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/forms/extended/maxlength/bootstrap-maxlength.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/extensions/zoom.min.js" type="text/javascript"></script>
@@ -184,5 +203,6 @@
     }
 </script>
 @yield('js')
+@yield('modal')
 </body>
 </html>

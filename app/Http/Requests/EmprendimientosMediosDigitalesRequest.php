@@ -25,8 +25,6 @@ class EmprendimientosMediosDigitalesRequest extends FormRequest
             case 'POST':
                 {
                     $rules =  [
-                        'sitio_web'             => 'required',
-                        'red_social'            => 'required',
                     ];
                     return $rules;
                     break;

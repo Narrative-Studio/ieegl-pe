@@ -77,4 +77,9 @@ $(document).ready(function() {
     $('.money').inputmask("numeric", mask_obj);
     $('.money2').inputmask("numeric", mask_obj);
     $('.integer').inputmask("numeric");
+
+    // Ejecutando Modales
+    $('.btn-modal').on('click', function(){
+        $('#'+$(this).attr('data-target')).modal('show');
+    });
 });

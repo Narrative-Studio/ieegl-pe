@@ -72,6 +72,13 @@ Route::prefix('admin')->group(function() {
         Route::post('/users/save', 'AdminUsuarios@Save');
         Route::get('/users/delete/{id}', 'AdminUsuarios@Delete');
 
+        // Administradores
+        Route::get('/administradores', 'AdminAdministradores@Index');
+        Route::get('/administradores/new', 'AdminAdministradores@New');
+        Route::get('/administradores/edit/{id}', 'AdminAdministradores@Edit');
+        Route::post('/administradores/save', 'AdminAdministradores@Save');
+        Route::get('/administradores/delete/{id}', 'AdminAdministradores@Delete');
+
         // Universidades
         Route::get('/universidades', 'AdminUniversidades@Index');
         Route::get('/universidades/new', 'AdminUniversidades@New');
@@ -123,5 +130,13 @@ Route::prefix('admin')->group(function() {
 
         // Solicitudes
         Route::get('/solicitudes', 'AdminSolicitudes@Index');
+        Route::get('/solicitudes/edit/{id}', 'AdminSolicitudes@Edit');
+        Route::post('/solicitudes/save', 'AdminSolicitudes@Save');
+
+        // Roles
+        Route::get('/roles', 'AdminRoles@Index');
+        Route::get('/roles/new', 'AdminRoles@New');
+        Route::get('/roles/edit/{id}', 'AdminRoles@Edit');
+        Route::post('/roles/save', 'AdminRoles@Save');
     });
 });

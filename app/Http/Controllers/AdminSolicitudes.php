@@ -25,7 +25,7 @@ class AdminSolicitudes extends Controller
     private $perPage = 25;
 
     /**
-     * Convocatoria constructor.
+     * Solicitud constructor.
      * @param ArangoDB $ArangoDB
      */
     public function __construct(ArangoDB $ArangoDB)
@@ -40,7 +40,7 @@ class AdminSolicitudes extends Controller
     }
 
     /**
-     * Listado de Convocatoria
+     * Listado de Solicitudes
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws ArangoException
@@ -66,111 +66,105 @@ class AdminSolicitudes extends Controller
         return view('admin.solicitudes.list', compact('datos','total'));
     }
 
-    /**
-     * Crear nueva Convocatoria
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws ArangoException
-     */
-    public function New(){
-
-        // Obteniendo Entidades
-        $entidades = $this->ArangoDB->Query('FOR doc IN entidades RETURN doc', true);
-        $entidades = $this->ArangoDB->SelectFormat($entidades, '_key', 'nombre');
-
-        // Obteniendo Quien Convoca
-        $quien = $this->ArangoDB->Query('FOR doc IN quien RETURN doc', true);
-        $quien = $this->ArangoDB->SelectFormat($quien, '_key', 'nombre');
-
-        // Obteniendo Usuarios Responsables
-        $usuarios = $this->ArangoDB->Query('FOR doc IN users FILTER doc.isAdmin==1 RETURN doc', true);
-        $usuarios = $this->ArangoDB->SelectFormat($usuarios, '_key', 'nombre');
-
-        return view('admin.solicitudes.new', compact('entidades','quien','usuarios'));
-    }
 
     /**
-     * Editar la Convocatoria
+     * Editar la Solicitud
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws ArangoException
      */
     public function Edit($id){
-        try{
-            $item = $this->ArangoDB->GetById($this->collection, $this->collection.'/'.$id);
+        $query = '
+        FOR doc IN usuario_convocatoria
+            FOR conv IN convocatorias
+                FOR emp IN emprendimientos
+                    FOR usuario IN users
+                        FILTER doc._key == "'.$id.'" AND conv._key  == doc.convocatoria_id AND emp._key == doc.emprendimiento_id AND usuario._key == doc.userKey
+                        RETURN merge(doc, {convocatoria: conv}, {emprendimiento: emp}, {usuario: usuario})
+        ';
+        $sol = $this->ArangoDB->Query($query);
+        $solicitud = $sol[0];
+        $item = $solicitud->emprendimiento;
 
-            // Obteniendo Entidades
-            $entidades = $this->ArangoDB->Query('FOR doc IN entidades RETURN doc', true);
-            $entidades = $this->ArangoDB->SelectFormat($entidades, '_key', 'nombre');
 
-            // Obteniendo Quien Convoca
-            $quien = $this->ArangoDB->Query('FOR doc IN quien RETURN doc', true);
-            $quien = $this->ArangoDB->SelectFormat($quien, '_key', 'nombre');
-
-            // Obteniendo Usuarios Responsables
-            $usuarios = $this->ArangoDB->Query('FOR doc IN users FILTER doc.isAdmin==1 RETURN doc', true);
-            $usuarios = $this->ArangoDB->SelectFormat($usuarios, '_key', 'nombre');
-
-        } catch (ArangoServerException $e) {
-            Session::flash('status_error', $e->getMessage());
-            return redirect()->action($this->controller.'@Index');
+        /*** Datos Generales **/
+        //Obteniendo listado de socios seleccionados
+        if($id!=''){
+            if($item->socios!='') {
+                $query = [];
+                foreach ($item->socios as $k => $v) {
+                    $query[]= "doc._key=='" . $v . "' ";
+                }
+                $query = implode('OR ', $query);
+                $socios = $this->ArangoDB->Query(
+                    "FOR doc IN users
+                            FILTER $query
+                            return {'id':doc._key, 'nombre': CONCAT(doc.nombre,' ',doc.apellidos,' (',doc.email,')')}"
+                    , true);
+                $socios = $this->ArangoDB->SelectFormat($socios, 'id', 'nombre');
+            }else{
+                $socios = [];
+            }
+        }else{
+            $socios = [];
         }
-        if(!$item){
-            return redirect()->action($this->controller.'@Index')->with('status_error','El registro no existe');
+
+        // Obteniendo Industrias
+        $industrias = $this->ArangoDB->Query('FOR doc IN industrias RETURN doc');
+
+        // Obteniendo Etapas
+        $etapas = $this->ArangoDB->Query('FOR doc IN etapas RETURN doc', true);
+        $etapas = $this->ArangoDB->SelectFormat($etapas, '_key', 'nombre');
+
+        // Paises
+        $paises = $this->paises;
+
+        //Niveles
+        $nivel_tlr = $this->nivel_tlr;
+
+        /*** Ventas **/
+        // Obteniendo Modelos de Ventas
+        $modelos_ventas = $this->modelos_ventas;
+
+        // Meses Anteriores
+        if(isset($item->ventas) && $item->ventas!=null){
+            $_meses = $this->getItemMeses($item->ventas);
+            $montos = $_meses['montos'];
+            $meses = $_meses['meses_items'];
+        }else{
+            $meses = $this->getMeses($this->meses_montos, time());
         }
-        return view('admin.solicitudes.edit', compact('item','entidades','quien','usuarios'));
+        $n_meses = $this->n_meses;
+
+        return view('admin.solicitudes.edit',
+            compact('solicitud','item','socios','industrias','etapas','paises','nivel_tlr','montos','modelos_ventas','meses','n_meses')
+        );
     }
 
     /**
-     * Guardar datos de la Convocatoria
-     * @param ConvocatoriasRequest $request
+     * Guardar Solicitud
+     * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      * @throws ArangoClientException
      * @throws ArangoException
      */
-    public function Save(ConvocatoriasRequest $request){
+    public function Save(Request $request){
 
         $document = [];
-        $document['nombre'] = $request->get('nombre');
-        $document['descripcion'] = $request->get('descripcion');
-        $document['entidad'] = $request->get('entidad');
-        $document['quien'] = $request->get('quien');
-        $document['fecha_inicio_convocatoria'] = strtotime($request->get('fecha_inicio_convocatoria'));
-        $document['fecha_fin_convocatoria'] = strtotime($request->get('fecha_fin_convocatoria'));
-        $document['fecha_inicio_evento'] = strtotime($request->get('fecha_inicio_evento'));
-        $document['fecha_fin_evento'] = strtotime($request->get('fecha_fin_evento'));
-        $document['responsable'] = $request->get('responsable');
-        $document['ventas'] = $request->get('ventas');
-        $document['clientes'] = $request->get('clientes');
-        $document['usuarios'] = $request->get('usuarios');
-        $document['financiera'] = $request->get('financiera');
+        $document['aprobado'] = $request->get('aprobado');
         $document['comentarios'] = $request->get('comentarios');
-        $document['activo'] = $request->get('activo');
-        $document['pago'] = "";
+        $document['fecha_aprobacion'] = now();
 
-        // Creando Nuevo Registro
-        if($request->get('id')==''){
-            $document['created_at'] = date('Y-m-d'); // Agregando fecha de creacion
-            $documentId = $this->ArangoDB->Save($this->collection, $document);
-            $key = str_replace($this->collection.'/','', $documentId);
-            Session::flash('status_success', 'Registro Agregado');
-        }else{
         // Actualizando Registro
-            $documentId = $this->ArangoDB->Update($this->collection, $this->collection.'/'.$request->get('id'), $document);
-            $key = $request->get('id');
-            Session::flash('status_success', 'Registro Actualizado');
-        }
-
-        // Guardando Logo del Emprendimiento
-        if($_FILES['imagen']['size'] != 0 && $_FILES['imagen']['error'] == 0){
-            $img = Image::make($_FILES['imagen']['tmp_name']);
-            $img->save(public_path('/convocatorias_pics/imagen_'.$key .'.jpg', 100));
-        }
+        $documentId = $this->ArangoDB->Update($this->collection, $this->collection.'/'.$request->get('id'), $document);
+        $key = $request->get('id');
+        Session::flash('status_success', 'Registro Actualizado');
 
         return redirect()->action($this->controller.'@Index');
     }
 
     /**
-     * Borrar registro de Convocatoria
+     * Borrar registro de Solicitud
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      * @throws ArangoException
@@ -192,5 +186,24 @@ class AdminSolicitudes extends Controller
      */
     public function PaginationQuery(){
         return ['page'=>$this->page, 'perPage' => $this->perPage, 'path'=>$this->path];
+    }
+
+    /**
+     * Regresa valores del item para las tablas de montos
+     * @param $valores
+     * @return array
+     */
+    public function getItemMeses($valores){
+        $m = json_encode($valores);
+        $m = json_decode($m,true);
+
+        $meses_item = [];
+        foreach ($m as $k=>$v){
+            foreach ($v as $key=>$val){
+                $meses_item[$k][] = $key;
+            }
+            asort($meses_item[$k]);
+        }
+        return ['montos'=>$m, 'meses_items'=>$meses_item];
     }
 }

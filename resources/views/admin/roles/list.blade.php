@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('titulo') Listado de Solicitudes @endsection
-@section('seccion') Solicitudes @endsection
+@section('titulo') Roles @endsection
+@section('seccion') Roles @endsection
 @section('accion') Listado @endsection
 
 @section('content')
@@ -12,39 +12,29 @@
                     @include('layouts.breadcrum')
                     <div class="card">
                         <div class="card-content">
+                            <div class="card-body card-dashboard">
+                                <div class="row">
+                                    <div class="col-12 text-right">
+                                        <a href="{{ action('AdminRoles@New') }}" class="btn btn-success mr-1 pull-right"><i class="fas fa-edit"></i> Crear Nuevo</a>
+                                    </div>
+                                </div>
+                            </div>
                             @if(count($datos)>0)
-                                <div class="table-responsive">
+                                <div class="table-responsive table-hover">
                                     <table class="table mb-0">
-                                        <thead class="bg-primary white">
-                                        <tr>
-                                            <th>Convocatoria</th>
-                                            <th>Usuario</th>
-                                            <th>Emprendimiento</th>
-                                            <th>Fecha Aplicación</th>
-                                            <th>Estatus</th>
-                                            <th width="150">&nbsp;</th>
+                                        <thead>
+                                        <tr class="bg-primary white">
+                                            <th>Nombre</th>
+                                            <th width="250">Acciones</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @foreach($datos as $item)
                                             <tr>
-                                                <td>{{$item->convocatoria->nombre}}</td>
-                                                <td>{{$item->usuario->nombre}}</td>
+                                                <td>{{$item->nombre}}</td>
                                                 <td>
-                                                    @if($item->convocatoria->quien!='6375236')
-                                                        {{$item->emprendimiento->nombre}}
-                                                    @else
-                                                        <i>No aplica</i>
-                                                    @endif
-                                                </td>
-                                                <td style="text-transform: capitalize;">{{\Illuminate\Support\Carbon::createFromTimestamp($item->fecha_registro)->formatLocalized('%d %B %Y')}}</td>
-                                                <td>
-                                                    @if($item->aprobado==1) <div class="badge badge-warning">Pendiente</div> @endif
-                                                    @if($item->aprobado==2) <div class="badge badge-danger">Rechazada</div> @endif
-                                                    @if($item->aprobado==3) <div class="badge badge-success">Aprobada</div> @endif
-                                                </td>
-                                                <td>
-                                                    <a href="{{action('AdminSolicitudes@Edit',['id'=>$item->_key])}}" class="btn btn-sm btn-success mr-0"><i class="fa fa-edit"></i> Editar Aplicación</a>
+                                                    <a href="{{ action('AdminRoles@Edit',$item->_key) }}" class="btn btn-sm btn-info mr-1"><i class="fas fa-edit"></i> Editar</a>
+                                                    <!--<a href="#" onclick="delete_row('item-{{$item->_key}}', '{{ action('AdminRoles@Edit',$item->_key) }}')" class="btn btn-sm  btn-danger mr-1"><i class="fas fa-trash"></i> Borrar</a>-->
                                                 </td>
                                             </tr>
                                         @endforeach

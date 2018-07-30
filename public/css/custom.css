@@ -96,3 +96,14 @@ label small{
 .date{
     text-transform: capitalize;
 }
+.select2{
+    width: 100% !important;
+}
+.modal-body input[type=checkbox][disabled]:checked:after{
+    display: block;
+    content: "";
+    background: #9679dc;
+    height: 12px;
+    width: 12px;
+    margin-left: 2px;
+}
