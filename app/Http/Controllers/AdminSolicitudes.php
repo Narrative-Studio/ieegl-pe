@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ConfirmationEmail;
 use App\Mail\SolicitudEmail;
 use Illuminate\Http\Request;
 use App\Repositories\ArangoDB;
@@ -177,9 +176,9 @@ class AdminSolicitudes extends Controller
             $sol = $this->ArangoDB->Query($query);
             $item = $sol[0];
 
-            if($item->aprobado==1) $aprobacion == '<span style="color:#FFAB00;">Pendiente</span>';
-            if($item->aprobado==2) $aprobacion == '<span style="color:#880000;">Rechazada</span>';
-            if($item->aprobado==3) $aprobacion == '<span style="color:#008000;">Aprobada</span>';
+            if($item->aprobado=='1') $aprobacion = '<span style="color:#FFAB00;">Pendiente</span>';
+            if($item->aprobado=='2') $aprobacion = '<span style="color:#880000;">Rechazada</span>';
+            if($item->aprobado=='3') $aprobacion = '<span style="color:#008000;">Aprobada</span>';
 
             $data['nombre'] = $item->usuario->nombre;
             $data['apellidos'] = $item->usuario->apellidos;
@@ -190,7 +189,7 @@ class AdminSolicitudes extends Controller
 
             // Enviando con actualización de solicitud
             Mail::to($data['email'])
-                ->queue(new SolicitudEmail($data));
+                ->send(new SolicitudEmail($data));
 
             Session::flash('status_success', 'Registro Actualizado y Correo Enviado');
         }

@@ -81,8 +81,8 @@
                             </tr>
                             <tr>
                                 <td style="padding-bottom: 20px;">
-                                    <div class="cuerpo-mail">Tu solicitud para la convocatoria de <b>{{$data['convocatoria']}}</b> ha sido <b>{{$data['aprobacion']}}</b>.</div>
-                                    <div class="cuerpo-mail"><i>{{$data['mensaje']}}</i></div>
+                                    <div class="cuerpo-mail">Tu solicitud para la convocatoria de <b>{{$data['convocatoria']}}</b> ha sido <b>{!! $data['aprobacion'] !!}</b>.</div>
+                                    <div class="cuerpo-mail"><blockquote>{{$data['mensaje']}}</blockquote></div>
                                 </td>
                             </tr>
                             <tr>
