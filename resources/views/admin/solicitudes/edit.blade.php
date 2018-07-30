@@ -127,6 +127,8 @@
             </div>
             <div class="row">
                 <div class="col-sm-12 text-center">
+                    <input type="hidden" value="0" name="enviar" id="enviar">
+                    <button type="submit" class="btn btn-lg btn-grey-blue" onclick="document.getElementById('enviar').value = '1'"><i class="fa fa-envelope"></i> Actualizar y Enviar Correo de Solicitud</button>
                     <button type="submit" class="btn btn-lg btn-blue"><i class="fa fa-save"></i> Actualizar Solicitud</button>
                 </div>
             </div>

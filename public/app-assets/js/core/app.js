@@ -274,10 +274,6 @@
     // Add Children Class
     $('.navigation').find('li').has('ul').addClass('has-sub');
 
-    $('.carousel').carousel({
-      interval: 2000
-    });
-
     // Page full screen
     $('.nav-link-expand').on('click', function(e) {
         if (typeof screenfull != 'undefined'){

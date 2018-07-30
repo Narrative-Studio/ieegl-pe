@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ConvocatoriasRequest;
+use App\Mail\ConfirmationEmail;
+use App\Mail\SolicitudEmail;
 use Illuminate\Http\Request;
 use App\Repositories\ArangoDB;
 use ArangoDBClient\Exception as ArangoException;
 use ArangoDBClient\ClientException as ArangoClientException;
 use ArangoDBClient\ServerException as ArangoServerException;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
-use Intervention\Image\Facades\Image;
 
 
 class AdminSolicitudes extends Controller
@@ -150,6 +151,8 @@ class AdminSolicitudes extends Controller
      */
     public function Save(Request $request){
 
+        $aprobacion = '';
+        $data = [];
         $document = [];
         $document['aprobado'] = $request->get('aprobado');
         $document['comentarios'] = $request->get('comentarios');
@@ -159,6 +162,38 @@ class AdminSolicitudes extends Controller
         $documentId = $this->ArangoDB->Update($this->collection, $this->collection.'/'.$request->get('id'), $document);
         $key = $request->get('id');
         Session::flash('status_success', 'Registro Actualizado');
+
+        // Si se eligió enviar correo al usuario
+        if($request->get('enviar')==1){
+            // Obeniendo solicitud, convocatoria, emprendimiento y usuario.
+            $query = '
+                FOR doc IN usuario_convocatoria
+                    FOR conv IN convocatorias
+                        FOR emp IN emprendimientos
+                            FOR usuario IN users
+                                FILTER doc._key == "'.$key.'" AND conv._key  == doc.convocatoria_id AND emp._key == doc.emprendimiento_id AND usuario._key == doc.userKey
+                                RETURN merge(doc, {convocatoria: conv}, {emprendimiento: emp}, {usuario: usuario})
+                ';
+            $sol = $this->ArangoDB->Query($query);
+            $item = $sol[0];
+
+            if($item->aprobado==1) $aprobacion == '<span style="color:#FFAB00;">Pendiente</span>';
+            if($item->aprobado==2) $aprobacion == '<span style="color:#880000;">Rechazada</span>';
+            if($item->aprobado==3) $aprobacion == '<span style="color:#008000;">Aprobada</span>';
+
+            $data['nombre'] = $item->usuario->nombre;
+            $data['apellidos'] = $item->usuario->apellidos;
+            $data['email'] = $item->usuario->email;
+            $data['convocatoria'] = $item->convocatoria->nombre;
+            $data['aprobacion'] = $aprobacion;
+            $data['mensaje'] = $item->comentarios;
+
+            // Enviando con actualización de solicitud
+            Mail::to($data['email'])
+                ->queue(new SolicitudEmail($data));
+
+            Session::flash('status_success', 'Registro Actualizado y Correo Enviado');
+        }
 
         return redirect()->action($this->controller.'@Index');
     }
