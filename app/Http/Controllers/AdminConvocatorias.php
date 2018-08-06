@@ -151,8 +151,9 @@ class AdminConvocatorias extends Controller
         $document['usuarios'] = $request->get('usuarios');
         $document['financiera'] = $request->get('financiera');
         $document['comentarios'] = $request->get('comentarios');
+        $document['pago_iframe'] = $request->get('pago_iframe');
+        $document['pago'] = $request->get('pago');
         $document['activo'] = $request->get('activo');
-        $document['pago'] = "";
 
         // Creando Nuevo Registro
         if($request->get('id')==''){

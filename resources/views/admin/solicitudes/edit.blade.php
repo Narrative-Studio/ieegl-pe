@@ -113,7 +113,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="">Estatus <span class="required">*</span></label>
-                        {!! Form::select('aprobado', [1=>'Pendiente',2=>'Rechazada', 3=>'Aprobada'], null, ['class'=> 'form-control select2 ']) !!}
+                        {!! Form::select('aprobado', [1=>'Pendiente', 4=>'Pendiente de Pago',2=>'Rechazada', 3=>'Aprobada'], null, ['class'=> 'form-control select2 ']) !!}
                     </div>
                 </div>
             </div>
@@ -125,6 +125,30 @@
                     </div>
                 </div>
             </div>
+            @if($solicitud->convocatoria->pago == true)
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="">Pagado <span class="required">*</span></label>
+                    <div class="row skin skin-flat">
+                        <div class="col-sm-1">
+                            <fieldset>
+                                {!! Form::radio('pago', "Si", null, ['id'=>'f1', 'required'=>'required']); !!}
+                                <label for="f1">Si</label>
+                            </fieldset>
+                        </div>
+                        <div class="col-sm-2">
+                            <fieldset>
+                                {!! Form::radio('pago', "No", null, ['id'=>'f2', 'required'=>'required']); !!}
+                                <label for="f2">No</label>
+                            </fieldset>
+                        </div>
+                    </div>
+                    @if ($errors->has('pago'))
+                        <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('pago') }}</strong></span>
+                    @endif
+                </div>
+            </div>
+            @endif
             <div class="row">
                 <div class="col-sm-12 text-center">
                     <input type="hidden" value="0" name="enviar" id="enviar">

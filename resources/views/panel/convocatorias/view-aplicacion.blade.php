@@ -36,6 +36,7 @@
                                     @if($item->aprobado==1) <div class="badge badge-warning">Pendiente</div> @endif
                                     @if($item->aprobado==2) <div class="badge badge-danger">Rechazada</div> @endif
                                     @if($item->aprobado==3) <div class="badge badge-success">Aprobada</div> @endif
+                                    @if($item->aprobado==4) <div class="badge badge-warning">Pendiente de Pago</div> @endif
                                 </h4>
                                 @if($item->comentarios!='')
                                     <hr/>
@@ -43,6 +44,17 @@
                                         <h4>Comentarios: </h4>
                                         <p>{{$item->comentarios}}</p>
                                     </div>
+                                @endif
+                                @if($item->convocatoria->pago==true)
+                                    @if($item->aprobado==4)
+                                        @if($item->pago == "No")
+                                            <hr/>
+                                            <h4>Por favor realice su pago en:</h4>
+                                            <div class="iframe-pago">
+                                                {!! $item->convocatoria->pago_iframe !!}
+                                            </div>
+                                        @endif
+                                    @endif
                                 @endif
                             </div>
                         </div>
@@ -94,6 +106,13 @@
                                             <h6 class="">{{$item->responsable}}</h6>
                                         </div>
                                     </li>
+                                    @if($item->convocatoria->comentarios!='')
+                                    <li class="list-group-item d-flex justify-content-between">
+                                        <div>
+                                            <h6 class="">{{$item->convocatoria->comentarios}}</h6>
+                                        </div>
+                                    </li>
+                                    @endif
                                 </ul>
 
                             </div>

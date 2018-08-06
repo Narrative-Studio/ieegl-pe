@@ -155,6 +155,7 @@ class AdminSolicitudes extends Controller
         $document = [];
         $document['aprobado'] = $request->get('aprobado');
         $document['comentarios'] = $request->get('comentarios');
+        $document['pago'] = $request->get('pago');
         $document['fecha_aprobacion'] = now();
 
         // Actualizando Registro
@@ -177,6 +178,7 @@ class AdminSolicitudes extends Controller
             $item = $sol[0];
 
             if($item->aprobado=='1') $aprobacion = '<span style="color:#FFAB00;">Pendiente</span>';
+            if($item->aprobado=='4') $aprobacion = '<span style="color:#ffd95d;">Pendiente de Pago</span>';
             if($item->aprobado=='2') $aprobacion = '<span style="color:#880000;">Rechazada</span>';
             if($item->aprobado=='3') $aprobacion = '<span style="color:#008000;">Aprobada</span>';
 

@@ -43,6 +43,7 @@
                                                     @if($item->aprobado==1) <div class="badge badge-warning">Pendiente</div> @endif
                                                     @if($item->aprobado==2) <div class="badge badge-danger">Rechazada</div> @endif
                                                     @if($item->aprobado==3) <div class="badge badge-success">Aprobada</div> @endif
+                                                    @if($item->aprobado==4) <div class="badge badge-success" style="background-color: #ffd95d;">Pendiente de Pago</div> @endif
                                                 </td>
                                                 <td>
                                                     <a href="{{action('PanelConvocatorias@VerAplicacion',['id'=>$item->_key])}}" class="btn btn-sm btn-success mr-0"><i class="fa fa-eye"></i> Ver Aplicación</a>

@@ -1,8 +1,8 @@
 @extends('layouts.panel')
 
 @section('titulo') Convocatorias @endsection
-@section('seccion') Listado @endsection
-@section('accion') Listado @endsection
+@section('seccion') Convocatorias @endsection
+@section('accion') Listado de Convocatorias @endsection
 
 @section('content')
     <div class="content-wrapper">
@@ -15,7 +15,7 @@
                             <h4 class="card-title">Listado de Convocatorias</h4>
                         </div>
                         <div class="card-content collapse show">
-                            @if($convocatorias)
+                            @if(count($convocatorias)>0)
                                 <div class="table-responsive">
                                     <table class="table mb-0">
                                         <thead class="bg-primary white">

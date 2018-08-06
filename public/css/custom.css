@@ -119,3 +119,11 @@ figure.effect-bubba h2 {
 .grid-hover{
     margin: 0;
 }
+.carousel-item img{
+    width: 100%;
+}
+.iframe-pago iframe{
+    width: 100%;
+    border: 0;
+    height: 400px;
+}

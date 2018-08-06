@@ -193,10 +193,39 @@
     </div>
 </div>
 <div class="form-group row">
+    <label class="col-md-4 label-control" for="">¿Se necesita Pago? <span class="required">*</span></label>
+    <div class="col-md-8">
+        <div class="row skin skin-flat">
+            <div class="col-sm-1">
+                <fieldset>
+                    {!! Form::radio('pago', "Si", null, ['id'=>'f1', 'class'=>$class]); !!}
+                    <label for="f1">Si</label>
+                </fieldset>
+            </div>
+            <div class="col-sm-2">
+                <fieldset>
+                    {!! Form::radio('pago', "No", null, ['id'=>'f2', 'class'=>$class]); !!}
+                    <label for="f2">No</label>
+                </fieldset>
+            </div>
+        </div>
+        @if ($errors->has('pago'))
+            <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('pago') }}</strong></span>
+        @endif
+    </div>
+</div>
+<div class="form-group row">
     <label class="col-md-4 label-control">Comentarios adicionales</label>
     <div class="col-md-8">
         <?php $class=($errors->has('comentarios'))?'form-control error':'form-control'; ?>
         {!! Form::textarea('comentarios', null, ['class' => $class]) !!}
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-md-4 label-control">Pago (iFrame)</label>
+    <div class="col-md-8">
+        <?php $class=($errors->has('pago_iframe'))?'form-control error':'form-control'; ?>
+        {!! Form::textarea('pago_iframe', null, ['class' => $class]) !!}
     </div>
 </div>
 <h4 class="form-section"><i class="ft-command"></i> Publicar Convocatoria</h4>

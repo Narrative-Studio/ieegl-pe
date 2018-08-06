@@ -56,6 +56,11 @@ Route::prefix('panel')->group(function() {
         Route::get('/convocatorias/aplicaciones', 'PanelConvocatorias@Aplicaciones');
         Route::post('/convocatorias/aplicar/{id}', 'PanelConvocatorias@Aplicar');
         Route::post('/convocatorias/aplicando/{id}', 'PanelConvocatorias@Aplicacion');
+
+        /** Actividades **/
+        Route::get('/actividades', 'PanelActividades@Index');
+        Route::post('/actividades/save', 'PanelActividades@Save');
+        Route::get('/actividades/ver/{id}', 'PanelActividades@Ver');
     });
 });
 

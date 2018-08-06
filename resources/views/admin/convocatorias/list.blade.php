@@ -2,7 +2,7 @@
 
 @section('titulo') Listado de Convocatorias @endsection
 @section('seccion') Convocatorias @endsection
-@section('accion') Listado @endsection
+@section('accion') Listado de Convocatorias @endsection
 
 @section('content')
     <div class="content-wrapper">

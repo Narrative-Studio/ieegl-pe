@@ -47,7 +47,7 @@ class PanelConvocatorias extends Controller
         $query = '
         FOR convocatoria IN convocatorias
             FOR quien IN quien
-                FILTER convocatoria.quien == quien._key AND convocatoria.activo == "Si"
+                FILTER convocatoria.quien == quien._key AND convocatoria.activo == "Si" AND convocatoria.fecha_inicio_convocatoria <= \''.time().'\' AND convocatoria.fecha_fin_convocatoria <= \''.time().'\'
                 SORT convocatoria._key ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'
                 RETURN merge(convocatoria, {quien_nombre: quien.nombre} )
         ';
