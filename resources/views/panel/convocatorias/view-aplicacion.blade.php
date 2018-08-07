@@ -51,7 +51,7 @@
                                             <hr/>
                                             <h4>Por favor realice su pago en:</h4>
                                             <div class="iframe-pago">
-                                                {!! $item->convocatoria->pago_iframe !!}
+                                                <iframe src="{!! $item->convocatoria->pago_iframe !!}"></iframe>
                                             </div>
                                         @endif
                                     @endif

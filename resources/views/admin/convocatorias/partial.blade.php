@@ -222,10 +222,10 @@
     </div>
 </div>
 <div class="form-group row">
-    <label class="col-md-4 label-control">Pago (iFrame)</label>
+    <label class="col-md-4 label-control">URL de Pago</label>
     <div class="col-md-8">
         <?php $class=($errors->has('pago_iframe'))?'form-control error':'form-control'; ?>
-        {!! Form::textarea('pago_iframe', null, ['class' => $class]) !!}
+        {!! Form::text('pago_iframe', null, ['class' => $class]) !!}
     </div>
 </div>
 <h4 class="form-section"><i class="ft-command"></i> Publicar Convocatoria</h4>
