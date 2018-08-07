@@ -59,10 +59,10 @@
                         <a class="nav-link" href="{{url("/")}}" role="button" aria-haspopup="true" aria-expanded="false"><!--<i class="fa fa-bell-o"></i>--> Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url("/")}}" role="button" aria-haspopup="true" aria-expanded="false">Acerca de</a>
+                        <a class="nav-link" href="{{action("HomeController@Acerca")}}" role="button" aria-haspopup="true" aria-expanded="false">Acerca de</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url("/")}}" role="button" aria-haspopup="true" aria-expanded="false">¿Por qué Registrarme?</a>
+                        <a class="nav-link" href="{{action("HomeController@Porque")}}" role="button" aria-haspopup="true" aria-expanded="false">¿Por qué Registrarme?</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{url("/")}}" role="button" aria-haspopup="true" aria-expanded="false">Eventos de Emprendimiento</a>
@@ -89,7 +89,13 @@
 <!-- ////////////////////////////////////////////////////////////////////////////-->
 <footer class="footer fixed-bottom footer-dark navbar-border">
     <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
-        <span class="float-md-left d-block d-md-inline-block">Copyright &copy; {{date('Y')}} <a class="text-bold-800 grey darken-2" href="#" target="_blank">Tecnológico de Monterrey </a>, All rights reserved. </span>
+        <span class="float-md-left d-block d-md-inline-block">
+            <a href="{{action("HomeController@Aviso")}}">Aviso de Privacidad</a> |
+            <a href="{{action("HomeController@Terminos")}}">Términos y Condiciones</a>
+        </span>
+        <span class="float-md-right d-block d-md-inline-block">
+            &copy; Tecnológico de Monterrey {{date('Y')}}, All rights reserved.
+        </span>
     </p>
 </footer>
 <!-- BEGIN VENDOR JS-->

@@ -26,7 +26,6 @@ class UserRequest extends FormRequest
                     return [
                         'nombre'                    => 'required|string|max:255',
                         'apellidos'                 => 'required|string|max:255',
-                        'telefono'                  => 'required|min:10',
                         'email'                     => 'required|string|email|max:255|confirmed',
                         'password'                  => 'required|string|min:4|max:255|confirmed',
                         'g-recaptcha-response'      => 'required|recaptcha',
@@ -39,7 +38,6 @@ class UserRequest extends FormRequest
                     $rules = [
                         'nombre'                    => 'required|string|max:255',
                         'apellidos'                 => 'required|string|max:255',
-                        'telefono'                  => 'required|min:10',
                     ];
                     if (Request::input('password') != null) {
                         $rules['password']      = 'required|string|min:4|max:255|confirmed';

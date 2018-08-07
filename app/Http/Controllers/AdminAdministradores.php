@@ -103,12 +103,12 @@ class AdminAdministradores extends Controller
 
         $document = [];
         $document['nombre'] = $request->get('nombre');
-        $document['apellidos'] = $request->get('nombre');
+        $document['apellidos'] = $request->get('apellidos');
         $document['email'] = $request->get('email');
         $document['rol_id'] = $request->get('rol_id');
         $document['active'] = ($request->get('active')=='')?0:1;
         $document['isAdmin'] = 1;
-        $document['password'] = Hash::make($request->get('password'));
+        if($request->get('password')!='') $document['password'] = Hash::make($request->get('password'));
 
         // Creando Nuevo Registro
         if($request->get('id')==''){

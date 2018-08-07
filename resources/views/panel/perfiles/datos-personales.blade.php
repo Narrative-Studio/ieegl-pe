@@ -147,7 +147,7 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="">A que te dedicas <span class="required">*</span></label>
+                                                        <label for="">A que te dedicas <span class="required">*</span><small>.</small></label>
                                                         <?php $class=($errors->has('a_que_se_dedica'))?'form-control is-invalid':'form-control'; ?>
                                                         {!! Form::select('a_que_se_dedica', ['Empleado' => 'Empleado', 'Empleado con Negocio Propio' => 'Empleado con Negocio Propio', 'Estudiante'=>'Estudiante','Estudiante con Negocio Propio'=>'Estudiante con Negocio Propio', 'Negocio Propio'=>'Negocio Propio'], null, ['placeholder' => 'Selecciona','class'=>$class]); !!}
                                                         @if ($errors->has('a_que_se_dedica'))
@@ -159,9 +159,9 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="">Perfil Linkedin</label>
+                                                        <label for="">Perfil Linkedin <small>Por favor inserta el URL a tu perfil público de linkedin, ejemplo: https://www.linkedin.com/in/username/</small></label>
                                                         <?php $class=($errors->has('linkedin'))?'form-control is-invalid':'form-control'; ?>
-                                                        {!! Form::text('linkedin', null, ['class'=>$class]); !!}
+                                                        {!! Form::text('linkedin', null, ['class'=>$class, 'placeholder'=>'https://www.linkedin.com/in/']); !!}
                                                     </div>
                                                 </div>
                                             </div>

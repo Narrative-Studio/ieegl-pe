@@ -38,7 +38,6 @@ class EmprendimientosDatosGeneralesRequest extends FormRequest
                         'diferencia_competencia'                => 'required',
                         'patente_ip'                => 'required',
                         'investigacion_desarrollo'                => 'required',
-                        'nivel_tlr'                => 'required',
                         'numero_socios'                => 'required',
                         'socio_exit_empresa'                => 'required',
                         'logo'                => 'image:jpg,jpeg',

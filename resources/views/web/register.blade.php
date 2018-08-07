@@ -33,7 +33,7 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="nombre">Nombre</label>
+                                                        <label for="nombre">Nombre <span class="required">*</span></label>
                                                         <input type="text" class="form-control{{ $errors->has('nombre') ? ' is-invalid' : '' }}" value="{{old('nombre')}}" name="nombre" id="nombre">
                                                         @if ($errors->has('nombre'))
                                                             <span class="invalid-feedback" role="alert">
@@ -44,7 +44,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="apellidos">Apellidos</label>
+                                                        <label for="apellidos">Apellidos <span class="required">*</span></label>
                                                         <input type="text" class="form-control{{ $errors->has('apellidos') ? ' is-invalid' : '' }}" value="{{old('apellidos')}}" name="apellidos" id="apellidos">
                                                         @if ($errors->has('apellidos'))
                                                             <span class="invalid-feedback" role="alert">
@@ -70,7 +70,7 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="email">Correo Electrónico</label>
+                                                        <label for="email">Correo Electrónico <span class="required">*</span></label>
                                                         <input class="form-control{{ ($errors->has('email') || session('error')) ? ' is-invalid' : '' }}" type="email" value="{{old('email')}}"  name="email" id="email">
                                                         @if ($errors->has('email') || session('error'))
                                                             <span class="invalid-feedback" role="alert">
@@ -81,7 +81,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="email_confirmation">Confirma Correo Electrónico</label>
+                                                        <label for="email_confirmation">Confirma Correo Electrónico <span class="required">*</span></label>
                                                         <input class="form-control{{ ($errors->has('email') || session('error')) ? ' is-invalid' : '' }}" type="email" value="{{old('email_confirmation')}}"  name="email_confirmation" id="email_confirmation">
                                                     </div>
                                                 </div>
@@ -89,7 +89,7 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="password">Contraseña</label>
+                                                        <label for="password">Contraseña <span class="required">*</span></label>
                                                         <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" type="password"  name="password" id="password">
                                                         @if ($errors->has('password'))
                                                             <span class="invalid-feedback" role="alert">
@@ -100,7 +100,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="password_confirmation">Confirma Contraseña</label>
+                                                        <label for="password_confirmation">Confirma Contraseña <span class="required">*</span></label>
                                                         <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" type="password" name="password_confirmation" id="password-_confirmation">
                                                     </div>
                                                 </div>
@@ -114,7 +114,7 @@
                                                                     <input type="checkbox" name="terminos_y_condiciones" value="1" @if(old('terminos_y_condiciones')==1) checked @endif>
                                                                 </td>
                                                                 <td valign="top">
-                                                                    He leído los <a href="#">Términos y Condiciones de Uso</a> y la <a href="#">Política de Privacidad</a>
+                                                                    He leído los <a href="{{action("HomeController@Terminos")}}" target="_blank">Términos y Condiciones de Uso</a> y la <a href="{{action("HomeController@Aviso")}}" target="_blank">Política de Privacidad</a>
                                                                     y dar de mi conocimiento para que Startup Identification utilice mi información por motivos y Eventos relacionados al Emprendimiento.
                                                                 </td>
                                                             </tr>

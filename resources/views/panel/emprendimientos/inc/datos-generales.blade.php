@@ -254,7 +254,7 @@
     <div class="col-md-12">
         <?php $class=($errors->has('nivel_tlr'))?'is-invalid':''; ?>
         <div class="form-group {{$class}}">
-            <label for="">¿En qué nivel de TLR estas (del 1 al 9)? <span class="required">*</span></label>
+            <label for="">¿En qué nivel de TLR estas (del 1 al 9)? </label>
             <?php $class=($errors->has('nivel_tlr'))?'form-control is-invalid':'form-control'; ?>
             {!! Form::select('nivel_tlr', $nivel_tlr, null, ['placeholder' => 'Selecciona','class'=> 'select2 '.$class]) !!}
             @if ($errors->has('nivel_tlr'))

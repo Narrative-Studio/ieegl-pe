@@ -137,7 +137,23 @@ class HomeController extends Controller
         }
     }
 
-    public function test(){
-        return view('web.confirmacion');
+    public function Acerca(){
+        return view('web.acerca-de');
+    }
+
+    public function Porque(){
+        return view('web.porque');
+    }
+
+    public function Numeros(){
+        return view('web.numeros');
+    }
+
+    public function Aviso(){
+        return view('web.aviso-privacidad');
+    }
+
+    public function Terminos(){
+        return view('web.terminos');
     }
 }

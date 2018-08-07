@@ -26,7 +26,6 @@ class UsuarioRequest extends FormRequest
                     return [
                         'nombre'                    => 'required|string|max:255',
                         'apellidos'                 => 'required|string|max:255',
-                        'telefono'                  => 'required|min:8',
                         'email'                     => 'required|string|email|max:255',
                     ];
                     break;

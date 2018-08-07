@@ -1,6 +1,11 @@
 <?php
 Auth::routes();
 Route::get('/', 'HomeController@Index');
+Route::get('/acerca-de', 'HomeController@Acerca');
+Route::get('/por-que-registrarme', 'HomeController@Porque');
+Route::get('/aviso-de-privacidad', 'HomeController@Aviso');
+Route::get('/terminos-y-condiciones', 'HomeController@Terminos');
+
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/restringido', 'HomeController@restringido')->name('restringido');
 Route::get('/registro', 'HomeController@Register')->name('register');
@@ -8,7 +13,6 @@ Route::put('/registro', 'HomeController@RegisterSave');
 Route::get('/confirmation/{token}', 'HomeController@Confirmation');
 
 Route::get('/arango', 'TestController@Index');
-Route::get('/test', 'HomeController@Test');
 
 Route::prefix('panel')->group(function() {
     Route::middleware('auth')->group(function () {
