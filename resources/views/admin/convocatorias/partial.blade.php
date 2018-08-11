@@ -39,7 +39,7 @@
     <label class="col-md-4 label-control" for="">Fecha inicio período convocatoria <span class="required">*</span></label>
     <div class="col-md-8">
         <?php $class=($errors->has('fecha_inicio_convocatoria'))?'form-control is-invalid':'form-control'; ?>
-        {!! Form::date('fecha_inicio_convocatoria', ($item)?date('Y-m-d', $item->fecha_inicio_convocatoria):null, ['class'=>$class]); !!}
+        {!! Form::date('fecha_inicio_convocatoria', (isset($item))?date('Y-m-d', $item->fecha_inicio_convocatoria):null, ['class'=>$class]); !!}
         @if ($errors->has('fecha_inicio_convocatoria'))
             <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('fecha_inicio_convocatoria') }}</strong></span>
         @endif
@@ -49,7 +49,7 @@
     <label class="col-md-4 label-control"  for="">Fecha fin de convocatoria <span class="required">*</span></label>
     <div class="col-md-8">
         <?php $class=($errors->has('fecha_fin_convocatoria'))?'form-control is-invalid':'form-control'; ?>
-        {!! Form::date('fecha_fin_convocatoria', ($item)?date('Y-m-d', $item->fecha_fin_convocatoria):null, ['class'=>$class]); !!}
+        {!! Form::date('fecha_fin_convocatoria', (isset($item))?date('Y-m-d', $item->fecha_fin_convocatoria):null, ['class'=>$class]); !!}
         @if ($errors->has('fecha_fin_convocatoria'))
             <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('fecha_fin_convocatoria') }}</strong></span>
         @endif
@@ -59,7 +59,7 @@
     <label class="col-md-4 label-control"  for="">Fecha inicial del evento <span class="required">*</span></label>
     <div class="col-md-8">
         <?php $class=($errors->has('fecha_inicio_evento'))?'form-control is-invalid':'form-control'; ?>
-        {!! Form::date('fecha_inicio_evento', ($item)?date('Y-m-d', $item->fecha_inicio_evento):null, ['class'=>$class]); !!}
+        {!! Form::date('fecha_inicio_evento', (isset($item))?date('Y-m-d', $item->fecha_inicio_evento):null, ['class'=>$class]); !!}
         @if ($errors->has('fecha_inicio_evento'))
             <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('fecha_inicio_evento') }}</strong></span>
         @endif
@@ -69,7 +69,7 @@
     <label class="col-md-4 label-control"  for="">Fecha final del evento <span class="required">*</span></label>
     <div class="col-md-8">
         <?php $class=($errors->has('fecha_fin_evento'))?'form-control is-invalid':'form-control'; ?>
-        {!! Form::date('fecha_fin_evento', ($item)?date('Y-m-d', $item->fecha_fin_evento):null, ['class'=>$class]); !!}
+        {!! Form::date('fecha_fin_evento', (isset($item))?date('Y-m-d', $item->fecha_fin_evento):null, ['class'=>$class]); !!}
         @if ($errors->has('fecha_fin_evento'))
             <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('fecha_fin_evento') }}</strong></span>
         @endif
