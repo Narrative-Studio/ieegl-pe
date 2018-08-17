@@ -87,10 +87,10 @@ class PanelEmprendimientos extends Controller
         }
 
         // Obteniendo Industrias
-        $industrias = $this->ArangoDB->Query('FOR doc IN industrias RETURN doc');
+        $industrias = $this->ArangoDB->Query('FOR doc IN industrias SORT doc.nombre ASC RETURN doc');
 
         // Obteniendo Etapas
-        $etapas = $this->ArangoDB->Query('FOR doc IN etapas RETURN doc', true);
+        $etapas = $this->ArangoDB->Query('FOR doc IN etapas SORT doc.nombre ASC RETURN doc', true);
         $etapas = $this->ArangoDB->SelectFormat($etapas, '_key', 'nombre');
 
         // Paises

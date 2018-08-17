@@ -11,7 +11,7 @@
                             <label for="l1">Si</label>
                         </fieldset>
                     </div>
-                    <div class="col-sm-1">
+                    <div class="col-sm-2">
                         <fieldset>
                             {!! Form::radio('lanzar_producto', "No", null, ['id'=>'l2', 'class'=>'lanzar '.$class]); !!}
                             <label for="l2">No</label>
@@ -62,7 +62,7 @@
                                 <label for="v1">Si</label>
                             </fieldset>
                         </div>
-                        <div class="col-sm-1">
+                        <div class="col-sm-2">
                             <fieldset>
                                 {!! Form::radio('realizado_ventas', "No", null, ['id'=>'v2', 'class'=>'ventas '.$class]); !!}
                                 <label for="v2">No</label>

@@ -212,7 +212,7 @@
                         <label for="pat1">Si</label>
                     </fieldset>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-sm-2">
                     <fieldset>
                         {!! Form::radio('patente_ip', "No", null, ['id'=>'pat2', 'class'=>$class]); !!}
                         <label for="pat2">No</label>
@@ -237,7 +237,7 @@
                         <label for="in1">Si</label>
                     </fieldset>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-sm-2">
                     <fieldset>
                         {!! Form::radio('investigacion_desarrollo', "No", null, ['id'=>'in2', 'class'=>$class]); !!}
                         <label for="in2">No</label>
@@ -287,7 +287,7 @@
                         <label for="socio1">Si</label>
                     </fieldset>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-sm-2">
                     <fieldset>
                         {!! Form::radio('socio_exit_empresa', "No", null, ['id'=>'socio2', 'class'=>$class]); !!}
                         <label for="socio2">No</label>

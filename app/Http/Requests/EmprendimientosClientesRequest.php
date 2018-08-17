@@ -25,7 +25,7 @@ class EmprendimientosClientesRequest extends FormRequest
             case 'POST':
                 {
                     $rules =  [
-                        'usuarios_clientes'             => 'required',
+                        'tiene_clientes'             => 'required',
                     ];
                     return $rules;
                     break;

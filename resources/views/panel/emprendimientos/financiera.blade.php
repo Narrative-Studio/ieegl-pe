@@ -82,7 +82,7 @@
                                                                     <label for="l1">Si</label>
                                                                 </fieldset>
                                                             </div>
-                                                            <div class="col-sm-1">
+                                                            <div class="col-sm-2">
                                                                 <fieldset>
                                                                     {!! Form::radio('valoracion_emprendimiento', "No", null, ['id'=>'l2', 'class'=>'valoracion_emprendimiento '.$class]); !!}
                                                                     <label for="l2">No</label>

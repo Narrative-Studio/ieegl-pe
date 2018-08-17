@@ -79,15 +79,6 @@
                                                 </span>
                                             @endif
                                         </fieldset>
-                                        <div class="form-group row">
-                                            <div class="col-md-6 col-12 text-center text-md-left">
-                                                <fieldset>
-                                                    <input type="checkbox" class="chk-remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
-                                                    <label for="remember-me"> Recordarme</label>
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-md-6 col-12 text-center text-md-right"><a href="{{ route('password.request') }}" class="card-link">Recordar Contraseña</a></div>
-                                        </div>
                                         <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="ft-unlock"></i> Entrar</button>
                                     </form>
                                 </div>

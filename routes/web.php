@@ -1,6 +1,13 @@
 <?php
 Auth::routes();
-Route::get('/', 'HomeController@Index');
+//Route::get('/', 'HomeController@Index');
+Route::get('/', function () {
+    if(Auth::check()) {
+        return redirect('/panel');
+    } else {
+        return view('auth.login');
+    }
+});
 Route::get('/acerca-de', 'HomeController@Acerca');
 Route::get('/por-que-registrarme', 'HomeController@Porque');
 Route::get('/aviso-de-privacidad', 'HomeController@Aviso');

@@ -69,7 +69,7 @@
                                                                 <label for="l1">Si</label>
                                                             </fieldset>
                                                         </div>
-                                                        <div class="col-sm-1">
+                                                        <div class="col-sm-2">
                                                             <fieldset>
                                                                 {!! Form::radio('tiene_usuarios', "No", null, ['id'=>'l2', 'class'=>'tiene_usuarios '.$class]); !!}
                                                                 <label for="l2">No</label>

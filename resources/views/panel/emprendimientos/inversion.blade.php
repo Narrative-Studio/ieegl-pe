@@ -138,7 +138,7 @@
                                                                 <label for="l1">Si</label>
                                                             </fieldset>
                                                         </div>
-                                                        <div class="col-sm-1">
+                                                        <div class="col-sm-2">
                                                             <fieldset>
                                                                 {!! Form::radio('invertido_capital', "No", null, ['id'=>'l2', 'class'=>'invertido_capital '.$class]); !!}
                                                                 <label for="l2">No</label>
@@ -224,7 +224,7 @@
                                                                         <label for="l1">Si</label>
                                                                     </fieldset>
                                                                 </div>
-                                                                <div class="col-sm-1">
+                                                                <div class="col-sm-2">
                                                                     <fieldset>
                                                                         {!! Form::radio('inversion_otras', "No", null, ['id'=>'l2', 'class'=>'inversion_otras '.$class]); !!}
                                                                         <label for="l2">No</label>
@@ -318,7 +318,7 @@
                                                                         <label for="l1">Si</label>
                                                                     </fieldset>
                                                                 </div>
-                                                                <div class="col-sm-1">
+                                                                <div class="col-sm-2">
                                                                     <fieldset>
                                                                         {!! Form::radio('buscando_capital', "No", null, ['id'=>'l2', 'class'=>'buscando_capital '.$class]); !!}
                                                                         <label for="l2">No</label>

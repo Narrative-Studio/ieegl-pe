@@ -101,11 +101,12 @@
             <li class=" nav-item"><a href="{{action('PanelEmprendimientos@Index')}}"><i class="ft-list"></i><span class="menu-title">Lista</span></a></li>
             <li class=" nav-item"><a href="{{action('PanelEmprendimientos@DatosGenerales')}}"><i class="icon-plus"></i><span class="menu-title">Agregar Emprendimiento</span></a></li>
 
-            <li class=" navigation-header">
+            <!--<li class=" navigation-header">
                 <span data-i18n="nav.category.general">Mi Actividad</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="General"></i>
             </li>
             <li class=" nav-item"><a href="#"><i class="ft-list"></i><span class="menu-title">Lista</span></a></li>
             <li class=" nav-item"><a href="#"><i class="icon-plus"></i><span class="menu-title">Agregar Actividad</span></a></li>
+            -->
             <li class=" navigation-header">
                 <span data-i18n="nav.category.general">Convocatorias</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="General"></i>
             </li>

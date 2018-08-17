@@ -52,7 +52,7 @@
                                         <?php $e_active = 'clientes';?>
                                         @include('panel.emprendimientos.inc.nav')
                                     </ul>
-                                    {!! Form::model($item, ['action' => 'PanelEmprendimientos@SaveClientes', 'method' => 'post', 'files'=>'true']) !!}
+                                    {!! Form::model($item, ['action' => 'PanelEmprendimientos@SaveClientes', 'method' => 'post', 'files'=>'false']) !!}
                                     @if(isset($item->_key))
                                         <input name="id" type="hidden" value="{{$item->_key}}">
                                     @endif
@@ -69,7 +69,7 @@
                                                                 <label for="l1">Si</label>
                                                             </fieldset>
                                                         </div>
-                                                        <div class="col-sm-1">
+                                                        <div class="col-sm-2">
                                                             <fieldset>
                                                                 {!! Form::radio('tiene_clientes', "No", null, ['id'=>'l2', 'class'=>'tiene_clientes '.$class]); !!}
                                                                 <label for="l2">No</label>

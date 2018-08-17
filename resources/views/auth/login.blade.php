@@ -55,15 +55,6 @@
 
                                             @endif
                                         </fieldset>
-                                        <div class="form-group row">
-                                            <div class="col-md-6 col-12 text-center text-md-left">
-                                                <fieldset>
-                                                    <input type="checkbox" name="remember" class="chk-remember" {{ old('remember') ? 'checked' : '' }}>
-                                                    <label for="remember-me"> Recordarme</label>
-                                                </fieldset>
-                                            </div>
-                                            <!--<div class="col-md-6 col-12 text-center text-md-right"><a href="recover-password.html" class="card-link">Recuperar Contraseña</a></div>-->
-                                        </div>
                                         <button type="submit" class="btn btn-primary btn-block btn-lg"><i class="ft-unlock"></i> Entrar</button>
                                     </form>
                                 </div>

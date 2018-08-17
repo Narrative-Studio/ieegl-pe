@@ -252,6 +252,7 @@ class PanelConvocatorias extends Controller
 
         if($verificar==true) abort(404);
 
+
         return view('panel.convocatorias.aplicar', compact('item','emprendimiento', 'puede_aplicar', 'errores'));
     }
 
@@ -341,7 +342,9 @@ class PanelConvocatorias extends Controller
 
         }else{
             // Verificando que no se duplique el emprendimiento en la convicatoria
-            $puede_aplicar = $this->VerificarEmeprendimiento('', $key);
+            $verificar = $this->VerificarEmeprendimiento('', $key);
+            if($verificar==true) abort(404);
+            $emprendimiento = false;
         }
 
         if($puede_aplicar){

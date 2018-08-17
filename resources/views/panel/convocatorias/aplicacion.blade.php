@@ -19,7 +19,11 @@
                                         <i class="icon-check success font-large-5"></i>
                                     </div>
                                     <div class="card-text mt-2">
-                                        <p>Gracias <strong>{{auth()->user()->nombre}} {{auth()->user()->apellidos}}</strong> por aplicar tu emprendimiento <strong>"{{$emprendimiento->nombre}}"</strong> a la convocatoria.</p>
+                                        @if($emprendimiento==false)
+                                            <p>Gracias <strong>{{auth()->user()->nombre}} {{auth()->user()->apellidos}}</strong> por aplicar a la convocatoria.</p>
+                                        @else
+                                            <p>Gracias <strong>{{auth()->user()->nombre}} {{auth()->user()->apellidos}}</strong> por aplicar tu emprendimiento <strong>"{{$emprendimiento->nombre}}"</strong> a la convocatoria.</p>
+                                        @endif
                                         <p class="mt-1">Estaremos analizando tu solicitud y en breve te daremos una respuesta.</p>
                                     </div>
                                 @else
