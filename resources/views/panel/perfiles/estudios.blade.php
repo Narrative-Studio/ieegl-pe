@@ -112,9 +112,11 @@
                                                             style="visibility: visible;height: auto;"
                                                         @else
                                                             @if(old('universidad')=='' && isset($item))
-                                                                @if($item->universidad=='3961308')
-                                                                    style="visibility: visible;height: auto;"
-                                                                @endif
+																@if(isset($item->universidad))
+	                                                                @if($item->universidad=='3961308')
+	                                                                    style="visibility: visible;height: auto;"
+	                                                                @endif
+																@endif
                                                             @endif
                                                         @endif
                                                     @endif>
