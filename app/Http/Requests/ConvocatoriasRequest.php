@@ -26,6 +26,7 @@ class ConvocatoriasRequest extends FormRequest
                     $rules =  [
                         'nombre'             => 'required|max:255',
                         'descripcion'             => 'required',
+                        'descripcion_corta'             => 'required|max:255',
                         'entidad'             => 'required',
                         'quien'             => 'required',
                         'responsable'             => 'required',
@@ -48,6 +49,7 @@ class ConvocatoriasRequest extends FormRequest
                     $rules =  [
                         'nombre'             => 'required|max:255',
                         'descripcion'             => 'required',
+                        'descripcion_corta'             => 'required|max:255',
                         'entidad'             => 'required',
                         'quien'             => 'required',
                         'responsable'             => 'required',

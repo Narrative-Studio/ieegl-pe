@@ -139,6 +139,7 @@ class AdminConvocatorias extends Controller
         $document = [];
         $document['nombre'] = $request->get('nombre');
         $document['descripcion'] = $request->get('descripcion');
+        $document['descripcion_corta'] = $request->get('descripcion_corta');
         $document['entidad'] = $request->get('entidad');
         $document['quien'] = $request->get('quien');
         $document['fecha_inicio_convocatoria'] = strtotime($request->get('fecha_inicio_convocatoria'));

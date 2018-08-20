@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PerfilDatosPersonalesRequest;
 use App\Http\Requests\PerfilEstudiosRequest;
 use App\Http\Requests\UserRequest;
+use App\Mail\SolicitudAdmin;
 use Illuminate\Http\Request;
 use App\Repositories\ArangoDB;
 use ArangoDBClient\Exception as ArangoException;
 use ArangoDBClient\ClientException as ArangoClientException;
 use ArangoDBClient\ServerException as ArangoServerException;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
 
@@ -268,11 +270,22 @@ class PanelConvocatorias extends Controller
 
         //Obteniendo Convocatoria
         $query = '
-            FOR convocatoria IN convocatorias
-            FILTER convocatoria._key=="'.$key.'"
-            RETURN convocatoria';
+        FOR convocatoria IN convocatorias 
+            FOR usuario IN users
+            FILTER convocatoria._key=="'.$key.'" AND usuario._key == convocatoria.responsable
+            RETURN merge(convocatoria, {usuario: usuario})
+        ';
         $item = $this->ArangoDB->Query($query);
         $item = $item[0];
+
+        //Obteniendo usuario
+        $query = '
+        FOR usuario IN users 
+            FILTER usuario._key=="'.auth()->user()->_key.'"
+            RETURN usuario
+        ';
+        $user = $this->ArangoDB->Query($query);
+        $user = $user[0];
 
         // Si la convocatoria requiere un Emprendimiento
         if($item->quien!='6375236') {
@@ -363,6 +376,15 @@ class PanelConvocatorias extends Controller
             $documentId = $this->ArangoDB->Save($this->collection, $document);
             //Creando Edge
             $this->ArangoDB->CreateEdge(['label' => 'hasConvocatoria', 'created_time'=>now()], 'hasConvocatoria', 'users/'.auth()->user()->_key, $documentId);
+
+            // Enviando Mail al Administrador
+            $document['responsable_email'] = $item->usuario->email;
+            $document['usuario'] = $user->nombre.' '.$user->apellidos;
+            $document['usuario_email'] = $user->email;
+            $document['convocatoria_key'] = $item->_key;
+            $document['convocatoria_nombre'] = $item->nombre;
+            Mail::to('adanluna@gmail.com')
+                ->send(new SolicitudAdmin($document));
         }
 
         return view('panel.convocatorias.aplicacion', compact('puede_aplicar','item','emprendimiento'));

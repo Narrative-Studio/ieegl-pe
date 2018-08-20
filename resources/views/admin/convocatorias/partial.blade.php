@@ -7,6 +7,13 @@
     </div>
 </div>
 <div class="form-group row">
+    <label class="col-md-4 label-control">Descripción corta</label>
+    <div class="col-md-8">
+        <?php $class=($errors->has('descripcion_corta'))?'form-control error':'form-control'; ?>
+        {!! Form::textarea('descripcion_corta', null, ['class' => $class]) !!}
+    </div>
+</div>
+<div class="form-group row">
     <label class="col-md-4 label-control">Descripción</label>
     <div class="col-md-8">
         <?php $class=($errors->has('descripcion'))?'form-control error':'form-control'; ?>
