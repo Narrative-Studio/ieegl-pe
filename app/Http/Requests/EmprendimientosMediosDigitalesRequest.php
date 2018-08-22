@@ -25,6 +25,8 @@ class EmprendimientosMediosDigitalesRequest extends FormRequest
             case 'POST':
                 {
                     $rules =  [
+                        'logo'                => 'image:jpg,jpeg',
+                        'presentacion'                => 'mimes:pdf',
                     ];
                     return $rules;
                     break;

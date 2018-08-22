@@ -26,7 +26,6 @@ class EmprendimientosDatosGeneralesRequest extends FormRequest
                     $rules =  [
                         'nombre'             => 'required|max:255',
                         'descripcion'             => 'required|max:140',
-                        'fecha_fundacion'      => 'required|date',
                         'numero_colaboradores'                  => 'required',
                         'pais'                  => 'required',
                         'ciudad'                => 'required',
@@ -36,12 +35,9 @@ class EmprendimientosDatosGeneralesRequest extends FormRequest
                         'problema_soluciona'                => 'required',
                         'competencia'                => 'required',
                         'diferencia_competencia'                => 'required',
-                        'patente_ip'                => 'required',
+                        'diferenciador_modelo_negocio'                => 'required',
                         'investigacion_desarrollo'                => 'required',
                         'numero_socios'                => 'required',
-                        'socio_exit_empresa'                => 'required',
-                        'logo'                => 'image:jpg,jpeg',
-                        'cedula_identificacion'                => 'image:jpg,jpeg',
                     ];
                     return $rules;
                     break;

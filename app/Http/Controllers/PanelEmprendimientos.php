@@ -124,12 +124,13 @@ class PanelEmprendimientos extends Controller
         $document['problema_soluciona'] = $request->get('problema_soluciona');
         $document['competencia'] = $request->get('competencia');
         $document['diferencia_competencia'] = $request->get('diferencia_competencia');
-        $document['patente_ip'] = $request->get('patente_ip');
         $document['investigacion_desarrollo'] = $request->get('investigacion_desarrollo');
         $document['nivel_tlr'] = $request->get('nivel_tlr');
         $document['numero_socios'] = $request->get('numero_socios');
         $document['socio_exit_empresa'] = $request->get('socio_exit_empresa');
         $document['socios'] = $request->get('socios');
+        $document['como_te_enteraste'] = $request->get('como_te_enteraste');
+        $document['diferenciador_modelo_negocio'] = $request->get('diferenciador_modelo_negocio');
         $document['module_datos'] = true;
 
         if($request->get('id')==''){
@@ -153,17 +154,6 @@ class PanelEmprendimientos extends Controller
         }
 
         $key = str_replace('emprendimientos/','', $documentId);
-
-        // Guardando Logo del Emprendimiento
-        if($_FILES['logo']['size'] != 0 && $_FILES['logo']['error'] == 0){
-            $img = Image::make($_FILES['logo']['tmp_name']);
-            $img->save(public_path('/emprendimientos_pics/logo_'.$key .'.jpg', 100));
-        }
-        // Guardando Cédula de Identificación Fiscal del Emprendimiento
-        if($_FILES['cedula_identificacion']['size'] != 0 && $_FILES['cedula_identificacion']['error'] == 0){
-            $img = Image::make($_FILES['cedula_identificacion']['tmp_name']);
-            $img->save(public_path('/emprendimientos_pics/cedula_'.$key .'.jpg', 100));
-        }
 
         Session::flash('status_success', 'Datos Personales Guardados');
         return redirect()->action($this->controller.'@MediosDigitales', ['id'=>$key]);
@@ -222,87 +212,18 @@ class PanelEmprendimientos extends Controller
         $documentId = $request->get('id');
         $this->ArangoDB->Update($this->collection, $this->collection.'/'.$documentId, $document);
 
+        // Guardando Logo del Emprendimiento
+        if($_FILES['logo']['size'] != 0 && $_FILES['logo']['error'] == 0){
+            $img = Image::make($_FILES['logo']['tmp_name']);
+            $img->save(public_path('/emprendimientos_pics/logo_'.$documentId.'.jpg', 100));
+        }
+
+        // Guardando Presentacion PDF
+        if($_FILES['presentacion']['size'] != 0 && $_FILES['presentacion']['error'] == 0){
+            $request->file('presentacion')->move(public_path('/emprendimientos_pdf/'),'presentacion_'.$documentId.'.pdf');
+        }
+
         Session::flash('status_success', 'Medios Digitales Guardados');
-        return redirect()->action($this->controller.'@Ventas', ['id'=>$documentId]);
-    }
-
-    /**
-     * Ventas del Emprendimiento
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws ArangoException
-     */
-    public function Ventas($id)
-    {
-        // Montos de ventas si es que existe el registro
-        $montos = [];
-
-        //Obteniendo el Emprendimiento
-        $item = $this->getItem($id);
-
-        // Obteniendo Modelos de Ventas
-        $modelos_ventas = $this->modelos_ventas;
-
-        // Meses Anteriores
-        if(isset($item->ventas) && $item->ventas!=null){
-            $_meses = $this->getItemMeses($item->ventas);
-            $montos = $_meses['montos'];
-            $meses = $_meses['meses_items'];
-        }else{
-            $meses = $this->getMeses($this->meses_montos, time());
-            //$meses = $this->getMeses($this->meses_montos, strtotime("2018-02-01"));
-        }
-        $n_meses = $this->n_meses;
-
-        return view('panel.' . $this->collection . '.ventas', compact('item','modelos_ventas','meses','n_meses','montos'));
-    }
-
-    /**
-     * Guardar datos de Ventas de Emprendimiento
-     * @param EmprendimientosVentasRequest $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws ArangoClientException
-     * @throws ArangoException
-     */
-    public function SaveVentas(EmprendimientosVentasRequest $request){
-        $document = [];
-        $document['lanzar_producto'] = $request->get('lanzar_producto');
-        $document['module_ventas'] = true;
-
-        if($request->get('lanzar_producto')=="Si"){
-
-            $document['fecha_lanzamiento'] = $request->get('fecha_lanzamiento');
-            $document['modelo_ventas'] = $request->get('modelo_ventas');
-            $document['realizado_ventas'] = $request->get('realizado_ventas');
-
-            if($request->get('realizado_ventas')=="Si"){
-
-                $ventas = [];
-                foreach($_REQUEST as $r=>$v){
-                    if(preg_match('/mes_[0-9]+_[0-9]+/', $r)){ // obteniendo solo variables request de las ventas
-                        $ex = explode("_", $r);
-                        $ventas[$ex[2]][$ex[1]] = str_replace(',','',$v);
-                    }
-                }
-                $document['ventas'] = $ventas;
-                $document['venta_total_año_pasado'] = $request->get('venta_total_año_pasado');
-
-            }else{
-                $document['venta_total_año_pasado'] = null;
-                $document['ventas'] = null;
-            }
-        }else{
-            $document['fecha_lanzamiento'] = null;
-            $document['modelo_ventas'] = null;
-            $document['realizado_ventas'] = null;
-            $document['venta_total_año_pasado'] = null;
-            $document['ventas'] = null;
-        }
-
-        $documentId = $request->get('id');
-        $this->ArangoDB->Update($this->collection, $this->collection.'/'.$documentId, $document);
-
-        Session::flash('status_success', 'Ventas Guardadas');
         return redirect()->action($this->controller.'@Clientes', ['id'=>$documentId]);
     }
 
@@ -356,6 +277,7 @@ class PanelEmprendimientos extends Controller
             }
             $document['clientes'] = $clientes;
             $document['clientes_activos'] = $request->get('clientes_activos');
+            $document['caracteristicas_clientes'] = $request->get('caracteristicas_clientes');
 
         }else{
             $document['clientes_activos'] = null;
@@ -419,6 +341,7 @@ class PanelEmprendimientos extends Controller
             }
             $document['usuarios'] = $usuarios;
             $document['usuarios_activos'] = $request->get('usuarios_activos');
+            $document['caracteristicas_usuarios'] = $request->get('caracteristicas_usuarios');
 
         }else{
             $document['usuarios_activos'] = null;
@@ -429,6 +352,121 @@ class PanelEmprendimientos extends Controller
         $this->ArangoDB->Update($this->collection, $this->collection.'/'.$documentId, $document);
 
         Session::flash('status_success', 'Usuarios Guardados');
+        return redirect()->action($this->controller.'@Financiera', ['id'=>$documentId]);
+    }
+
+    /**
+     * Informacion Financiera del Emprendimiento
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws ArangoException
+     */
+    public function Financiera($id)
+    {
+
+        // Montos de ventas si es que existe el registro
+        $montos = [];
+
+        //Obteniendo el Emprendimiento
+        $item = $this->getItem($id);
+
+        // Obteniendo Modelos de Ventas
+        $modelos_ventas = $this->modelos_ventas;
+
+        // Meses Anteriores
+        if(isset($item->ventas) && $item->ventas!=null){
+            $_meses = $this->getItemMeses($item->ventas);
+            $montos = $_meses['montos'];
+            $meses = $_meses['meses_items'];
+        }else{
+            $meses = $this->getMeses($this->meses_montos, time());
+            //$meses = $this->getMeses($this->meses_montos, strtotime("2018-02-01"));
+        }
+        $n_meses = $this->n_meses;
+
+
+
+        // Montos de información financiera si es que existe el registro
+        /*$montos = [];
+
+        //Obteniendo el Emprendimiento
+        $item = $this->getItem($id);
+
+        // Meses Anteriores
+        if(isset($item->financiera) && $item->financiera!=null){
+            $_meses = $this->getItemMeses($item->financiera);
+            $montos = $_meses['montos'];
+            $meses = $_meses['meses_items'];
+        }else{
+            $meses = $this->getMeses($this->meses_montos, time());
+        }
+        $n_meses = $this->n_meses;*/
+
+        return view('panel.' . $this->collection . '.financiera', compact('item','meses','n_meses','montos','modelos_ventas'));
+    }
+
+    /**
+     * uardar datos de Informacion Financiera de Emprendimiento
+     * @param EmprendimientosVentasRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws ArangoClientException
+     * @throws ArangoException
+     */
+    public function SaveFinanciera(EmprendimientosFinancieraRequest $request){
+        $document = [];
+        $document['lanzar_producto'] = $request->get('lanzar_producto');
+        $document['module_ventas'] = true;
+
+        if($request->get('lanzar_producto')=="Si"){
+
+            $document['fecha_lanzamiento'] = $request->get('fecha_lanzamiento');
+            $document['fecha_fundacion'] = $request->get('fecha_fundacion');
+            $document['modelo_ventas'] = $request->get('modelo_ventas');
+            $document['realizado_ventas'] = $request->get('realizado_ventas');
+            $document['patente_ip'] = $request->get('patente_ip');
+            $document['socio_exit_empresa'] = $request->get('socio_exit_empresa');
+            $document['gasto_mensual'] = $request->get('gasto_mensual');
+            $document['pierde_dinero'] = $request->get('pierde_dinero');
+
+            if($request->get('realizado_ventas')=="Si"){
+
+                $ventas = [];
+                foreach($_REQUEST as $r=>$v){
+                    if(preg_match('/mes_[0-9]+_[0-9]+/', $r)){ // obteniendo solo variables request de las ventas
+                        $ex = explode("_", $r);
+                        $ventas[$ex[2]][$ex[1]] = str_replace(',','',$v);
+                    }
+                }
+                $document['ventas'] = $ventas;
+
+            }else{
+                $document['gasto_mensual'] = null;
+                $document['pierde_dinero'] = null;
+                $document['ventas'] = null;
+                $document['socio_exit_empresa'] = null;
+            }
+        }else{
+            $document['fecha_lanzamiento'] = null;
+            $document['fecha_fundacion'] =null;
+            $document['modelo_ventas'] = null;
+            $document['patente_ip'] = null;
+            $document['realizado_ventas'] = null;
+            $document['gasto_mensual'] = null;
+            $document['pierde_dinero'] = null;
+            $document['ventas'] = null;
+            $document['socio_exit_empresa'] = null;
+        }
+
+        $documentId = $request->get('id');
+        $this->ArangoDB->Update($this->collection, $this->collection.'/'.$documentId, $document);
+
+        // Guardando Cédula de Identificación Fiscal del Emprendimiento
+        if($_FILES['cedula_identificacion']['size'] != 0 && $_FILES['cedula_identificacion']['error'] == 0){
+            $img = Image::make($_FILES['cedula_identificacion']['tmp_name']);
+            $img->save(public_path('/emprendimientos_pics/cedula_'.$documentId .'.jpg', 100));
+        }
+
+        Session::flash('status_success', 'Ventas Guardadas');
         return redirect()->action($this->controller.'@Inversion', ['id'=>$documentId]);
     }
 
@@ -512,45 +550,19 @@ class PanelEmprendimientos extends Controller
     }
 
     /**
-     * Informacion Financiera del Emprendimiento
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws ArangoException
-     */
-    public function Financiera($id)
-    {
-        // Montos de información financiera si es que existe el registro
-        $montos = [];
-
-        //Obteniendo el Emprendimiento
-        $item = $this->getItem($id);
-
-        // Meses Anteriores
-        if(isset($item->financiera) && $item->financiera!=null){
-            $_meses = $this->getItemMeses($item->financiera);
-            $montos = $_meses['montos'];
-            $meses = $_meses['meses_items'];
-        }else{
-            $meses = $this->getMeses($this->meses_montos, time());
-        }
-        $n_meses = $this->n_meses;
-
-        return view('panel.' . $this->collection . '.financiera', compact('item','meses','n_meses','montos'));
-    }
-
-    /**
      * Guardar datos de Informacion Financiera de Emprendimiento
      * @param EmprendimientosFinancieraRequest $request
      * @return \Illuminate\Http\RedirectResponse
      * @throws ArangoClientException
      * @throws ArangoException
      */
-    public function SaveFinanciera(EmprendimientosFinancieraRequest $request){
+    public function SaveFinanciera2(EmprendimientosFinancieraRequest $request){
         $document = [];
         $document['module_financiera'] = true;
         $document['gasto_total'] = str_replace(',','',$request->get('gasto_total'));
         $document['valoracion_emprendimiento'] = $request->get('valoracion_emprendimiento');
         $document['monto_valoracion'] = str_replace(',','',$request->get('monto_valoracion'));
+        $document['patente_ip'] = $request->get('patente_ip');
 
         $montos = [];
         foreach($_REQUEST as $r=>$v){
@@ -563,6 +575,12 @@ class PanelEmprendimientos extends Controller
 
         $documentId = $request->get('id');
         $this->ArangoDB->Update($this->collection, $this->collection.'/'.$documentId, $document);
+
+        // Guardando Cédula de Identificación Fiscal del Emprendimiento
+        if($_FILES['cedula_identificacion']['size'] != 0 && $_FILES['cedula_identificacion']['error'] == 0){
+            $img = Image::make($_FILES['cedula_identificacion']['tmp_name']);
+            $img->save(public_path('/emprendimientos_pics/cedula_'.$documentId .'.jpg', 100));
+        }
 
         Session::flash('status_success', 'Información Financiera Guardada');
         return redirect()->action($this->controller.'@Final', ['id'=>$documentId]);

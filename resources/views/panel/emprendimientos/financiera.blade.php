@@ -7,6 +7,48 @@
 @section('js')
     <script type="text/javascript">
         $(document).ready(function () {
+            $('.lanzar').on('ifChecked', function(event){
+                opt = ($('input[name="lanzar_producto"]:checked').val());
+                if(opt=="Si"){
+                    $('#mas_ventas').removeClass('invisible');
+                }else{
+                    $('#mas_ventas').addClass('invisible');
+                }
+            });
+            $('.ventas').on('ifChecked', function(event){
+                opt = ($('input[name="realizado_ventas"]:checked').val());
+                if(opt=="Si"){
+                    $('#montos_ventas').removeClass('invisible');
+                    $(".money").attr('required', 'required');
+                }else{
+                    $('#montos_ventas').addClass('invisible');
+                    $(".money").removeAttr('required');
+                }
+            });
+
+            @if(old('lanzar_producto'))
+                @if(old('lanzar_producto')=="Si")
+                    $('#mas_ventas').removeClass('invisible');
+                @endif
+            @else
+                @if(isset($item->lanzar_producto) && $item->lanzar_producto=="Si")
+                    $('#mas_ventas').removeClass('invisible');
+                @endif
+            @endif
+
+            @if(old('realizado_ventas'))
+                @if(old('realizado_ventas')=="Si")
+                    $('#montos_ventas').removeClass('invisible');
+                @else
+                    $(".money").removeAttr('required');
+                @endif
+            @else
+                @if(isset($item->realizado_ventas) &&  $item->realizado_ventas=="Si")
+                    $('#montos_ventas').removeClass('invisible');
+                @else
+                    $(".money").removeAttr('required');
+                @endif
+            @endif
         })
     </script>
 @endsection
@@ -26,100 +68,13 @@
                                         <?php $e_active = 'financiera';?>
                                         @include('panel.emprendimientos.inc.nav')
                                     </ul>
-                                    {!! Form::model($item, ['action' => 'PanelEmprendimientos@SaveFinanciera', 'method' => 'post', 'files'=>'false']) !!}
+                                    {!! Form::model($item, ['action' => 'PanelEmprendimientos@SaveFinanciera', 'method' => 'post', 'files'=>'true']) !!}
                                     @if(isset($item->_key))
                                         <input name="id" type="hidden" value="{{$item->_key}}">
                                     @endif
-                                    <div class="form-body">
-
-                                                <div class="row mb-2 mt-2">
-                                                    <div class="col-sm-12">
-                                                        <h2>Información Financiera</h2>
-                                                        <p>Capture la siguiente información para el período solicitado:</p>
-                                                    </div>
-                                                </div>
-                                                <!-- Meses de montos -->
-                                                <div class="row">
-                                                    <div class="@if(count($meses)>1) col-md-6 @else col-md-12 @endif">
-                                                        <h4>Gastos que tuvo tu emprendimiento en:</h4>
-                                                        <?php $i = 0;?>
-                                                        @foreach($meses as $year=>$months)
-                                                            @include('panel.emprendimientos.inc.tabla-montos')
-                                                            <?php $i++;?>
-                                                        @endforeach
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="" class="">¿Cuánto fue el gasto total de tu emprendimiento el año pasado? <small>(Si aplica)</small></label>
-                                                            <?php $class=($errors->has("gasto_total"))?'form-control is-invalid':'form-control'; ?>
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text">$</span>
-                                                                </div>
-                                                                {!! Form::text('gasto_total', null, ['class'=>'money '.$class, 'value'=>'0']); !!}
-                                                                <div class="input-group-append">
-                                                                    <span class="input-group-text">USD</span>
-                                                                </div>
-                                                            </div>
-                                                            @if ($errors->has('gasto_total'))
-                                                                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('gasto_total') }}</strong></span>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!--/ Meses de montos -->
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label for="">¿Haz realizado una valoracion formal de tu emprendimiento? <span class="required">*</span></label>
-                                                        <?php $class=($errors->has('valoracion_emprendimiento'))?'form-control is-invalid':'form-control'; ?>
-                                                        <div class="row skin skin-flat">
-                                                            <div class="col-sm-1">
-                                                                <fieldset>
-                                                                    {!! Form::radio('valoracion_emprendimiento', "Si", null, ['id'=>'l1', 'class'=>'valoracion_emprendimiento '.$class]); !!}
-                                                                    <label for="l1">Si</label>
-                                                                </fieldset>
-                                                            </div>
-                                                            <div class="col-sm-2">
-                                                                <fieldset>
-                                                                    {!! Form::radio('valoracion_emprendimiento', "No", null, ['id'=>'l2', 'class'=>'valoracion_emprendimiento '.$class]); !!}
-                                                                    <label for="l2">No</label>
-                                                                </fieldset>
-                                                            </div>
-                                                        </div>
-                                                        @if ($errors->has('valoracion_emprendimiento'))
-                                                            <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('valoracion_emprendimiento') }}</strong></span>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        <div id="montos_ventas">
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label for="" class="">¿Cuánto es el monto de la última valoración relizada? (USD) </label>
-                                                        <?php $class=($errors->has("monto_valoracion"))?'form-control is-invalid':'form-control'; ?>
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">$</span>
-                                                            </div>
-                                                            {!! Form::text('monto_valoracion', null, ['class'=>'money '.$class, 'value'=>'0']); !!}
-                                                            <div class="input-group-append">
-                                                                <span class="input-group-text">USD</span>
-                                                            </div>
-                                                        </div>
-                                                        @if ($errors->has('monto_valoracion'))
-                                                            <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('monto_valoracion') }}</strong></span>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @include('panel.emprendimientos.inc.financiera')
                                     <div class="form-actions right">
-                                        <a href="{{action('PanelEmprendimientos@Inversion',['id'=>$item->_key])}}" class="btn btn-warning mr-1">
+                                        <a href="{{action('PanelEmprendimientos@Usuarios',['id'=>$item->_key])}}" class="btn btn-warning mr-1">
                                             <i class="ft-arrow-left"></i> Anterior
                                         </a>
                                         <button type="submit" class="btn btn-primary">

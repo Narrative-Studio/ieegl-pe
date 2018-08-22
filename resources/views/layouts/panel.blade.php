@@ -36,6 +36,9 @@
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/css/custom.min.css">
     <!-- END Custom CSS-->
+
+    <!-- BEGIN VENDOR JS-->
+    <script src="{{url("/")}}/app-assets/vendors/js/vendors.min.js" type="text/javascript"></script>
 </head>
 <body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar"
       data-open="click" data-menu="vertical-menu" data-col="2-columns">
@@ -126,8 +129,7 @@
         <span class="float-md-left d-block d-md-inline-block">Copyright &copy; {{date('Y')}} <a class="text-bold-800 grey darken-2" href="#" target="_blank">Tecnológico de Monterrey </a>, All rights reserved. </span>
     </p>
 </footer>
-<!-- BEGIN VENDOR JS-->
-<script src="{{url("/")}}/app-assets/vendors/js/vendors.min.js" type="text/javascript"></script>
+
 <!-- BEGIN VENDOR JS-->
 <script src="{{url("/")}}/app-assets/vendors/js/forms/select/select2.full.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/forms/select/select2-es.js" type="text/javascript"></script>

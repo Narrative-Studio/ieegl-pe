@@ -9,7 +9,7 @@
         $(document).ready(function () {
             @if($item)
                 @if(isset($item->estado))
-                    @if($item->estado=='121')
+                    @if($item->pais==121)
                         $('#estado_otro').css('display','none');
                         $('#estado').css('display','block');
                     @endif
@@ -19,9 +19,12 @@
                         $('#estado').css('display','none');
                         $('#estado_otro').css('display','block');
                     @endif
+                @else
+                    $('#estado').css('display','block');
+                    $('#estado_otro').css('display','none');
                 @endif
             @else
-                @if(old('estado')!='121')
+                @if(old('pais')!='121')
                     $('#estado').css('display','none');
                     $('#estado_otro').css('display','block');
                 @else
@@ -171,7 +174,7 @@
                                                     <div class="form-group {{$class}}">
                                                         <label for="">País de residencia <span class="required">*</span></label>
                                                         <?php $class=($errors->has('pais'))?'form-control is-invalid':'form-control'; ?>
-                                                        {!! Form::select('pais', $paises, null, ['placeholder' => 'Selecciona','class'=> 'select2 '.$class, 'id'=>'pais']) !!}
+                                                        {!! Form::select('pais', $paises, (!isset($item->pais))?121:$item->pais, ['placeholder' => 'Selecciona','class'=> 'select2 '.$class, 'id'=>'pais']) !!}
                                                         @if ($errors->has('pais'))
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $errors->first('pais') }}</strong>

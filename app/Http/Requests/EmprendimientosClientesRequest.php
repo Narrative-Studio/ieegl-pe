@@ -27,6 +27,9 @@ class EmprendimientosClientesRequest extends FormRequest
                     $rules =  [
                         'tiene_clientes'             => 'required',
                     ];
+                    if (Request::input('tiene_clientes') == 'Si') {
+                        $rules['caracteristicas_clientes']      = 'required';
+                    }
                     return $rules;
                     break;
                 }

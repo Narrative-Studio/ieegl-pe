@@ -27,6 +27,10 @@ class EmprendimientosUsuariosRequest extends FormRequest
                     $rules =  [
                         'tiene_usuarios'             => 'required',
                     ];
+                    if (Request::input('tiene_usuarios') == 'Si') {
+                        $rules['caracteristicas_usuarios']      = 'required';
+                    }
+                    return $rules;
                     return $rules;
                     break;
                 }

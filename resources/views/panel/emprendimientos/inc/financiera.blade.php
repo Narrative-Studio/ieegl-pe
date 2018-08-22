@@ -153,48 +153,46 @@
                 </div>
             </div>
             <!--/ Meses de montos -->
-
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="" class="">Indica cuánto es el gasto mensual de tu emprendimiento (USD) </label>
-                        <?php $class=($errors->has("gasto_mensual"))?'form-control is-invalid':'form-control'; ?>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">$</span>
-                            </div>
-                            {!! Form::text('gasto_mensual', null, ['class'=>'money '.$class, 'value'=>'0']); !!}
-                            <div class="input-group-append">
-                                <span class="input-group-text">USD</span>
-                            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="" class="">Indica cuánto es el gasto mensual de tu emprendimiento (USD) </label>
+                    <?php $class=($errors->has("gasto_mensual"))?'form-control is-invalid':'form-control'; ?>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
                         </div>
-                        @if ($errors->has('gasto_mensual'))
-                            <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('gasto_mensual') }}</strong></span>
-                        @endif
+                        {!! Form::text('gasto_mensual', (isset($item->gasto_mensual))?$item->gasto_mensual:0, ['class'=>'money '.$class, 'value'=>'0']); !!}
+                        <div class="input-group-append">
+                            <span class="input-group-text">USD</span>
+                        </div>
                     </div>
+                    @if ($errors->has('gasto_mensual'))
+                        <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('gasto_mensual') }}</strong></span>
+                    @endif
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="" class="">Actualmente, ¿tu emprendimiento pierde dinero? indica cuánto (USD) </label>
-                        <?php $class=($errors->has("pierde_dinero"))?'form-control is-invalid':'form-control'; ?>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">$</span>
-                            </div>
-                            {!! Form::text('pierde_dinero', null, ['class'=>'money '.$class, 'value'=>'0']); !!}
-                            <div class="input-group-append">
-                                <span class="input-group-text">USD</span>
-                            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="" class="">Actualmente, ¿tu emprendimiento pierde dinero? indica cuánto (USD) </label>
+                    <?php $class=($errors->has("pierde_dinero"))?'form-control is-invalid':'form-control'; ?>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
                         </div>
-                        @if ($errors->has('pierde_dinero'))
-                            <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('pierde_dinero') }}</strong></span>
-                        @endif
+                        {!! Form::text('pierde_dinero', (isset($item->pierde_dinero))?$item->pierde_dinero:0, ['class'=>'money '.$class, 'value'=>'0']); !!}
+                        <div class="input-group-append">
+                            <span class="input-group-text">USD</span>
+                        </div>
                     </div>
+                    @if ($errors->has('pierde_dinero'))
+                        <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('pierde_dinero') }}</strong></span>
+                    @endif
                 </div>
             </div>
-
         </div>
         <div class="row">
             <div class="col-md-12">

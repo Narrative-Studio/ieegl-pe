@@ -60,7 +60,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="">¿Tienes usuarios ó clientes? <span class="required">*</span></label>
+                                                    <label for="">¿Tienes clientes? <span class="required">*</span></label>
                                                     <?php $class=($errors->has('tiene_clientes'))?'form-control is-invalid':'form-control'; ?>
                                                     <div class="row skin skin-flat">
                                                         <div class="col-sm-1">
@@ -83,10 +83,36 @@
                                             </div>
                                         </div>
                                         <div id="montos_ventas" class="invisible">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="">Describe 3 características de tus clientes <span class="required">*</span></label>
+                                                            <?php $class=($errors->has('caracteristicas_clientes'))?'form-control is-invalid':'form-control'; ?>
+                                                            {!! Form::textarea('caracteristicas_clientes', null, ['class'=>$class, 'rows'=>3]); !!}
+                                                            @if ($errors->has('caracteristicas_clientes'))
+                                                                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('caracteristicas_clientes') }}</strong></span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="row mb-2 mt-2">
                                                     <div class="col-sm-12">
                                                         <h2>Información de Clientes</h2>
                                                         <p>Capture la siguiente información para el período solicitado:</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="" class="">¿Cuántos clientes activos tiene tu emprendimiento al momento? * </label>
+                                                            <?php $class=($errors->has("clientes_activos"))?'form-control is-invalid':'form-control'; ?>
+                                                            <div class="input-group">
+                                                                {!! Form::number('clientes_activos', null, ['class'=>$class, 'value'=>'0']); !!}
+                                                            </div>
+                                                            @if ($errors->has('clientes_activos'))
+                                                                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('clientes_activos') }}</strong></span>
+                                                            @endif
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!-- Meses de montos -->
@@ -99,20 +125,6 @@
                                                         @endforeach
                                                     </div>
                                                 </div>
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label for="" class="">Número de Clientes activos al momento </label>
-                                                        <?php $class=($errors->has("clientes_activos"))?'form-control is-invalid':'form-control'; ?>
-                                                        <div class="input-group">
-                                                            {!! Form::number('clientes_activos', null, ['class'=>$class, 'value'=>'0']); !!}
-                                                        </div>
-                                                        @if ($errors->has('clientes_activos'))
-                                                            <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('clientes_activos') }}</strong></span>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
                                                 <!--/ Meses de montos -->
                                             </div>
                                     </div>
