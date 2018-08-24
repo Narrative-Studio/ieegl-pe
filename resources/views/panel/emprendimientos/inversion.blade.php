@@ -18,14 +18,21 @@
                 }
             });
 
-            $('.inversion_otras').on('ifChecked', function(event){
-                opt = ($('input[name="inversion_otras"]:checked').val());
+            $('.buscando_capital').on('ifChecked', function(event){
+                opt = ($('input[name="buscando_capital"]:checked').val());
                 if(opt=="Si"){
-                    $('#montos_otras').removeClass('invisible');
-                    $("#montos_otras .repetir input").attr('required', 'required');
+                    $('#buscar_capital').removeClass('invisible');
                 }else{
-                    $('#montos_otras').addClass('invisible');
-                    $("#montos_otras .repetir input").removeAttr('required');
+                    $('#buscar_capital').addClass('invisible');
+                }
+            });
+
+            $('.recibido_inversion').on('ifChecked', function(event){
+                opt = ($('input[name="recibido_inversion"]:checked').val());
+                if(opt=="Si"){
+                    $('#recibir_inversion').removeClass('invisible');
+                }else{
+                    $('#recibir_inversion').addClass('invisible');
                 }
             });
 
@@ -43,19 +50,27 @@
                 @endif
             @endif
 
-            @if(old('inversion_otras'))
-                @if(old('inversion_otras')=="Si")
-                    $('#montos_otras').removeClass('invisible');
-                @else
-                    $("#montos_otras .repetir input").removeAttr('required');
+            @if(old('recibido_inversion'))
+                @if(old('recibido_inversion')=="Si")
+                    $('#recibir_inversion').removeClass('invisible');
                 @endif
             @else
-                @if(isset($item->inversion_otras) &&  $item->inversion_otras=="Si")
-                    $('#montos_otras').removeClass('invisible');
-                @else
-                    $("#montos_otras .repetir input").removeAttr('required');
+                @if(isset($item->recibido_inversion) &&  $item->recibido_inversion=="Si")
+                    $('#recibir_inversion').removeClass('invisible');
                 @endif
             @endif
+
+            @if(old('buscando_capital'))
+                @if(old('buscando_capital')=="Si")
+                    $('#buscar_capital').removeClass('invisible');
+                @endif
+            @else
+                @if(isset($item->buscando_capital) &&  $item->buscando_capital=="Si")
+                    $('#buscar_capital').removeClass('invisible');
+                @endif
+            @endif
+
+
 
             /****** Repeater Socios **********/
             // Custom Show / Hide Configurations
@@ -129,7 +144,32 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label for="">¿Tú o tus socios fundadores han invertido capital? <span class="required">*</span></label>
+                                                    <label for="">¿Tienes socios operadores? <span class="required">*</span></label>
+                                                    <?php $class=($errors->has('socios_operadores'))?'form-control is-invalid':'form-control'; ?>
+                                                    <div class="row skin skin-flat">
+                                                        <div class="col-sm-1">
+                                                            <fieldset>
+                                                                {!! Form::radio('socios_operadores', "Si", null, ['id'=>'so1', 'class'=>'socios_operadores '.$class]); !!}
+                                                                <label for="so1">Si</label>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <fieldset>
+                                                                {!! Form::radio('socios_operadores', "No", null, ['id'=>'so2', 'class'=>'socios_operadores '.$class]); !!}
+                                                                <label for="so2">No</label>
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                    @if ($errors->has('socios_operadores'))
+                                                        <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('socios_operadores') }}</strong></span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="">Los socios operadores, ¿han invertido capital?  <span class="required">*</span></label>
                                                     <?php $class=($errors->has('invertido_capital'))?'form-control is-invalid':'form-control'; ?>
                                                     <div class="row skin skin-flat">
                                                         <div class="col-sm-1">
@@ -155,7 +195,7 @@
                                                 <div class="row mb-2 mt-2">
                                                     <div class="col-sm-12">
                                                         <h2>Información de Capital</h2>
-                                                        <p>¿Cuánto capital ($) han invertido los socios y cuándo?</p>
+                                                        <p>¿Cuánto capital ($USD) ha invertido cada uno de ellos y cuándo?</p>
                                                     </div>
                                                 </div>
                                                 <!-- Inversion Socios -->
@@ -211,171 +251,221 @@
                                                     </div>
                                                 </div>
                                                 <!--/ Inversion Socios -->
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for=""> ¿Haz levantado capital? <span class="required">*</span></label>
+                                                    <?php $class=($errors->has('levantado_capital'))?'form-control is-invalid':'form-control'; ?>
+                                                    <div class="row skin skin-flat">
+                                                        <div class="col-sm-1">
+                                                            <fieldset>
+                                                                {!! Form::radio('levantado_capital', "Si", null, ['id'=>'l1', 'class'=>'levantado_capital '.$class]); !!}
+                                                                <label for="l1">Si</label>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <fieldset>
+                                                                {!! Form::radio('levantado_capital', "No", null, ['id'=>'l2', 'class'=>'levantado_capital '.$class]); !!}
+                                                                <label for="l2">No</label>
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                    @if ($errors->has('levantado_capital'))
+                                                        <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('levantado_capital') }}</strong></span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label for="">¿Haz recibido inversión de otras personas o entidades? (no de los socios) <span class="required">*</span></label>
-                                                            <?php $class=($errors->has('inversion_otras'))?'form-control is-invalid':'form-control'; ?>
-                                                            <div class="row skin skin-flat">
-                                                                <div class="col-sm-1">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for=""> ¿Haz recibido inversión? <span class="required">*</span></label>
+                                                    <?php $class=($errors->has('recibido_inversion'))?'form-control is-invalid':'form-control'; ?>
+                                                    <div class="row skin skin-flat">
+                                                        <div class="col-sm-1">
+                                                            <fieldset>
+                                                                {!! Form::radio('recibido_inversion', "Si", null, ['id'=>'re1', 'class'=>'recibido_inversion '.$class]); !!}
+                                                                <label for="re1">Si</label>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <fieldset>
+                                                                {!! Form::radio('recibido_inversion', "No", null, ['id'=>'re2', 'class'=>'recibido_inversion '.$class]); !!}
+                                                                <label for="re2">No</label>
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                    @if ($errors->has('recibido_inversion'))
+                                                        <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('recibido_inversion') }}</strong></span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="recibir_inversion" class="invisible">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="">¿De quién? <span class="required">*</span></label>
+                                                        <?php $class=($errors->has('recibido_inversion_dequien'))?'form-control is-invalid':'form-control'; ?>
+                                                        {!! Form::text('recibido_inversion_dequien', null, ['class'=>$class]); !!}
+                                                        @if ($errors->has('recibido_inversion_dequien'))
+                                                            <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('recibido_inversion_dequien') }}</strong></span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="">¿Cuánto? (USD)</label>
+                                                        <?php $class=($errors->has('recibido_inversion_cuanto'))?'form-control is-invalid':'form-control'; ?>
+
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">$</span>
+                                                            </div>
+                                                            {!! Form::text('recibido_inversion_cuanto', null, ['class'=>'money2 form-control']); !!}
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text">USD</span>
+                                                            </div>
+                                                        </div>
+
+                                                        @if ($errors->has('recibido_inversion_cuanto'))
+                                                            <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('recibido_inversion_cuanto') }}</strong></span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="">¿Cómo? <span class="required">*</span><small>Selecciona todos los que correspondan.</small></label>
+                                                        <div class="row skin skin-flat col-sm-12">
+                                                            @foreach($vehiculos as $key=>$val)
+                                                                <div class="radio_input">
                                                                     <fieldset>
-                                                                        {!! Form::radio('inversion_otras', "Si", null, ['id'=>'l1', 'class'=>'inversion_otras '.$class]); !!}
-                                                                        <label for="l1">Si</label>
+                                                                        {!! Form::checkbox('recibido_inversion_como[]', $key, null, ['id'=>'reci_'.$key, 'class'=>'form-control']); !!}
+                                                                        <label for="reci_{{$key}}">{{$val}}</label>
                                                                     </fieldset>
                                                                 </div>
-                                                                <div class="col-sm-2">
+                                                            @endforeach
+                                                        </div>
+                                                        @if ($errors->has('recibido_inversion_como'))
+                                                            <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('recibido_inversion_como') }}</strong></span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="">Indica la fecha última en la que levantaron capital <span class="required">*</span></label>
+                                                        <?php $class=($errors->has('recibido_inversion_fecha_levantaron_capital'))?'form-control is-invalid':'form-control'; ?>
+                                                        {!! Form::date('recibido_inversion_fecha_levantaron_capital', null, ['class'=>$class]); !!}
+                                                        @if ($errors->has('recibido_inversion_fecha_levantaron_capital'))
+                                                            <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('recibido_inversion_fecha_levantaron_capital') }}</strong></span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="">¿Qué vehículo de inversión utilizaste? <span class="required">*</span><small>Selecciona todos los que correspondan.</small></label>
+                                                        <div class="row skin skin-flat col-sm-12">
+                                                            @foreach($vehiculos as $key=>$val)
+                                                                <div class="radio_input">
                                                                     <fieldset>
-                                                                        {!! Form::radio('inversion_otras', "No", null, ['id'=>'l2', 'class'=>'inversion_otras '.$class]); !!}
-                                                                        <label for="l2">No</label>
+                                                                        {!! Form::checkbox('recibido_inversion_vehiculo[]', $key, null, ['id'=>'reci_veh_'.$key, 'class'=>'form-control']); !!}
+                                                                        <label for="reci_veh_{{$key}}">{{$val}}</label>
                                                                     </fieldset>
                                                                 </div>
-                                                            </div>
-                                                            @if ($errors->has('inversion_otras'))
-                                                                <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('inversion_otras') }}</strong></span>
-                                                            @endif
+                                                            @endforeach
                                                         </div>
+                                                        @if ($errors->has('recibido_inversion_vehiculo'))
+                                                            <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('recibido_inversion_vehiculo') }}</strong></span>
+                                                        @endif
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
 
-                                                <!-- Inversion Otros -->
-                                                <div id="montos_otras" class="invisible">
-                                                    <div class="row mb-2 mt-2">
-                                                        <div class="col-sm-12">
-                                                            <h2>Información de Capital de otras personas o entidades</h2>
-                                                            <p>¿Cuánto capital ($) han invertido otras personas o entidades?</p>
+                                        <div class="row ">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label for="">¿Actualmente estás buscando capital? <span class="required">*</span></label>
+                                                    <?php $class=($errors->has('buscando_capital'))?'form-control is-invalid':'form-control'; ?>
+                                                    <div class="row skin skin-flat">
+                                                        <div class="col-sm-1">
+                                                            <fieldset>
+                                                                {!! Form::radio('buscando_capital', "Si", null, ['id'=>'l1', 'class'=>'buscando_capital '.$class]); !!}
+                                                                <label for="l1">Si</label>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <fieldset>
+                                                                {!! Form::radio('buscando_capital', "No", null, ['id'=>'l2', 'class'=>'buscando_capital '.$class]); !!}
+                                                                <label for="l2">No</label>
+                                                            </fieldset>
                                                         </div>
                                                     </div>
+                                                    @if ($errors->has('buscando_capital'))
+                                                        <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('buscando_capital') }}</strong></span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                                    <div class="row repetir">
-                                                        <div class="col-sm-12">
-                                                            <div class="repeater-otros">
-                                                                <div data-repeater-list="capital_otros">
-                                                                    <div data-repeater-item>
-                                                                        <div class="row">
-                                                                            <div class="form-group mb-1 col-sm-12 col-md-1">
-                                                                                <label>Año <span class="required">*</span></label>
-                                                                                <br>
-                                                                                {!! Form::text('year', null, ['class'=>'form-control integer', 'required' =>'required']); !!}
-                                                                            </div>
-                                                                            <div class="form-group mb-1 col-sm-12 col-md-2">
-                                                                                <label>Mes <span class="required">*</span></label>
-                                                                                <br>
-                                                                                {!! Form::select('mes', $meses, null, ['class'=>'form-control', 'style'=>'text-transform:capitalize;', 'required' =>'required']); !!}
-                                                                            </div>
-                                                                            <div class="skin skin-flat form-group mb-1 col-sm-12 col-md-3">
-                                                                                <label>Monto (USD) <span class="required">*</span></label>
-                                                                                <br>
-                                                                                <div class="input-group">
-                                                                                    <div class="input-group-prepend">
-                                                                                        <span class="input-group-text">$</span>
-                                                                                    </div>
-                                                                                    {!! Form::text('monto', null, ['class'=>'money form-control', 'required' =>'required']); !!}
-                                                                                    <div class="input-group-append">
-                                                                                        <span class="input-group-text">USD</span>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="form-group mb-1 col-sm-12 col-md-2">
-                                                                                <label>¿De quién? <span class="required">*</span></label>
-                                                                                <br>
-                                                                                {!! Form::text('quien', null, ['class'=>'form-control', 'required' =>'required']); !!}
-                                                                            </div>
-                                                                            <div class="form-group mb-1 col-sm-12 col-md-2">
-                                                                                <label>Términos <span class="required">*</span></label>
-                                                                                <br>
-                                                                                {!! Form::select('terminos', $terminos, null, ['class'=>'form-control', 'style'=>'text-transform:capitalize;', 'required' =>'required']); !!}
-                                                                            </div>
-                                                                            <div class="form-group col-sm-12 col-md-1 text-center mt-2">
-                                                                                <button type="button" class="btn btn-danger" data-repeater-delete> <i class="ft-x"></i> Remover</button>
-                                                                            </div>
-                                                                            <hr>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group overflow-hidden">
-                                                                    <div class="">
-                                                                        <button data-repeater-create class="btn btn-primary">
-                                                                            <i class="ft-plus"></i> Agregar otro
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
+                                        <div id="buscar_capital" class="invisible">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="">¿Cuánto capital estás buscando? (USD) <span class="required">*</span></label>
+                                                        <?php $class=($errors->has('capital_cuanto'))?'form-control is-invalid':'form-control'; ?>
+
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">$</span>
+                                                            </div>
+                                                            {!! Form::text('capital_cuanto', null, ['class'=>'money2 form-control']); !!}
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text">USD</span>
                                                             </div>
                                                         </div>
+
+                                                        @if ($errors->has('capital_cuanto'))
+                                                            <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('capital_cuanto') }}</strong></span>
+                                                        @endif
                                                     </div>
                                                 </div>
-                                                <!--/ Inversion Otros -->
+                                            </div>
 
-                                                <div class="row ">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label for="">¿Actualmente estás buscando capital? <span class="required">*</span></label>
-                                                            <?php $class=($errors->has('buscando_capital'))?'form-control is-invalid':'form-control'; ?>
-                                                            <div class="row skin skin-flat">
-                                                                <div class="col-sm-1">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="">¿Con qué vehículo de inversión buscas capital? <span class="required">*</span></label>
+                                                        <div class="row skin skin-flat col-sm-12">
+                                                            @foreach($vehiculos as $key=>$val)
+                                                                <div class="radio_input">
                                                                     <fieldset>
-                                                                        {!! Form::radio('buscando_capital', "Si", null, ['id'=>'l1', 'class'=>'buscando_capital '.$class]); !!}
-                                                                        <label for="l1">Si</label>
+                                                                        {!! Form::checkbox('vehiculo_inversion[]', $key, null, ['id'=>'vehiculo_'.$key, 'class'=>'form-control']); !!}
+                                                                        <label for="vehiculo_{{$key}}">{{$val}}</label>
                                                                     </fieldset>
                                                                 </div>
-                                                                <div class="col-sm-2">
-                                                                    <fieldset>
-                                                                        {!! Form::radio('buscando_capital', "No", null, ['id'=>'l2', 'class'=>'buscando_capital '.$class]); !!}
-                                                                        <label for="l2">No</label>
-                                                                    </fieldset>
-                                                                </div>
-                                                            </div>
-                                                            @if ($errors->has('buscando_capital'))
-                                                                <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('buscando_capital') }}</strong></span>
-                                                            @endif
+                                                            @endforeach
                                                         </div>
+                                                        @if ($errors->has('vehiculo_inversion'))
+                                                            <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('vehiculo_inversion') }}</strong></span>
+                                                        @endif
                                                     </div>
                                                 </div>
-
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <div class="form-group">
-                                                            <label for="">¿Cuánto? (USD)</label>
-                                                            <?php $class=($errors->has('capital_cuanto'))?'form-control is-invalid':'form-control'; ?>
-
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend">
-                                                                    <span class="input-group-text">$</span>
-                                                                </div>
-                                                                {!! Form::text('capital_cuanto', null, ['class'=>'money2 form-control']); !!}
-                                                                <div class="input-group-append">
-                                                                    <span class="input-group-text">USD</span>
-                                                                </div>
-                                                            </div>
-
-                                                            @if ($errors->has('capital_cuanto'))
-                                                                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('capital_cuanto') }}</strong></span>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label for="">¿Con qué vehículo de inversión buscas capital?</label>
-                                                            <div class="row skin skin-flat col-sm-12">
-                                                                @foreach($vehiculos as $key=>$val)
-                                                                    <div class="radio_input">
-                                                                        <fieldset>
-                                                                            {!! Form::checkbox('vehiculo_inversion[]', $key, null, ['id'=>'vehiculo_'.$key, 'class'=>'form-control']); !!}
-                                                                            <label for="vehiculo_{{$key}}">{{$val}}</label>
-                                                                        </fieldset>
-                                                                    </div>
-                                                                @endforeach
-                                                            </div>
-                                                            @if ($errors->has('vehiculo_inversion'))
-                                                                <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('vehiculo_inversion') }}</strong></span>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </div>
-
+                                            </div>
                                         </div>
                                         <div class="form-actions right">
                                             <a href="{{action('PanelEmprendimientos@Financiera',['id'=>$item->_key])}}" class="btn btn-warning mr-1">

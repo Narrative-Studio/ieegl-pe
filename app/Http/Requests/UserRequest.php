@@ -29,7 +29,8 @@ class UserRequest extends FormRequest
                         'email'                     => 'required|string|email|max:255|confirmed',
                         'password'                  => 'required|string|min:4|max:255|confirmed',
                         'g-recaptcha-response'      => 'required|recaptcha',
-                        'terminos_y_condiciones'    => 'required|accepted'
+                        'terminos_y_condiciones'    => 'required|accepted',
+                        'telefono'                  => 'required'
                     ];
                     break;
                 }

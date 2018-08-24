@@ -57,7 +57,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label for="telefono">Celular (10 dígitos)</label>
+                                                        <label for="telefono">Celular (10 dígitos) <span class="required">*</span></label>
                                                         <input type="text" class="form-control{{ $errors->has('telefono') ? ' is-invalid' : '' }}" value="{{old('telefono')}}" name="telefono" id="telefono">
                                                         @if ($errors->has('telefono'))
                                                             <span class="invalid-feedback" role="alert">

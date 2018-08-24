@@ -26,14 +26,21 @@ class EmprendimientosInversionRequest extends FormRequest
                 {
                     $rules =  [
                         'invertido_capital'             => 'required',
+                        'socios_operadores'             => 'required',
+                        'levantado_capital'             => 'required',
+                        'recibido_inversion'             => 'required',
+                        'buscando_capital'             => 'required',
                     ];
-                    if (Request::input('invertido_capital') == 'Si') {
-                        $rules['inversion_otras']      = 'required';
-                        $rules['buscando_capital']      = 'required';
-
-                        if (Request::input('inversion_otras') == 'Si') {
-                            $rules['capital_otros']      = 'required';
-                        }
+                    if (Request::input('recibido_inversion') == 'Si') {
+                        $rules['recibido_inversion_dequien']      = 'required';
+                        $rules['recibido_inversion_cuanto']      = 'required';
+                        $rules['recibido_inversion_como']      = 'required';
+                        $rules['recibido_inversion_fecha_levantaron_capital']      = 'date|required';
+                        $rules['recibido_inversion_vehiculo']      = 'required';
+                    }
+                    if (Request::input('buscando_capital') == 'Si') {
+                        $rules['capital_cuanto']      = 'required';
+                        $rules['vehiculo_inversion']      = 'required';
                     }
                     return $rules;
                     break;

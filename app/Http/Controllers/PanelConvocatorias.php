@@ -383,7 +383,7 @@ class PanelConvocatorias extends Controller
             $document['usuario_email'] = $user->email;
             $document['convocatoria_key'] = $item->_key;
             $document['convocatoria_nombre'] = $item->nombre;
-            Mail::to('adanluna@gmail.com')
+            Mail::to($document['responsable_email'])
                 ->send(new SolicitudAdmin($document));
         }
 

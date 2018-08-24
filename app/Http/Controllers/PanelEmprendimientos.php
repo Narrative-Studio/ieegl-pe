@@ -415,7 +415,7 @@ class PanelEmprendimientos extends Controller
     public function SaveFinanciera(EmprendimientosFinancieraRequest $request){
         $document = [];
         $document['lanzar_producto'] = $request->get('lanzar_producto');
-        $document['module_ventas'] = true;
+        $document['module_financiera'] = true;
 
         if($request->get('lanzar_producto')=="Si"){
 
@@ -505,7 +505,11 @@ class PanelEmprendimientos extends Controller
      */
     public function SaveInversion(EmprendimientosInversionRequest $request){
         $document = [];
+        $document['socios_operadores'] = $request->get('socios_operadores');
         $document['invertido_capital'] = $request->get('invertido_capital');
+        $document['levantado_capital'] = $request->get('levantado_capital');
+        $document['recibido_inversion'] = $request->get('recibido_inversion');
+        $document['buscando_capital'] = $request->get('buscando_capital');
         $document['module_inversion'] = true;
 
         if($request->get('invertido_capital')=="Si"){
@@ -517,27 +521,28 @@ class PanelEmprendimientos extends Controller
                 $cc[] = $cap;
             }
             $document['capital'] = $cc;
-            $document['inversion_otras'] = $request->get('inversion_otras');
-            $document['buscando_capital'] = $request->get('buscando_capital');
+        }else{
+            $document['capital'] = null;
+        }
+        // Si ha recibido inversion
+        if($request->get('recibido_inversion')=="Si"){
+            $document['recibido_inversion_dequien'] = $request->get('recibido_inversion_dequien');
+            $document['recibido_inversion_cuanto'] = str_replace(',','',$request->get('recibido_inversion_cuanto'));
+            $document['recibido_inversion_como'] = $request->get('recibido_inversion_como');
+            $document['recibido_inversion_fecha_levantaron_capital'] = $request->get('recibido_inversion_fecha_levantaron_capital');
+            $document['recibido_inversion_vehiculo'] = $request->get('recibido_inversion_vehiculo');
+        }else{
+            $document['recibido_inversion_dequien'] = null;
+            $document['recibido_inversion_cuanto'] = null;
+            $document['recibido_inversion_como'] = null;
+            $document['recibido_inversion_fecha_levantaron_capital'] = null;
+            $document['recibido_inversion_vehiculo'] = null;
+        }
+        // Si esta buscando capital
+        if($request->get('buscando_capital')=="Si"){
             $document['capital_cuanto'] = str_replace(',','',$request->get('capital_cuanto'));
             $document['vehiculo_inversion'] = $request->get('vehiculo_inversion');
-
-            // Si ha recibido inversio de otros
-            if($request->get('inversion_otras')=="Si"){
-                $capital = $request->get('capital_otros');
-                $cc = [];
-                foreach($capital as $cap){
-                    $cap['monto'] = str_replace(',','',$cap['monto']);
-                    $cc[] = $cap;
-                }
-                $document['capital_otros'] = $cc;
-            }else{
-                $document['capital_otros'] = null;
-            }
         }else{
-            $document['inversion_otras'] = null;
-            $document['capital_otros'] = null;
-            $document['buscando_capital'] = null;
             $document['capital_cuanto'] = null;
             $document['vehiculo_inversion'] = null;
         }
@@ -546,43 +551,6 @@ class PanelEmprendimientos extends Controller
         $this->ArangoDB->Update($this->collection, $this->collection.'/'.$documentId, $document);
 
         Session::flash('status_success', 'Inversion Guardada');
-        return redirect()->action($this->controller.'@Financiera', ['id'=>$documentId]);
-    }
-
-    /**
-     * Guardar datos de Informacion Financiera de Emprendimiento
-     * @param EmprendimientosFinancieraRequest $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws ArangoClientException
-     * @throws ArangoException
-     */
-    public function SaveFinanciera2(EmprendimientosFinancieraRequest $request){
-        $document = [];
-        $document['module_financiera'] = true;
-        $document['gasto_total'] = str_replace(',','',$request->get('gasto_total'));
-        $document['valoracion_emprendimiento'] = $request->get('valoracion_emprendimiento');
-        $document['monto_valoracion'] = str_replace(',','',$request->get('monto_valoracion'));
-        $document['patente_ip'] = $request->get('patente_ip');
-
-        $montos = [];
-        foreach($_REQUEST as $r=>$v){
-            if(preg_match('/mes_[0-9]+_[0-9]+/', $r)){ // obteniendo solo variables request
-                $ex = explode("_", $r);
-                $montos[$ex[2]][$ex[1]] = str_replace(',','',$v);
-            }
-        }
-        $document['financiera'] = $montos;
-
-        $documentId = $request->get('id');
-        $this->ArangoDB->Update($this->collection, $this->collection.'/'.$documentId, $document);
-
-        // Guardando Cédula de Identificación Fiscal del Emprendimiento
-        if($_FILES['cedula_identificacion']['size'] != 0 && $_FILES['cedula_identificacion']['error'] == 0){
-            $img = Image::make($_FILES['cedula_identificacion']['tmp_name']);
-            $img->save(public_path('/emprendimientos_pics/cedula_'.$documentId .'.jpg', 100));
-        }
-
-        Session::flash('status_success', 'Información Financiera Guardada');
         return redirect()->action($this->controller.'@Final', ['id'=>$documentId]);
     }
 
