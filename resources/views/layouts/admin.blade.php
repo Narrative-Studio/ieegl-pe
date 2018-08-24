@@ -27,6 +27,7 @@
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/plugins/forms/checkboxes-radios.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/plugins/forms/extended/form-extended.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/extensions/zoom.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/editors/tinymce/tinymce.min.css">
     <!-- END VENDOR CSS-->
     <!-- BEGIN ROBUST CSS-->
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/app.css">
@@ -185,6 +186,7 @@
 <script src="{{url("/")}}/app-assets/vendors/js/extensions/unslider-min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/forms/extended/maxlength/bootstrap-maxlength.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/extensions/zoom.min.js" type="text/javascript"></script>
+<script src="{{url("/")}}/app-assets/vendors/js/editors/tinymce/tinymce.js" type="text/javascript"></script>
 <!-- END PAGE VENDOR JS-->
 <!-- BEGIN ROBUST JS-->
 <script src="{{url("/")}}/app-assets/js/core/app-menu.js" type="text/javascript"></script>
@@ -192,6 +194,7 @@
 <script src="{{url("/")}}/app-assets/js/scripts/customizer.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/js/scripts/forms/switch.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/js/scripts/forms/checkbox-radio.js" type="text/javascript"></script>
+<script src="{{url("/")}}/app-assets/js/scripts/editors/editor-tinymce.js" type="text/javascript"></script>
 <script src="{{url("/")}}/js/custom.min.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL JS-->
 <script>

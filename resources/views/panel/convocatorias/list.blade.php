@@ -21,9 +21,6 @@
                                         <thead class="bg-primary white">
                                         <tr>
                                             <th>Nombre</th>
-                                            <th>Descripción</th>
-                                            <th>Fecha Inicio</th>
-                                            <th>Fecha Fin</th>
                                             <th>¿Quién puede aplicar?</th>
                                             <th width="150">&nbsp;</th>
                                         </tr>
@@ -31,10 +28,13 @@
                                         <tbody>
                                         @foreach($convocatorias as $item)
                                             <tr>
-                                                <td>{{$item->nombre}}</td>
-                                                <td>{{$item->descripcion}}</td>
-                                                <td style="text-transform: capitalize;">{{\Illuminate\Support\Carbon::createFromTimestamp($item->fecha_inicio_convocatoria)->formatLocalized('%d %B %Y')}}</td>
-                                                <td style="text-transform: capitalize;">{{\Illuminate\Support\Carbon::createFromTimestamp($item->fecha_fin_convocatoria)->formatLocalized('%d %B %Y')}}</td>
+                                                <td>
+                                                    <h3>{{$item->nombre}}</h3>
+                                                    <h6 style="color: #6a569c;"><span style="text-transform: capitalize;">{{\Illuminate\Support\Carbon::createFromTimestamp($item->fecha_inicio_convocatoria)->formatLocalized('%d %B %Y')}}</span> - <span style="text-transform: capitalize;">{{\Illuminate\Support\Carbon::createFromTimestamp($item->fecha_fin_convocatoria)->formatLocalized('%d %B %Y')}}</span></h6>
+                                                    <span style="display: block;margin-top: 23px;margin-bottom: 12px;">
+                                                        {!! $item->descripcion_corta !!}
+                                                    </span>
+                                                </td>
                                                 <td>{{$item->quien_nombre}}</td>
                                                 <td>
                                                     <a href="{{action('PanelConvocatorias@Ver',['id'=>$item->_key])}}" class="btn btn-sm btn-success mr-0"><i class="fa fa-edit"></i> Ver/Aplicar</a>
