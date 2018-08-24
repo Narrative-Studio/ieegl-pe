@@ -225,7 +225,7 @@
     <label class="col-md-4 label-control">Comentarios adicionales</label>
     <div class="col-md-8">
         <?php $class=($errors->has('comentarios'))?'form-control error':'form-control'; ?>
-        {!! Form::textarea('comentarios', null, ['class' => $class]) !!}
+        {!! Form::textarea('comentarios', null, ['class' =>'tinymce '. $class]) !!}
     </div>
 </div>
 <div class="form-group row">

@@ -70,7 +70,7 @@
                                     @if($item->comentarios!='')
                                         <li class="list-group-item d-flex justify-content-between">
                                             <div>
-                                                <h6 class="">{!! nl2br($item->comentarios) !!}</h6>
+                                                <h6 class="">{!! $item->comentarios !!}</h6>
                                             </div>
                                         </li>
                                     @endif
