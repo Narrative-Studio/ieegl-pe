@@ -17,7 +17,7 @@
                             <div class="card-content collapse show">
                                 <div class="card-body">
                                     <div class="card-text">
-                                        <p>Texto de invitación al registrar la cuenta del Emprendedor.</p>
+                                        <p>Por favor llena este formato para iniciar tu proceso de Registro en el Sistema Startups ID.</p>
                                     </div>
                                     @if(session('error'))
                                         <div class="alert bg-danger alert-dismissible mb-2" role="alert">
