@@ -15,7 +15,7 @@
                             <div class="card-body">
                                 <h2>{{$item->nombre}}</h2>
                                 <div class="card-text">
-                                    <p>{!! nl2br($item->descripcion) !!}</p>
+                                    <p>{!! $item->descripcion !!}</p>
                                 </div>
                             </div>
                         </div>
