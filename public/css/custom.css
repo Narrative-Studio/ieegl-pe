@@ -3,6 +3,9 @@
     max-width: 205px;
     margin: 50px auto;
 }
+.bg-primary {
+    background-color: #727d7e !important;
+}
 .avatar-upload .avatar-edit {
     position: absolute;
     right: 12px;
@@ -125,5 +128,5 @@ figure.effect-bubba h2 {
 .iframe-pago iframe{
     width: 100%;
     border: 0;
-    height: 400px;
+    height: 600px;
 }

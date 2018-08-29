@@ -30,7 +30,7 @@
                                         <tbody>
                                         @foreach($convocatorias as $item)
                                             <tr>
-                                                <td>{{$item->nombre}}<br/><small>{{$item->descripcion}}</small></td>
+                                                <td>{{$item->nombre}}<br/><small>{!! $item->descripcion !!}</small></td>
                                                 <td>
                                                     @if($item->quien!='6375236')
                                                         {{$item->emprendimiento}}

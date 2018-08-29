@@ -15,7 +15,7 @@
                             <div class="card-body">
                                 <h2>{{$item->convocatoria->nombre}}</h2>
                                 <div class="card-text">
-                                    <p>{{$item->convocatoria->descripcion}}</p>
+                                    <p>{!! $item->convocatoria->descripcion !!}</p>
                                 </div>
                             </div>
                         </div>
@@ -109,7 +109,7 @@
                                     @if($item->convocatoria->comentarios!='')
                                     <li class="list-group-item d-flex justify-content-between">
                                         <div>
-                                            <h6 class="">{{$item->convocatoria->comentarios}}</h6>
+                                            <h6 class="">{!! $item->convocatoria->comentarios !!}</h6>
                                         </div>
                                     </li>
                                     @endif

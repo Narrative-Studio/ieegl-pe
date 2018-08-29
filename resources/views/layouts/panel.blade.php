@@ -95,7 +95,6 @@
                     <li><a class="menu-item" href="{{action('PanelPerfiles@Cuenta')}}">Mi Cuenta</a></li>
                     <li><a class="menu-item" href="{{action('PanelPerfiles@Index')}}">Datos Personales</a></li>
                     <li><a class="menu-item" href="{{action('PanelPerfiles@Estudios')}}">Estudios</a></li>
-                    <li><a class="menu-item" href="#">Identidad</a></li>
                 </ul>
             </li>
             <li class=" navigation-header">

@@ -236,22 +236,22 @@ class PanelEmprendimientos extends Controller
     public function Clientes($id)
     {
         // Montos de clientes si es que existe el registro
-        $montos = [];
+        $montos_clientes = [];
 
         //Obteniendo el Emprendimiento
         $item = $this->getItem($id);
 
         // Meses Anteriores
         if(isset($item->clientes) && $item->clientes!=null){
-            $_meses = $this->getItemMeses($item->clientes);
-            $montos = $_meses['montos'];
-            $meses = $_meses['meses_items'];
+            $_meses_clientes = $this->getItemMeses($item->clientes);
+            $montos_clientes = $_meses_clientes['montos'];
+            $meses_clientes = $_meses_clientes['meses_items'];
         }else{
-            $meses = $this->getMeses($this->meses_montos, time());
+            $meses_clientes = $this->getMeses($this->meses_montos, time());
         }
-        $n_meses = $this->n_meses;
+        $n_meses_clientes = $this->n_meses;
 
-        return view('panel.' . $this->collection . '.clientes', compact('item','meses','n_meses','montos'));
+        return view('panel.' . $this->collection . '.clientes', compact('item','meses_clientes','n_meses_clientes','montos_clientes'));
     }
 
     /**
@@ -300,22 +300,22 @@ class PanelEmprendimientos extends Controller
     public function Usuarios($id)
     {
         // Montos de usuarios si es que existe el registro
-        $montos = [];
+        $montos_usuarios = [];
 
         //Obteniendo el Emprendimiento
         $item = $this->getItem($id);
 
         // Meses Anteriores
         if(isset($item->usuarios) && $item->usuarios!=null){
-            $_meses = $this->getItemMeses($item->usuarios);
-            $montos = $_meses['montos'];
-            $meses = $_meses['meses_items'];
+            $_meses_usuarios = $this->getItemMeses($item->usuarios);
+            $montos_usuarios = $_meses_usuarios['montos'];
+            $meses_usuarios = $_meses_usuarios['meses_items'];
         }else{
-            $meses = $this->getMeses($this->meses_montos, time());
+            $meses_usuarios = $this->getMeses($this->meses_montos, time());
         }
-        $n_meses = $this->n_meses;
+        $n_meses_usuarios = $this->n_meses;
 
-        return view('panel.' . $this->collection . '.usuarios', compact('item','meses','n_meses','montos'));
+        return view('panel.' . $this->collection . '.usuarios', compact('item','meses_usuarios','n_meses_usuarios','montos_usuarios'));
     }
 
     /**
@@ -380,27 +380,8 @@ class PanelEmprendimientos extends Controller
             $meses = $_meses['meses_items'];
         }else{
             $meses = $this->getMeses($this->meses_montos, time());
-            //$meses = $this->getMeses($this->meses_montos, strtotime("2018-02-01"));
         }
         $n_meses = $this->n_meses;
-
-
-
-        // Montos de información financiera si es que existe el registro
-        /*$montos = [];
-
-        //Obteniendo el Emprendimiento
-        $item = $this->getItem($id);
-
-        // Meses Anteriores
-        if(isset($item->financiera) && $item->financiera!=null){
-            $_meses = $this->getItemMeses($item->financiera);
-            $montos = $_meses['montos'];
-            $meses = $_meses['meses_items'];
-        }else{
-            $meses = $this->getMeses($this->meses_montos, time());
-        }
-        $n_meses = $this->n_meses;*/
 
         return view('panel.' . $this->collection . '.financiera', compact('item','meses','n_meses','montos','modelos_ventas'));
     }
@@ -483,8 +464,8 @@ class PanelEmprendimientos extends Controller
         $item = $this->getItem($id);
 
         // Obteniendo los meses del año
-        $meses = $this->n_meses;
-        unset($meses[0]);
+        $meses_inversion = $this->n_meses;
+        unset($meses_inversion[0]);
 
         // Vehiculos de Inversion
         $vehiculos = $this->vehiculos_inversion;
@@ -493,7 +474,7 @@ class PanelEmprendimientos extends Controller
         $terminos = $this->ArangoDB->Query('FOR doc IN terminos RETURN doc', true);
         $terminos = $this->ArangoDB->SelectFormat($terminos, '_key', 'nombre');
 
-        return view('panel.' . $this->collection . '.inversion', compact('item','meses', 'vehiculos', 'terminos'));
+        return view('panel.' . $this->collection . '.inversion', compact('item','meses_inversion', 'vehiculos', 'terminos'));
     }
 
     /**

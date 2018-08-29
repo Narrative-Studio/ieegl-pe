@@ -19,7 +19,6 @@
                                         <tr>
                                             <th>Convocatoria</th>
                                             <th>Usuario</th>
-                                            <th>Emprendimiento</th>
                                             <th>Fecha Aplicación</th>
                                             <th>Estatus</th>
                                             <th width="150">&nbsp;</th>
@@ -30,13 +29,6 @@
                                             <tr>
                                                 <td>{{$item->convocatoria->nombre}}</td>
                                                 <td>{{$item->usuario->nombre}}</td>
-                                                <td>
-                                                    @if($item->convocatoria->quien!='6375236')
-                                                        {{$item->emprendimiento->nombre}}
-                                                    @else
-                                                        <i>No aplica</i>
-                                                    @endif
-                                                </td>
                                                 <td style="text-transform: capitalize;">{{\Illuminate\Support\Carbon::createFromTimestamp($item->fecha_registro)->formatLocalized('%d %B %Y')}}</td>
                                                 <td>
                                                     @if($item->aprobado==1) <div class="badge badge-warning">Pendiente</div> @endif

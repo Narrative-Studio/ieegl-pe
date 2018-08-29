@@ -15,7 +15,7 @@
                             <div class="card-body">
                                 <h2>{{$item->nombre}}</h2>
                                 <div class="card-text">
-                                    <p>{{$item->descripcion}}</p>
+                                    <p>{!! $item->descripcion_corta !!}</p>
                                 </div>
                             </div>
                         </div>
@@ -86,14 +86,14 @@
                                                 </h6>
                                             </div>
                                             <div class="col-md-4 col-sm-12 mt-2 mt-md-0">
-                                                <h5>Ventas</h5>
+                                                <h5>Info. Financiera</h5>
                                                 <h6 class="pr-md-2">
-                                                    @if(isset($errores['ventas']))
+                                                    @if(isset($errores['financiera']))
                                                         <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
                                                             <span class="alert-icon"><i class="fa fa-warning"></i></span>
-                                                            {{$errores['ventas']}}
+                                                            {{$errores['financiera']}}
                                                         </div>
-                                                        <a href="{{action('PanelEmprendimientos@Ventas', $emprendimiento->_key)}}" class="btn btn-grey btn-sm"><i class="fa fa-edit"></i> Editar Ventas</a>
+                                                        <a href="{{action('PanelEmprendimientos@Financiera', $emprendimiento->_key)}}" class="btn btn-grey btn-sm"><i class="fa fa-edit"></i> Editar Información Financiera</a>
                                                     @else
                                                         <div class="badge badge-success">Aceptado</div>
                                                     @endif
@@ -132,14 +132,14 @@
                                                 </h6>
                                             </div>
                                             <div class="col-md-4 col-sm-12 mt-2 mt-md-0">
-                                                <h5>Info. Financiera</h5>
+                                                <h5>Inversión</h5>
                                                 <h6 class="pr-md-2">
-                                                    @if(isset($errores['financiera']))
+                                                    @if(isset($errores['inversion']))
                                                         <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
                                                             <span class="alert-icon"><i class="fa fa-warning"></i></span>
-                                                            {{$errores['financiera']}}
+                                                            {{$errores['inversion']}}
                                                         </div>
-                                                        <a href="{{action('PanelEmprendimientos@Financiera', $emprendimiento->_key)}}" class="btn btn-grey btn-sm"><i class="fa fa-edit"></i> Editar Información Financiera</a>
+                                                        <a href="{{action('PanelEmprendimientos@Inversion', $emprendimiento->_key)}}" class="btn btn-grey btn-sm"><i class="fa fa-edit"></i> Editar Inversión</a>
                                                     @else
                                                         <div class="badge badge-success">Aceptado</div>
                                                     @endif

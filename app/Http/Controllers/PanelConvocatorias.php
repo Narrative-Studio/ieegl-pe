@@ -119,7 +119,7 @@ class PanelConvocatorias extends Controller
                 FOR emp IN emprendimientos
                     FILTER doc.userKey == "'.auth()->user()->_key.'" AND conv._key  == doc.convocatoria_id AND emp._key == doc.emprendimiento_id
                     SORT doc._key ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'
-                    RETURN merge(doc, {nombre: conv.nombre}, {quien: conv.quien}, {emprendimiento: emp.nombre}, {descripcion: conv.descripcion}, {fecha_inicio_convocatoria: conv.fecha_inicio_convocatoria}, {fecha_fin_convocatoria: conv.fecha_fin_convocatoria} )
+                    RETURN merge(doc, {nombre: conv.nombre}, {quien: conv.quien}, {emprendimiento: emp.nombre}, {descripcion: conv.descripcion_corta}, {fecha_inicio_convocatoria: conv.fecha_inicio_convocatoria}, {fecha_fin_convocatoria: conv.fecha_fin_convocatoria} )
         ';
         $data = $this->ArangoDB->Query($query);
         if($request->get('total')!=''){
@@ -315,7 +315,7 @@ class PanelConvocatorias extends Controller
 
                 // Si la convocatoria requiere Ventas Registradas
                 if ($item->ventas == "Si") {
-                    if(isset($emprendimiento->realizado_ventas)){
+                    if(isset($emprendimiento->Aplicaciones)){
                         if($emprendimiento->realizado_ventas!="Si"){
                             $puede_aplicar = false;
                         }
