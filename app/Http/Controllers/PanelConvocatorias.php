@@ -204,47 +204,50 @@ class PanelConvocatorias extends Controller
                 $errores['generales'] = 'Debes tener Medios Digitales';
             }
 
-            // Si la convocatoria requiere Ventas Registradas
-            if ($item->ventas == "Si") {
-                if(isset($emprendimiento->realizado_ventas)){
-                    if($emprendimiento->realizado_ventas!="Si"){
+            // Si quien peude aplicar es diferente a TODOS
+            if($item->quien_key!='11536038'){
+                // Si la convocatoria requiere Ventas Registradas
+                if ($item->ventas == "Si") {
+                    if(isset($emprendimiento->realizado_ventas)){
+                        if($emprendimiento->realizado_ventas!="Si"){
+                            $puede_aplicar = false;
+                            $errores['ventas'] = 'Debes tener ventas registradas';
+                        }
+                    }else{
                         $puede_aplicar = false;
                         $errores['ventas'] = 'Debes tener ventas registradas';
                     }
-                }else{
-                    $puede_aplicar = false;
-                    $errores['ventas'] = 'Debes tener ventas registradas';
                 }
-            }
-            // Si la convocatoria requiere Clientes
-            if ($item->clientes == "Si") {
-                if(isset($emprendimiento->tiene_clientes)){
-                    if($emprendimiento->tiene_clientes!="Si"){
+                // Si la convocatoria requiere Clientes
+                if ($item->clientes == "Si") {
+                    if(isset($emprendimiento->tiene_clientes)){
+                        if($emprendimiento->tiene_clientes!="Si"){
+                            $puede_aplicar = false;
+                            $errores['clientes'] = 'Debes tener clientes';
+                        }
+                    }else{
                         $puede_aplicar = false;
                         $errores['clientes'] = 'Debes tener clientes';
                     }
-                }else{
-                    $puede_aplicar = false;
-                    $errores['clientes'] = 'Debes tener clientes';
                 }
-            }
-            // Si la convocatoria requiere Usuarios
-            if ($item->usuarios == "Si") {
-                if(isset($emprendimiento->tiene_usuarios)){
-                    if($emprendimiento->tiene_usuarios!="Si"){
+                // Si la convocatoria requiere Usuarios
+                if ($item->usuarios == "Si") {
+                    if(isset($emprendimiento->tiene_usuarios)){
+                        if($emprendimiento->tiene_usuarios!="Si"){
+                            $puede_aplicar = false;
+                            $errores['usuarios'] = 'Debes tener usuarios';
+                        }
+                    }else{
                         $puede_aplicar = false;
                         $errores['usuarios'] = 'Debes tener usuarios';
                     }
-                }else{
-                    $puede_aplicar = false;
-                    $errores['usuarios'] = 'Debes tener usuarios';
                 }
-            }
-            // Si la convocatoria requiere Información Financiera registrada
-            if ($item->financiera == "Si") {
-                if($emprendimiento->module_financiera==false){
-                    $puede_aplicar = false;
-                    $errores['financiera'] = 'Debes tener Información Financiera';
+                // Si la convocatoria requiere Información Financiera registrada
+                if ($item->financiera == "Si") {
+                    if($emprendimiento->module_financiera==false){
+                        $puede_aplicar = false;
+                        $errores['financiera'] = 'Debes tener Información Financiera';
+                    }
                 }
             }
         }else{
@@ -313,40 +316,44 @@ class PanelConvocatorias extends Controller
                     $puede_aplicar = false;
                 }
 
-                // Si la convocatoria requiere Ventas Registradas
-                if ($item->ventas == "Si") {
-                    if(isset($emprendimiento->Aplicaciones)){
-                        if($emprendimiento->realizado_ventas!="Si"){
+                // Si quien peude aplicar es diferente a TODOS
+                if($item->quien!='11536038') {
+
+                    // Si la convocatoria requiere Ventas Registradas
+                    if ($item->ventas == "Si") {
+                        if (isset($emprendimiento->realizado_ventas)) {
+                            if ($emprendimiento->realizado_ventas != "Si") {
+                                $puede_aplicar = false;
+                            }
+                        } else {
                             $puede_aplicar = false;
                         }
-                    }else{
-                        $puede_aplicar = false;
                     }
-                }
-                // Si la convocatoria requiere Clientes
-                if ($item->clientes == "Si") {
-                    if(isset($emprendimiento->tiene_clientes)){
-                        if($emprendimiento->tiene_clientes!="Si"){
+                    // Si la convocatoria requiere Clientes
+                    if ($item->clientes == "Si") {
+                        if (isset($emprendimiento->tiene_clientes)) {
+                            if ($emprendimiento->tiene_clientes != "Si") {
+                                $puede_aplicar = false;
+                            }
+                        } else {
                             $puede_aplicar = false;
                         }
-                    }else{
-                        $puede_aplicar = false;
                     }
-                }
-                // Si la convocatoria requiere Usuarios
-                if ($item->usuarios == "Si") {
-                    if(isset($emprendimiento->tiene_usuarios)){
-                        if($emprendimiento->tiene_usuarios!="Si"){
+                    // Si la convocatoria requiere Usuarios
+                    if ($item->usuarios == "Si") {
+                        if (isset($emprendimiento->tiene_usuarios)) {
+                            if ($emprendimiento->tiene_usuarios != "Si") {
+                                $puede_aplicar = false;
+                            }
+                        } else {
                             $puede_aplicar = false;
                         }
-                    }else{
-                        $puede_aplicar = false;
                     }
-                }
-                // Si la convocatoria requiere Información Financiera registrada
-                if ($item->financiera == "Si") {
-                    if($emprendimiento->module_financiera==false){
-                        $puede_aplicar = false;
+                    // Si la convocatoria requiere Información Financiera registrada
+                    if ($item->financiera == "Si") {
+                        if ($emprendimiento->module_financiera == false) {
+                            $puede_aplicar = false;
+                        }
                     }
                 }
             }else{

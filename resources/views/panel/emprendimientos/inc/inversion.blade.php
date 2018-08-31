@@ -66,17 +66,17 @@
                                 <div class="form-group mb-1 col-sm-12 col-md-2">
                                     <label>Socio <span class="required">*</span></label>
                                     <br>
-                                    {!! Form::text('socio', null, ['class'=>'form-control', 'required' =>'required']); !!}
+                                    {!! Form::text('socio', null, ['class'=>'form-control']); !!}
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-2">
                                     <label>Año <span class="required">*</span></label>
                                     <br>
-                                    {!! Form::text('year', null, ['class'=>'form-control integer', 'required' =>'required']); !!}
+                                    {!! Form::text('year', null, ['class'=>'form-control integer']); !!}
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-2">
                                     <label>Mes <span class="required">*</span></label>
                                     <br>
-                                    {!! Form::select('mes', $meses_inversion, null, ['class'=>'form-control', 'style'=>'text-transform:capitalize;', 'required' =>'required']); !!}
+                                    {!! Form::select('mes', $meses_inversion, null, ['class'=>'form-control', 'style'=>'text-transform:capitalize;']); !!}
                                 </div>
                                 <div class="skin skin-flat form-group mb-1 col-sm-12 col-md-3">
                                     <label>Monto (USD) <span class="required">*</span></label>
@@ -85,7 +85,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">$</span>
                                         </div>
-                                        {!! Form::text('monto', null, ['class'=>'money form-control', 'required' =>'required']); !!}
+                                        {!! Form::text('monto', null, ['class'=>'money form-control']); !!}
                                         <div class="input-group-append">
                                             <span class="input-group-text">USD</span>
                                         </div>

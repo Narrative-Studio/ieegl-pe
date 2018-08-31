@@ -38,6 +38,7 @@ class EmprendimientosDatosGeneralesRequest extends FormRequest
                         'diferenciador_modelo_negocio'                => 'required',
                         'investigacion_desarrollo'                => 'required',
                         'numero_socios'                => 'required',
+                        'prototipo_o_mvp'                => 'required',
                     ];
                     return $rules;
                     break;

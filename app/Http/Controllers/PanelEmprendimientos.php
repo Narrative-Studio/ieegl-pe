@@ -396,12 +396,12 @@ class PanelEmprendimientos extends Controller
     public function SaveFinanciera(EmprendimientosFinancieraRequest $request){
         $document = [];
         $document['lanzar_producto'] = $request->get('lanzar_producto');
+        $document['fecha_fundacion'] = $request->get('fecha_fundacion');
         $document['module_financiera'] = true;
 
         if($request->get('lanzar_producto')=="Si"){
 
             $document['fecha_lanzamiento'] = $request->get('fecha_lanzamiento');
-            $document['fecha_fundacion'] = $request->get('fecha_fundacion');
             $document['modelo_ventas'] = $request->get('modelo_ventas');
             $document['realizado_ventas'] = $request->get('realizado_ventas');
             $document['patente_ip'] = $request->get('patente_ip');
@@ -428,7 +428,6 @@ class PanelEmprendimientos extends Controller
             }
         }else{
             $document['fecha_lanzamiento'] = null;
-            $document['fecha_fundacion'] =null;
             $document['modelo_ventas'] = null;
             $document['patente_ip'] = null;
             $document['realizado_ventas'] = null;

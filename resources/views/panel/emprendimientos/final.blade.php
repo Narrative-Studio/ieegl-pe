@@ -28,7 +28,7 @@
                                             <h1 class="mb-4 mt-1">CONFIRMACIÓN</h1>
                                         </div>
                                         <h4 class="mb-1 text-center">¡Gracias {{auth()->user()->nombre}} {{auth()->user()->apellidos}} por registar tu emprendimiento <strong>{{$item->nombre}} </strong>!</h4>
-                                        <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vel lacus ac nibh venenatis fermentum. Proin a efficitur tortor, eget tempus dui. Maecenas nec elit eu ipsum imperdiet ultricies. Etiam elementum scelerisque nunc, vel consectetur magna condimentum ac. Donec pretium gravida nibh, id facilisis enim pretium quis. Proin malesuada ultrices libero venenatis pharetra. Quisque in dolor vel massa luctus egestas. Sed accumsan ut tortor a tincidunt. Maecenas laoreet, mauris id mollis molestie, dolor ipsum efficitur magna, vel tempus sem sem non velit.</p>
+                                        <p class="mb-4">Ahora puedes aplicar a una de las convocatorias disponibles para impulsar tu proyecto.</p>
                                         <hr/>
                                         <div class="form-actions text-center">
                                             <a href="{{action('PanelController@Index')}}" class="btn btn-primary">

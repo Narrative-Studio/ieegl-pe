@@ -21,7 +21,6 @@
                                         <thead class="bg-primary white">
                                         <tr>
                                             <th>Nombre</th>
-                                            <th>¿Quién puede aplicar?</th>
                                             <th width="150">&nbsp;</th>
                                         </tr>
                                         </thead>
@@ -35,9 +34,8 @@
                                                         {!! $item->descripcion_corta !!}
                                                     </span>
                                                 </td>
-                                                <td>{{$item->quien_nombre}}</td>
                                                 <td>
-                                                    <a href="{{action('PanelConvocatorias@Ver',['id'=>$item->_key])}}" class="btn btn-sm btn-success mr-0"><i class="fa fa-edit"></i> Ver/Aplicar</a>
+                                                    <a href="{{action('PanelConvocatorias@Ver',['id'=>$item->_key])}}" class="btn btn-success mr-0"><i class="fa fa-edit"></i> Ver/Aplicar</a>
                                                 </td>
                                             </tr>
                                         @endforeach
