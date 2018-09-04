@@ -100,7 +100,7 @@
                     </div>
                     <div class="form-group overflow-hidden">
                         <div class="">
-                            <button data-repeater-create class="btn btn-primary">
+                            <button type="button" data-repeater-create class="btn btn-primary">
                                 <i class="ft-plus"></i> Agregar otro Socio
                             </button>
                         </div>

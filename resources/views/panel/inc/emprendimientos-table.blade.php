@@ -3,7 +3,6 @@
         <table class="table mb-0">
             <thead class="bg-primary white">
             <tr>
-                <th>Fundación</th>
                 <th>Nombre</th>
                 <th>Nivel</th>
                 <th>Grales.</th>
@@ -18,7 +17,6 @@
             <tbody>
             @foreach($emprendimientos as $item)
                 <tr>
-                    <td style="text-transform: capitalize;">{{\Illuminate\Support\Carbon::parse($item->fecha_fundacion)->formatLocalized('%d %B %Y')}}</td>
                     <td>{{$item->nombre}}</td>
                     <td>@if(isset($item->nivel_tlr)){{$niveles[$item->nivel_tlr]}}@else <i>No aplica</i> @endif</td>
                     <td class="text-center">@if($item->module_datos==true) <i class="fa fa-check-circle success"></i> @else <i class="fa fa-times-circle" style="color: #999;"></i> @endif</td>
