@@ -114,7 +114,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <label for="">¿Tu producto ha sido lanzado al mercado? <span class="required">*</span></label>
+                    <label for="">¿Has tenido ventas? <span class="required">*</span></label>
                     <?php $class=($errors->has('realizado_ventas'))?'form-control is-invalid':'form-control'; ?>
                     <div class="row skin skin-flat">
                         <div class="col-sm-1">
