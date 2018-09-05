@@ -65,7 +65,7 @@ class PanelConvocatorias extends Controller
     }
 
     /**
-     * Estudios para el Perfil del Usuario
+     * Ver Convocatoria
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws ArangoException
      */
@@ -85,8 +85,9 @@ class PanelConvocatorias extends Controller
         $item = $this->ArangoDB->Query($query);
         $item = $item[0];
 
-        $existe = $this->ArangoDB->Query('FOR doc IN '.$this->collection.' FILTER doc.userKey=="'.auth()->user()->_key.'" AND doc.convocatoria_id == "'.$key.'" AND doc.aprobado!=2 RETURN doc');
-        $verificar = (count($existe)>0)?true:false;
+        //$existe = $this->ArangoDB->Query('FOR doc IN '.$this->collection.' FILTER doc.userKey=="'.auth()->user()->_key.'" AND doc.convocatoria_id == "'.$key.'" AND doc.aprobado!=2 RETURN doc');
+        //$verificar = (count($existe)>0)?true:false;
+        $verificar = false;
 
         if($verificar==false){
 
@@ -255,10 +256,7 @@ class PanelConvocatorias extends Controller
             $verificar = $this->VerificarEmeprendimiento('', $key);
         }
 
-        if($verificar==true) abort(404);
-
-
-        return view('panel.convocatorias.aplicar', compact('item','emprendimiento', 'puede_aplicar', 'errores'));
+        return view('panel.convocatorias.aplicar', compact('item','emprendimiento', 'puede_aplicar', 'errores', 'verificar'));
     }
 
     /**
