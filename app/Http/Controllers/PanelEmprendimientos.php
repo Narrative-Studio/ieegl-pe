@@ -18,6 +18,7 @@ use ArangoDBClient\Exception as ArangoException;
 use ArangoDBClient\ClientException as ArangoClientException;
 use ArangoDBClient\ServerException as ArangoServerException;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
 
@@ -203,25 +204,30 @@ class PanelEmprendimientos extends Controller
      * @throws ArangoException
      */
     public function SaveMediosDigitales(EmprendimientosMediosDigitalesRequest $request){
+        $documentId = $request->get('id');
         $document = [];
         $document['sitio_web'] = $request->get('sitio_web');
         $document['red_social'] = $request->get('red_social');
         $document['video'] = $request->get('video');
         $document['module_medios'] = true;
 
-        $documentId = $request->get('id');
-        $this->ArangoDB->Update($this->collection, $this->collection.'/'.$documentId, $document);
-
         // Guardando Logo del Emprendimiento
         if($_FILES['logo']['size'] != 0 && $_FILES['logo']['error'] == 0){
+            $ext = Input::file('logo')->getClientOriginalExtension();
             $img = Image::make($_FILES['logo']['tmp_name']);
-            $img->save(public_path('/emprendimientos_pics/logo_'.$documentId.'.jpg', 100));
+            $file_name = '/emprendimientos_pics/logo_'.$documentId.'.'.$ext;
+            $img->save(public_path($file_name, 100));
+            $document['logo_file'] = $file_name;
         }
 
-        // Guardando Presentacion PDF
+        // Guardando Presentacion
         if($_FILES['presentacion']['size'] != 0 && $_FILES['presentacion']['error'] == 0){
-            $request->file('presentacion')->move(public_path('/emprendimientos_pdf/'),'presentacion_'.$documentId.'.pdf');
+            $ext = Input::file('presentacion')->getClientOriginalExtension();
+            $file_name = 'presentacion_'.$documentId.'.'.$ext;
+            $request->file('presentacion')->move(public_path('/emprendimientos_pdf/'),$file_name);
+            $document['presentacion_file'] = '/emprendimientos_pdf/'.$file_name;
         }
+        $this->ArangoDB->Update($this->collection, $this->collection.'/'.$documentId, $document);
 
         Session::flash('status_success', 'Medios Digitales Guardados');
         return redirect()->action($this->controller.'@Clientes', ['id'=>$documentId]);
@@ -394,6 +400,7 @@ class PanelEmprendimientos extends Controller
      * @throws ArangoException
      */
     public function SaveFinanciera(EmprendimientosFinancieraRequest $request){
+        $documentId = $request->get('id');
         $document = [];
         $document['lanzar_producto'] = $request->get('lanzar_producto');
         $document['fecha_fundacion'] = $request->get('fecha_fundacion');
@@ -437,14 +444,14 @@ class PanelEmprendimientos extends Controller
             $document['socio_exit_empresa'] = null;
         }
 
-        $documentId = $request->get('id');
-        $this->ArangoDB->Update($this->collection, $this->collection.'/'.$documentId, $document);
-
         // Guardando Cédula de Identificación Fiscal del Emprendimiento
         if($_FILES['cedula_identificacion']['size'] != 0 && $_FILES['cedula_identificacion']['error'] == 0){
-            $img = Image::make($_FILES['cedula_identificacion']['tmp_name']);
-            $img->save(public_path('/emprendimientos_pics/cedula_'.$documentId .'.jpg', 100));
+            $ext = Input::file('cedula_identificacion')->getClientOriginalExtension();
+            $file_name = 'cedula_'.$documentId.'.'.$ext;
+            $request->file('cedula_identificacion')->move(public_path('/emprendimientos_pics/'),$file_name);
+            $document['cedula_file'] = '/emprendimientos_pics/'.$file_name;
         }
+        $this->ArangoDB->Update($this->collection, $this->collection.'/'.$documentId, $document);
 
         Session::flash('status_success', 'Ventas Guardadas');
         return redirect()->action($this->controller.'@Inversion', ['id'=>$documentId]);
@@ -530,7 +537,7 @@ class PanelEmprendimientos extends Controller
         $documentId = $request->get('id');
         $this->ArangoDB->Update($this->collection, $this->collection.'/'.$documentId, $document);
 
-        Session::flash('status_success', 'Inversion Guardada');
+        Session::flash('status_success', 'Inversión Guardada');
         return redirect()->action($this->controller.'@Final', ['id'=>$documentId]);
     }
 

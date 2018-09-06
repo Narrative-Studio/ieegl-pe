@@ -7,12 +7,32 @@
 @section('js')
     <script type="text/javascript">
         $(document).ready(function () {
+            <?php $clase_otra = 'invisible';?>
+            @if($item)
+                @if(isset($item->universidad))
+                    @if($item->universidad==1)
+                        <?php $clase_otra = '';?>
+                    @endif
+                @endif
+            @endif
+            @if(old('universidad')=='1')
+                <?php $clase_otra = '';?>
+            @endif
+
             $('#universidad').on('select2:select',function (e) {
                 var data = e.params.data;
                 if(data.id=='3961308'){
                     $('#campus_tec').css('visibility','visible').css('height','auto');
+                    $('#otra').addClass('invisible');
+                    $('#universidad_otra').val('');
                 }else{
-                    $('#campus_tec').css('visibility','hidden').css('height','0');
+                    if(data.id=='1'){
+                        $('#otra').removeClass('invisible');
+                    }else{
+                        $('#campus_tec').css('visibility','hidden').css('height','0');
+                        $('#otra').addClass('invisible');
+                    }
+                    $('#universidad_otra').val('');
                     $('#camous').val('');
                     $('#matricula').val('');
                 }
@@ -83,7 +103,7 @@
                                                     <?php $class=($errors->has('universidad'))?'is-invalid':''; ?>
                                                     <div class="form-group {{$class}}">
                                                         <label for="">Universidad donde cursaste tus estudios o estás actualmente estudiando <span class="required">*</span></label>
-                                                        {!! Form::select('universidad', $universidades, null, ['placeholder' => 'Selecciona','class'=> 'select2 form-control '.$class, 'id'=>'universidad']); !!}
+                                                        {!! Form::select('universidad', $universidades+['1'=>'Otra Universidad'], null, ['placeholder' => 'Selecciona','class'=> 'select2 form-control '.$class, 'id'=>'universidad']); !!}
                                                         @if ($errors->has('universidad'))
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $errors->first('universidad') }}</strong>
@@ -92,10 +112,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="form-group">
+                                                    <div class="form-group {{$clase_otra}}" id="otra">
                                                         <label for="">Otra</label>
                                                         <?php $class=($errors->has('universidad_otra'))?'form-control is-invalid':'form-control'; ?>
-                                                        {!! Form::text('universidad_otra', null, ['class'=>$class]); !!}
+                                                        {!! Form::text('universidad_otra', null, ['class'=>$class, 'id'=>'universidad_otra']); !!}
                                                         @if ($errors->has('universidad_otra'))
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $errors->first('universidad_otra') }}</strong>

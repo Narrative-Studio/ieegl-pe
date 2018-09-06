@@ -10,6 +10,7 @@ use App\Repositories\ArangoDB;
 use ArangoDBClient\Exception as ArangoException;
 use ArangoDBClient\ClientException as ArangoClientException;
 use ArangoDBClient\ServerException as ArangoServerException;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
 
@@ -159,9 +160,7 @@ class PanelPerfiles extends Controller
             $documentId = $request->get('id');
             $this->ArangoDB->Update($this->collection, $this->collection.'/'.$request->get('id'), $document);
         }
-
-        Session::flash('status_success', 'Estudios Guardados');
-        return redirect()->action($this->controller.'@Estudios');
+        return redirect()->action($this->controller.'@Final');
     }
 
     /**
@@ -184,6 +183,14 @@ class PanelPerfiles extends Controller
 
         Session::flash('status_success', 'Cuenta Guardada');
         return redirect()->action($this->controller.'@Cuenta');
+    }
+
+    /**
+     * Perfil Completo
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function Final(){
+        return view('panel.'.$this->collection.'.final');
     }
 
 }

@@ -28,7 +28,7 @@ class EmprendimientosFinancieraRequest extends FormRequest
                     $rules =  [
                         'lanzar_producto'             => 'required',
                         'fecha_fundacion'             => 'required|date',
-                        'cedula_identificacion'                => 'image:jpg,jpeg',
+                        'cedula_identificacion'       => 'mimes:jpg,jpeg,pdf',
                     ];
                     if (Request::input('lanzar_producto') == 'Si') {
                         $rules['fecha_lanzamiento']      = 'required';

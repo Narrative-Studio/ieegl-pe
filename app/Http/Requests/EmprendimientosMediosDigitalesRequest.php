@@ -25,8 +25,11 @@ class EmprendimientosMediosDigitalesRequest extends FormRequest
             case 'POST':
                 {
                     $rules =  [
-                        'logo'                => 'image:jpg,jpeg',
-                        'presentacion'        => 'mimes:pdf',
+                        'sitio_web'           => 'required',
+                        'red_social'          => 'required',
+                        'video'               => 'required',
+                        'logo'                => 'image:jpg,jpeg,png,gif',
+                        'presentacion'        => 'mimes:pdf,jpg,jpeg',
                     ];
                     return $rules;
                     break;

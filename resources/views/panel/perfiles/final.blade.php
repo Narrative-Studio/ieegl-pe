@@ -1,8 +1,8 @@
 @extends('layouts.panel')
 
-@section('titulo') Emprendimiento @endsection
-@section('seccion') Emprendimiento @endsection
-@section('accion') Confirmación @endsection
+@section('titulo') Perfil @endsection
+@section('seccion') Perfil @endsection
+@section('accion') Perfil Completo @endsection
 
 @section('js')
     <script type="text/javascript">
@@ -23,12 +23,12 @@
                             <div class="card-content collapse show">
                                 <div class="card-body">
                                     <div class="form-body text-center">
-                                        <div class="">
+                                        <div class="text-center">
                                             <i class="icon-check font-large-5 mt-2 success"></i>
-                                            <h1 class="mb-4 mt-1">CONFIRMACIÓN</h1>
+                                            <h1 class="mb-4 mt-1">Perfil Completo</h1>
                                         </div>
-                                        <h4 class="mb-1">¡Gracias {{auth()->user()->nombre}} {{auth()->user()->apellidos}} por registar tu emprendimiento <strong>{{$item->nombre}} </strong>!</h4>
-                                        <p class="mb-4">Ahora puedes aplicar a una de las convocatorias disponibles para impulsar tu proyecto.</p>
+                                        <h4 class="mb-1">¡Gracias {{auth()->user()->nombre}} {{auth()->user()->apellidos}} por completar tu perfil. </strong>!</h4>
+                                        <p class="mb-4">Ahora puedes registrar emprendimientos y aplicar a convocatorias.</p>
                                         <hr/>
                                         <div class="form-actions text-center">
                                             <a href="{{action('PanelController@Index')}}" class="btn btn-primary">

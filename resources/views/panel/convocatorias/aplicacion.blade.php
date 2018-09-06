@@ -24,7 +24,9 @@
                                         @else
                                             <p>Gracias <strong>{{auth()->user()->nombre}} {{auth()->user()->apellidos}}</strong> por aplicar tu emprendimiento <strong>"{{$emprendimiento->nombre}}"</strong> a la convocatoria.</p>
                                         @endif
-                                        <p class="mt-1">Estaremos analizando tu solicitud y en breve te daremos una respuesta.</p>
+                                        <p class="mt-1">Con esta información estás en el proceso de selección de las mejores startups de México, Latam y el mundo.<br/>
+                                            Te informaremos sobre tu evaluación muy pronto.
+                                        </p>
                                     </div>
                                 @else
                                     <div class="alert round bg-warning alert-icon-right alert-dismissible text-center" role="alert">

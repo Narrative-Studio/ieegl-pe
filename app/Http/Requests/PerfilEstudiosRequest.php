@@ -31,7 +31,7 @@ class PerfilEstudiosRequest extends FormRequest
                     if (Request::input('universidad_otra') == '') {
                         $rules['universidad']      = 'required';
                     }
-                    if (Request::input('universidad') == '' && Request::input('universidad_otra') != '') {
+                    if (Request::input('universidad') == '1') {
                         $rules['universidad_otra']      = 'required';
                     }
                     if (Request::input('universidad') == '3961308') {

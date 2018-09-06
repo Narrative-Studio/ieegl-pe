@@ -32,6 +32,7 @@ Route::prefix('panel')->group(function() {
         Route::post('/perfil/saveEstudios', 'PanelPerfiles@SaveEstudios');
         Route::get('/perfil/cuenta', 'PanelPerfiles@Cuenta');
         Route::post('/perfil/saveCuenta', 'PanelPerfiles@SaveCuenta');
+        Route::get('/perfil/completo', 'PanelPerfiles@Final');
 
         /** Emprendimiento **/
         // Datos Generales

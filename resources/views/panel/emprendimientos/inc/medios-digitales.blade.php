@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="">Sitio Web de tu Emprendimiento<small>Ej. www.misitio.com</small></label>
+                <label for="">Sitio Web de tu Emprendimiento <span class="required">*</span> <small>Ej. www.misitio.com</small></label>
                 <?php $class=($errors->has('sitio_web'))?'form-control is-invalid':'form-control'; ?>
                 {!! Form::text('sitio_web', null, ['class'=>$class, 'aria-describedby'=>'sitio_des']) !!}
                 @if ($errors->has('sitio_web'))
@@ -14,21 +14,21 @@
     <div class="row">
         <div class="form-group">
             <div class="col-md-12">
-                <label for="">Logo de tu Emprendimiento en alta definición <small>(opcional)</small></label>
+                <label for="">Logo de tu Emprendimiento en alta definición  <span class="required">*</span> <small>(opcional)</small></label>
                 <div class="row">
                     <div class="col-md-4">
-                        @if(isset($item->_key))
-                            @if(file_exists(public_path('/emprendimientos_pics/logo_'.$item->_key.'.jpg')))
-                                <img src="{{url('/emprendimientos_pics/logo_'.$item->_key.'.jpg')}}?{{str_random(15)}}" width="120" height="120" border="0" alt="" class="rounded img-fluid" data-action="zoom" />
-                            @else
-                                <img src="https://imgplaceholder.com/240x250/37bc9b/ffffff/fa-file-photo-o?text=_none_&font-size=60" width="120" height="120" border="0" alt="" />
-                            @endif
+                        @if(isset($item->logo_file))
+                            @if(file_exists(public_path($item->logo_file)))
+                                <img src="{{url($item->logo_file)}}?{{str_random(15)}}" width="120" height="120" border="0" alt="" class="rounded img-fluid" data-action="zoom" />
+                           @endif
+                        @else
+                            <img src="https://imgplaceholder.com/240x250/37bc9b/ffffff/fa-file-photo-o?text=_none_&font-size=60" width="120" height="120" border="0" alt="" />
                         @endif
                     </div>
                     <div class="col-md-8">
-                        <input type='file' name="logo" id="" accept=".jpg, .jpeg" />
+                        <input type='file' name="logo" id="" accept=".jpg, .jpeg, .gif, .png" />
                         @if ($errors->has('logo'))
-                            <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('logo') }}</strong></span>
+                            <span class="invalid-feedback" role="alert"  style="display: block;"><strong>{{ $errors->first('logo') }}</strong></span>
                         @endif
                     </div>
                 </div>
@@ -38,7 +38,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="">Red social mas utilizada por tu Emprendimiento<small>Incluye el nombre de usuario o nickname (Ej. www.facebook.com/usuario)</small></label>
+                <label for="">Red social mas utilizada por tu Emprendimiento <span class="required">*</span> <small>Incluye el nombre de usuario o nickname (Ej. www.facebook.com/usuario)</small></label>
                 <?php $class=($errors->has('red_social'))?'form-control is-invalid':'form-control'; ?>
                 {!! Form::text('red_social', null, ['class'=>$class, 'aria-describedby'=>'sitio_red']) !!}
                 @if ($errors->has('red_social'))
@@ -50,7 +50,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="">Video de tu Emprendimiento<small>Sube un video a youtube con tu pitch y copia el URL aquí.</small></label>
+                <label for="">Video de tu Emprendimiento <span class="required">*</span> <small>Sube un video a youtube con tu pitch y copia el URL aquí.</small></label>
                 <?php $class=($errors->has('video'))?'form-control is-invalid':'form-control'; ?>
                 {!! Form::text('video', null, ['class'=>$class, 'aria-describedby'=>'sitio_video']) !!}
                 @if ($errors->has('video'))
@@ -62,21 +62,26 @@
     <div class="row">
         <div class="form-group">
             <div class="col-md-12">
-                <label for="">Agrega tu presentación o pitch deck (PDF) <small>(opcional)</small></label>
+                <label for="">Agrega tu presentación o pitch deck (PDF, JPG)  <span class="required">*</span> <small>(opcional)</small></label>
                 <div class="row">
                     <div class="col-md-4">
-                        @if(isset($item->_key))
-                            @if(file_exists(public_path('/emprendimientos_pdf/presentacion_'.$item->_key.'.pdf')))
-                                <a href="{{url('/emprendimientos_pdf/presentacion_'.$item->_key.'.pdf')}}" target="_blank">Presentacion</a>
-                            @else
-                                <img src="https://imgplaceholder.com/240x250/37bc9b/ffffff/fa-file-pdf-o?text=_none_&font-size=60" width="120" height="120" border="0" alt="" />
+                        @if(isset($item->presentacion_file))
+                            @if(file_exists(public_path($item->presentacion_file)))
+                                <?php $archivo = explode('.',$item->presentacion_file)?>
+                                @if($archivo[1]=='pdf')
+                                    <a class="btn btn-sm btn-primary" href="{{url($item->presentacion_file)}}" target="_blank"><i class="fa fa-search-plus"></i> Ver Presentación</a>
+                                @else
+                                    <img src="{{url($item->presentacion_file)}}?{{str_random(15)}}" width="120" height="120" border="0" alt="" class="rounded img-fluid" data-action="zoom" />
+                                @endif
                             @endif
+                        @else
+                            <img src="https://imgplaceholder.com/240x250/37bc9b/ffffff/fa-file-pdf-o?text=_none_&font-size=60" width="120" height="120" border="0" alt="" />
                         @endif
                     </div>
                     <div class="col-md-8">
-                        <input type='file' name="presentacion" id="" accept=".pdf" />
+                        <input type='file' name="presentacion" id="" accept=".pdf, .jpg, .jpeg" />
                         @if ($errors->has('presentacion'))
-                            <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('presentacion') }}</strong></span>
+                            <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('presentacion') }}</strong></span>
                         @endif
                     </div>
                 </div>

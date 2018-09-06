@@ -38,7 +38,7 @@
                         @else
                             <div class="bs-callout-success callout-border-left callout-bordered mb-2 p-1">
                                 <strong>Respuesta a solicitud:</strong>
-                                <p>¡En Horabuena! Puedes aplicar a la convocatoria.</p>
+                                <p>¡Enhorabuena! Puedes aplicar a la convocatoria.</p>
                             </div>
                         @endif
                     </div>
