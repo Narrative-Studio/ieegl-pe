@@ -212,11 +212,11 @@ class PanelConvocatorias extends Controller
                     if(isset($emprendimiento->realizado_ventas)){
                         if($emprendimiento->realizado_ventas!="Si"){
                             $puede_aplicar = false;
-                            $errores['ventas'] = 'Debes tener ventas registradas';
+                            $errores['financiera'] = 'Debes tener ventas registradas';
                         }
                     }else{
                         $puede_aplicar = false;
-                        $errores['ventas'] = 'Debes tener ventas registradas';
+                        $errores['financiera'] = 'Debes tener ventas registradas';
                     }
                 }
                 // Si la convocatoria requiere Clientes
@@ -255,7 +255,7 @@ class PanelConvocatorias extends Controller
             // Verificando que no se duplique el emprendimiento en la convicatoria
             $verificar = $this->VerificarEmeprendimiento('', $key);
         }
-
+        
         return view('panel.convocatorias.aplicar', compact('item','emprendimiento', 'puede_aplicar', 'errores', 'verificar'));
     }
 
