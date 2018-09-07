@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'smtp'),
+    'driver' => env('MAIL_DRIVER', 'log'),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'adan@talely.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'noreply@startupsid.mx'),
         'name' => env('MAIL_FROM_NAME', 'SID'),
     ],
 

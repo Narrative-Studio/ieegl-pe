@@ -92,9 +92,9 @@ class PanelConvocatorias extends Controller
         if($verificar==false){
 
             // Agregando filtro de 'Emprendimiento lanzado al mercado con o sin ventas'
-            if($item->quien_key=='6375309'){
+            /*if($item->quien_key=='6375309'){
                 $filter = ' AND doc.module_ventas == true AND doc.lanzar_producto == "Si" ';
-            }
+            }*/
 
             // Si la convocatoria no es exclusva para "Emprendedor sin idea pero con inquietud de emprender" se obtienen los emprendimientos
             if($item->quien_key!='6375236'){

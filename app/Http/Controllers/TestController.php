@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SolicitudAdmin;
 use App\Repositories\ArangoDB;
 use ArangoDBClient\Document;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ use ArangoDBClient\ClientException as ArangoClientException;
 use ArangoDBClient\ServerException as ArangoServerException;
 use ArangoDBClient\Statement as ArangoStatement;
 use ArangoDBClient\UpdatePolicy as ArangoUpdatePolicy;
+use Illuminate\Support\Facades\Mail;
 
 class TestController extends Controller
 {
@@ -32,14 +34,14 @@ class TestController extends Controller
         //$result = $this->CollectionHandler->all('users');
         //var_dump($result);
 
-        echo '<p>get Admin</p>';
+        /*echo '<p>get Admin</p>';
         $cursor = $this->CollectionHandler->byExample('users', ['email' => 'adanlunas@gmail.com']);
         $usuario = $this->ArangoDB->Document($cursor->getAll());
         if($usuario){
             echo $usuario->email;
         }else{
             echo 'no existe';
-        }
+        }*/
 
         // update a document
         /*$cursor = $this->CollectionHandler->byExample('users', ['email' => 'adanluna@gmail.com']);
@@ -49,6 +51,17 @@ class TestController extends Controller
         $user = new ArangoDocument();
         $user->username = 'John';
         $result = $this->DocumentHandler->updateById('users', $id, $user);*/
+
+        // Enviando Mail al Administrador
+        $document = [];
+        $document['responsable_email'] = "adanluna@gmail.com";
+        $document['usuario'] = "Adan Luna";
+        $document['usuario_email'] = "adan@oundmedia.com";
+        $document['convocatoria_key'] = 122334;
+        $document['convocatoria_nombre'] = "Prueba";
+        $document['fecha_registro'] = strtotime("01/01/2018");
+        Mail::to($document['responsable_email'])
+            ->send(new SolicitudAdmin($document));
 
     }
 
