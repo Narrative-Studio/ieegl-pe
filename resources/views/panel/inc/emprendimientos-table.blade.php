@@ -7,8 +7,7 @@
                 <th>Nivel</th>
                 <th>Grales.</th>
                 <th>Medios Dig.</th>
-                <th>Clientes</th>
-                <th>Usuarios</th>
+                <th>Mercado</th>
                 <th>Inversión</th>
                 <th>Inf. Finaciera</th>
                 <th>&nbsp;</th>
@@ -21,8 +20,7 @@
                     <td>@if(isset($item->nivel_tlr)){{$niveles[$item->nivel_tlr]}}@else <i>No aplica</i> @endif</td>
                     <td class="text-center">@if($item->module_datos==true) <i class="fa fa-check-circle success"></i> @else <i class="fa fa-times-circle" style="color: #999;"></i> @endif</td>
                     <td class="text-center">@if($item->module_medios==true) <i class="fa fa-check-circle success"></i> @else <i class="fa fa-times-circle" style="color: #999;"></i> @endif</td>
-                    <td class="text-center">@if($item->module_clientes==true) <i class="fa fa-check-circle success"></i> @else <i class="fa fa-times-circle" style="color: #999;"></i> @endif</td>
-                    <td class="text-center">@if($item->module_usuarios==true) <i class="fa fa-check-circle success"></i> @else <i class="fa fa-times-circle" style="color: #999;"></i> @endif</td>
+                    <td class="text-center">@if($item->module_mercado==true) <i class="fa fa-check-circle success"></i> @else <i class="fa fa-times-circle" style="color: #999;"></i> @endif</td>
                     <td class="text-center">@if($item->module_financiera==true) <i class="fa fa-check-circle success"></i> @else <i class="fa fa-times-circle" style="color: #999;"></i> @endif</td>
                     <td class="text-center">@if($item->module_inversion==true) <i class="fa fa-check-circle success"></i> @else <i class="fa fa-times-circle" style="color: #999;"></i> @endif</td>
                     <td>

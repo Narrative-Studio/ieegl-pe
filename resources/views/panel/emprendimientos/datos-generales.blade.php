@@ -34,16 +34,13 @@
                                                 <span class="nav-link">Medios Digitales</span>
                                             </li>
                                             <li class="nav-item">
-                                                <span class="nav-link">Ventas</span>
-                                            </li>
-                                            <li class="nav-item">
-                                                <span class="nav-link">Clientes/Usuarios</span>
-                                            </li>
-                                            <li class="nav-item">
-                                                <span class="nav-link">Inversión</span>
+                                                <span class="nav-link">Mercado</span>
                                             </li>
                                             <li class="nav-item">
                                                 <span class="nav-link">Información Financiera</span>
+                                            </li>
+                                            <li class="nav-item">
+                                                <span class="nav-link">Inversión</span>
                                             </li>
                                         @endif
                                     </ul>

@@ -61,11 +61,19 @@
                                                 <div class="col-md-4 col-sm-12 mt-2 mt-md-0">
                                                     <h5>Datos Generales</h5>
                                                     <h6 class="pr-md-2">
-                                                        @if(isset($errores['generales']))
-                                                            <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
-                                                                <span class="alert-icon"><i class="fa fa-warning"></i></span>
-                                                                {{$errores['generales']}}
-                                                            </div>
+                                                        @if(isset($errores['generales']) || isset($errores['mvp']))
+                                                            @if(isset($errores['generales']))
+                                                                <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
+                                                                    <span class="alert-icon"><i class="fa fa-warning"></i></span>
+                                                                     {{$errores['generales']}}
+                                                                </div>
+                                                            @endif
+                                                            @if(isset($errores['mvp']))
+                                                                <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
+                                                                    <span class="alert-icon"><i class="fa fa-warning"></i></span>
+                                                                     {{$errores['mvp']}}
+                                                                </div>
+                                                            @endif
                                                             <a href="{{action('PanelEmprendimientos@DatosGenerales', $emprendimiento->_key)}}" class="btn btn-grey btn-sm"><i class="fa fa-edit"></i> Editar Datos Generales</a>
                                                         @else
                                                             <div class="badge badge-success">Aceptado</div>
@@ -89,11 +97,37 @@
                                                 <div class="col-md-4 col-sm-12 mt-2 mt-md-0">
                                                     <h5>Info. Financiera</h5>
                                                     <h6 class="pr-md-2">
-                                                        @if(isset($errores['financiera']))
-                                                            <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
-                                                                <span class="alert-icon"><i class="fa fa-warning"></i></span>
-                                                                {{$errores['financiera']}}
-                                                            </div>
+                                                        @if(isset($errores['ventas']) || isset($errores['lanzado']) || isset($errores['clientes']) || isset($errores['usuarios']) || isset($errores['financiera']))
+                                                            @if(isset($errores['ventas']))
+                                                                <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
+                                                                    <span class="alert-icon"><i class="fa fa-warning"></i></span>
+                                                                    {{$errores['ventas']}}
+                                                                </div>
+                                                            @endif
+                                                            @if(isset($errores['lanzado']))
+                                                                <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
+                                                                    <span class="alert-icon"><i class="fa fa-warning"></i></span>
+                                                                    {{$errores['lanzado']}}
+                                                                </div>
+                                                            @endif
+                                                            @if(isset($errores['clientes']))
+                                                                <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
+                                                                    <span class="alert-icon"><i class="fa fa-warning"></i></span>
+                                                                    {{$errores['clientes']}}
+                                                                </div>
+                                                            @endif
+                                                            @if(isset($errores['usuarios']))
+                                                                <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
+                                                                    <span class="alert-icon"><i class="fa fa-warning"></i></span>
+                                                                    {{$errores['usuarios']}}
+                                                                </div>
+                                                            @endif
+                                                            @if(isset($errores['financiera']))
+                                                                <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
+                                                                    <span class="alert-icon"><i class="fa fa-warning"></i></span>
+                                                                    {{$errores['financiera']}}
+                                                                </div>
+                                                            @endif
                                                             <a href="{{action('PanelEmprendimientos@Financiera', $emprendimiento->_key)}}" class="btn btn-grey btn-sm"><i class="fa fa-edit"></i> Editar Información Financiera</a>
                                                         @else
                                                             <div class="badge badge-success">Aceptado</div>
@@ -105,28 +139,14 @@
                                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                                             <div class="row" style="width: 100%;">
                                                 <div class="col-md-4 col-sm-12 mt-2 mt-md-0">
-                                                    <h5>Clientes</h5>
+                                                    <h5>Mercado</h5>
                                                     <h6 class="pr-md-2">
                                                         @if(isset($errores['clientes']))
                                                             <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
                                                                 <span class="alert-icon"><i class="fa fa-warning"></i></span>
                                                                 {{$errores['clientes']}}
                                                             </div>
-                                                            <a href="{{action('PanelEmprendimientos@Clientes', $emprendimiento->_key)}}" class="btn btn-grey btn-sm"><i class="fa fa-edit"></i>  Editar Clientes</a>
-                                                        @else
-                                                            <div class="badge badge-success">Aceptado</div>
-                                                        @endif
-                                                    </h6>
-                                                </div>
-                                                <div class="col-md-4 col-sm-12 mt-2 mt-md-0">
-                                                    <h5>Usuarios</h5>
-                                                    <h6 class="pr-md-2">
-                                                        @if(isset($errores['usuarios']))
-                                                            <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
-                                                                <span class="alert-icon"><i class="fa fa-warning"></i></span>
-                                                                {{$errores['usuarios']}}
-                                                            </div>
-                                                            <a href="{{action('PanelEmprendimientos@Usuarios', $emprendimiento->_key)}}" class="btn btn-grey btn-sm"><i class="fa fa-edit"></i>  Editar Usuarios</a>
+                                                            <a href="{{action('PanelEmprendimientos@Mercado', $emprendimiento->_key)}}" class="btn btn-grey btn-sm"><i class="fa fa-edit"></i>  Editar Mercado</a>
                                                         @else
                                                             <div class="badge badge-success">Aceptado</div>
                                                         @endif

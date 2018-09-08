@@ -50,7 +50,7 @@
             <div class="form-group">
                 <label for="">Número de colaboradores <span class="required">*</span></label>
                 <?php $class=($errors->has('numero_colaboradores'))?'form-control is-invalid':'form-control'; ?>
-                {!! Form::number('numero_colaboradores', null, ['class'=>$class]); !!}
+                {!! Form::number('numero_colaboradores', null, ['class'=>$class, 'min'=>0]); !!}
                 @if ($errors->has('numero_colaboradores'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('numero_colaboradores') }}</strong></span>
                 @endif
@@ -86,7 +86,7 @@
                 <label for="">Industria o Sector de Emprendimiento <small>Selecciona todas las que apliquen</small></label>
                 <div class="row skin skin-flat col-sm-12">
                     @foreach($industrias as $item)
-                        <div class="radio_input">
+                        <div class="radio_input col-sm-4 col-md-4 col-lg-3">
                             <fieldset>
                                 {!! Form::checkbox('industria_o_sector[]', $item->_key, null, ['id'=>'industria_'.$item->_key, 'class'=>'form-control']); !!}
                                 <label for="industria_{{$item->_key}}">{{$item->nombre}}</label>
@@ -231,7 +231,7 @@
         <div class="form-group">
             <label for="">Número de socios fundadores en tu emprendimiento <span class="required">*</span></label>
             <?php $class=($errors->has('numero_socios'))?'form-control is-invalid':'form-control'; ?>
-            {!! Form::number('numero_socios', null, ['class'=>$class]); !!}
+            {!! Form::number('numero_socios', null, ['class'=>$class, 'min'=>0])!!}
             @if ($errors->has('numero_socios'))
                 <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('numero_socios') }}</strong></span>
             @endif

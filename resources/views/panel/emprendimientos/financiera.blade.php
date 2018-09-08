@@ -74,7 +74,7 @@
                                     @endif
                                     @include('panel.emprendimientos.inc.financiera')
                                     <div class="form-actions right">
-                                        <a href="{{action('PanelEmprendimientos@Usuarios',['id'=>$item->_key])}}" class="btn btn-warning mr-1">
+                                        <a href="{{action('PanelEmprendimientos@Inversion',['id'=>$item->_key])}}" class="btn btn-warning mr-1">
                                             <i class="ft-arrow-left"></i> Anterior
                                         </a>
                                         <button type="submit" class="btn btn-primary">

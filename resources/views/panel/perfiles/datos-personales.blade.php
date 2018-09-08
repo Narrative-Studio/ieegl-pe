@@ -24,11 +24,15 @@
                     $('#estado_otro').css('display','none');
                 @endif
             @else
-                @if(old('pais')!='121')
-                    $('#estado').css('display','none');
-                    $('#estado_otro').css('display','block');
+                @if(old('pais')!='')
+                    @if(old('pais')!='121')
+                        $('#estado').css('display','none');
+                        $('#estado_otro').css('display','block');
+                    @else
+                        $('#estado').css('display','block');
+                        $('#estado_otro').css('display','none');
+                    @endif
                 @else
-                    $('#estado').css('display','block');
                     $('#estado_otro').css('display','none');
                 @endif
             @endif

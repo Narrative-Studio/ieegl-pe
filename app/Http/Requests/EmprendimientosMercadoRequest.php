@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Request;
 
-class EmprendimientosUsuariosRequest extends FormRequest
+class EmprendimientosMercadoRequest extends FormRequest
 {
     public function authorize()
     {
@@ -25,8 +25,12 @@ class EmprendimientosUsuariosRequest extends FormRequest
             case 'POST':
                 {
                     $rules =  [
+                        'tiene_clientes'             => 'required',
                         'tiene_usuarios'             => 'required',
                     ];
+                    if (Request::input('tiene_clientes') == 'Si') {
+                        $rules['caracteristicas_clientes']      = 'required';
+                    }
                     if (Request::input('tiene_usuarios') == 'Si') {
                         $rules['caracteristicas_usuarios']      = 'required';
                     }

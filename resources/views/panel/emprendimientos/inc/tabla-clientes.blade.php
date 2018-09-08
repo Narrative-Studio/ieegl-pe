@@ -8,7 +8,7 @@
             <div class="form-group">
                 <label for="">Clientes en <span class="nombre_mes">{{$n_meses_clientes[(int)$month]}}</span> {{$year}} <span class="required">*</span></label>
                 <div class="input-group">
-                    {!! Form::number($nombre_input, (isset($montos_clientes[$year][$month]))?$montos_clientes[$year][$month]:null, ['class'=>'form-control', 'required' =>'required']); !!}
+                    {!! Form::number($nombre_input, (isset($montos_clientes[$year][$month]))?$montos_clientes[$year][$month]:null, ['class'=>'form-control', 'required' =>'required', 'min'=>0]); !!}
                 </div>
             </div>
         </div>

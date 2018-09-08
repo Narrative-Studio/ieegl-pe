@@ -102,15 +102,9 @@
                                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                                             <div class="row" style="width: 100%;">
                                                 <div class="col-md-4 col-sm-12 mt-2 mt-md-0">
-                                                    <h5>Clientes</h5>
+                                                    <h5>Mercado</h5>
                                                     <h6 class="pr-md-2">
-                                                        <button type="button" class="btn btn-success btn-sm btn-modal" data-toggle="modal" data-target="Clientes"><i class="fa fa-edit"></i> Ver Clientes</button>
-                                                    </h6>
-                                                </div>
-                                                <div class="col-md-4 col-sm-12 mt-2 mt-md-0">
-                                                    <h5>Usuarios</h5>
-                                                    <h6 class="pr-md-2">
-                                                        <button type="button" class="btn btn-success btn-sm btn-modal" data-toggle="modal" data-target="Usuarios"><i class="fa fa-edit"></i> Ver Usuarios</button>
+                                                        <button type="button" class="btn btn-success btn-sm btn-modal" data-toggle="modal" data-target="Mercado"><i class="fa fa-edit"></i> Ver Mercado</button>
                                                     </h6>
                                                 </div>
                                                 <div class="col-md-4 col-sm-12 mt-2 mt-md-0">
@@ -250,39 +244,18 @@
             </div>
         </div>
 
-        <div class="modal fade text-left" id="Clientes" tabindex="-1" role="dialog" aria-labelledby="tit4" aria-hidden="true">
+        <div class="modal fade text-left" id="Mercado" tabindex="-1" role="dialog" aria-labelledby="tit4" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="tit4">Clientes</h4>
+                        <h4 class="modal-title" id="tit4">Mercado</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         {!! Form::model($item,['action' => 'AdminSolicitudes@Index', 'method' => 'get', 'files'=>'true']) !!}
-                        @include('panel.emprendimientos.inc.clientes')
-                        {!! Form::close() !!}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade text-left" id="Usuarios" tabindex="-1" role="dialog" aria-labelledby="tit5" aria-hidden="true">
-            <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="tit5">Usuarios</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        {!! Form::model($item,['action' => 'AdminSolicitudes@Index', 'method' => 'get', 'files'=>'true']) !!}
-                        @include('panel.emprendimientos.inc.usuarios')
+                        @include('panel.emprendimientos.inc.mercado')
                         {!! Form::close() !!}
                     </div>
                     <div class="modal-footer">

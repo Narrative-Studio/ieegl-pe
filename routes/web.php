@@ -46,18 +46,15 @@ Route::prefix('panel')->group(function() {
         // Ventas
         Route::get('/emprendimientos/ventas/{id}', 'PanelEmprendimientos@Ventas');
         Route::post('/emprendimientos/saveVentas', 'PanelEmprendimientos@SaveVentas');
-        // Clientes
-        Route::get('/emprendimientos/clientes/{id}', 'PanelEmprendimientos@Clientes');
-        Route::post('/emprendimientos/saveClientes', 'PanelEmprendimientos@SaveClientes');
-        // Usuarios
-        Route::get('/emprendimientos/usuarios/{id}', 'PanelEmprendimientos@Usuarios');
-        Route::post('/emprendimientos/saveUsuarios', 'PanelEmprendimientos@SaveUsuarios');
-        // Inversion
-        Route::get('/emprendimientos/inversion/{id}', 'PanelEmprendimientos@Inversion');
-        Route::post('/emprendimientos/saveInversion', 'PanelEmprendimientos@SaveInversion');
+        // Mercado
+        Route::get('/emprendimientos/mercado/{id}', 'PanelEmprendimientos@Mercado');
+        Route::post('/emprendimientos/saveMercado', 'PanelEmprendimientos@SaveMercado');
         // Financiera
         Route::get('/emprendimientos/financiera/{id}', 'PanelEmprendimientos@Financiera');
         Route::post('/emprendimientos/saveFinanciera', 'PanelEmprendimientos@SaveFinanciera');
+        // Inversion
+        Route::get('/emprendimientos/inversion/{id}', 'PanelEmprendimientos@Inversion');
+        Route::post('/emprendimientos/saveInversion', 'PanelEmprendimientos@SaveInversion');
         // Final
         Route::get('/emprendimientos/final/{id}', 'PanelEmprendimientos@Final');
 

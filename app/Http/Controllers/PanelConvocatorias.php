@@ -202,23 +202,50 @@ class PanelConvocatorias extends Controller
             // Debe tener Medios digitales
             if($emprendimiento->module_medios==false){
                 $puede_aplicar = false;
-                $errores['generales'] = 'Debes tener Medios Digitales';
+                $errores['medios'] = 'Debes tener Medios Digitales';
             }
 
-            // Si quien peude aplicar es diferente a TODOS
-            if($item->quien_key!='11536038'){
-                // Si la convocatoria requiere Ventas Registradas
-                if ($item->ventas == "Si") {
-                    if(isset($emprendimiento->realizado_ventas)){
-                        if($emprendimiento->realizado_ventas!="Si"){
+            // Si quien puede aplicar es diferente a TODOS
+            if($item->quien_key!='11536038') {
+
+                // Emprendimiento lanzado al mercado con o sin ventas
+                if ($item->quien_key == '6375309'){
+                    if (isset($emprendimiento->lanzar_producto)) {
+                        if ($emprendimiento->lanzar_producto != "Si") {
                             $puede_aplicar = false;
-                            $errores['financiera'] = 'Debes tener ventas registradas';
+                            $errores['lanzado'] = 'Tue emprendimiento debe estar lanzado al mercado';
                         }
-                    }else{
+                    } else {
                         $puede_aplicar = false;
-                        $errores['financiera'] = 'Debes tener ventas registradas';
+                        $errores['lanzado'] = 'Tue emprendimiento debe estar lanzado al mercado';
+                    }
+                }else{
+                    // Si la convocatoria requiere Ventas Registradas
+                    if ($item->ventas == "Si") {
+                        if (isset($emprendimiento->realizado_ventas)) {
+                            if ($emprendimiento->realizado_ventas != "Si") {
+                                $puede_aplicar = false;
+                                $errores['ventas'] = 'Debes tener ventas registradas';
+                            }
+                        } else {
+                            $puede_aplicar = false;
+                            $errores['ventas'] = 'Debes tener ventas registradas';
+                        }
                     }
                 }
+
+                if ($item->quien_key == '6375265'){ // Emprendimiento en validación o MVP
+                    if (isset($emprendimiento->prototipo_o_mvp)) {
+                        if ($emprendimiento->prototipo_o_mvp != "Si") {
+                            $puede_aplicar = false;
+                            $errores['mvp'] = 'Tu Emprendimiento debe estar en validación o MVP';
+                        }
+                    } else {
+                        $puede_aplicar = false;
+                        $errores['mvp'] = 'Tu Emprendimiento debe estar en validación o MVP';
+                    }
+                }
+
                 // Si la convocatoria requiere Clientes
                 if ($item->clientes == "Si") {
                     if(isset($emprendimiento->tiene_clientes)){
@@ -255,7 +282,7 @@ class PanelConvocatorias extends Controller
             // Verificando que no se duplique el emprendimiento en la convicatoria
             $verificar = $this->VerificarEmeprendimiento('', $key);
         }
-        
+
         return view('panel.convocatorias.aplicar', compact('item','emprendimiento', 'puede_aplicar', 'errores', 'verificar'));
     }
 
@@ -317,39 +344,61 @@ class PanelConvocatorias extends Controller
                 // Si quien peude aplicar es diferente a TODOS
                 if($item->quien!='11536038') {
 
-                    // Si la convocatoria requiere Ventas Registradas
-                    if ($item->ventas == "Si") {
-                        if (isset($emprendimiento->realizado_ventas)) {
-                            if ($emprendimiento->realizado_ventas != "Si") {
+                    // Emprendimiento lanzado al mercado con o sin ventas
+                    if ($item->quien_key == '6375309'){
+                        if (isset($emprendimiento->lanzar_producto)) {
+                            if ($emprendimiento->lanzar_producto != "Si") {
+                                $puede_aplicar = false;
+                            }
+                        } else {
+                            $puede_aplicar = false;
+                        }
+                    }else{
+                        // Si la convocatoria requiere Ventas Registradas
+                        if ($item->ventas == "Si") {
+                            if (isset($emprendimiento->realizado_ventas)) {
+                                if ($emprendimiento->realizado_ventas != "Si") {
+                                    $puede_aplicar = false;
+                                }
+                            } else {
+                                $puede_aplicar = false;
+                            }
+                        }
+                    }
+
+                    if ($item->quien_key == '6375265'){ // Emprendimiento en validación o MVP
+                        if (isset($emprendimiento->prototipo_o_mvp)) {
+                            if ($emprendimiento->prototipo_o_mvp != "Si") {
                                 $puede_aplicar = false;
                             }
                         } else {
                             $puede_aplicar = false;
                         }
                     }
+
                     // Si la convocatoria requiere Clientes
                     if ($item->clientes == "Si") {
-                        if (isset($emprendimiento->tiene_clientes)) {
-                            if ($emprendimiento->tiene_clientes != "Si") {
+                        if(isset($emprendimiento->tiene_clientes)){
+                            if($emprendimiento->tiene_clientes!="Si"){
                                 $puede_aplicar = false;
                             }
-                        } else {
+                        }else{
                             $puede_aplicar = false;
                         }
                     }
                     // Si la convocatoria requiere Usuarios
                     if ($item->usuarios == "Si") {
-                        if (isset($emprendimiento->tiene_usuarios)) {
-                            if ($emprendimiento->tiene_usuarios != "Si") {
+                        if(isset($emprendimiento->tiene_usuarios)){
+                            if($emprendimiento->tiene_usuarios!="Si"){
                                 $puede_aplicar = false;
                             }
-                        } else {
+                        }else{
                             $puede_aplicar = false;
                         }
                     }
                     // Si la convocatoria requiere Información Financiera registrada
                     if ($item->financiera == "Si") {
-                        if ($emprendimiento->module_financiera == false) {
+                        if($emprendimiento->module_financiera==false){
                             $puede_aplicar = false;
                         }
                     }

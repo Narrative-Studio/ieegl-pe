@@ -26,9 +26,13 @@ class EmprendimientosClientesRequest extends FormRequest
                 {
                     $rules =  [
                         'tiene_clientes'             => 'required',
+                        'tiene_usuarios'             => 'required',
                     ];
                     if (Request::input('tiene_clientes') == 'Si') {
                         $rules['caracteristicas_clientes']      = 'required';
+                    }
+                    if (Request::input('tiene_usuarios') == 'Si') {
+                        $rules['caracteristicas_usuarios']      = 'required';
                     }
                     return $rules;
                     break;

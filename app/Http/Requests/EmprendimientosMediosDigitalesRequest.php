@@ -28,9 +28,18 @@ class EmprendimientosMediosDigitalesRequest extends FormRequest
                         'sitio_web'           => 'required',
                         'red_social'          => 'required',
                         'video'               => 'required',
-                        'logo'                => 'image:jpg,jpeg,png,gif',
-                        'presentacion'        => 'mimes:pdf,jpg,jpeg',
                     ];
+                    if (Request::input('logo_file')) {
+                        $rules['logo']      = 'mimes:png,gif,jpg,jpeg';
+                    }else{
+                        $rules['logo']      = 'required|mimes:png,gif,jpg,jpeg';
+                    }
+                    if (Request::input('presentacion_file')) {
+                        $rules['presentacion']      = 'mimes:pdf,jpg,jpeg';
+                    }else{
+                        $rules['presentacion']      = 'required|mimes:pdf,jpg,jpeg';
+                    }
+
                     return $rules;
                     break;
                 }

@@ -20,6 +20,7 @@
                         @if(isset($item->logo_file))
                             @if(file_exists(public_path($item->logo_file)))
                                 <img src="{{url($item->logo_file)}}?{{str_random(15)}}" width="120" height="120" border="0" alt="" class="rounded img-fluid" data-action="zoom" />
+                                <input type="hidden" name="logo_file" value="{{$item->logo_file}}" />
                            @endif
                         @else
                             <img src="https://imgplaceholder.com/240x250/37bc9b/ffffff/fa-file-photo-o?text=_none_&font-size=60" width="120" height="120" border="0" alt="" />
@@ -70,6 +71,7 @@
                                 <?php $archivo = explode('.',$item->presentacion_file)?>
                                 @if($archivo[1]=='pdf')
                                     <a class="btn btn-sm btn-primary" href="{{url($item->presentacion_file)}}" target="_blank"><i class="fa fa-search-plus"></i> Ver Presentación</a>
+                                    <input type="hidden" name="presentacion_file" value="{{$item->presentacion_file}}" />
                                 @else
                                     <img src="{{url($item->presentacion_file)}}?{{str_random(15)}}" width="120" height="120" border="0" alt="" class="rounded img-fluid" data-action="zoom" />
                                 @endif
