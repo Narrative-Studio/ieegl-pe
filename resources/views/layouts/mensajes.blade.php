@@ -9,6 +9,11 @@
             @endforeach
         </ul>
     </div>-->
+    <div class="alert alert-icon-left alert-danger alert-dismissible mb-2" role="alert">
+        <span class="alert-icon"><i class="fa fa-exclamation-triangle"></i></span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h4 class="alert-heading">Hay errores en tu formulario, corrígelos para continuar</h4>
+    </div>
 @elseif (!is_null(Session::get('status_error')))
     <div class="alert alert-icon-left alert-danger alert-dismissible mb-2" role="alert">
         <span class="alert-icon"><i class="fa fa-exclamation-triangle"></i></span>

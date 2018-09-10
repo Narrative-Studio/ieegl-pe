@@ -39,6 +39,10 @@
             @if(isset($item->tiene_usuarios) &&  $item->tiene_usuarios=="Si")
                 $('#montos_ventas_usuarios').removeClass('invisible');
             @endif
+
+            @if(isset($item->como_te_enteraste) &&  $item->como_te_enterast!="")
+                $('#cual').removeClass('invisible');
+            @endif
         })
         @endif
     </script>

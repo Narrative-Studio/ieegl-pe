@@ -9,13 +9,34 @@
                 $('#niveles').val(null).trigger("change");
             }
         });
+
+        $('#como_te_enteraste').on('change', function(event){
+            opt =  $('#como_te_enteraste').val();
+            if(opt!=""){
+                $('#cual').removeClass('invisible');
+            }else{
+                $('#cual').addClass('invisible');
+                $('#como_te_enteraste_cual').val('');
+            }
+        });
+
         @if(old('investigacion_desarrollo'))
             @if(old('investigacion_desarrollo')=="Si")
                 $('#nivel_tlr').removeClass('invisible');
             @endif
         @else
             @if(isset($item->investigacion_desarrollo) && $item->investigacion_desarrollo=="Si")
-            $('#nivel_tlr').removeClass('invisible');
+                $('#nivel_tlr').removeClass('invisible');
+            @endif
+        @endif
+
+        @if(old('como_te_enteraste'))
+            @if(old('como_te_enteraste')!="")
+                $('#cual').removeClass('invisible');
+            @endif
+        @else
+            @if(isset($item->como_te_enteraste) && $item->como_te_enteraste!="")
+                $('#cual').removeClass('invisible');
             @endif
         @endif
     })
@@ -270,9 +291,23 @@
         <div class="form-group {{$class}}">
             <label for="">¿Cómo te enteraste de nosotros? </label>
             <?php $class=($errors->has('como_te_enteraste'))?'form-control is-invalid':'form-control'; ?>
-            {!! Form::select('como_te_enteraste', ['Redes sociales'=>'Redes sociales','Universidad'=>'Universidad','Organización'=>'Organización','Recomendación'=>'Recomendación','Otro'=>'Otro'], null, ['placeholder' => 'Selecciona', 'id'=>'niveles','class'=> 'select2 '.$class]) !!}
+            {!! Form::select('como_te_enteraste', ['Redes sociales'=>'Redes sociales','Universidad'=>'Universidad','Organización'=>'Organización','Recomendación'=>'Recomendación','Otro'=>'Otro'], null, ['placeholder' => 'Selecciona', 'id'=>'niveles','class'=> 'select2 '.$class, 'id'=>'como_te_enteraste']) !!}
             @if ($errors->has('como_te_enteraste'))
                 <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('como_te_enteraste') }}</strong></span>
+            @endif
+        </div>
+    </div>
+</div>
+
+<div class="row invisible" id="cual">
+    <div class="col-md-12">
+        <?php $class=($errors->has('como_te_enteraste_cual'))?'is-invalid':''; ?>
+        <div class="form-group {{$class}}">
+            <label for="">¿Cual? <span class="required">*</span></label>
+            <?php $class=($errors->has('como_te_enteraste_cual'))?'form-control is-invalid':'form-control'; ?>
+            {!! Form::text('como_te_enteraste_cual', null, ['class'=>$class,'id'=>'como_te_enteraste_cual']) !!}
+            @if ($errors->has('como_te_enteraste_cual'))
+                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('como_te_enteraste_cual') }}</strong></span>
             @endif
         </div>
     </div>

@@ -40,27 +40,13 @@ class EmprendimientosDatosGeneralesRequest extends FormRequest
                         'numero_socios'                => 'required',
                         'prototipo_o_mvp'                => 'required',
                     ];
-                    return $rules;
-                    break;
-                }
-            case 'POST':
-                {
-                    $rules =  [
-                        'biografia'             => 'required|max:140',
-                        'sexo'                  => 'required',
-                        'fecha_nacimiento'      => 'required|date',
-                        'a_que_se_dedica'       => 'required',
-                        'pais'                  => 'required',
-                        'ciudad'                => 'required',
-                    ];
-                    if (Request::input('pais') != '121') {
-                        $rules['estado_otro']      = 'required';
-                    }else{
-                        $rules['estado']      = 'required';
+                    if (Request::input('como_te_enteraste') != '') {
+                        $rules['como_te_enteraste_cual']      = 'required';
                     }
                     return $rules;
                     break;
                 }
+            case 'POST':
             default:break;
         }
     }

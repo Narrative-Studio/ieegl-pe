@@ -134,6 +134,7 @@ class PanelEmprendimientos extends Controller
         $document['como_te_enteraste'] = $request->get('como_te_enteraste');
         $document['diferenciador_modelo_negocio'] = $request->get('diferenciador_modelo_negocio');
         $document['prototipo_o_mvp'] = $request->get('prototipo_o_mvp');
+        $document['como_te_enteraste_cual'] = $request->get('como_te_enteraste_cual');
         $document['module_datos'] = true;
 
         if($request->get('id')==''){
@@ -509,7 +510,7 @@ class PanelEmprendimientos extends Controller
         }
         $this->ArangoDB->Update($this->collection, $this->collection.'/'.$documentId, $document);
 
-        Session::flash('status_success', 'Ventas Guardadas');
+        Session::flash('status_success', 'Información Financiera Guardada');
         return redirect()->action($this->controller.'@Final', ['id'=>$documentId]);
     }
 

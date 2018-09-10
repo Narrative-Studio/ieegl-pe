@@ -97,7 +97,7 @@
                                                 <div class="col-md-4 col-sm-12 mt-2 mt-md-0">
                                                     <h5>Info. Financiera</h5>
                                                     <h6 class="pr-md-2">
-                                                        @if(isset($errores['ventas']) || isset($errores['lanzado']) || isset($errores['clientes']) || isset($errores['usuarios']) || isset($errores['financiera']))
+                                                        @if(isset($errores['ventas']) || isset($errores['lanzado']) || isset($errores['financiera']))
                                                             @if(isset($errores['ventas']))
                                                                 <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
                                                                     <span class="alert-icon"><i class="fa fa-warning"></i></span>
@@ -108,18 +108,6 @@
                                                                 <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
                                                                     <span class="alert-icon"><i class="fa fa-warning"></i></span>
                                                                     {{$errores['lanzado']}}
-                                                                </div>
-                                                            @endif
-                                                            @if(isset($errores['clientes']))
-                                                                <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
-                                                                    <span class="alert-icon"><i class="fa fa-warning"></i></span>
-                                                                    {{$errores['clientes']}}
-                                                                </div>
-                                                            @endif
-                                                            @if(isset($errores['usuarios']))
-                                                                <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
-                                                                    <span class="alert-icon"><i class="fa fa-warning"></i></span>
-                                                                    {{$errores['usuarios']}}
                                                                 </div>
                                                             @endif
                                                             @if(isset($errores['financiera']))
@@ -141,11 +129,19 @@
                                                 <div class="col-md-4 col-sm-12 mt-2 mt-md-0">
                                                     <h5>Mercado</h5>
                                                     <h6 class="pr-md-2">
-                                                        @if(isset($errores['clientes']))
-                                                            <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
-                                                                <span class="alert-icon"><i class="fa fa-warning"></i></span>
-                                                                {{$errores['clientes']}}
-                                                            </div>
+                                                        @if(isset($errores['clientes']) || isset($errores['usuarios']))
+                                                            @if(isset($errores['clientes']))
+                                                                <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
+                                                                    <span class="alert-icon"><i class="fa fa-warning"></i></span>
+                                                                    {{$errores['clientes']}}
+                                                                </div>
+                                                            @endif
+                                                            @if(isset($errores['usuarios']))
+                                                                <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
+                                                                    <span class="alert-icon"><i class="fa fa-warning"></i></span>
+                                                                    {{$errores['usuarios']}}
+                                                                </div>
+                                                            @endif
                                                             <a href="{{action('PanelEmprendimientos@Mercado', $emprendimiento->_key)}}" class="btn btn-grey btn-sm"><i class="fa fa-edit"></i>  Editar Mercado</a>
                                                         @else
                                                             <div class="badge badge-success">Aceptado</div>
