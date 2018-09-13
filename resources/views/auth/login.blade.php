@@ -33,7 +33,7 @@
                                         <fieldset class="form-group position-relative has-icon-left">
                                             <input type="text" class="form-control input-lg{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" id="email" placeholder="Correo Electrónico" name="email" tabindex="1" required data-validation-required-message="Pro favor proporciona tu correo electónico.">
                                             <div class="form-control-position">
-                                                <i class="ft-user"></i>
+                                                <i class="ft-mail"></i>
                                             </div>
                                             <div class="help-block font-small-3"></div>
                                             @if ($errors->has('email'))
@@ -45,7 +45,7 @@
                                         <fieldset class="form-group position-relative has-icon-left">
                                             <input type="password" class="form-control input-lg{{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" name="password" placeholder="Contraseña" tabindex="2" required data-validation-required-message="Por favor porporciona tu contraseña.">
                                             <div class="form-control-position">
-                                                <i class="fa fa-key"></i>
+                                                <i class="ft ft-lock"></i>
                                             </div>
                                             <div class="help-block font-small-3"></div>
                                             @if ($errors->has('password'))
@@ -55,6 +55,9 @@
 
                                             @endif
                                         </fieldset>
+                                        <div class="form-group row">
+                                            <div class="col-md-12 col-12 text-right"><a href="{{route('recover')}}" class="card-link">¿Olvidaste tu contraseña?</a></div>
+                                        </div>
                                         <button type="submit" class="btn btn-primary btn-block btn-lg"><i class="ft-unlock"></i> Entrar</button>
                                     </form>
                                 </div>

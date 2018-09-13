@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PasswordRequest;
 use App\Http\Requests\UserRequest;
 use App\Mail\ConfirmationEmail;
+use App\Mail\RecoverPassword;
 use App\Repositories\ArangoDB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +19,7 @@ use ArangoDBClient\ClientException as ArangoClientException;
 use ArangoDBClient\ServerException as ArangoServerException;
 use ArangoDBClient\Statement as ArangoStatement;
 use ArangoDBClient\UpdatePolicy as ArangoUpdatePolicy;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
@@ -120,7 +123,7 @@ class HomeController extends Controller
      */
     public function Confirmation($token){
 
-        // update a document
+        // Buscar Usuario por token
         $cursor = $this->CollectionHandler->byExample('users', ['email_token' => $token]);
         $usuario = $this->ArangoDB->Document($cursor->getAll());
 
@@ -155,5 +158,64 @@ class HomeController extends Controller
 
     public function Terminos(){
         return view('web.terminos');
+    }
+
+    public function PasswordRecovery(Request $request){
+        // Encontrar Usuario por email
+        $cursor = $this->CollectionHandler->byExample('users', ['email' => Input::get('email')]);
+        $usuario = $this->ArangoDB->Document($cursor->getAll());
+
+        if(!$usuario){
+            return redirect()->route('recover')->with('error_recover','1')->withInput();
+        }else{
+            $data =[
+                'nombre'            => $usuario->nombre.' '.$usuario->apellidos,
+                'email'             => $request->get('email'),
+                'password_recover'  => str_random(25),
+            ];
+            // Enviando mail de confirmación con el token del usuario
+            Mail::to($data['email'])
+                ->queue(new RecoverPassword($data));
+
+            // Guardando Password Token
+            $user = new ArangoDocument();
+            $user->password_recover = $data['password_recover' ];
+            $this->DocumentHandler->updateById('users', $usuario->_key, $user);
+
+            return view('auth.passwords.password-recovery')
+                ->with('send', 1);
+        }
+    }
+    public function PasswordRecoveryEmail($token){
+        // Buscar Usuario por token
+        $cursor = $this->CollectionHandler->byExample('users', ['password_recover' => $token]);
+        $usuario = $this->ArangoDB->Document($cursor->getAll());
+
+        if(!$usuario){
+            return view('auth.passwords.reset')->with('error',1);
+        }else{
+            return view('auth.passwords.reset')
+                ->with('error',0)
+                ->with('token', $token);
+        }
+    }
+
+    public function PasswordRecoveryUpdate(PasswordRequest $request){
+        // Buscar Usuario por token
+        $cursor = $this->CollectionHandler->byExample('users', ['password_recover' => $request->get('token')]);
+        $usuario = $this->ArangoDB->Document($cursor->getAll());
+
+        if(!$usuario){
+            return view('auth.passwords.reset')->with('error',1);
+        }else{
+            $user = new ArangoDocument();
+            $user->password_recover = null;
+            $user->password = Hash::make($request->get('password'));
+            $this->DocumentHandler->updateById('users', $usuario->_key, $user);
+
+            return view('auth.passwords.reset')
+                ->with('error',0)
+                ->with('correcto', 1);
+        }
     }
 }
