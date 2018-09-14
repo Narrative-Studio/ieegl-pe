@@ -92,12 +92,12 @@ class PanelConvocatorias extends Controller
         if($verificar==false){
 
             // Agregando filtro de 'Emprendimiento lanzado al mercado con o sin ventas'
-            /*if($item->quien_key=='6375309'){
+            /*if($item->quien=='6375309'){
                 $filter = ' AND doc.module_ventas == true AND doc.lanzar_producto == "Si" ';
             }*/
 
             // Si la convocatoria no es exclusva para "Emprendedor sin idea pero con inquietud de emprender" se obtienen los emprendimientos
-            if($item->quien_key!='6375236'){
+            if($item->quien!='6375236'){
                 //Emprendimientos
                 $emprendimientos = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc.userKey == "'.auth()->user()->_key.'" '.$filter.' RETURN {_key: doc._key, nombre:doc.nombre}',true);
                 $emprendimientos = $this->ArangoDB->SelectFormat($emprendimientos, '_key', 'nombre');
@@ -345,7 +345,7 @@ class PanelConvocatorias extends Controller
                 if($item->quien!='11536038') {
 
                     // Emprendimiento lanzado al mercado con o sin ventas
-                    if ($item->quien_key == '6375309'){
+                    if ($item->quien == '6375309'){
                         if (isset($emprendimiento->lanzar_producto)) {
                             if ($emprendimiento->lanzar_producto != "Si") {
                                 $puede_aplicar = false;
@@ -366,7 +366,7 @@ class PanelConvocatorias extends Controller
                         }
                     }
 
-                    if ($item->quien_key == '6375265'){ // Emprendimiento en validación o MVP
+                    if ($item->quien == '6375265'){ // Emprendimiento en validación o MVP
                         if (isset($emprendimiento->prototipo_o_mvp)) {
                             if ($emprendimiento->prototipo_o_mvp != "Si") {
                                 $puede_aplicar = false;
