@@ -40,7 +40,7 @@
                 $('#montos_ventas_usuarios').removeClass('invisible');
             @endif
 
-            @if(isset($item->como_te_enteraste) &&  $item->como_te_enterast!="")
+            @if(isset($item->como_te_enteraste) &&  $item->como_te_enteraste!="")
                 $('#cual').removeClass('invisible');
             @endif
         })
