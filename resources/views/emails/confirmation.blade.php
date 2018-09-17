@@ -81,7 +81,7 @@
                             </tr>
                             <tr>
                                 <td style="padding-bottom: 20px;">
-                                    <div class="cuerpo-mail">Bienvenido a <b>Stratup Identification</b>.</div>
+                                    <div class="cuerpo-mail">Bienvenido a <b>STARTUP IDENTIFICATION</b>.</div>
                                 </td>
                             </tr>
                             <tr>

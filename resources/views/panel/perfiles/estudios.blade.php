@@ -113,7 +113,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group {{$clase_otra}}" id="otra">
-                                                        <label for="">Otra</label>
+                                                        <label for="">Otra <span class="required">*</span></label>
                                                         <?php $class=($errors->has('universidad_otra'))?'form-control is-invalid':'form-control'; ?>
                                                         {!! Form::text('universidad_otra', null, ['class'=>$class, 'id'=>'universidad_otra']); !!}
                                                         @if ($errors->has('universidad_otra'))
