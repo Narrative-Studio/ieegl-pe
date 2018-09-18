@@ -27,7 +27,7 @@
                                             <i class="icon-check font-large-5 mt-2 success"></i>
                                             <h1 class="mb-4 mt-1">Perfil Completo</h1>
                                         </div>
-                                        <h4 class="mb-1">¡Gracias {{auth()->user()->nombre}} {{auth()->user()->apellidos}} por completar tu perfil. </strong>!</h4>
+                                        <h4 class="mb-1">¡Gracias <strong>{{auth()->user()->nombre}} {{auth()->user()->apellidos}}</strong>! por completar tu perfil</h4>
                                         <p class="mb-4">Ahora puedes registrar emprendimientos y aplicar a convocatorias.</p>
                                         <hr/>
                                         <div class="form-actions text-center">

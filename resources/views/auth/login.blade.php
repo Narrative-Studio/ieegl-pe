@@ -14,9 +14,6 @@
                                 <div class="card-title text-center">
                                     <img src="{{url("/")}}/img/logo_SID.png" alt="branding logo" style="height: 60px;">
                                 </div>
-                                <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2">
-                                    <span>Entrar a STARTUPS ID</span>
-                                </h6>
                             </div>
                             <div class="card-content">
                                 <div class="card-body">

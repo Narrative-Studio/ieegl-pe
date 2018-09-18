@@ -14,7 +14,7 @@
     <div class="row">
         <div class="form-group">
             <div class="col-md-12">
-                <label for="">Logo de tu Emprendimiento en alta definición  <span class="required">*</span> <small>(opcional)</small></label>
+                <label for="">Logo de tu Emprendimiento en alta definición  <span class="required">*</span></label>
                 <div class="row">
                     <div class="col-md-4">
                         @if(isset($item->logo_file))
@@ -63,7 +63,7 @@
     <div class="row">
         <div class="form-group">
             <div class="col-md-12">
-                <label for="">Agrega tu presentación o pitch deck (PDF, JPG)  <span class="required">*</span> <small>(opcional)</small></label>
+                <label for="">Agrega tu presentación o pitch deck (PDF, JPG)  <span class="required">*</span></label>
                 <div class="row">
                     <div class="col-md-4">
                         @if(isset($item->presentacion_file))

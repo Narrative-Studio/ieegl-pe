@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="+">
-    <title>Administrador STARTUPS ID</title>
+    <title>Administrador STARTUP IDENTIFICATION</title>
     <link rel="apple-touch-icon" href="{{url("/")}}/img/icon_sid.png">
     <link rel="shortcut icon" type="image/x-icon" href="{{url("/")}}/img/icon_sid.png">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Muli:300,400,500,700" rel="stylesheet">

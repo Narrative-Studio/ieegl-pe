@@ -303,7 +303,7 @@
     <div class="col-md-12">
         <?php $class=($errors->has('como_te_enteraste_cual'))?'is-invalid':''; ?>
         <div class="form-group {{$class}}">
-            <label for="">¿Cual? <span class="required">*</span></label>
+            <label for="">¿Cuál? <span class="required">*</span></label>
             <?php $class=($errors->has('como_te_enteraste_cual'))?'form-control is-invalid':'form-control'; ?>
             {!! Form::text('como_te_enteraste_cual', null, ['class'=>$class,'id'=>'como_te_enteraste_cual']) !!}
             @if ($errors->has('como_te_enteraste_cual'))

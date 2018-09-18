@@ -105,7 +105,7 @@
                 <div class="row mt-2">
                     <div class="col-sm-12 text-center">
                         <h1>¿Quieres aplicar a esta convocatoria?</h1>
-                            <label>Indica con cual de tus emprendimientos quieres aplicar:</label>
+                            <label>Indica con cuál de tus emprendimientos quieres aplicar:</label>
                             <div class="form-group row justify-content-md-center">
                                 <div class="col-md-3">
                                     <?php $class=($errors->has('emprendimiento'))?'form-control is-invalid':'form-control'; ?>

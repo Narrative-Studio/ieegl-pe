@@ -238,11 +238,11 @@ class PanelConvocatorias extends Controller
                     if (isset($emprendimiento->prototipo_o_mvp)) {
                         if ($emprendimiento->prototipo_o_mvp != "Si") {
                             $puede_aplicar = false;
-                            $errores['mvp'] = 'Tu Emprendimiento debe estar en validación o MVP';
+                            $errores['mvp'] = 'Tu Emprendimiento debe tener un prototipo o MVP';
                         }
                     } else {
                         $puede_aplicar = false;
-                        $errores['mvp'] = 'Tu Emprendimiento debe estar en validación o MVP';
+                        $errores['mvp'] = 'Tu Emprendimiento debe tener un prototipo o MVP';
                     }
                 }
 
@@ -366,7 +366,7 @@ class PanelConvocatorias extends Controller
                         }
                     }
 
-                    if ($item->quien == '6375265'){ // Emprendimiento en validación o MVP
+                    if ($item->quien == '6375265'){ // Emprendimiento tener un prototipo o MVP
                         if (isset($emprendimiento->prototipo_o_mvp)) {
                             if ($emprendimiento->prototipo_o_mvp != "Si") {
                                 $puede_aplicar = false;

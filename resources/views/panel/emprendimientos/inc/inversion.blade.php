@@ -113,7 +113,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for=""> ¿Haz levantado capital? <span class="required">*</span></label>
+                <label for=""> ¿Has levantado capital? <span class="required">*</span></label>
                 <?php $class=($errors->has('levantado_capital'))?'form-control is-invalid':'form-control'; ?>
                 <div class="row skin skin-flat">
                     <div class="col-sm-1">
@@ -139,7 +139,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for=""> ¿Haz recibido inversión? <span class="required">*</span></label>
+                <label for=""> ¿Has recibido inversión? <span class="required">*</span></label>
                 <?php $class=($errors->has('recibido_inversion'))?'form-control is-invalid':'form-control'; ?>
                 <div class="row skin skin-flat">
                     <div class="col-sm-1">
