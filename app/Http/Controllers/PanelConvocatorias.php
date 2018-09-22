@@ -238,11 +238,11 @@ class PanelConvocatorias extends Controller
                     if (isset($emprendimiento->prototipo_o_mvp)) {
                         if ($emprendimiento->prototipo_o_mvp != "Si") {
                             $puede_aplicar = false;
-                            $errores['mvp'] = 'Tu Emprendimiento debe tener un prototipo o MVP';
+                            $errores['mvp'] = 'Tu emprendimiento debe contar con un prototipo o MVP';
                         }
                     } else {
                         $puede_aplicar = false;
-                        $errores['mvp'] = 'Tu Emprendimiento debe tener un prototipo o MVP';
+                        $errores['mvp'] = 'Tu emprendimiento debe contar con un prototipo o MVP';
                     }
                 }
 
