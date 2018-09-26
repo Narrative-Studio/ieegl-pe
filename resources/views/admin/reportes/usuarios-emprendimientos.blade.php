@@ -29,7 +29,7 @@
                                         data-sort-name="nombre"
                                         data-sort-order="asc"
                                         data-url="{{route('reportes.usuarios-emprendimientos')}}"
-                                        data-page-list="[50, 100, TODOS]"
+                                        data-page-list="[50, 100, Unlimited]"
                                         class="table table-striped table-bordered" >
                                     <thead>
                                     <tr>
