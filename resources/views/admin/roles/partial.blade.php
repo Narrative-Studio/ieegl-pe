@@ -19,7 +19,7 @@
             </div>
             <div class="col-md-3 col-xs-6">
                 <div class="form-group">
-                    <i class="fa fa-wpforms"></i> {{Form::label('', 'Catálogos')}}
+                    <i class="fab fa-wpforms"></i> {{Form::label('', 'Catálogos')}}
                     <div class="checkbox"><label><input type="checkbox" name="permisos[]" value="convocatorias" @if(in_array("convocatorias", $permisos)) {{"checked='checked'"}} @endif> Convocatorias</label></div>
                     <div class="checkbox"><label><input type="checkbox" name="permisos[]" value="universidades" @if(in_array("universidades", $permisos)) {{"checked='checked'"}} @endif> Universidades</label></div>
                     <div class="checkbox"><label><input type="checkbox" name="permisos[]" value="industrias_y_sectores" @if(in_array("industrias_y_sectores", $permisos)) {{"checked='checked'"}} @endif> Industrias y Sectores</label></div>
@@ -32,6 +32,12 @@
                 <div class="form-group">
                     <i class="fa fa-database"></i> {{Form::label('', 'Solicitudes')}}
                     <div class="checkbox"><label><input type="checkbox" name="permisos[]" value="solicitudes" @if(in_array("solicitudes", $permisos)) {{"checked='checked'"}} @endif> Solicitudes</label></div>
+                </div>
+            </div>
+            <div class="col-md-3 col-xs-6">
+                <div class="form-group">
+                    <i class="fa fa-pie-chart"></i> {{Form::label('', 'Reportes')}}
+                    <div class="checkbox"><label><input type="checkbox" name="permisos[]" value="reportes" @if(in_array("reportes", $permisos)) {{"checked='checked'"}} @endif> Reportes</label></div>
                 </div>
             </div>
         </div>

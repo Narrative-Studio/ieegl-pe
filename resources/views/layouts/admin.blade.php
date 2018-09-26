@@ -41,7 +41,7 @@
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/plugins/forms/switch.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/fonts/simple-line-icons/style.min.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/core/colors/palette-switch.css">
-
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/js/bootstrap-table/bootstrap-table.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
     <!-- END Page Level CSS-->
@@ -133,6 +133,14 @@
             <?php if(\App\Http\Controllers\AdminRoles::getAccess('quien_aplica')):?>
                 <li class=" nav-item"><a href="{{action("AdminQuien@Index")}}"><i class="fa fa-address-card"></i><span class="menu-title">Quien Aplica</span></a></li>
             <?php endif;?>
+
+            <li class=" navigation-header">
+                <span>Reportes</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Reportes"></i>
+            </li>
+            <?php if(\App\Http\Controllers\AdminRoles::getAccess('reportes')):?>
+            <li class=" nav-item"><a href="{{action('AdminReportes@UsuariosEmprendimientos')}}"><i class="fa fa-pie-chart"></i><span class="menu-title">Usuarios sin emprendimientos</span></a></li>
+            <?php endif;?>
+
             <hr/>
             <li class=" nav-item"><a href="{{route('logout')}}"><i class="icon-logout"></i><span class="menu-title">Salir</span></a></li>
         </ul>
@@ -187,6 +195,7 @@
 <script src="{{url("/")}}/app-assets/vendors/js/forms/extended/maxlength/bootstrap-maxlength.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/extensions/zoom.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/editors/tinymce/tinymce.js" type="text/javascript"></script>
+<script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
 <!-- END PAGE VENDOR JS-->
 <!-- BEGIN ROBUST JS-->
 <script src="{{url("/")}}/app-assets/js/core/app-menu.js" type="text/javascript"></script>
@@ -195,6 +204,9 @@
 <script src="{{url("/")}}/app-assets/js/scripts/forms/switch.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/js/scripts/forms/checkbox-radio.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/js/scripts/editors/editor-tinymce.js" type="text/javascript"></script>
+<script src="{{url("/")}}/js/bootstrap-table/bootstrap-table.min.js" type="text/javascript"></script>
+<script src="{{url("/")}}/js/bootstrap-table/locale/bootstrap-table-es-MX.min.js" type="text/javascript"></script>
+<script src="{{url("/")}}/js/bootstrap-table/extensions/export/bootstrap-table-export.js" type="text/javascript"></script>
 <script src="{{url("/")}}/js/custom.min.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL JS-->
 <script>

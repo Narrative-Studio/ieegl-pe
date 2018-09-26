@@ -3,12 +3,20 @@
     <properties>
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/public/app-assets/js/core/app.min.js" />
+        <item url="file://$PROJECT_DIR$/public/app-assets/js/scripts/tables/handsontable/handsontable-utilities.min.js" />
+        <item url="file://$PROJECT_DIR$/public/app-assets/js/scripts/tables/handsontable/handsontable-utilities.min.min.js" />
+        <item url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/ace/snippets/lsl.min.js" />
+        <item url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/codemirror/mode/verilog/verilog.min.js" />
         <item url="file://$PROJECT_DIR$/public/app-assets/vendors/js/forms/select/select2-es.min.js" />
         <item url="file://$PROJECT_DIR$/public/js/custom.min.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/public/app-assets/js/core/app.min.js" />
+      <root url="file://$PROJECT_DIR$/public/app-assets/js/scripts/tables/handsontable/handsontable-utilities.min.js" />
+      <root url="file://$PROJECT_DIR$/public/app-assets/js/scripts/tables/handsontable/handsontable-utilities.min.min.js" />
+      <root url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/ace/snippets/lsl.min.js" />
+      <root url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/codemirror/mode/verilog/verilog.min.js" />
       <root url="file://$PROJECT_DIR$/public/app-assets/vendors/js/forms/select/select2-es.min.js" />
       <root url="file://$PROJECT_DIR$/public/js/custom.min.js" />
     </CLASSES>

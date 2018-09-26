@@ -160,5 +160,9 @@ Route::prefix('admin')->group(function() {
         Route::get('/roles/new', 'AdminRoles@New');
         Route::get('/roles/edit/{id}', 'AdminRoles@Edit');
         Route::post('/roles/save', 'AdminRoles@Save');
+
+        /** Reportes */
+        Route::get('/reportes/usuarios-emprendimientos', 'AdminReportes@UsuariosEmprendimientos');
+        Route::get('/reportes/ajax/usuarios-emprendimientos', 'AdminReportes@UsuariosEmprendimientosAjax')->name('reportes.usuarios-emprendimientos');
     });
 });

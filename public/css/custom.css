@@ -130,3 +130,21 @@ figure.effect-bubba h2 {
     border: 0;
     height: 600px;
 }
+.dropdown-menu>li>a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+}
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+    color: #262626;
+    text-decoration: none;
+    background-color: #f5f5f5;
+}
+.icon-share:before {
+    content: "\f56e";
+    font-family: "Font Awesome 5 Free";
+}

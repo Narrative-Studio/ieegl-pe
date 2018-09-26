@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function() {
         colHeaders: true,
         contextMenu: true,
         contextMenuCopyPaste: {
-            swfPath: '/bower_components/zeroclipboard/dist/ZeroClipboard.swf'
+            swfPath: '/bower_components/zeroclipboard/bootstrap-table/ZeroClipboard.swf'
         }
     });
 
