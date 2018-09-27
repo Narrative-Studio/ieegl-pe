@@ -24,6 +24,7 @@ Homestead.json
 /.gitignore
 /.idea/
 /vendor
-/public/emprendimientos_pdf/
-/public/emprendimientos_pics/
-/public/convocatorias_pics/
+/public/emprendimientos_pdf
+/public/emprendimientos_pics
+/public/convocatorias_pics
+/public/users_pics
