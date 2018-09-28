@@ -33,8 +33,10 @@
                                         class="table table-striped table-bordered" >
                                     <thead>
                                     <tr>
-                                        <th data-sortable="true" data-field="nombre">Nombre</th>
+                                        <th data-sortable="true" data-field="emprendimiento">Emprendimiento</th>
                                         <th data-field="descripcion">Descripción</th>
+                                        <th data-field="usuario">Usuario</th>
+                                        <th data-field="email">Email</th>
                                         <th data-field="numero_colaboradores">Colaboradores</th>
                                         <th data-field="pais">País</th>
                                         <th data-field="ciudad">Ciudad</th>

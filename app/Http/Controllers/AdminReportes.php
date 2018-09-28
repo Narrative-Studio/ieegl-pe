@@ -132,17 +132,20 @@ class AdminReportes extends Controller
         $sort = ($request->get('sort')!='')?$request->get('sort'):'nombre';
         $order = trim($request->get('order'));
 
-        if($search!='') $search_txt = 'FILTER doc.nombre LIKE "%'.strtolower($search).'%"';
+        if($search!='') $search_txt = 'AND doc.nombre LIKE "%'.strtolower($search).'%"';
 
         $data = $this->ArangoDB->Query("
             FOR doc IN emprendimientos 
-                $search_txt
-                LIMIT $offset,$limit
-                SORT doc.$sort $order
+                FOR user IN users
+                    FILTER user._key == doc.userKey $search_txt
+                    LIMIT $offset,$limit
+                    SORT doc.$sort $order
             RETURN {
                 'id': doc._key, 
-                'nombre': doc.nombre, 
+                'emprendimiento': doc.nombre, 
                 'descripcion': doc.descripcion?:'',
+                'usuario':user.nombre? CONCAT(user.nombre,' ',user.apellidos):'',
+                'email': user.email?:'',
                 'numero_colaboradores': doc.numero_colaboradores?:'',
                 'pais': doc.pais?:'',
                 'ciudad': doc.ciudad?:'',
@@ -196,8 +199,9 @@ class AdminReportes extends Controller
 
         $data_total = $this->ArangoDB->Query("
             FOR doc IN emprendimientos 
-                $search_txt
-                COLLECT WITH COUNT INTO length
+                FOR u IN users
+                    FILTER u._key == doc.userKey $search_txt
+                    COLLECT WITH COUNT INTO length
             RETURN length", true);
 
         $items = [];
