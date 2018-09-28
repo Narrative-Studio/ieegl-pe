@@ -211,26 +211,26 @@ class AdminReportes extends Controller
             if($item['recibido_inversion_vehiculo']!='') $item['recibido_inversion_vehiculo'] = $this->GetFromMultipleArray($this->vehiculos_inversion, $item['recibido_inversion_vehiculo']);
             if($item['clientes']!=''){
                 $item['clientes'] = $this->MergeArrays($item['clientes']);
-                $item['clientes_mes1'] = ($item['clientes'][0])?$item['clientes'][0]:'';
-                $item['clientes_mes2'] = ($item['clientes'][1])?$item['clientes'][1]:'';
-                $item['clientes_mes3'] = ($item['clientes'][2])?$item['clientes'][2]:'';
+                $item['clientes_mes1'] = (!empty($item['clientes'][0]))?$item['clientes'][0]:'';
+                $item['clientes_mes2'] = (!empty($item['clientes'][1]))?$item['clientes'][1]:'';
+                $item['clientes_mes3'] = (!empty($item['clientes'][2]))?$item['clientes'][2]:'';
             }else{
                 $item['clientes_mes1'] = $item['clientes_mes2'] = $item['clientes_mes3'] = '';
             }
             if($item['usuarios']!=''){
                 $item['usuarios'] = $this->MergeArrays($item['usuarios']);
-                $item['usuarios_mes1'] = ($item['usuarios'][0])?$item['usuarios'][0]:'';
-                $item['usuarios_mes2'] = ($item['usuarios'][1])?$item['usuarios'][1]:'';
-                $item['usuarios_mes3'] = ($item['usuarios'][2])?$item['usuarios'][2]:'';
+                $item['usuarios_mes1'] = (!empty($item['usuarios'][0]))?$item['usuarios'][0]:'';
+                $item['usuarios_mes2'] = (!empty($item['usuarios'][1]))?$item['usuarios'][1]:'';
+                $item['usuarios_mes3'] = (!empty($item['usuarios'][2]))?$item['usuarios'][2]:'';
             }else{
                 $item['usuarios_mes1'] = $item['usuarios_mes2'] = $item['usuarios_mes3'] = '';
             }
             if($item['capital']!='') $item['capital'] = $this->MergeCapital($item['capital']);
             if($item['ventas']!=''){
                 $item['ventas'] = $this->MergeArrays($item['ventas']);
-                $item['ventas_mes1'] = ($item['ventas'][0])?$this->MoneyFormat($item['ventas'][0]):'';
-                $item['ventas_mes2'] = ($item['ventas'][1])?$this->MoneyFormat($item['ventas'][1]):'';
-                $item['ventas_mes3'] = ($item['ventas'][2])?$this->MoneyFormat($item['ventas'][2]):'';
+                $item['ventas_mes1'] = (!empty($item['ventas'][0]))?$this->MoneyFormat($item['ventas'][0]):'';
+                $item['ventas_mes2'] = (!empty($item['ventas'][1]))?$this->MoneyFormat($item['ventas'][1]):'';
+                $item['ventas_mes3'] = (!empty($item['ventas'][2]))?$this->MoneyFormat($item['ventas'][2]):'';
             }else{
                 $item['ventas_mes1'] = $item['ventas_mes2'] = $item['ventas_mes3'] = '';
             }
