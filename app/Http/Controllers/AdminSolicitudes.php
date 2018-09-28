@@ -22,7 +22,7 @@ class AdminSolicitudes extends Controller
     private $controller = 'AdminSolicitudes';
     private $page;
     private $path;
-    private $perPage = 25;
+    private $perPage = 50;
 
     /**
      * Solicitud constructor.
@@ -63,7 +63,7 @@ class AdminSolicitudes extends Controller
                 FOR conv IN convocatorias
                     FOR usuario IN users
                         FILTER doc.responsable_id == "'.auth()->user()->_key.'" AND conv._key  == doc.convocatoria_id AND usuario._key == doc.userKey
-                        SORT doc._key ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.' COLLECT WITH COUNT INTO length RETURN length
+                        SORT doc._key ASC COLLECT WITH COUNT INTO length RETURN length
             ');
             $total = (int)$total[0];
         }

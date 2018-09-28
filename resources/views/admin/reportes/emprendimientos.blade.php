@@ -37,6 +37,7 @@
                                         <th data-field="descripcion">Descripción</th>
                                         <th data-field="usuario">Usuario</th>
                                         <th data-field="email">Email</th>
+                                        <th data-field="convocatoria">Convocatoria</th>
                                         <th data-field="numero_colaboradores">Colaboradores</th>
                                         <th data-field="pais">País</th>
                                         <th data-field="ciudad">Ciudad</th>

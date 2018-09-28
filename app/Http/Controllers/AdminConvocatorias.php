@@ -58,7 +58,12 @@ class AdminConvocatorias extends Controller
         if($request->get('total')!=''){
             $total = $request->get('total');
         }else{
-            $total = $this->ArangoDB->Query('FOR doc IN '.$this->collection.' COLLECT WITH COUNT INTO length RETURN length');
+            $total = $this->ArangoDB->Query( '
+            FOR convocatoria IN convocatorias
+            FOR users IN users
+                FOR entidad IN entidades
+                    FILTER convocatoria.responsable == users._key AND convocatoria.entidad == entidad._key
+                    SORT convocatoria._key ASC COLLECT WITH COUNT INTO length RETURN length');
             $total = (int)$total[0];
         }
         $datos = $this->ArangoDB->Pagination($data, $total, $this->PaginationQuery());

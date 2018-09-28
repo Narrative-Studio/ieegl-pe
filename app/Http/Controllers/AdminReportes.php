@@ -146,6 +146,7 @@ class AdminReportes extends Controller
                 'descripcion': doc.descripcion?:'',
                 'usuario':user.nombre? CONCAT(user.nombre,' ',user.apellidos):'',
                 'email': user.email?:'',
+                'convocatoria': (FOR uc IN usuario_convocatoria FOR conv IN convocatorias FILTER uc.emprendimiento_id == doc._key AND conv._key == uc.convocatoria_id  RETURN conv.nombre),
                 'numero_colaboradores': doc.numero_colaboradores?:'',
                 'pais': doc.pais?:'',
                 'ciudad': doc.ciudad?:'',
