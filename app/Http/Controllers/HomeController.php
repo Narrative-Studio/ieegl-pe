@@ -101,6 +101,7 @@ class HomeController extends Controller
         $document->set("isAdmin", 0);
         $document->set("validated", 0);
         $document->set("active", 1);
+        $document->set("created_time", now());
         $document->set("password", Hash::make($data['password']));
 
         $nombre = $data['nombre'].' '.$data['apellidos'];

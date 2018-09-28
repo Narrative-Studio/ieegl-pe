@@ -21,7 +21,6 @@ class PanelPerfiles extends Controller
     protected $ArangoDB;
     private $collection = 'perfiles';
     private $controller = 'PanelPerfiles';
-    private $estados = ['1' => 'Aguascalientes','2' => 'Baja California','3' => 'Baja California Sur','4' => 'Campeche','5' => 'Chiapas','6' => 'Chihuahua','7' => 'Coahuila de Zaragoza','8' => 'Colima','9' => 'Ciudad de México','10' => 'Durango','11' => 'Guanajuato','12' => 'Guerrero','13' => 'Hidalgo','14' => 'Jalisco','15' => 'Estado de Mexico','16' => 'Michoacan de Ocampo','17' => 'Morelos','18' => 'Nayarit','19' => 'Nuevo Leon','20' => 'Oaxaca','21' => 'Puebla','22' => 'Queretaro de Arteaga','23' => 'Quintana Roo','24' => 'San Luis Potosi','25' => 'Sinaloa','26' => 'Sonora','27' => 'Tabasco','28' => 'Tamaulipas','29' => 'Tlaxcala','30' => 'Veracruz','31' => 'Yucatan','32' => 'Zacatecas'];
 
     /**
      * Industrias constructor.
@@ -43,7 +42,7 @@ class PanelPerfiles extends Controller
         $data = $this->ArangoDB->Query('FOR doc IN perfiles FILTER doc.userKey == "'.auth()->user()->_key.'" RETURN doc');
         $item = (count($data)>0)?$data[0]:[];
         // Paises
-        $paises = ["Afganistán","Albania","Alemania","Andorra","Angola","Antártida","Antigua y Barbuda","Arabia Saudí","Argelia","Argentina","Armenia","Australia","Austria","Azerbaiyán","Bahamas","Bahrain","Bangladesh","Barbados","Bélgica","Belice","Benin","Bermudas","Bielorrusia","Birmania Myanmar","Bolivia","Bosnia y Herzegovina","Botswana","Brasil","Brunei","Bulgaria","Burkina Faso","Burundi","Bután","Cabo Verde","Camboya","Camerún","Canada","Chad","Chile","China","Chipre","Colombia","Comores","Congo","Corea del Norte","Corea del Sur","Costa de Marfil","Costa Rica","Croacia","Cuba","Dinamarca","Dominica","Ecuador","Egipto","El Salvador","El Vaticano","Emiratos Arabes Unidos","Eritrea","Eslovaquia","Eslovenia","España","Estados Unidos","Estonia","Etiopía","Filipinas","Finlandia","Fiji","Francia","Gabón","Gambia","Georgia","Ghana","Gibraltar","Granada","Grecia","Guam","Guatemala","Guinea","Guinea Ecuatorial","Guinea Bissau","Guyana","Haití","Honduras","Hungría","India","Indian Ocean","Indonesia","Irán","Iraq","Irlanda","Islandia","Israel","Italia","Jamaica","Japón","Jersey","Jordania","Kazajstán","Kenia","Kirguistán","Kiribati","Kuwait","Laos","Lesoto","Letonia","Líbano","Liberia","Libia","Liechtenstein","Lituania","Luxemburgo","Macedonia","Madagascar","Malasia","Malawi","Maldivas","Mali","Malta","Marruecos","Mauricio","Mauritania","México","Micronesia","Moldavia","Mónaco","Mongolia","Montserrat","Mozambique","Namibia","Nauru","Nepal","Nicaragua","Niger","Nigeria","Noruega","Nueva Zelanda","Omán","Paises Bajos","Pakistán","Palau","Panamá","Papua Nueva Guinea","Paraguay","Perú","Polonia","Portugal","Puerto Rico","Qatar","Reino Unido","República Centroafricana","República Checa","República Democrática del Congo","República Dominicana","Ruanda","Rumania","Rusia","Sahara Occidental","Samoa","San Cristobal y Nevis","San Marino","San Vicente y las Granadinas","Santa Lucía","Santo Tome y Príncipe","Senegal","Seychelles","Sierra Leona","Singapur","Siria","Somalia","Southern Ocean","Sri Lanka","Swazilandia","Sudáfrica","Sudán","Suecia","Suiza","Surinam","Tailandia","Taiwán","Tanzania","Tayikistán","Togo","Tokelau","Tonga","Trinidad y Tobago","Túnez","Turkmekistán","Turquía","Tuvalu","Ucrania","Uganda","Uruguay","Uzbekistán","Vanuatu","Venezuela","Vietnam","Yemen","Djibouti","Zambia","Zimbabue" ];
+        $paises = $this->paises;
         // Estados
         $estados = $this->estados;
         return view('panel.'.$this->collection.'.datos-personales', compact('paises','estados', 'item'));
@@ -56,7 +55,7 @@ class PanelPerfiles extends Controller
      */
     public function Estudios(){
         //Campus TEC
-        $campus = ["Monterrey","Chihuahua","Ciudad Juarez", "Laguna","Saltillo","Tampico"];
+        $campus = $this->campus;
         //Obteniendo perfil
         $data = $this->ArangoDB->Query('FOR doc IN perfiles FILTER doc.userKey == "'.auth()->user()->_key.'" RETURN doc');
         $item = (count($data)>0)?$data[0]:[];

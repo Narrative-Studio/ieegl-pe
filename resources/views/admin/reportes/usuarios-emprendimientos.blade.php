@@ -35,6 +35,18 @@
                                     <tr>
                                         <th data-sortable="true" data-field="nombre">Nombre</th>
                                         <th data-field="email">Email</th>
+                                        <!--<th data-field="fecha_nacimiento">Fecha Nacimiento</th>
+                                        <th data-field="linkedin">Linkedin</th>
+                                        <th data-field="sexo">Sexo</th>
+                                        <th data-field="biografia">Bio</th>
+                                        <th data-field="a_que_se_dedica">A qué te dedicas</th>
+                                        <th data-field="pais">País</th>
+                                        <th data-field="estado">Estado</th>
+                                        <th data-field="ciudad">Ciudad</th>
+                                        <th data-field="actualmente_cursando_carrera">¿Cursas carrera?</th>
+                                        <th data-field="universidad">Universidad</th>
+                                        <th data-field="campus">Campus</th>
+                                        <th data-field="matricula">Matrícula</th>-->
                                     </tr>
                                     </thead>
                                 </table>

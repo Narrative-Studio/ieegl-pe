@@ -138,7 +138,8 @@
                 <span>Reportes</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Reportes"></i>
             </li>
             <?php if(\App\Http\Controllers\AdminRoles::getAccess('reportes')):?>
-            <li class=" nav-item"><a href="{{action('AdminReportes@UsuariosEmprendimientos')}}"><i class="fa fa-pie-chart"></i><span class="menu-title">Usuarios sin emprendimientos</span></a></li>
+                <li class=" nav-item"><a href="{{action('AdminReportes@UsuariosEmprendimientos')}}"><i class="fa fa-pie-chart"></i><span class="menu-title">Usuarios sin emprendimientos</span></a></li>
+            <li class=" nav-item"><a href="{{action('AdminReportes@Emprendimientos')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Emprendimientos</span></a></li>
             <?php endif;?>
 
             <hr/>
