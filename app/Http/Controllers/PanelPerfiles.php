@@ -111,6 +111,7 @@ class PanelPerfiles extends Controller
             $this->ArangoDB->CreateEdge(['label' => 'hasPerfil', 'created_time'=>now()], 'hasPerfil', 'users/'.auth()->user()->_key, $documentId);
         }else{
             // Actualizando Registro
+            $document['created_time'] = now();
             $documentId = $request->get('id');
             $this->ArangoDB->Update($this->collection, $this->collection.'/'.$request->get('id'), $document);
         }
