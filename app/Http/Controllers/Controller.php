@@ -17,7 +17,7 @@ class Controller extends BaseController
     public $modelos_ventas = ["B2B","B2C","B2G","C2C","No lo sé/No estoy seguro"];
     public $n_meses = ["","enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
     public $vehiculos_inversion = ['1'=>'Directo por Equity','2'=>'Nota Convertible','3'=>'Kiss Note', '4'=>'SACE', '5'=>'ABACO'];
-    public $campus = ["Monterrey","Chihuahua","Ciudad Juarez", "Laguna","Saltillo","Tampico"];
+    public $campus = [6=>"Aguascalientes", 8=>"Chiapas", 1=>"Chihuahua", 2=>"Ciudad Juarez", 10=>"Ciudad Obregón", 9=>"Ciudad de México",11=>"Cuernavaca",12=>"Estado de México",13=>"Guadalajara",14=>"Hidalgo",15=>"Irapuato",3=>"Laguna",16=>"León",0=>"Monterrey",17=>"Morelia",18=>"Puebla",19=>"Querétaro",4=>"Saltillo",20=>"San Luis Potosí",21=>"Santa Fe",22=>"Sinaloa",23=>"Sonora Norte",5=>"Tampico",24=>"Toluca",7=>"Veracruz",25=>"Zacatecas"];
     public $estados = ['1' => 'Aguascalientes','2' => 'Baja California','3' => 'Baja California Sur','4' => 'Campeche','5' => 'Chiapas','6' => 'Chihuahua','7' => 'Coahuila de Zaragoza','8' => 'Colima','9' => 'Ciudad de México','10' => 'Durango','11' => 'Guanajuato','12' => 'Guerrero','13' => 'Hidalgo','14' => 'Jalisco','15' => 'Estado de Mexico','16' => 'Michoacan de Ocampo','17' => 'Morelos','18' => 'Nayarit','19' => 'Nuevo Leon','20' => 'Oaxaca','21' => 'Puebla','22' => 'Queretaro de Arteaga','23' => 'Quintana Roo','24' => 'San Luis Potosi','25' => 'Sinaloa','26' => 'Sonora','27' => 'Tabasco','28' => 'Tamaulipas','29' => 'Tlaxcala','30' => 'Veracruz','31' => 'Yucatan','32' => 'Zacatecas'];
     public $meses_montos = 3;
 
