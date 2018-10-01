@@ -39,6 +39,7 @@
                                         <th data-field="email">Email</th>
                                         <th data-field="convocatoria">Convocatoria</th>
                                         <th data-field="numero_colaboradores">Colaboradores</th>
+                                        <th data-field="logo_file">Logotipo</th>
                                         <th data-field="pais">País</th>
                                         <th data-field="ciudad">Ciudad</th>
                                         <th data-field="industria_o_sector">Industrias</th>
@@ -54,6 +55,7 @@
                                         <th data-field="nivel_tlr">Nivel de TLR</th>
                                         <th data-field="socios">Nombres de Socios</th>
                                         <th data-field="como_te_enteraste">¿Cómo te enteraste?</th>
+                                        <th data-field="como_te_enteraste_cual">¿Cuál?</th>
                                         <th data-field="sitio_web">Sitio Web</th>
                                         <th data-field="red_social">Red Social más utilizada</th>
                                         <th data-field="video">Liga Video</th>

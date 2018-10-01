@@ -148,6 +148,7 @@ class AdminReportes extends Controller
                 'email': user.email?:'',
                 'convocatoria': (FOR uc IN usuario_convocatoria FOR conv IN convocatorias FILTER uc.emprendimiento_id == doc._key AND conv._key == uc.convocatoria_id  RETURN conv.nombre),
                 'numero_colaboradores': doc.numero_colaboradores?:'',
+                'logo_file': doc.logo_file?:'',
                 'pais': doc.pais?:'',
                 'ciudad': doc.ciudad?:'',
                 'industria_o_sector': doc.industria_o_sector? (FOR u IN industrias FILTER u._key IN (doc.industria_o_sector) RETURN u.nombre):'',
@@ -163,6 +164,7 @@ class AdminReportes extends Controller
                 'nivel_tlr': doc.nivel_tlr?:'',
                 'socios': doc.socios? (FOR u IN users FILTER u._key IN (doc.socios) RETURN CONCAT(u.nombre,' ',u.apellidos)):'',
                 'como_te_enteraste': doc.como_te_enteraste?:'',
+                'como_te_enteraste_cual': doc.como_te_enteraste_cual?:'',
                 'sitio_web': doc.sitio_web?:'',
                 'red_social': doc.red_social?:'',
                 'video': doc.video?:'',
@@ -241,6 +243,7 @@ class AdminReportes extends Controller
             }
             if($item['gasto_mensual']!='') $item['gasto_mensual'] = $this->MoneyFormat($item['gasto_mensual']);
             if($item['pierde_dinero']!='') $item['pierde_dinero'] = $this->MoneyFormat($item['pierde_dinero']);
+            if($item['logo_file']!='') $item['logo_file'] = url('/').$item['logo_file'];
             $items[] = $item;
         }
 
