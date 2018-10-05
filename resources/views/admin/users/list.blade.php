@@ -13,26 +13,31 @@
                     <div class="card">
                         <div class="card-content">
                             <div class="card-body card-dashboard">
-                                <!--{!! Form::open(['action'=>'AdminUsuarios@Index', 'method'=>'GET', 'class'=>'navbar-form navbar-left', 'role'=>'search']) !!}
+                                {!! Form::open(['action'=>'AdminUsuarios@Index', 'method'=>'GET', 'class'=>'navbar-form navbar-left', 'role'=>'search']) !!}
                                 <div class="row">
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-3">
                                         <div class="form-group">
                                             <input type="text" class="form-control" placeholder="Texto a buscar" name="q" value="{{Request::input('q')}}">
                                         </div>
                                     </div>
                                     <div class="col-sm-2">
-                                        <button type="submit" class="btn btn-default"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+                                        <button type="submit" class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i> Buscar</button>
+                                    </div>
+                                    <div class="col-sm-7 text-right">
+                                        <h4>Total: {{$total}} registros</h4>
                                     </div>
                                 </div>
-                                </form>-->
+                                </form>
                             </div>
                             @if(count($datos)>0)
                                 <div class="table-responsive table-hover">
                                     <table class="table mb-0">
                                         <thead>
                                         <tr class="bg-primary white">
+                                            <th>ID</th>
                                             <th>Nombre</th>
                                             <th>Correo</th>
+                                            <th>Teléfono</th>
                                             <th>Validado</th>
                                             <th width="250">Acciones</th>
                                         </tr>
@@ -40,8 +45,10 @@
                                         <tbody>
                                         @foreach($datos as $item)
                                             <tr>
+                                                <td>{{$item->_key}}</td>
                                                 <td>{{$item->nombre}} @if(isset($item->apellidos)){{$item->apellidos}}@endif</td>
                                                 <td>{{$item->email}}</td>
+                                                <td>{{$item->telefono}}</td>
                                                 <td>@if($item->validated==0) <div class="badge badge-warning">No</div> @else <div class="badge badge-success">Si</div> @endif</td>
                                                 <td>
                                                     <a href="{{ action('AdminUsuarios@Edit',$item->_key) }}" class="btn btn-sm btn-info mr-1"><i class="fas fa-edit"></i> Editar</a>

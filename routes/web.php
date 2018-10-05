@@ -162,6 +162,10 @@ Route::prefix('admin')->group(function() {
         Route::post('/roles/save', 'AdminRoles@Save');
 
         /** Reportes */
+        Route::get('/reportes/usuarios', 'AdminReportes@Usuarios');
+        Route::get('/reportes/ajax/usuarios', 'AdminReportes@UsuariosAjax')->name('reportes.usuarios');
+
+
         Route::get('/reportes/usuarios-emprendimientos', 'AdminReportes@UsuariosEmprendimientos');
         Route::get('/reportes/ajax/usuarios-emprendimientos', 'AdminReportes@UsuariosEmprendimientosAjax')->name('reportes.usuarios-emprendimientos');
 

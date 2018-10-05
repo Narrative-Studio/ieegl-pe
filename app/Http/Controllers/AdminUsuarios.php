@@ -21,7 +21,7 @@ class AdminUsuarios extends Controller
     private $controller = 'AdminUsuarios';
     private $page;
     private $path;
-    private $perPage = 25;
+    private $perPage = 50;
 
     /**
      * Industrias constructor.
@@ -45,11 +45,16 @@ class AdminUsuarios extends Controller
      * @throws ArangoException
      */
     public function Index(Request $request){
-        $data = $this->ArangoDB->Query('FOR u IN '.$this->collection.' FILTER u.isAdmin==0 SORT u.nombre ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'  RETURN u');
+        $search = '';
+        if($request->get('q')!=''){
+            $search = ' AND (LOWER(CONCAT(u.nombre," ",u.apellidos)) LIKE "%'.strtolower($request->get('q')).'%" OR LOWER(u.email) LIKE "%'.strtolower($request->get('q')).'%") ';
+        }
+
+        $data = $this->ArangoDB->Query("FOR u IN ".$this->collection." FILTER u.isAdmin==0 $search SORT u.nombre ASC LIMIT ".($this->perPage*($this->page-1)).", ".$this->perPage." RETURN u");
         if($request->get('total')!=''){
             $total = $request->get('total');
         }else{
-            $total = $this->ArangoDB->Query('FOR u IN '.$this->collection.' FILTER u.isAdmin==0 COLLECT WITH COUNT INTO length RETURN length');
+            $total = $this->ArangoDB->Query("FOR u IN ".$this->collection." FILTER u.isAdmin==0 $search COLLECT WITH COUNT INTO length RETURN length");
             $total = (int)$total[0];
         }
         $datos = $this->ArangoDB->Pagination($data, $total, $this->PaginationQuery());

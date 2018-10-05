@@ -32,7 +32,8 @@ class AdminReportes extends Controller
     }
 
     /**
-     *  Reporte Usuarios Emprendimientos
+     * Reporte Usuarios Emprendimientos
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function UsuariosEmprendimientos(){
         return view('admin.reportes.usuarios-emprendimientos');
@@ -57,51 +58,59 @@ class AdminReportes extends Controller
 
         $data = $this->ArangoDB->Query("
             FOR u IN users 
-                    FILTER u._key NOT IN (FOR emp IN emprendimientos COLLECT keys = emp.userKey RETURN keys) AND u.validated==1 AND u.active==1 AND u.isAdmin==0 $search_txt
+                    FILTER u._key NOT IN (FOR emp IN emprendimientos COLLECT keys = emp.userKey RETURN keys) AND u.validated==1 AND u.isAdmin==0 $search_txt
                     LIMIT $offset,$limit
                     SORT u.$sort $order
             RETURN {'id':u._key, 'nombre':CONCAT(u.nombre,' ',u.apellidos), 'email':u.email}", true);
 
         $data_total = $this->ArangoDB->Query("
             FOR u IN users 
-                FILTER u._key NOT IN (FOR emp IN emprendimientos COLLECT keys = emp.userKey RETURN keys) AND u.validated==1 AND u.active==1 AND u.isAdmin==0 $search_txt
+                FILTER u._key NOT IN (FOR emp IN emprendimientos COLLECT keys = emp.userKey RETURN keys) AND u.validated==1 AND u.isAdmin==0 $search_txt
                 COLLECT WITH COUNT INTO length
             RETURN length", true);
 
-        /*
+        $datos['total'] = $data_total[0][0];
+        $datos['rows'] = $data;
+        return json_encode($datos);
+    }
+
+    /**
+     * Reporte Usuarios
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function Usuarios(){
+        return view('admin.reportes.usuarios');
+    }
+
+    /**
+     * Reporte Usuarios  AJAX
+     * @param Request $request
+     * @return string
+     * @throws ArangoException
+     */
+    public function UsuariosAjax(Request $request){
+
+        $search_txt = "";
+        $offset = $request->get('offset');
+        $limit = $request->get('limit');
+        $search = trim($request->get('search'));
+        $sort = ($request->get('sort')!='')?$request->get('sort'):'nombre';
+        $order = trim($request->get('order'));
+
+        if($search!='') $search_txt = 'AND (LOWER(CONCAT(u.nombre," ",u.apellidos)) LIKE "%'.strtolower($search).'%" OR LOWER(u.email) LIKE "%'.strtolower($search).'%")';
+
         $data = $this->ArangoDB->Query("
-            FOR u IN users
-                FOR p IN perfiles
-                        FILTER  u._key == p.userKey AND u._key NOT IN (FOR emp IN emprendimientos COLLECT keys = emp.userKey RETURN keys) AND u.validated==1 AND u.active==1 AND u.isAdmin==0 $search_txt
-                        LIMIT $offset,$limit
-                        SORT u.$sort $order
-            RETURN {
-                    'id':u._key, 'nombre':CONCAT(u.nombre,' ',u.apellidos), 'email':u.email,
-                    'fecha_nacimiento': p.fecha_nacimiento?f: '',
-                    'biografia': p.biografia? : '',
-                    'sexo': p.sexo? : '',
-                    'a_que_se_dedica': p.a_que_se_dedica? : '',
-                    'linkedin': p.linkedin? : '',
-                    'pais': p.pais? : '',
-                    'estado': p.estado? : '',
-                    'estado_otro': p.estado_otro? : '',
-                    'ciudad': p.ciudad? : '',
-                    'universidad': p.universidad ? : '',
-                    'actualmente_cursando_carrera': p.actualmente_cursando_carrera? : '',
-                    'fecha_graduacion': p.fecha_graduacion? : '',
-                    'matricula': p.matricula? : '',
-                    'universidad_otra': p.universidad_otra ? : '',
-                    'campus': p.campus ? : ''
-                }", true);
+            FOR u IN users 
+                    FILTER u.isAdmin==0 $search_txt
+                    LIMIT $offset,$limit
+                    SORT u.$sort $order
+            RETURN {'_key':u._key, 'nombre':CONCAT(u.nombre,' ',u.apellidos), 'email':u.email, 'telefono': u.telefono, 'validated': (u.validated==1)?'Si':'No', 'fecha': u.created_time?DATE_FORMAT(u.created_time.date, '%dd/%mm/%yyyy'):''}", true);
 
         $data_total = $this->ArangoDB->Query("
-            FOR u IN users
-            FOR p IN perfiles
-                    FILTER  u._key == p.userKey AND u._key NOT IN (FOR emp IN emprendimientos COLLECT keys = emp.userKey RETURN keys) AND u.validated==1 AND u.active==1 AND u.isAdmin==0 $search_txt
-                    COLLECT WITH COUNT INTO length
+            FOR u IN users 
+                FILTER u.isAdmin==0 $search_txt
+                COLLECT WITH COUNT INTO length
             RETURN length", true);
-         */
-
 
         $datos['total'] = $data_total[0][0];
         $datos['rows'] = $data;
@@ -141,11 +150,12 @@ class AdminReportes extends Controller
                     LIMIT $offset,$limit
                     SORT doc.$sort $order
             RETURN {
-                'id': doc._key, 
+                '_key': doc._key, 
                 'emprendimiento': doc.nombre, 
                 'descripcion': doc.descripcion?:'',
                 'usuario':user.nombre? CONCAT(user.nombre,' ',user.apellidos):'',
                 'email': user.email?:'',
+                'telefono': user.telefono?:'',
                 'convocatoria': (FOR uc IN usuario_convocatoria FOR conv IN convocatorias FILTER uc.emprendimiento_id == doc._key AND conv._key == uc.convocatoria_id  RETURN conv.nombre),
                 'numero_colaboradores': doc.numero_colaboradores?:'',
                 'logo_file': doc.logo_file?:'',
