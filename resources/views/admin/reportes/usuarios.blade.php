@@ -18,7 +18,7 @@
                     <div class="card">
                         <div class="card-content">
                             <div class="card-body">
-                                <table
+                                <table id="dataTable"
                                         data-pagination="true"
                                         data-side-pagination="server"
                                         data-search="true"

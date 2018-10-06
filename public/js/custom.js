@@ -82,4 +82,11 @@ $(document).ready(function() {
     $('.btn-modal').on('click', function(){
         $('#'+$(this).attr('data-target')).modal('show');
     });
+
+    $('#dataTable').on('load-success.bs.table', function (e, name, args) {
+        if($('.fixed-table-toolbar #totalRows').length==0){
+            $('.fixed-table-toolbar').append('<div class="columns columns-right float-right" id="totalRows"></div>');
+        }
+        $('#totalRows').html('<h5 style="padding: 10px;margin: 0;">Total: '+name.total+' registros</h5>');
+    })
 });
