@@ -17,7 +17,7 @@ class PanelController extends Controller
     }
 
     public function Index(){
-        $date = Carbon::now();
+        //$date = Carbon::now();
         //echo $date->formatLocalized('%A %d %B %Y');exit();
         //Obteniendo perfil
         $data = $this->ArangoDB->Query('FOR doc IN perfiles FILTER doc.userKey == "'.auth()->user()->_key.'" RETURN doc');
@@ -26,7 +26,7 @@ class PanelController extends Controller
         }else{
             $perfil = $data[0];
             $niveles = $this->nivel_tlr;
-            $emprendimientos = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc.userKey == "'.auth()->user()->_key.'" RETURN doc');
+            $emprendimientos = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc.userKey == "'.auth()->user()->_key.'"  OR  "'.auth()->user()->_key.'" IN doc.socios RETURN doc');
             return view('panel.dashboard',compact('emprendimientos','perfil','niveles'));
         }
     }

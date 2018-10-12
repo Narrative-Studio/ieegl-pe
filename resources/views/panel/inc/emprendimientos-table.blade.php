@@ -4,7 +4,7 @@
             <thead class="bg-primary white">
             <tr>
                 <th>Nombre</th>
-                <th>Nivel</th>
+                <th>Rol</th>
                 <th>Grales.</th>
                 <th>Medios Dig.</th>
                 <th>Mercado</th>
@@ -17,14 +17,18 @@
             @foreach($emprendimientos as $item)
                 <tr>
                     <td>{{$item->nombre}}</td>
-                    <td>@if(isset($item->nivel_tlr)){{$niveles[$item->nivel_tlr]}}@else <i>No aplica</i> @endif</td>
+                    <td>@if($item->userKey==auth()->user()->_key) Administrador @else Socio @endif</td>
                     <td class="text-center">@if($item->module_datos==true) <i class="fa fa-check-circle success"></i> @else <i class="fa fa-times-circle" style="color: #999;"></i> @endif</td>
                     <td class="text-center">@if($item->module_medios==true) <i class="fa fa-check-circle success"></i> @else <i class="fa fa-times-circle" style="color: #999;"></i> @endif</td>
                     <td class="text-center">@if($item->module_mercado==true) <i class="fa fa-check-circle success"></i> @else <i class="fa fa-times-circle" style="color: #999;"></i> @endif</td>
                     <td class="text-center">@if($item->module_financiera==true) <i class="fa fa-check-circle success"></i> @else <i class="fa fa-times-circle" style="color: #999;"></i> @endif</td>
                     <td class="text-center">@if($item->module_inversion==true) <i class="fa fa-check-circle success"></i> @else <i class="fa fa-times-circle" style="color: #999;"></i> @endif</td>
                     <td>
-                        <a href="{{action('PanelEmprendimientos@DatosGenerales',['id'=>$item->_key])}}" class="btn btn-sm btn-info mr-1"><i class="fa fa-edit"></i> Ver/Editar</a>
+                        @if($item->userKey == auth()->user()->_key)
+                            <a href="{{action('PanelEmprendimientos@DatosGenerales',['id'=>$item->_key])}}" class="btn btn-sm btn-info mr-1"><i class="fa fa-edit"></i> Ver/Editar</a>
+                        @else
+                            <a href="{{action('PanelEmprendimientos@DatosGenerales',['id'=>$item->_key])}}" class="btn btn-sm btn-primary mr-1"><i class="fa fa-edit"></i> Ver</a>
+                        @endif
                     </td>
                 </tr>
             @endforeach

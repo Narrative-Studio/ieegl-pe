@@ -51,9 +51,15 @@ class PanelEmprendimientos extends Controller
      * @throws ArangoException
      */
     public function Index(){
-        $niveles = $this->nivel_tlr;
-        $emprendimientos = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc.userKey == "'.auth()->user()->_key.'" RETURN doc');
-        return view('panel.emprendimientos.lista',compact('emprendimientos','niveles'));
+
+        $data = $this->ArangoDB->Query('FOR doc IN perfiles FILTER doc.userKey == "'.auth()->user()->_key.'" RETURN doc');
+        if(count($data)<1){
+            return redirect()->action('PanelPerfiles@Index');
+        }else{
+            $niveles = $this->nivel_tlr;
+            $emprendimientos = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc.userKey == "'.auth()->user()->_key.'"  OR  "'.auth()->user()->_key.'" IN doc.socios RETURN doc');
+            return view('panel.emprendimientos.lista',compact('emprendimientos','niveles'));
+        }
     }
 
     /**
@@ -112,6 +118,9 @@ class PanelEmprendimientos extends Controller
      * @throws ArangoException
      */
     public function SaveDatosGenerales(EmprendimientosDatosGeneralesRequest $request){
+
+        if($this->getUserKey($request->get('id'))!=auth()->user()->_key) abort(404);
+
         $document = [];
         $document['userKey'] = auth()->user()->_key;
         $document['nombre'] = $request->get('nombre');
@@ -206,6 +215,9 @@ class PanelEmprendimientos extends Controller
      * @throws ArangoException
      */
     public function SaveMediosDigitales(EmprendimientosMediosDigitalesRequest $request){
+
+        if($this->getUserKey($request->get('id'))!=auth()->user()->_key) abort(404);
+
         $documentId = $request->get('id');
         $document = [];
         $document['sitio_web'] = $request->get('sitio_web');
@@ -286,6 +298,9 @@ class PanelEmprendimientos extends Controller
      * @throws ArangoException
      */
     public function SaveMercado(EmprendimientosMercadoRequest $request){
+
+        if($this->getUserKey($request->get('id'))!=auth()->user()->_key) abort(404);
+
         $document = [];
         $document['tiene_usuarios'] = $request->get('tiene_usuarios');
         $document['tiene_clientes'] = $request->get('tiene_clientes');
@@ -368,6 +383,9 @@ class PanelEmprendimientos extends Controller
      * @throws ArangoException
      */
     public function SaveInversion(EmprendimientosInversionRequest $request){
+
+        if($this->getUserKey($request->get('id'))!=auth()->user()->_key) abort(404);
+
         $document = [];
         $document['socios_operadores'] = $request->get('socios_operadores');
         $document['invertido_capital'] = $request->get('invertido_capital');
@@ -457,6 +475,9 @@ class PanelEmprendimientos extends Controller
      * @throws ArangoException
      */
     public function SaveFinanciera(EmprendimientosFinancieraRequest $request){
+
+        if($this->getUserKey($request->get('id'))!=auth()->user()->_key) abort(404);
+
         $documentId = $request->get('id');
         $document = [];
         $document['lanzar_producto'] = $request->get('lanzar_producto');
@@ -536,7 +557,18 @@ class PanelEmprendimientos extends Controller
      * @throws ArangoException
      */
     public function getItem($id){
-        $data = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc._key=="'.$id.'" AND doc.userKey == "'.auth()->user()->_key.'" RETURN doc');
+        $data = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc._key=="'.$id.'" AND (doc.userKey == "'.auth()->user()->_key.'" or "'.auth()->user()->_key.'" IN doc.socios) RETURN doc');
+        return $data[0];
+    }
+
+    /**
+     * Obtener UserKey del Emprendimiento
+     * @param $id
+     * @return mixed
+     * @throws ArangoException
+     */
+    public function getUserKey($id){
+        $data = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc._key=="'.$id.'" RETURN doc.userKey');
         return $data[0];
     }
 

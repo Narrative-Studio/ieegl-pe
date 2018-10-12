@@ -5,10 +5,7 @@
 @section('accion') Datos Generales @endsection
 
 @section('js')
-    <script type="text/javascript">
-        $(document).ready(function () {
-        })
-    </script>
+    @if($item->userKey!=auth()->user()->_key) @include('panel.emprendimientos.inc.cancelar-inputs') @endif
 @endsection
 
 @section('content')
@@ -45,15 +42,17 @@
                                         @endif
                                     </ul>
                                     {!! Form::model($item,['action' => 'PanelEmprendimientos@SaveDatosGenerales', 'method' => 'put', 'files'=>'true']) !!}
-                                    @if(isset($item->_key))
-                                        <input name="id" type="hidden" value="{{$item->_key}}">
-                                    @endif
-                                    @include('panel.emprendimientos.inc.datos-generales')
-                                    <div class="form-actions right">
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="fa fa-save"></i> Guardar y Continuar
-                                        </button>
-                                    </div>
+                                        @if(isset($item->_key))
+                                            <input name="id" type="hidden" value="{{$item->_key}}">
+                                        @endif
+                                        @include('panel.emprendimientos.inc.datos-generales')
+                                        <div class="form-actions right">
+                                            @if($item->userKey==auth()->user()->_key)
+                                                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar y Continuar</button>
+                                            @else
+                                                <a href="{{action('PanelEmprendimientos@MediosDigitales',['id'=>$item->_key])}}" class="btn btn-primary">Siguiente <i class="ft-arrow-right"></i></a>
+                                            @endif
+                                        </div>
                                     </form>
                                 </div>
                             </div>

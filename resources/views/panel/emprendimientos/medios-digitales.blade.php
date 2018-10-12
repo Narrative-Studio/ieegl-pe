@@ -5,10 +5,7 @@
 @section('accion') Medio Digitales @endsection
 
 @section('js')
-    <script type="text/javascript">
-        $(document).ready(function () {
-        })
-    </script>
+    @if($item->userKey!=auth()->user()->_key) @include('panel.emprendimientos.inc.cancelar-inputs') @endif
 @endsection
 
 @section('content')
@@ -35,9 +32,13 @@
                                         <a href="{{action('PanelEmprendimientos@DatosGenerales',['id'=>$item->_key])}}" class="btn btn-warning mr-1">
                                             <i class="ft-arrow-left"></i> Anterior
                                         </a>
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="fa fa-save"></i> Guardar y Continuar
-                                        </button>
+                                        @if($item->userKey==auth()->user()->_key)
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fa fa-save"></i> Guardar y Continuar
+                                            </button>
+                                        @else
+                                            <a href="{{action('PanelEmprendimientos@Mercado',['id'=>$item->_key])}}" class="btn btn-primary">Siguiente <i class="ft-arrow-right"></i></a>
+                                        @endif
                                     </div>
                                     </form>
                                 </div>
