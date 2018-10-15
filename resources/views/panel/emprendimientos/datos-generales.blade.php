@@ -5,7 +5,7 @@
 @section('accion') Datos Generales @endsection
 
 @section('js')
-    @if($item->userKey!=auth()->user()->_key) @include('panel.emprendimientos.inc.cancelar-inputs') @endif
+    @if(isset($item->_key)) @if($item->userKey!=auth()->user()->_key) @include('panel.emprendimientos.inc.cancelar-inputs') @endif @endif
 @endsection
 
 @section('content')
@@ -47,10 +47,14 @@
                                         @endif
                                         @include('panel.emprendimientos.inc.datos-generales')
                                         <div class="form-actions right">
-                                            @if($item->userKey==auth()->user()->_key)
-                                                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar y Continuar</button>
+                                            @if(isset($item->_key))
+                                                @if($item->userKey==auth()->user()->_key)
+                                                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar y Continuar</button>
+                                                @else
+                                                    <a href="{{action('PanelEmprendimientos@MediosDigitales',['id'=>$item->_key])}}" class="btn btn-primary">Siguiente <i class="ft-arrow-right"></i></a>
+                                                @endif
                                             @else
-                                                <a href="{{action('PanelEmprendimientos@MediosDigitales',['id'=>$item->_key])}}" class="btn btn-primary">Siguiente <i class="ft-arrow-right"></i></a>
+                                                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar y Continuar</button>
                                             @endif
                                         </div>
                                     </form>

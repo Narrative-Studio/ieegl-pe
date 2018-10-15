@@ -276,7 +276,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label for="">Busca tus socios y lígalos a tu Emprendimiento</label>
-            <select name="socios[]" class="select2-placeholder-multiple-socios form-control" multiple="multiple">
+            <select name="socios[]" class="select2-placeholder-multiple-socios form-control" multiple="multiple" autocomplete="off">
                 @foreach($socios as $k=>$v)
                     <option selected value="{{$k}}">{{$v}}</option>
                 @endforeach

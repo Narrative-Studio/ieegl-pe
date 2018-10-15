@@ -119,8 +119,6 @@ class PanelEmprendimientos extends Controller
      */
     public function SaveDatosGenerales(EmprendimientosDatosGeneralesRequest $request){
 
-        if($this->getUserKey($request->get('id'))!=auth()->user()->_key) abort(404);
-
         $document = [];
         $document['userKey'] = auth()->user()->_key;
         $document['nombre'] = $request->get('nombre');
@@ -161,6 +159,7 @@ class PanelEmprendimientos extends Controller
             $this->ArangoDB->CreateEdge(['label' => 'hasEmprendimiento', 'created_time'=>now()], 'hasEmprendimiento', 'users/'.auth()->user()->_key, $documentId);
         }else{
             // Actualizando Registro
+            if($this->getUserKey($request->get('id'))!=auth()->user()->_key) abort(404);
             $documentId = $request->get('id');
             $this->ArangoDB->Update($this->collection, $this->collection.'/'.$request->get('id'), $document);
         }
@@ -569,7 +568,7 @@ class PanelEmprendimientos extends Controller
      */
     public function getUserKey($id){
         $data = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc._key=="'.$id.'" RETURN doc.userKey');
-        return $data[0];
+        return (count($data)<1)?false:$data[0];
     }
 
     /**
