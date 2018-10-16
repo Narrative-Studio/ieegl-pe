@@ -57,14 +57,14 @@ class AdminReportes extends Controller
         if($search!='') $search_txt = 'AND (LOWER(CONCAT(u.nombre," ",u.apellidos)) LIKE "%'.strtolower($search).'%" OR LOWER(u.email) LIKE "%'.strtolower($search).'%")';
 
         $data = $this->ArangoDB->Query("
-            FOR u IN users 
+            FOR u IN users
                     FILTER u._key NOT IN (FOR emp IN emprendimientos COLLECT keys = emp.userKey RETURN keys) AND u.validated==1 AND u.isAdmin==0 $search_txt
                     LIMIT $offset,$limit
                     SORT u.$sort $order
             RETURN {'id':u._key, 'nombre':CONCAT(u.nombre,' ',u.apellidos), 'email':u.email}", true);
 
         $data_total = $this->ArangoDB->Query("
-            FOR u IN users 
+            FOR u IN users
                 FILTER u._key NOT IN (FOR emp IN emprendimientos COLLECT keys = emp.userKey RETURN keys) AND u.validated==1 AND u.isAdmin==0 $search_txt
                 COLLECT WITH COUNT INTO length
             RETURN length", true);
@@ -100,14 +100,14 @@ class AdminReportes extends Controller
         if($search!='') $search_txt = 'AND (LOWER(CONCAT(u.nombre," ",u.apellidos)) LIKE "%'.strtolower($search).'%" OR LOWER(u.email) LIKE "%'.strtolower($search).'%")';
 
         $data = $this->ArangoDB->Query("
-            FOR u IN users 
+            FOR u IN users
                     FILTER u.isAdmin==0 $search_txt
                     LIMIT $offset,$limit
                     SORT u.$sort $order
             RETURN {'_key':u._key, 'nombre':CONCAT(u.nombre,' ',u.apellidos), 'email':u.email, 'telefono': u.telefono, 'validated': (u.validated==1)?'Si':'No', 'fecha': u.created_time?DATE_FORMAT(u.created_time.date, '%dd/%mm/%yyyy'):''}", true);
 
         $data_total = $this->ArangoDB->Query("
-            FOR u IN users 
+            FOR u IN users
                 FILTER u.isAdmin==0 $search_txt
                 COLLECT WITH COUNT INTO length
             RETURN length", true);
@@ -144,14 +144,14 @@ class AdminReportes extends Controller
         if($search!='') $search_txt = 'AND doc.nombre LIKE "%'.strtolower($search).'%"';
 
         $data = $this->ArangoDB->Query("
-            FOR doc IN emprendimientos 
+            FOR doc IN emprendimientos
                 FOR user IN users
                     FILTER user._key == doc.userKey $search_txt
                     LIMIT $offset,$limit
                     SORT doc.$sort $order
             RETURN {
-                '_key': doc._key, 
-                'emprendimiento': doc.nombre, 
+                '_key': doc._key,
+                'emprendimiento': doc.nombre,
                 'descripcion': doc.descripcion?:'',
                 'usuario':user.nombre? CONCAT(user.nombre,' ',user.apellidos):'',
                 'email': user.email?:'',
@@ -185,7 +185,7 @@ class AdminReportes extends Controller
                 'tiene_usuarios': doc.tiene_usuarios?:'',
                 'caracteristicas_usuarios': doc.caracteristicas_usuarios?:'',
                 'usuarios_activos': doc.usuarios_activos?:'',
-                'usuarios': doc.usuarios?:'',           
+                'usuarios': doc.usuarios?:'',
                 'socios_operadores': doc.socios_operadores?:'',
                 'capital': doc.capital?:'',
                 'levantado_capital': doc.levantado_capital?:'',
@@ -211,7 +211,7 @@ class AdminReportes extends Controller
             }", true);
 
         $data_total = $this->ArangoDB->Query("
-            FOR doc IN emprendimientos 
+            FOR doc IN emprendimientos
                 FOR u IN users
                     FILTER u._key == doc.userKey $search_txt
                     COLLECT WITH COUNT INTO length
@@ -259,6 +259,79 @@ class AdminReportes extends Controller
 
         $datos['total'] = $data_total[0][0];
         $datos['rows'] = $items;
+        return json_encode($datos);
+    }
+
+    /**
+     * Reporte Emprendores Tec
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function EmprendedoresTec(Request $request){
+        return view('admin.reportes.emprendedoresTec');
+    }
+
+    /**
+     * Reporte Emprendedores Tec AJAX
+     * @param Request $request
+     * @return string
+     * @throws ArangoException
+     */
+    public function EmprendedoresTecAjax(Request $request){
+
+        $search_txt = "";
+        $offset = $request->get('offset');
+        $limit = $request->get('limit');
+        $search = trim($request->get('search'));
+        $sort = ($request->get('sort')!='')?$request->get('sort'):'nombre';
+        $order = trim($request->get('order'));
+
+        if($search!='') $search_txt = 'AND LOWER(CONCAT(u.nombre," ",u.apellidos)) LIKE "%'.strtolower($search).'%"';
+
+        $data = $this->ArangoDB->Query("
+          LET estados = ([{ id: '1', nombre: 'Aguascalientes' },{ id: '2', nombre: 'Baja California' },{ id: '3', nombre: 'Baja California Sur' },{ id: '4', nombre: 'Campeche' },{ id: '5', nombre: 'Chiapas' },{ id: '6', nombre: 'Chihuahua' },{ id: '7', nombre: 'Coahuila de Zaragoza' },{ id: '8', nombre: 'Colima' },{ id: '9', nombre: 'Ciudad de México' },{ id: '10', nombre: 'Durango' },{ id: '11', nombre: 'Guanajuato' },{ id: '12', nombre: 'Guerrero' },{ id: '13', nombre: 'Hidalgo' },{ id: '14', nombre: 'Jalisco' },{ id: '15', nombre: 'Estado de Mexico' },{ id: '16', nombre: 'Michoacan de Ocampo' },{ id: '17', nombre: 'Morelos' },{ id: '18', nombre: 'Nayarit' },{ id: '19', nombre: 'Nuevo Leon' },{ id: '20', nombre: 'Oaxaca' },{ id: '21', nombre: 'Puebla' },{ id: '22', nombre: 'Queretaro de Arteaga' },{ id: '23', nombre: 'Quintana Roo' },{ id: '24', nombre: 'San Luis Potosi' },{ id: '25', nombre: 'Sinaloa' },{ id: '26', nombre: 'Sonora' },{ id: '27', nombre: 'Tabasco' },{ id: '28', nombre: 'Tamaulipas' },{ id: '29', nombre: 'Tlaxcala' },{ id: '30', nombre: 'Veracruz' },{ id: '31', nombre: 'Yucatan' },{ id: '32', nombre: 'Zacatecas'}])
+
+          FOR u IN users
+          FILTER u.validated == 1 AND u.active == 1 AND u.isAdmin == 0 $search_txt
+            FOR p IN perfiles
+            FILTER p.userKey == u._key AND p.universidad == '3961308'
+              FOR ucon IN usuario_convocatoria
+              FILTER ucon.userKey == u._key AND (ucon.convocatoria_id == '10866949' OR ucon.convocatoria_id == '10866728' OR ucon.convocatoria_id == '6718262')
+              LIMIT $offset,$limit
+              SORT u.$sort $order
+              RETURN {
+                 'nombre': u.nombre,
+                 'apellidos': u.apellidos,
+                 'telefono':	u.telefono?u.telefono:'',
+                 'biografia': p.biografia?p.biografia:'',
+                 'sexo': p.sexo?p.sexo:'',
+                 'fecha_nacimiento':	p.fecha_nacimiento?DATE_FORMAT(p.fecha_nacimiento,'%dd.%mm.%yyyy'):'',
+                 'dedica_a': p.a_que_se_dedica?p.a_que_se_dedica:'',
+                 'linkedin':	p.linkedin?p.linkedin:'',
+                 'pais':	p.pais == '121' ? 'México' : 'Extranjero',
+                 'estado': p.estado?(FOR e IN estados FILTER e.id == p.estado RETURN e.nombre):'',
+                 'ciudad': p.ciudad?p.ciudad:'',
+                 'universidad': p.universidad?(FOR uni IN universidades FILTER p.universidad == uni._key RETURN uni.nombre):'',
+                 'campus': p.campus?p.campus:'',
+                 'carrera_cursando': p.actualmente_cursando_carrera?p.actualmente_cursando_carrera:'',
+                 'fecha_graduacion': p.fecha_graduacion?DATE_FORMAT(p.fecha_graduacion,'%dd.%mm.%yyyy'):'',
+                 'matricula': p.matricula?p.matricula:'',
+                 'emprendimiento': ucon.emprendimiento_id?(FOR em IN emprendimientos FILTER em._key == ucon.emprendimiento_id RETURN em.nombre):'',
+                 'convocatoria': ucon.convocatoria_id?(FOR con IN convocatorias FILTER con._key == ucon.convocatoria_id RETURN con.nombre):''
+              }", true);
+
+        $data_total = $this->ArangoDB->Query("
+          FOR u IN users
+          FILTER u.validated == 1 AND u.active == 1 AND u.isAdmin == 0 $search_txt
+            FOR p IN perfiles
+            FILTER p.userKey == u._key AND p.universidad == '3961308'
+              FOR ucon IN usuario_convocatoria
+              FILTER ucon.userKey == u._key AND (ucon.convocatoria_id == '10866949' OR ucon.convocatoria_id == '10866728' OR ucon.convocatoria_id == '6718262')
+              COLLECT WITH COUNT INTO length
+              RETURN length", true);
+
+        $datos['total'] = $data_total[0][0];
+        $datos['rows'] = $data;
         return json_encode($datos);
     }
 

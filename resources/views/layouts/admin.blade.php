@@ -141,6 +141,7 @@
                 <li class=" nav-item"><a href="{{action('AdminReportes@Usuarios')}}"><i class="fas fa-address-card"></i><span class="menu-title">Usuarios</span></a></li>
                 <li class=" nav-item"><a href="{{action('AdminReportes@UsuariosEmprendimientos')}}"><i class="fa fa-pie-chart"></i><span class="menu-title">Usuarios sin emprendimientos</span></a></li>
                 <li class=" nav-item"><a href="{{action('AdminReportes@Emprendimientos')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Emprendimientos</span></a></li>
+                <li class=" nav-item"><a href="{{action('AdminReportes@EmprendedoresTec')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Emprendedores ITESM</span></a></li>
             <?php endif;?>
 
             <hr/>

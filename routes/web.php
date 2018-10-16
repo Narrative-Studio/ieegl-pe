@@ -171,5 +171,8 @@ Route::prefix('admin')->group(function() {
 
         Route::get('/reportes/emprendimientos', 'AdminReportes@Emprendimientos');
         Route::get('/reportes/ajax/emprendimientos', 'AdminReportes@EmprendimientosAjax')->name('reportes.emprendimientos');
+
+        Route::get('/reportes/emprendedoresTec', 'AdminReportes@EmprendedoresTec');
+        Route::get('/reportes/ajax/emprendedoresTec', 'AdminReportes@EmprendedoresTecAjax')->name('reportes.emprendedoresTec');
     });
 });
