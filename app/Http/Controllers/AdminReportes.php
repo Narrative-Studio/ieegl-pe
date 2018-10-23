@@ -335,6 +335,168 @@ class AdminReportes extends Controller
         return json_encode($datos);
     }
 
+    /**
+     * Reporte Emprendimientos Full
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function EmprendimientosFull(Request $request){
+        return view('admin.reportes.emprendimientosFull');
+    }
+
+    /**
+     * Reporte Emprendimientos Full AJAX
+     * @param Request $request
+     * @return string
+     * @throws ArangoException
+     */
+    public function EmprendimientosFullAjax(Request $request){
+
+      $search_txt = "";
+      $offset = $request->get('offset');
+      $limit = $request->get('limit');
+      $search = trim($request->get('search'));
+      $sort = ($request->get('sort')!='')?$request->get('sort'):'nombre';
+      $order = trim($request->get('order'));
+
+      if($search!='') $search_txt = 'AND doc.nombre LIKE "%'.strtolower($search).'%"';
+
+      $data = $this->ArangoDB->Query("
+          FOR doc IN emprendimientos
+              FOR user IN users
+                  FILTER user._key == doc.userKey $search_txt
+                    LET vPerfiles = (
+                        FOR p IN perfiles
+                        FILTER p.userKey == user._key
+                        RETURN p
+                    )
+                    LIMIT $offset,$limit
+                    SORT doc.$sort $order
+          RETURN {
+              '_key': doc._key,
+              'emprendimiento': doc.nombre,
+              'descripcion': doc.descripcion?:'',
+              'usuario':user.nombre? CONCAT(user.nombre,' ',user.apellidos):'',
+              'email': user.email?:'',
+              'telefono': user.telefono?:'',
+              'convocatoria': (FOR uc IN usuario_convocatoria FOR conv IN convocatorias FILTER uc.emprendimiento_id == doc._key AND conv._key == uc.convocatoria_id  RETURN conv.nombre),
+              'numero_colaboradores': doc.numero_colaboradores?:'',
+              'logo_file': doc.logo_file?:'',
+              'pais': doc.pais?:'',
+              'ciudad': doc.ciudad?:'',
+              'industria_o_sector': doc.industria_o_sector? (FOR u IN industrias FILTER u._key IN (doc.industria_o_sector) RETURN u.nombre):'',
+              'etapa_emprendimiento': doc.etapa_emprendimiento? (FOR u IN etapas FILTER u._key == doc.etapa_emprendimiento RETURN u.nombre):'',
+              'mercado_cliente': doc.mercado_cliente?:'',
+              'problema_soluciona': doc.problema_soluciona?:'',
+              'competencia': doc.competencia?:'',
+              'diferencia_competencia': doc.diferencia_competencia?:'',
+              'diferenciador_modelo_negocio': doc.diferenciador_modelo_negocio?:'',
+              'prototipo_o_mvp': doc.prototipo_o_mvp?:'',
+              'investigacion_desarrollo': doc.investigacion_desarrollo?:'',
+              'numero_socios': doc.numero_socios?:'',
+              'nivel_tlr': doc.nivel_tlr?:'',
+              'socios': doc.socios? (FOR u IN users FILTER u._key IN (doc.socios) RETURN CONCAT(u.nombre,' ',u.apellidos)):'',
+              'como_te_enteraste': doc.como_te_enteraste?:'',
+              'como_te_enteraste_cual': doc.como_te_enteraste_cual?:'',
+              'sitio_web': doc.sitio_web?:'',
+              'red_social': doc.red_social?:'',
+              'video': doc.video?:'',
+              'tiene_clientes': doc.tiene_clientes?:'',
+              'caracteristicas_clientes': doc.caracteristicas_clientes?:'',
+              'clientes_activos': doc.clientes_activos?:'',
+              'clientes': doc.clientes?:'',
+              'tiene_usuarios': doc.tiene_usuarios?:'',
+              'caracteristicas_usuarios': doc.caracteristicas_usuarios?:'',
+              'usuarios_activos': doc.usuarios_activos?:'',
+              'usuarios': doc.usuarios?:'',
+              'socios_operadores': doc.socios_operadores?:'',
+              'capital': doc.capital?:'',
+              'levantado_capital': doc.levantado_capital?:'',
+              'recibido_inversion': doc.recibido_inversion?:'',
+              'recibido_inversion_dequien': doc.recibido_inversion_dequien?:'',
+              'recibido_inversion_cuanto': doc.recibido_inversion_cuanto?:'',
+              'recibido_inversion_como': doc.recibido_inversion_como?:'',
+              'recibido_inversion_fecha_levantaron_capital': doc.recibido_inversion_fecha_levantaron_capital?DATE_FORMAT(doc.recibido_inversion_fecha_levantaron_capital, '%dd/%mm/%yyyy'):'',
+              'recibido_inversion_vehiculo': doc.recibido_inversion_vehiculo?:'',
+              'buscando_capital': doc.buscando_capital?:'',
+              'capital_cuanto': doc.capital_cuanto?:'',
+              'vehiculo_inversion': doc.vehiculo_inversion?:'',
+              'fecha_fundacion': doc.fecha_fundacion?DATE_FORMAT(doc.fecha_fundacion, '%dd/%mm/%yyyy'):'',
+              'lanzar_producto': doc.lanzar_producto?:'',
+              'fecha_lanzamiento': doc.fecha_lanzamiento?DATE_FORMAT(doc.fecha_lanzamiento, '%dd/%mm/%yyyy'):'',
+              'patente_ip': doc.patente_ip?:'',
+              'modelo_ventas': doc.modelo_ventas?:'',
+              'realizado_ventas': doc.realizado_ventas?:'',
+              'ventas': doc.ventas?:'',
+              'gasto_mensual': doc.gasto_mensual?:'',
+              'pierde_dinero': doc.pierde_dinero?:'',
+              'socio_exit_empresa': doc.socio_exit_empresa?:'',
+              'biografia': (FOR perfil IN vPerfiles FILTER perfil.userKey == user._key RETURN perfil.biografia),
+              'sexo': (FOR perfil IN vPerfiles FILTER perfil.userKey == user._key RETURN perfil.sexo),
+              'fecha_nacimiento': (FOR perfil IN vPerfiles FILTER perfil.userKey == user._key RETURN DATE_FORMAT(perfil.fecha_nacimiento, '%dd/%mm/%yyyy')),
+              'a_que_se_dedica': (FOR perfil IN vPerfiles FILTER perfil.userKey == user._key RETURN perfil.a_que_se_dedica),
+              'linkedin': (FOR perfil IN vPerfiles FILTER perfil.userKey == user._key RETURN perfil.linkedin),
+              'universidad': (LET universidad = (FOR perfil IN vPerfiles FILTER perfil.userKey == user._key RETURN perfil.universidad)
+                              FOR uni IN universidades FILTER universidad[0] == uni._key RETURN uni.nombre),
+              'campus': (FOR perfil IN vPerfiles FILTER perfil.userKey == user._key RETURN perfil.campus),
+              'universidad_otra': (FOR perfil IN vPerfiles FILTER perfil.userKey == user._key RETURN perfil.universidad_otra),
+              'actualmente_cursando_carrera': (FOR perfil IN vPerfiles FILTER perfil.userKey == user._key RETURN perfil.actualmente_cursando_carrera),
+              'fecha_graduacion': (FOR perfil IN vPerfiles FILTER perfil.userKey == user._key RETURN DATE_FORMAT(perfil.fecha_graduacion, '%dd/%mm/%yyyy')),
+              'matricula': (FOR perfil IN vPerfiles FILTER perfil.userKey == user._key RETURN perfil.matricula)
+          }", true);
+
+      $data_total = $this->ArangoDB->Query("
+          FOR doc IN emprendimientos
+              FOR u IN users
+                  FILTER u._key == doc.userKey $search_txt
+                  COLLECT WITH COUNT INTO length
+          RETURN length", true);
+
+      $items = [];
+
+      // Formateando valores
+      foreach ($data as $item){
+          if($item['nivel_tlr']!='') $item['nivel_tlr'] = $this->nivel_tlr[$item['nivel_tlr']];
+          if($item['pais']!='') $item['pais'] = $this->paises[$item['pais']];
+          if($item['recibido_inversion_como']!='') $item['recibido_inversion_como'] = $this->GetFromMultipleArray($this->vehiculos_inversion, $item['recibido_inversion_como']);
+          if($item['vehiculo_inversion']!='') $item['vehiculo_inversion'] = $this->GetFromMultipleArray($this->vehiculos_inversion, $item['vehiculo_inversion']);
+          if($item['recibido_inversion_vehiculo']!='') $item['recibido_inversion_vehiculo'] = $this->GetFromMultipleArray($this->vehiculos_inversion, $item['recibido_inversion_vehiculo']);
+          if($item['clientes']!=''){
+              $item['clientes'] = $this->MergeArrays($item['clientes']);
+              $item['clientes_mes1'] = (!empty($item['clientes'][0]))?$item['clientes'][0]:'';
+              $item['clientes_mes2'] = (!empty($item['clientes'][1]))?$item['clientes'][1]:'';
+              $item['clientes_mes3'] = (!empty($item['clientes'][2]))?$item['clientes'][2]:'';
+          }else{
+              $item['clientes_mes1'] = $item['clientes_mes2'] = $item['clientes_mes3'] = '';
+          }
+          if($item['usuarios']!=''){
+              $item['usuarios'] = $this->MergeArrays($item['usuarios']);
+              $item['usuarios_mes1'] = (!empty($item['usuarios'][0]))?$item['usuarios'][0]:'';
+              $item['usuarios_mes2'] = (!empty($item['usuarios'][1]))?$item['usuarios'][1]:'';
+              $item['usuarios_mes3'] = (!empty($item['usuarios'][2]))?$item['usuarios'][2]:'';
+          }else{
+              $item['usuarios_mes1'] = $item['usuarios_mes2'] = $item['usuarios_mes3'] = '';
+          }
+          if($item['capital']!='') $item['capital'] = $this->MergeCapital($item['capital']);
+          if($item['ventas']!=''){
+              $item['ventas'] = $this->MergeArrays($item['ventas']);
+              $item['ventas_mes1'] = (!empty($item['ventas'][0]))?$this->MoneyFormat($item['ventas'][0]):'';
+              $item['ventas_mes2'] = (!empty($item['ventas'][1]))?$this->MoneyFormat($item['ventas'][1]):'';
+              $item['ventas_mes3'] = (!empty($item['ventas'][2]))?$this->MoneyFormat($item['ventas'][2]):'';
+          }else{
+              $item['ventas_mes1'] = $item['ventas_mes2'] = $item['ventas_mes3'] = '';
+          }
+          if($item['gasto_mensual']!='') $item['gasto_mensual'] = $this->MoneyFormat($item['gasto_mensual']);
+          if($item['pierde_dinero']!='') $item['pierde_dinero'] = $this->MoneyFormat($item['pierde_dinero']);
+          if($item['logo_file']!='') $item['logo_file'] = url('/').$item['logo_file'];
+          $items[] = $item;
+      }
+
+      $datos['total'] = $data_total[0][0];
+      $datos['rows'] = $items;
+      return json_encode($datos);
+    }
+
     private function GetFromMultipleArray($origen, $destino){
         $return = [];
         foreach ($destino as $item){
