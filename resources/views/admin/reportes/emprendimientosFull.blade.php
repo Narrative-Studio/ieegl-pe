@@ -42,6 +42,7 @@
                                         <th data-field="convocatoria">Convocatoria</th>
                                         <th data-field="numero_colaboradores">Colaboradores</th>
                                         <th data-field="logo_file">Logotipo</th>
+                                        <th data-field="cedula_file">Cédula</th>
                                         <th data-field="pais">País</th>
                                         <th data-field="ciudad">Ciudad</th>
                                         <th data-field="industria_o_sector">Industrias</th>

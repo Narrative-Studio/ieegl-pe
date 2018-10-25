@@ -291,6 +291,8 @@ class AdminReportes extends Controller
         $data = $this->ArangoDB->Query("
           LET estados = ([{ id: '1', nombre: 'Aguascalientes' },{ id: '2', nombre: 'Baja California' },{ id: '3', nombre: 'Baja California Sur' },{ id: '4', nombre: 'Campeche' },{ id: '5', nombre: 'Chiapas' },{ id: '6', nombre: 'Chihuahua' },{ id: '7', nombre: 'Coahuila de Zaragoza' },{ id: '8', nombre: 'Colima' },{ id: '9', nombre: 'Ciudad de México' },{ id: '10', nombre: 'Durango' },{ id: '11', nombre: 'Guanajuato' },{ id: '12', nombre: 'Guerrero' },{ id: '13', nombre: 'Hidalgo' },{ id: '14', nombre: 'Jalisco' },{ id: '15', nombre: 'Estado de Mexico' },{ id: '16', nombre: 'Michoacan de Ocampo' },{ id: '17', nombre: 'Morelos' },{ id: '18', nombre: 'Nayarit' },{ id: '19', nombre: 'Nuevo Leon' },{ id: '20', nombre: 'Oaxaca' },{ id: '21', nombre: 'Puebla' },{ id: '22', nombre: 'Queretaro de Arteaga' },{ id: '23', nombre: 'Quintana Roo' },{ id: '24', nombre: 'San Luis Potosi' },{ id: '25', nombre: 'Sinaloa' },{ id: '26', nombre: 'Sonora' },{ id: '27', nombre: 'Tabasco' },{ id: '28', nombre: 'Tamaulipas' },{ id: '29', nombre: 'Tlaxcala' },{ id: '30', nombre: 'Veracruz' },{ id: '31', nombre: 'Yucatan' },{ id: '32', nombre: 'Zacatecas'}])
 
+          LET campus = ([{ id: '0', nombre: 'Monterrey' },{ id: '1', nombre: 'Chihuahua' },{ id: '2', nombre: 'Ciudad Juárez' },{ id: '3', nombre: 'Laguna' },{ id: '4', nombre: 'Saltillo' },{ id: '5', nombre: 'Tampico' },{ id: '6', nombre: 'Aguascalientes' },{ id: '7', nombre: 'Veracruz' },{ id: '8', nombre: 'Chiapas' },{ id: '9', nombre: 'Ciudad de México' },{ id: '10', nombre: 'Ciudad Obregón' },{ id: '11', nombre: 'Cuernavaca' },{ id: '12', nombre: 'Estado de México' },{ id: '13', nombre: 'Guadalajara' },{ id: '14', nombre: 'Hidalgo' },{ id: '15', nombre: 'Irapuato' },{ id: '16', nombre: 'León' },{ id: '17', nombre: 'Morelia' },{ id: '18', nombre: 'Puebla' },{ id: '19', nombre: 'Querétaro' },{ id: '20', nombre: 'San Luis Potosí' },{ id: '21', nombre: 'Santa Fe' },{ id: '22', nombre: 'Sinaloa' },{ id: '23', nombre: 'Sonora Norte' },{ id: '24', nombre: 'Toluca' },{ id: '25', nombre: 'Zacatecas' }])
+
           FOR u IN users
           FILTER u.validated == 1 AND u.active == 1 AND u.isAdmin == 0 $search_txt
             FOR p IN perfiles
@@ -305,16 +307,16 @@ class AdminReportes extends Controller
                  'telefono':	u.telefono?u.telefono:'',
                  'biografia': p.biografia?p.biografia:'',
                  'sexo': p.sexo?p.sexo:'',
-                 'fecha_nacimiento':	p.fecha_nacimiento?DATE_FORMAT(p.fecha_nacimiento,'%dd.%mm.%yyyy'):'',
+                 'fecha_nacimiento':	p.fecha_nacimiento?DATE_FORMAT(DATE_TIMESTAMP(p.fecha_nacimiento),'%dd/%mm/%yyyy'):'',
                  'dedica_a': p.a_que_se_dedica?p.a_que_se_dedica:'',
                  'linkedin':	p.linkedin?p.linkedin:'',
                  'pais':	p.pais == '121' ? 'México' : 'Extranjero',
                  'estado': p.estado?(FOR e IN estados FILTER e.id == p.estado RETURN e.nombre):'',
                  'ciudad': p.ciudad?p.ciudad:'',
                  'universidad': p.universidad?(FOR uni IN universidades FILTER p.universidad == uni._key RETURN uni.nombre):'',
-                 'campus': p.campus?p.campus:'',
+                 'campus': p.campus?(FOR c IN campus FILTER c.id == p.campus RETURN c.nombre):'',
                  'carrera_cursando': p.actualmente_cursando_carrera?p.actualmente_cursando_carrera:'',
-                 'fecha_graduacion': p.fecha_graduacion?DATE_FORMAT(p.fecha_graduacion,'%dd.%mm.%yyyy'):'',
+                 'fecha_graduacion': p.fecha_graduacion?DATE_FORMAT(p.fecha_graduacion,'%dd/%mm/%yyyy'):'',
                  'matricula': p.matricula?p.matricula:'',
                  'emprendimiento': ucon.emprendimiento_id?(FOR em IN emprendimientos FILTER em._key == ucon.emprendimiento_id RETURN em.nombre):'',
                  'convocatoria': ucon.convocatoria_id?(FOR con IN convocatorias FILTER con._key == ucon.convocatoria_id RETURN con.nombre):''
@@ -362,6 +364,8 @@ class AdminReportes extends Controller
       if($search!='') $search_txt = 'AND doc.nombre LIKE "%'.strtolower($search).'%"';
 
       $data = $this->ArangoDB->Query("
+          LET campus = ([{ id: '0', nombre: 'Monterrey' },{ id: '1', nombre: 'Chihuahua' },{ id: '2', nombre: 'Ciudad Juárez' },{ id: '3', nombre: 'Laguna' },{ id: '4', nombre: 'Saltillo' },{ id: '5', nombre: 'Tampico' },{ id: '6', nombre: 'Aguascalientes' },{ id: '7', nombre: 'Veracruz' },{ id: '8', nombre: 'Chiapas' },{ id: '9', nombre: 'Ciudad de México' },{ id: '10', nombre: 'Ciudad Obregón' },{ id: '11', nombre: 'Cuernavaca' },{ id: '12', nombre: 'Estado de México' },{ id: '13', nombre: 'Guadalajara' },{ id: '14', nombre: 'Hidalgo' },{ id: '15', nombre: 'Irapuato' },{ id: '16', nombre: 'León' },{ id: '17', nombre: 'Morelia' },{ id: '18', nombre: 'Puebla' },{ id: '19', nombre: 'Querétaro' },{ id: '20', nombre: 'San Luis Potosí' },{ id: '21', nombre: 'Santa Fe' },{ id: '22', nombre: 'Sinaloa' },{ id: '23', nombre: 'Sonora Norte' },{ id: '24', nombre: 'Toluca' },{ id: '25', nombre: 'Zacatecas' }])
+
           FOR doc IN emprendimientos
               FOR user IN users
                   FILTER user._key == doc.userKey $search_txt
@@ -382,6 +386,7 @@ class AdminReportes extends Controller
               'convocatoria': (FOR uc IN usuario_convocatoria FOR conv IN convocatorias FILTER uc.emprendimiento_id == doc._key AND conv._key == uc.convocatoria_id  RETURN conv.nombre),
               'numero_colaboradores': doc.numero_colaboradores?:'',
               'logo_file': doc.logo_file?:'',
+              'cedula_file': doc.cedula_file?:'',
               'pais': doc.pais?:'',
               'ciudad': doc.ciudad?:'',
               'industria_o_sector': doc.industria_o_sector? (FOR u IN industrias FILTER u._key IN (doc.industria_o_sector) RETURN u.nombre):'',
@@ -438,7 +443,8 @@ class AdminReportes extends Controller
               'linkedin': (FOR perfil IN vPerfiles FILTER perfil.userKey == user._key RETURN perfil.linkedin),
               'universidad': (LET universidad = (FOR perfil IN vPerfiles FILTER perfil.userKey == user._key RETURN perfil.universidad)
                               FOR uni IN universidades FILTER universidad[0] == uni._key RETURN uni.nombre),
-              'campus': (FOR perfil IN vPerfiles FILTER perfil.userKey == user._key RETURN perfil.campus),
+              'campus': (LET vCampus = (FOR perfil IN vPerfiles FILTER perfil.userKey == user._key RETURN perfil.campus)
+                         FOR c IN campus FILTER vCampus[0] == c.id RETURN c.nombre),
               'universidad_otra': (FOR perfil IN vPerfiles FILTER perfil.userKey == user._key RETURN perfil.universidad_otra),
               'actualmente_cursando_carrera': (FOR perfil IN vPerfiles FILTER perfil.userKey == user._key RETURN perfil.actualmente_cursando_carrera),
               'fecha_graduacion': (FOR perfil IN vPerfiles FILTER perfil.userKey == user._key RETURN DATE_FORMAT(perfil.fecha_graduacion, '%dd/%mm/%yyyy')),
@@ -489,6 +495,7 @@ class AdminReportes extends Controller
           if($item['gasto_mensual']!='') $item['gasto_mensual'] = $this->MoneyFormat($item['gasto_mensual']);
           if($item['pierde_dinero']!='') $item['pierde_dinero'] = $this->MoneyFormat($item['pierde_dinero']);
           if($item['logo_file']!='') $item['logo_file'] = url('/').$item['logo_file'];
+          if($item['cedula_file']!='') $item['cedula_file'] = url('/').$item['cedula_file'];
           $items[] = $item;
       }
 
