@@ -305,6 +305,7 @@ class AdminReportes extends Controller
                  'nombre': u.nombre,
                  'apellidos': u.apellidos,
                  'telefono':	u.telefono?u.telefono:'',
+                 'matrícula':	p.matricula?p.matricula:'',
                  'biografia': p.biografia?p.biografia:'',
                  'sexo': p.sexo?p.sexo:'',
                  'fecha_nacimiento':	p.fecha_nacimiento?DATE_FORMAT(DATE_TIMESTAMP(p.fecha_nacimiento),'%dd/%mm/%yyyy'):'',

@@ -35,6 +35,7 @@
                                     <tr>
                                         <th data-sortable="true" data-field="nombre">Nombre</th>
                                         <th data-sortable="true" data-field="apellidos">Apellido</th>
+                                        <th data-sortable="true" data-field="matricula">Matrícula</th>
                                         <th data-field="telefono">Teléfono</th>
                                         <th data-field="biografia">Biografía</th>
                                         <th data-field="sexo">Sexo</th>
