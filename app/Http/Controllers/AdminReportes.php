@@ -318,7 +318,6 @@ class AdminReportes extends Controller
                  'campus': p.campus?(FOR c IN campus FILTER c.id == p.campus RETURN c.nombre):'',
                  'carrera_cursando': p.actualmente_cursando_carrera?p.actualmente_cursando_carrera:'',
                  'fecha_graduacion': p.fecha_graduacion?DATE_FORMAT(p.fecha_graduacion,'%dd/%mm/%yyyy'):'',
-                 'matricula': p.matricula?p.matricula:'',
                  'emprendimiento': ucon.emprendimiento_id?(FOR em IN emprendimientos FILTER em._key == ucon.emprendimiento_id RETURN em.nombre):'',
                  'convocatoria': ucon.convocatoria_id?(FOR con IN convocatorias FILTER con._key == ucon.convocatoria_id RETURN con.nombre):''
               }", true);
@@ -503,6 +502,75 @@ class AdminReportes extends Controller
       $datos['total'] = $data_total[0][0];
       $datos['rows'] = $items;
       return json_encode($datos);
+    }
+
+    /**
+     * Reporte Usuarios Full
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function UsuariosFull(){
+        return view('admin.reportes.usuariosFull');
+    }
+
+    /**
+     * Reporte Usuarios Full AJAX
+     * @param Request $request
+     * @return string
+     * @throws ArangoException
+     */
+    public function UsuariosFullAjax(Request $request){
+
+        $search_txt = "";
+        $offset = $request->get('offset');
+        $limit = $request->get('limit');
+        $search = trim($request->get('search'));
+        $sort = ($request->get('sort')!='')?$request->get('sort'):'nombre';
+        $order = trim($request->get('order'));
+
+        if($search!='') $search_txt = 'AND (LOWER(CONCAT(u.nombre," ",u.apellidos)) LIKE "%'.strtolower($search).'%" OR LOWER(u.email) LIKE "%'.strtolower($search).'%")';
+
+        $data = $this->ArangoDB->Query("
+            LET estados = ([{ id: '1', nombre: 'Aguascalientes' },{ id: '2', nombre: 'Baja California' },{ id: '3', nombre: 'Baja California Sur' },{ id: '4', nombre: 'Campeche' },{ id: '5', nombre: 'Chiapas' },{ id: '6', nombre: 'Chihuahua' },{ id: '7', nombre: 'Coahuila de Zaragoza' },{ id: '8', nombre: 'Colima' },{ id: '9', nombre: 'Ciudad de México' },{ id: '10', nombre: 'Durango' },{ id: '11', nombre: 'Guanajuato' },{ id: '12', nombre: 'Guerrero' },{ id: '13', nombre: 'Hidalgo' },{ id: '14', nombre: 'Jalisco' },{ id: '15', nombre: 'Estado de Mexico' },{ id: '16', nombre: 'Michoacan de Ocampo' },{ id: '17', nombre: 'Morelos' },{ id: '18', nombre: 'Nayarit' },{ id: '19', nombre: 'Nuevo Leon' },{ id: '20', nombre: 'Oaxaca' },{ id: '21', nombre: 'Puebla' },{ id: '22', nombre: 'Queretaro de Arteaga' },{ id: '23', nombre: 'Quintana Roo' },{ id: '24', nombre: 'San Luis Potosi' },{ id: '25', nombre: 'Sinaloa' },{ id: '26', nombre: 'Sonora' },{ id: '27', nombre: 'Tabasco' },{ id: '28', nombre: 'Tamaulipas' },{ id: '29', nombre: 'Tlaxcala' },{ id: '30', nombre: 'Veracruz' },{ id: '31', nombre: 'Yucatan' },{ id: '32', nombre: 'Zacatecas'}])
+
+            LET campus = ([{ id: '0', nombre: 'Monterrey' },{ id: '1', nombre: 'Chihuahua' },{ id: '2', nombre: 'Ciudad Juárez' },{ id: '3', nombre: 'Laguna' },{ id: '4', nombre: 'Saltillo' },{ id: '5', nombre: 'Tampico' },{ id: '6', nombre: 'Aguascalientes' },{ id: '7', nombre: 'Veracruz' },{ id: '8', nombre: 'Chiapas' },{ id: '9', nombre: 'Ciudad de México' },{ id: '10', nombre: 'Ciudad Obregón' },{ id: '11', nombre: 'Cuernavaca' },{ id: '12', nombre: 'Estado de México' },{ id: '13', nombre: 'Guadalajara' },{ id: '14', nombre: 'Hidalgo' },{ id: '15', nombre: 'Irapuato' },{ id: '16', nombre: 'León' },{ id: '17', nombre: 'Morelia' },{ id: '18', nombre: 'Puebla' },{ id: '19', nombre: 'Querétaro' },{ id: '20', nombre: 'San Luis Potosí' },{ id: '21', nombre: 'Santa Fe' },{ id: '22', nombre: 'Sinaloa' },{ id: '23', nombre: 'Sonora Norte' },{ id: '24', nombre: 'Toluca' },{ id: '25', nombre: 'Zacatecas' }])
+
+            FOR u IN users
+              FILTER u.isAdmin==0 $search_txt
+                FOR p IN perfiles
+                FILTER p.userKey == u._key
+                LIMIT $offset,$limit
+                SORT u.$sort $order
+            RETURN {
+              '_key':u._key,
+              'nombre':CONCAT(u.nombre,' ',u.apellidos),
+              'matricula':	p.matricula?p.matricula:'',
+              'email':u.email,
+              'telefono': u.telefono,
+              'validated': (u.validated==1)?'Si':'No',
+              'fecha': u.created_time?DATE_FORMAT(u.created_time.date, '%dd/%mm/%yyyy'):'',
+              'biografia': p.biografia?p.biografia:'',
+              'sexo': p.sexo?p.sexo:'',
+              'fecha_nacimiento':	p.fecha_nacimiento?DATE_FORMAT(DATE_TIMESTAMP(p.fecha_nacimiento),'%dd/%mm/%yyyy'):'',
+              'dedica_a': p.a_que_se_dedica?p.a_que_se_dedica:'',
+              'linkedin':	p.linkedin?p.linkedin:'',
+              'pais':	p.pais == '121' ? 'México' : 'Extranjero',
+              'estado': p.estado?(FOR e IN estados FILTER e.id == p.estado RETURN e.nombre):'',
+              'ciudad': p.ciudad?p.ciudad:'',
+              'universidad': p.universidad?(FOR uni IN universidades FILTER p.universidad == uni._key RETURN uni.nombre):'',
+              'campus': p.campus?(FOR c IN campus FILTER c.id == p.campus RETURN c.nombre):'',
+              'carrera_cursando': p.actualmente_cursando_carrera?p.actualmente_cursando_carrera:'',
+              'fecha_graduacion': p.fecha_graduacion?DATE_FORMAT(p.fecha_graduacion,'%dd/%mm/%yyyy'):''
+            }", true);
+
+        $data_total = $this->ArangoDB->Query("
+            FOR u IN users
+                FILTER u.isAdmin==0 $search_txt
+                COLLECT WITH COUNT INTO length
+            RETURN length", true);
+
+        $datos['total'] = $data_total[0][0];
+        $datos['rows'] = $data;
+        return json_encode($datos);
     }
 
     private function GetFromMultipleArray($origen, $destino){
