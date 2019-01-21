@@ -564,9 +564,11 @@ class AdminReportes extends Controller
 
         $data_total = $this->ArangoDB->Query("
             FOR u IN users
-                FILTER u.isAdmin==0 $search_txt
+              FILTER u.isAdmin==0 $search_txt
+                FOR p IN perfiles
+                FILTER p.userKey == u._key
                 COLLECT WITH COUNT INTO length
-            RETURN length", true);
+                RETURN length", true);
 
         $datos['total'] = $data_total[0][0];
         $datos['rows'] = $data;
