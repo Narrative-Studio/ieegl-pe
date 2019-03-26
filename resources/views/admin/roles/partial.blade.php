@@ -26,6 +26,7 @@
                     <div class="checkbox"><label><input type="checkbox" name="permisos[]" value="terminos_capital" @if(in_array("terminos_capital", $permisos)) {{"checked='checked'"}} @endif> Términos Capital</label></div>
                     <div class="checkbox"><label><input type="checkbox" name="permisos[]" value="entidades" @if(in_array("entidades", $permisos)) {{"checked='checked'"}} @endif> Entidades</label></div>
                     <div class="checkbox"><label><input type="checkbox" name="permisos[]" value="quien_aplica" @if(in_array("quien_aplica", $permisos)) {{"checked='checked'"}} @endif> Quien Aplica</label></div>
+                    <div class="checkbox"><label><input type="checkbox" name="permisos[]" value="preguntas_admin" @if(in_array("preguntas_admin", $permisos)) {{"checked='checked'"}} @endif> Preguntas</label></div>
                 </div>
             </div>
             <div class="col-md-3 col-xs-6">

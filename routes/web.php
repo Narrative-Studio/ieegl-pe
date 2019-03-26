@@ -143,6 +143,15 @@ Route::prefix('admin')->group(function() {
         Route::post('/quien/save', 'AdminQuien@Save');
         Route::get('/quien/delete/{id}', 'AdminQuien@Delete');
 
+        // Preguntas
+        Route::get('/preguntas', 'AdminPreguntas@Index');
+        Route::get('/preguntas/new', 'AdminPreguntas@New');
+        Route::get('/preguntas/edit/{id}', 'AdminPreguntas@Edit');
+        Route::post('/preguntas/save', 'AdminPreguntas@Save');
+        Route::get('/preguntas/delete/{id}', 'AdminPreguntas@Delete');
+
+        /****************************************************************/
+
         // Convocatorias
         Route::get('/convocatoria', 'AdminConvocatorias@Index');
         Route::get('/convocatoria/new', 'AdminConvocatorias@New');

@@ -133,6 +133,9 @@
             <?php if(\App\Http\Controllers\AdminRoles::getAccess('quien_aplica')):?>
                 <li class=" nav-item"><a href="{{action("AdminQuien@Index")}}"><i class="fa fa-address-card"></i><span class="menu-title">Quien Aplica</span></a></li>
             <?php endif;?>
+            <?php if(\App\Http\Controllers\AdminRoles::getAccess('preguntas_admin')):?>
+            <li class=" nav-item"><a href="{{action("AdminPreguntas@Index")}}"><i class="fa fa-address-card"></i><span class="menu-title">Preguntas</span></a></li>
+            <?php endif;?>
 
             <li class=" navigation-header">
                 <span>Reportes</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Reportes"></i>

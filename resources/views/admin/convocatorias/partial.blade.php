@@ -2,21 +2,21 @@
 <div class="form-group row">
     <label class="col-md-4 label-control">Nombre</label>
     <div class="col-md-8">
-        <?php $class=($errors->has('nombre'))?'form-control error':'form-control'; ?>
+        <?php $class=($errors->has('nombre'))?'form-control is-invalid':'form-control'; ?>
         {!! Form::text('nombre', null, ['class' => $class]) !!}
     </div>
 </div>
 <div class="form-group row">
     <label class="col-md-4 label-control">Descripción corta</label>
     <div class="col-md-8">
-        <?php $class=($errors->has('descripcion_corta'))?'form-control error':'form-control'; ?>
+        <?php $class=($errors->has('descripcion_corta'))?'form-control is-invalid':'form-control'; ?>
         {!! Form::textarea('descripcion_corta', null, ['class' => 'tinymce '.$class]) !!}
     </div>
 </div>
 <div class="form-group row">
     <label class="col-md-4 label-control">Descripción</label>
     <div class="col-md-8">
-        <?php $class=($errors->has('descripcion'))?'form-control error':'form-control'; ?>
+        <?php $class=($errors->has('descripcion'))?'form-control is-invalid':'form-control'; ?>
         {!! Form::textarea('descripcion', null, ['class' => 'tinymce '.$class]) !!}
     </div>
 </div>
@@ -224,14 +224,14 @@
 <div class="form-group row">
     <label class="col-md-4 label-control">Comentarios adicionales</label>
     <div class="col-md-8">
-        <?php $class=($errors->has('comentarios'))?'form-control error':'form-control'; ?>
+        <?php $class=($errors->has('comentarios'))?'form-control is-invalid':'form-control'; ?>
         {!! Form::textarea('comentarios', null, ['class' =>'tinymce '. $class]) !!}
     </div>
 </div>
 <div class="form-group row">
     <label class="col-md-4 label-control">URL de Pago</label>
     <div class="col-md-8">
-        <?php $class=($errors->has('pago_iframe'))?'form-control error':'form-control'; ?>
+        <?php $class=($errors->has('pago_iframe'))?'form-control is-invalid':'form-control'; ?>
         {!! Form::text('pago_iframe', null, ['class' => $class]) !!}
     </div>
 </div>
