@@ -37,13 +37,13 @@ class ArangoDB
             // database name
             ArangoConnectionOptions::OPTION_DATABASE => 'sid',
             // server endpoint to connect to
-            ArangoConnectionOptions::OPTION_ENDPOINT => 'tcp://142.44.247.4:8529',
+            ArangoConnectionOptions::OPTION_ENDPOINT => env('ARANGO_SERVER'),
             // authorization type to use (currently supported: 'Basic')
             ArangoConnectionOptions::OPTION_AUTH_TYPE => 'Basic',
             // user for basic authorization
-            ArangoConnectionOptions::OPTION_AUTH_USER => 'root',
+            ArangoConnectionOptions::OPTION_AUTH_USER => env('ARANGO_USER'),
             // password for basic authorization
-            ArangoConnectionOptions::OPTION_AUTH_PASSWD => 'lO2wnHr8',
+            ArangoConnectionOptions::OPTION_AUTH_PASSWD => env('ARANGO_PASSWORD'), //Developer
             // connection persistence on server. can use either 'Close' (one-time connections) or 'Keep-Alive' (re-used connections)
             ArangoConnectionOptions::OPTION_CONNECTION => 'Keep-Alive',
             // connect timeout in seconds

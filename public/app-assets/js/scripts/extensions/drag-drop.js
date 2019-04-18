@@ -14,14 +14,14 @@ $(document).ready(function(){
 	// Draggable Cards
     dragula([document.getElementById('card-drag-area')]);
 
-    // Sortable Lists
+    // Sortable.js Lists
     dragula([document.getElementById('basic-list-group')]);
     dragula([document.getElementById('list-group-tags')]);
     dragula([document.getElementById('list-group-buttons')]);
     dragula([document.getElementById('list-group-classes')]);
 
 
-    // Sortable Tabs
+    // Sortable.js Tabs
     dragula([document.getElementById('tabs-icon-drag')]);
     dragula([document.getElementById('tab-top-line-drag')]);
     dragula([document.getElementById('tab-bottom-line-drag')]);
@@ -30,7 +30,7 @@ $(document).ready(function(){
     dragula([document.getElementById('tab-icon-top-line-drag')]);
 
 
-    // Sortable Pills
+    // Sortable.js Pills
     dragula([document.getElementById('basic-pills-drag')]);
     dragula([document.getElementById('bordered-pills-drag')]);
     dragula([document.getElementById('toolbar-pills-drag')]);
@@ -39,14 +39,14 @@ $(document).ready(function(){
     dragula([document.getElementById('left-icon-pills-drag')]);
 
 
-    // Sortable Navs
+    // Sortable.js Navs
     dragula([document.getElementById('base-nav-drag')]);
     dragula([document.getElementById('nav-divider-drag')]);
     dragula([document.getElementById('heading-icon-drag')]);
     dragula([document.getElementById('both-side-link-icons-drag')]);
 
 
-    // Sortable Collapsibles
+    // Sortable.js Collapsibles
     dragula([document.getElementById('basic-accordion-drag')]);
     dragula([document.getElementById('accordion-icon-drag')]);
     dragula([document.getElementById('headingCollapse1')]);

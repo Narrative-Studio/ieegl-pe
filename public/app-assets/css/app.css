@@ -1,3 +1,49 @@
 @import url("bootstrap-extended.css");
 @import url("colors.css");
 @import url("components.css");
+.custom-radio .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #00c39e;
+}
+.custom-control-input:checked ~ .custom-control-label::before {
+    color: #fff;
+    background-color: #00c099;
+}
+.label-control{
+    font-weight: bold;
+}
+
+/******* Seccion de preguntas ***************/
+.preguntas .head{
+    height: 70px;
+}
+.preguntas .head a{
+    font-size: 18px;
+    color: #00c099;
+    display: inline-block;
+    padding: 8px;
+    text-transform: uppercase;
+}
+.preguntas .list-group{
+    border: 1px solid #E4E7ED;
+    min-height: 400px;
+    margin-bottom: 30px;
+}
+.preguntas .item{
+    border-bottom: 1px solid #E4E7ED;
+    padding: 10px 9px 10px 9px;
+}
+.preguntas .sortable-drag{
+    boder-bottom:none;
+    background: #E4E7ED;
+}
+.preguntas .titulo{
+    background: #676764;
+    color: #fff;
+}
+.preguntas .titulos{
+    padding: 5px 10px;
+}
+.preguntas .select2{
+    margin-top: 10px;
+    margin-bottom: 5px;
+}

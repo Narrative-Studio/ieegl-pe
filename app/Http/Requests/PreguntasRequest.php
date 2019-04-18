@@ -27,6 +27,7 @@ class PreguntasRequest extends FormRequest
                     $rules = [
                         'pregunta' => 'required',
                         'tipo' => 'required',
+                        'categoria' => 'required',
                     ];
                     if (Request::input('tipo') == 'combo' || Request::input('tipo')=='multiple') {
                         $rules['respuestas'] = 'required';

@@ -15,6 +15,17 @@
         {!! Form::text('placeholder', null, ['class' => $class]) !!}
     </div>
 </div>
+<?php $class=($errors->has('categoria'))?'is-invalid':''; ?>
+<div class="form-group {{$class}} row">
+    <label class="col-md-2 label-control">Categoría</label>
+    <div class="col-md-10">
+        <?php $class=($errors->has('categoria'))?'form-control is-invalid':'form-control'; ?>
+        {!! Form::select('categoria', ['Datos Generales'=>'Datos Generales','Medios Digitales'=>'Medios Digitales','Mercado'=>'Mercado','Inversión'=>'Inversión','Información Financiera'=>'Información Financiera'], null, ['placeholder' => 'Selecciona','class'=> 'select2 '.$class, 'id'=>'categoria']) !!}
+        @if ($errors->has('categoria'))
+            <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('categoria') }}</strong></span>
+        @endif
+    </div>
+</div>
 <?php $class=($errors->has('tipo'))?'is-invalid':''; ?>
 <div class="form-group {{$class}} row">
     <label class="col-md-2 label-control">Tipo</label>

@@ -45,7 +45,7 @@ class AdminPreguntas extends Controller
      * @throws ArangoException
      */
     public function Index(Request $request){
-        $data = $this->ArangoDB->Query('FOR u IN '.$this->collection.' SORT u.nombre ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'  RETURN u');
+        $data = $this->ArangoDB->Query('FOR u IN '.$this->collection.' SORT u._key ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'  RETURN u');
         if($request->get('total')!=''){
             $total = $request->get('total');
         }else{
@@ -96,6 +96,7 @@ class AdminPreguntas extends Controller
         $document['pregunta'] = $request->get('pregunta');
         $document['placeholder'] = $request->get('placeholder');
         $document['tipo'] = $request->get('tipo');
+        $document['categoria'] = $request->get('categoria');
         $document['respuestas'] = ($document['tipo']=='text' || $document['tipo'] =='textarea')?'':$request->get('respuestas');
 
         // Creando Nuevo Registro

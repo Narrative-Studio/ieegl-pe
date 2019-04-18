@@ -27,7 +27,7 @@ $(document).ready(function(){
 		heightStyle: "content"
     });
 
-    // Sortable
+    // Sortable.js
     $(".accordion-sortable")
     .accordion({
 		collapsible: true,
@@ -90,7 +90,7 @@ $(document).ready(function(){
         event: "mouseover"
     });
 
-    // Sortable Tabs
+    // Sortable.js Tabs
     var tabs = $( ".tabs-sortable" ).tabs();
     tabs.find( ".ui-tabs-nav" ).sortable({
       axis: "x",

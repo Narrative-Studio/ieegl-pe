@@ -23,6 +23,27 @@ class AdminConvocatorias extends Controller
     private $page;
     private $path;
     private $perPage = 25;
+    private $campos_usuario =  [
+        'Datos personales' => [
+            'biografia'         =>'Biografía corta',
+            'sexo'              =>'Sexo',
+            'fecha_nacimiento'  =>'Fecha de Nacimiento',
+            'a_que_se_dedica'   =>'¿A qué te dedicas?',
+            'linkedin'          =>'Perfil Linkedin',
+            'pais'              =>'País de residencia',
+            'estado'            =>'Estado/Región',
+            'ciudad'            =>'Ciudad',
+            'biografia'         =>'Biografía'
+        ],
+        'Estudios'=> [
+            'actualmente_cursando_carrera'  =>'¿Te encuentras actualmente cursando tu carrera profesional? ',
+            'universidad'                   =>'Universidad donde cursaste tus estudios o estás actualmente estudiando',
+            'universidad_otra'              =>'Otra',
+            'campus'                        =>'Campus',
+            'matricula'                     =>'Matrícula',
+            'fecha_graduacion'              =>'Fecha en la que te graduaste o te vas a graduar',
+        ]
+    ];
 
     /**
      * Convocatoria constructor.
@@ -85,6 +106,14 @@ class AdminConvocatorias extends Controller
         $quien = $this->ArangoDB->Query('FOR doc IN quien RETURN doc', true);
         $quien = $this->ArangoDB->SelectFormat($quien, '_key', 'nombre');
 
+        /***** Preguntas ********/
+        $campos_usuario = $this->campos_usuario;
+        $preguntas_catalogo = [];
+        $preguntas = $this->ArangoDB->Query('FOR doc IN preguntas_admin RETURN doc', false);
+        foreach ($preguntas as $preg){
+            $preguntas_catalogo[$preg->categoria][] = $preg;
+        }
+
         // Obteniendo Usuarios Responsables
         $usuarios = $this->ArangoDB->Query('
         FOR doc IN users
@@ -93,7 +122,7 @@ class AdminConvocatorias extends Controller
                 RETURN doc', true);
         $usuarios = $this->ArangoDB->SelectFormat($usuarios, '_key', 'nombre');
 
-        return view('admin.'.$this->collection.'.new', compact('entidades','quien','usuarios'));
+        return view('admin.'.$this->collection.'.new', compact('entidades','quien','usuarios','campos_usuario','preguntas_catalogo'));
     }
 
     /**
@@ -129,7 +158,16 @@ class AdminConvocatorias extends Controller
         if(!$item){
             return redirect()->action($this->controller.'@Index')->with('status_error','El registro no existe');
         }
-        return view('admin.'.$this->collection.'.edit', compact('item','entidades','quien','usuarios'));
+        /***** Preguntas ********/
+        $campos_usuario = $this->campos_usuario;
+        $preguntas_catalogo = [];
+        $preguntas = $this->ArangoDB->Query('FOR doc IN preguntas_admin RETURN doc', false);
+        foreach ($preguntas as $preg){
+            $preguntas_catalogo[$preg->categoria][] = $preg;
+        }
+
+        /************************/
+        return view('admin.'.$this->collection.'.edit', compact('item','entidades','quien','usuarios','campos_usuario','preguntas_catalogo'));
     }
 
     /**
@@ -141,6 +179,7 @@ class AdminConvocatorias extends Controller
      */
     public function Save(ConvocatoriasRequest $request){
 
+        //dd($request->get('preguntas'));exit();
         $document = [];
         $document['nombre'] = $request->get('nombre');
         $document['descripcion'] = $request->get('descripcion');
@@ -160,6 +199,7 @@ class AdminConvocatorias extends Controller
         $document['pago_iframe'] = $request->get('pago_iframe');
         $document['pago'] = $request->get('pago');
         $document['activo'] = $request->get('activo');
+        $document['preguntas'] = $request->get('preguntas');
 
         // Creando Nuevo Registro
         if($request->get('id')==''){

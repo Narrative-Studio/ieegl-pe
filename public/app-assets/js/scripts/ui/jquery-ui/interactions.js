@@ -281,7 +281,7 @@ $(document).ready(function(){
 	});
 
 	/********************************
-	*			Sortable			*
+	*			Sortable.js			*
 	********************************/
 
 	// Simple Sort
@@ -300,7 +300,7 @@ $(document).ready(function(){
     });
     $( ".sortable-placeholder" ).disableSelection();
 
-    // Sortable and disabled drop targets
+    // Sortable.js and disabled drop targets
     $( ".sortable-list1" ).sortable({
       items: "li:not(.ui-state-disabled)"
     });

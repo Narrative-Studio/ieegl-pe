@@ -41,6 +41,7 @@
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/plugins/forms/switch.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/fonts/simple-line-icons/style.min.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/core/colors/palette-switch.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/plugins/forms/wizard.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/js/bootstrap-table/bootstrap-table.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
@@ -204,6 +205,8 @@
 <script src="{{url("/")}}/app-assets/vendors/js/extensions/zoom.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/editors/tinymce/tinymce.js" type="text/javascript"></script>
 <script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
+<script src="{{url("/")}}/app-assets/vendors/js/extensions/jquery.steps.min.js" type="text/javascript"></script>
+<script src="{{url("/")}}/app-assets/vendors/js/forms/validation/jquery.validate.min.js" type="text/javascript"></script>
 <!-- END PAGE VENDOR JS-->
 <!-- BEGIN ROBUST JS-->
 <script src="{{url("/")}}/app-assets/js/core/app-menu.js" type="text/javascript"></script>
@@ -215,7 +218,11 @@
 <script src="{{url("/")}}/js/bootstrap-table/bootstrap-table.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/js/bootstrap-table/locale/bootstrap-table-es-MX.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/js/bootstrap-table/extensions/export/bootstrap-table-export.js" type="text/javascript"></script>
+<script src="{{url("/")}}/app-assets/js/scripts/forms/convocatoria-steps.js" type="text/javascript"></script>
+<script src="{{url("/")}}/js/Sortable.js" type="text/javascript"></script>
+<script src="//cdn.jsdelivr.net/npm/jquery-sortablejs@latest/jquery-sortable.js"></script>
 <script src="{{url("/")}}/js/custom.min.js" type="text/javascript"></script>
+<script src="{{url("/")}}/js/preguntas.min.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL JS-->
 <script>
     function delete_row(row,url){
