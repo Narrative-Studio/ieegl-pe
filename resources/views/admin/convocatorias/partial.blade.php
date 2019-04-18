@@ -1,5 +1,8 @@
 <h6>Selección de preguntas</h6>
 <fieldset class="p-0">
+    <div class="cargador_preguntas hidden">
+        <div class="tit"><i class="fa fa-spin fa-cog"></i> Cargando preguntas</div>
+    </div>
     <div class="row preguntas">
         <div class="col-md-6">
             <h4 class="form-section">Catálogos de preguntas</h4>
@@ -26,7 +29,7 @@
             <div class="row head">
                 <div class="form-group">
                     <div class="col-md-12">
-                        <a href="javscript:();" onclick="addTitle();"><i class="fa fa-plus-circle"></i> Agregar categoría</a>
+                        <a href="javscript:;" onclick="addTitle(true)"><i class="fa fa-plus-circle"></i> Agregar categoría</a>
                     </div>
                 </div>
             </div>
@@ -35,6 +38,7 @@
                 <div class="row">
                     <div class="col-10">
                         <input class="form-control titulos" type="text" data-dato="categorias" data-name="nombre" value="Nombre de Categoría">
+                        <input type="hidden" value="categorias" data-dato="categorias" data-name="tipo" />
                     </div>
                     <div class="col-2 text-right">
                         <button class="btn btn-default btn-sm" onclick="deleteItem(this)"><span class="fa fa-times-circle"></span></button>
@@ -306,10 +310,12 @@
             <div class="form-group">
                 <label class="label-control" for="">¿Será visible en la lista de convocatorias del sistema? <span class="required">*</span></label>
                 <div>
-                    <div class="d-inline-block custom-control custom-radio mr-1">
-                        {!! Form::radio('activo', "Si", null, ['id'=>'a1', 'class'=>'custom-control-input required']); !!}
-                        <label class="custom-control-label" for="a1">Si</label>
-                    </div>
+                    @if(auth()->user()->rol_id=='7931855')
+                        <div class="d-inline-block custom-control custom-radio mr-1">
+                            {!! Form::radio('activo', "Si", null, ['id'=>'a1', 'class'=>'custom-control-input required']); !!}
+                            <label class="custom-control-label" for="a1">Si</label>
+                        </div>
+                    @endif
                     <div class="d-inline-block custom-control custom-radio mr-1">
                         {!! Form::radio('activo', "No", null, ['id'=>'a2', 'class'=>'custom-control-input required']); !!}
                         <label class="custom-control-label" for="a2">No</label>

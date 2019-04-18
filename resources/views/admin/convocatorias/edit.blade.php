@@ -4,6 +4,12 @@
 @section('seccion') Convocatorias @endsection
 @section('accion') Editar @endsection
 
+@section('js')
+<script type="text/javascript">
+    var json = '<?php echo $json?>';
+</script>
+@endsection
+
 @section('content')
     <div class="content-wrapper">
         <div class="content-body">

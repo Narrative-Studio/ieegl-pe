@@ -13,6 +13,18 @@
 }
 
 /******* Seccion de preguntas ***************/
+.cargador_preguntas{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ffffffde;
+    z-index: 10;
+}
+.cargador_preguntas .tit{
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 230px;
+}
 .preguntas .head{
     height: 70px;
 }
@@ -34,7 +46,10 @@
 }
 .preguntas .sortable-drag{
     boder-bottom:none;
-    background: #E4E7ED;
+    background: #cbcbc8;
+}
+.preguntas .ghost-class{
+    background: #b4b4b1;
 }
 .preguntas .titulo{
     background: #676764;

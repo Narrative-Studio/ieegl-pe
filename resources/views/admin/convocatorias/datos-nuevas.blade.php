@@ -11,17 +11,14 @@
                     <input type="text" class="form-control m-0" data-dato="nueva" data-name="placeholder" style="margin-top: 10px;" id="input_nueva_desc"/>
                 </fieldset>
                 <fieldset class="form-group form-group-style m-0">
-                    <label for="input_nueva_categoria">Categoría</label>
-                    {!! Form::select('categoria', ['Datos Generales'=>'Datos Generales','Medios Digitales'=>'Medios Digitales','Mercado'=>'Mercado','Inversión'=>'Inversión','Información Financiera'=>'Información Financiera'], null, ['class'=> 'form-control m-0', 'id'=>'input_nueva_categoria','data-dato'=>'nueva','data-name'=>'categoria']) !!}
+                    <label for="input_nueva_tipo_pregunta">Tipo</label>
+                    {!! Form::select('tipo_pregunta', ['text'=>'Texto','combo'=>'Combo','multiple'=>'Multiple','textarea'=>'Textarea'], null, ['class'=> 'form-control m-0', 'id'=>'input_nueva_tipo', 'data-dato'=>'nueva', 'data-name'=>'tipo_pregunta', 'onchange'=>'cambioTipoPregunta(this)']) !!}
                 </fieldset>
-                <fieldset class="form-group form-group-style m-0">
-                    <label for="input_nueva_tipo">Tipo</label>
-                    {!! Form::select('tipo', ['text'=>'Texto','combo'=>'Combo','multiple'=>'Multiple','textarea'=>'Textarea'], null, ['class'=> 'form-control m-0', 'id'=>'input_nueva_tipo', 'data-dato'=>'nueva', 'data-name'=>'tipo']) !!}
-                </fieldset>
-                <fieldset class="form-group form-group-style m-0">
+                <fieldset class="form-group form-group-style m-0 nueva_respuestas_select hidden">
                     <label for="input_nueva_respuestas">Respuestas <small>Respuesta por renglón</small></label>
                     <textarea class="form-control m-0" rows="4" data-dato="nueva" data-name="respuestas" style="margin-top: 10px;" id="input_nueva_respuestas"></textarea>
                 </fieldset>
+                <input type="hidden" value="nueva" data-dato="nueva" data-name="tipo" />
                 <div class="form-actions right">
                     <button type="button" class="btn btn-success" id="guardar_pregunta">
                         <i class="fa fa-save"></i> Guardar Pregunta

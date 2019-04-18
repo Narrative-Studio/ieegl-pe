@@ -166,8 +166,18 @@ class AdminConvocatorias extends Controller
             $preguntas_catalogo[$preg->categoria][] = $preg;
         }
 
+        if(isset($item->preguntas)){
+            $array = json_decode(json_encode($item->preguntas), true);
+            $preguntas_array = [];
+            foreach($array as $p){ $preguntas_array += $p;}
+            ksort($preguntas_array);
+            $json = str_replace('\r\n', '|', json_encode($preguntas_array));
+        }else{
+            $json = '';
+        }
+
         /************************/
-        return view('admin.'.$this->collection.'.edit', compact('item','entidades','quien','usuarios','campos_usuario','preguntas_catalogo'));
+        return view('admin.'.$this->collection.'.edit', compact('item','entidades','quien','usuarios','campos_usuario','preguntas_catalogo','json'));
     }
 
     /**
@@ -199,7 +209,7 @@ class AdminConvocatorias extends Controller
         $document['pago_iframe'] = $request->get('pago_iframe');
         $document['pago'] = $request->get('pago');
         $document['activo'] = $request->get('activo');
-        $document['preguntas'] = $request->get('preguntas');
+        $document['preguntas'] = null;
 
         // Creando Nuevo Registro
         if($request->get('id')==''){
@@ -210,6 +220,8 @@ class AdminConvocatorias extends Controller
         }else{
         // Actualizando Registro
             $documentId = $this->ArangoDB->Update($this->collection, $this->collection.'/'.$request->get('id'), $document);
+            $preguntas['preguntas'] = $request->get('preguntas');
+            $documentId = $this->ArangoDB->Update($this->collection, $this->collection.'/'.$request->get('id'), $preguntas);
             $key = $request->get('id');
             Session::flash('status_success', 'Registro Actualizado');
         }

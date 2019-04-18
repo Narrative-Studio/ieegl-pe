@@ -20,6 +20,7 @@
                             <input type="text" class="form-control m-0" value="" data-dato="usuarios" data-name="desc" style="margin-top: 10px;" placeholder="" id="input_{{$campo}}"/>
                         </fieldset>
                         <input type="hidden" value="{{$campo}}"data-dato="usuarios" data-name="campo" />
+                        <input type="hidden" value="usuarios" data-dato="usuarios" data-name="tipo" />
                     </div>
                     <div class="col-2 text-right">
                         <div class="d-inline-block custom-control custom-checkbox mr-1">

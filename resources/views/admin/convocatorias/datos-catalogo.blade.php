@@ -19,6 +19,7 @@
                             <input type="text" class="form-control m-0" value="" data-dato="catalogos" data-name="desc" style="margin-top: 10px;" placeholder="" id="input_{{$item->_key}}"/>
                         </fieldset>
                         <input type="hidden" value="{{$item->_key}}" data-dato="catalogos" data-name="campo"/>
+                        <input type="hidden" value="catalogos" data-dato="catalogos" data-name="tipo" />
                     </div>
                     <div class="col-2 text-right">
                         <div class="d-inline-block custom-control custom-checkbox mr-1">
