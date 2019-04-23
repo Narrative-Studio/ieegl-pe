@@ -1,7 +1,7 @@
 <div id="datos_nueva" class="listados hidden">
     <div class="item" id="campo_nuevo">
         <div class="row">
-            <div class="col-10">
+            <div class="col-10 pr-0">
                 <fieldset class="form-group form-group-style m-0">
                     <label for="input_nueva_nombre">Nombre</label>
                     <input type="text" class="form-control" data-dato="nueva" data-name="nombre" id="input_nueva_nombre"/>
@@ -25,7 +25,7 @@
                     </button>
                 </div>
             </div>
-            <div class="col-2 text-right">
+            <div class="col-2 text-right pl-0">
                 <button class="btn btn-light btn-sm hidden" onclick="deleteItem(this)"><span class="fa fa-times-circle"></span></button>
                 <button class="btn btn-light btn-sm handle hidden"><span class="fa fa-reorder" aria-hidden="true"></span></button>
             </div>

@@ -18,7 +18,7 @@ $(".steps-validation").steps({
     transitionEffect: "fade",
     titleTemplate: '<span class="step">#index#</span> #title#',
     labels: {
-        finish: '<i class="fa fa-save"></i> Guardar',
+        finish: 'Guardar',
         cancel: "Cancelar",
         current: "paso actual:",
         pagination: "Paginación",

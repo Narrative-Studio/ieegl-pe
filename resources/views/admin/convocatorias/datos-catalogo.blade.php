@@ -8,7 +8,7 @@
         @foreach($items as $item)
             <div class="item" id="catalogo_{{$item->_key}}">
                 <div class="row">
-                    <div class="col-10">
+                    <div class="col-10 pr-0">
                         <span class="custom-checkbox">{{$item->pregunta}}</span>
                         <fieldset class="form-group form-group-style hidden m-0">
                             <label for="input_{{$item->_key}}">Nombre</label>
@@ -21,7 +21,7 @@
                         <input type="hidden" value="{{$item->_key}}" data-dato="catalogos" data-name="campo"/>
                         <input type="hidden" value="catalogos" data-dato="catalogos" data-name="tipo" />
                     </div>
-                    <div class="col-2 text-right">
+                    <div class="col-2 text-right pl-0">
                         <div class="d-inline-block custom-control custom-checkbox mr-1">
                             <input type="checkbox" class="custom-control-input bg-success" id="check_{{$item->_key}}" value="catalogo_{{$item->_key}}">
                             <label class="custom-control-label" for="check_{{$item->_key}}"></label>

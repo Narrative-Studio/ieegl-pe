@@ -8,7 +8,7 @@
         @foreach($items as $campo=>$titulo)
             <div class="item" id="usuario_{{$campo}}">
                 <div class="row">
-                    <div class="col-10">
+                    <div class="col-10 pr-0">
                         <span class="custom-checkbox">{{$titulo}}</span>
 
                         <fieldset class="form-group form-group-style hidden m-0">
@@ -22,7 +22,7 @@
                         <input type="hidden" value="{{$campo}}"data-dato="usuarios" data-name="campo" />
                         <input type="hidden" value="usuarios" data-dato="usuarios" data-name="tipo" />
                     </div>
-                    <div class="col-2 text-right">
+                    <div class="col-2 text-right pl-0">
                         <div class="d-inline-block custom-control custom-checkbox mr-1">
                             <input type="checkbox" class="custom-control-input bg-success" id="check_{{$campo}}" value="usuario_{{$campo}}">
                             <label class="custom-control-label" for="check_{{$campo}}"></label>

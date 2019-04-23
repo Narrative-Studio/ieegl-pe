@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
+    font-family: 'Montserrat', sans-serif;
+}
+html,body,.navigation,.breadcrumb,.header-navbar{
+    font-family: 'Montserrat', sans-serif;
+}
+.mce-content-body {
+    font-family: 'Montserrat', sans-serif !important;
+}
 .avatar-upload {
     position: relative;
     max-width: 205px;
@@ -167,3 +177,161 @@ figure.effect-bubba h2 {
     hyphens: auto;
 
 }
+.custom-radio .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #00c39e;
+}
+.custom-control-input:checked ~ .custom-control-label::before {
+    color: #fff;
+    background-color: #00c099;
+}
+.label-control{
+    /*font-weight: bold;*/
+}
+.main-menu.menu-dark .navigation {
+    background: #727D7E;
+}
+.main-menu.menu-dark .navigation .navigation-header, .main-menu.menu-dark .navigation li a{
+    color: #fff;
+}
+.main-menu.menu-dark .navigation > li.hover > a, .main-menu.menu-dark .navigation > li:hover > a, .main-menu.menu-dark .navigation > li.active > a {
+    color: #fff;
+    background-color: #00c099;
+}
+header-title {
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: #5E5E5E;
+}
+form .form-section {
+    color: #5E5E5E;
+    line-height: 3rem;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #A5A5A5;
+}
+.app-content .wizard > .actions > ul > li > a[href="#previous"] {
+    background-color: #727D7E;
+    color: #fff;
+    border: 1px solid #727D7E;
+}
+/******* Seccion de preguntas ***************/
+.cargador_preguntas{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ffffffde;
+    z-index: 10;
+}
+.cargador_preguntas .tit{
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 230px;
+}
+.preguntas .head{
+    height: 70px;
+}
+.preguntas .head a{
+    font-size: 18px;
+    color: #00c099;
+    display: inline-block;
+    width: 250px;
+    text-transform: uppercase;
+    position: absolute;
+}
+.preguntas .centrado{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.preguntas .list-group{
+    border: 1px solid #E4E7ED;
+    min-height: 400px;
+    margin-bottom: 30px;
+}
+.preguntas .item{
+    border-bottom: 1px solid #E4E7ED;
+    padding: 10px 9px 10px 9px;
+}
+.preguntas .item .btn-sm{
+    background: none;
+    border: 0;
+    font-size: 17px;
+    padding: 5px;
+}
+.preguntas .item .fa-reorder{
+    color: #D8D8D8;
+}
+.preguntas .item.titulo .fa-reorder{
+    color: #9e9e9e;
+}
+.preguntas .item .fa-times-circle{
+    color: #e88d8d;
+}
+.preguntas .item.titulo .fa-times-circle{
+    color: #ec6363;
+}
+.preguntas .sortable-drag{
+    boder-bottom:none;
+    background: #cbcbc8;
+}
+
+.preguntas .ghost-class{
+    background: #b4b4b1;
+}
+.preguntas .titulo{
+    background: #C6C6C6;
+    color: #fff;
+}
+.preguntas .titulos{
+    padding: 5px 10px;
+    border: 0;
+}
+.preguntas .select2{
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.preguntas .flecha{
+    position: absolute;
+    top: 500px;
+    transform: translateX(-50%);
+    cursor: auto !important;
+}
+.navbar-semi-dark .navbar-header {
+    background: #ffffff;
+}
+.app-content .wizard > .actions > ul > li.disabled > a[href="#previous"] {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background-color: #d0d0d0;
+    border: 1px solid #d0d0d0;
+}
+/** Combo **/
+.select2-container--classic .select2-results__options .select2-results__option[aria-selected=true], .select2-container--default .select2-results__options .select2-results__option[aria-selected=true] {
+    background-color: #00c099 !important;
+    color: #FFFFFF !important;
+}
+/** Steps **/
+.app-content .wizard > .steps > ul > li.current .step {
+    border-color: #00c099;
+    background-color: #fff;
+    color: #00c099;
+}
+.app-content .wizard > .steps > ul > li.done .step {
+    background-color: #00c099;
+    border-color: #00c099;
+    color: #fff;
+}
+.app-content .wizard.wizard-circle > .steps > ul > li:before, .app-content .wizard.wizard-circle > .steps > ul > li:after {
+    top: 43px;
+    width: 50%;
+    height: 5px;
+    background-color: #00c099;
+}
+.app-content .wizard > .actions > ul > li > a {
+    background: #00c099;
+    color: #fff;
+    display: block;
+    padding: 7px 12px;
+    border-radius: 2px;
+    border: 1px solid transparent;
+}
+/**/

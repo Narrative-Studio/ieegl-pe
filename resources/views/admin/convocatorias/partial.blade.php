@@ -1,61 +1,3 @@
-<h6>Selección de preguntas</h6>
-<fieldset class="p-0">
-    <div class="cargador_preguntas hidden">
-        <div class="tit"><i class="fa fa-spin fa-cog"></i> Cargando preguntas</div>
-    </div>
-    <div class="row preguntas">
-        <div class="col-md-6">
-            <h4 class="form-section">Catálogos de preguntas</h4>
-            <div class="row head">
-                <div class="col-md-12">
-                    <div class="form-group row">
-                        <label class="col-md-4 label-control" style="margin-top:1em;line-height: 1em;">Selecciona una categoría</label>
-                        <div class="col-md-8">
-                            {!! Form::select('catego', ['datos_usuario'=>'Datos del Usuario','datos_emprendimiento'=>'Datos del Emprendimiento','datos_catalogo'=>'Pregunta de Catálogo', 'datos_nueva'=>'Nueva Pregunta'], 'usuario', ['class'=> 'select2','id'=>'select_categoria']) !!}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="preguntas">
-                <div id="sortable" class="list-group">
-                    @include('admin.convocatorias.datos-usuario')
-                    @include('admin.convocatorias.datos-catalogo')
-                    @include('admin.convocatorias.datos-nuevas')
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <h4 class="form-section">Arma tu convocatoria</h4>
-            <div class="row head">
-                <div class="form-group">
-                    <div class="col-md-12">
-                        <a href="javscript:;" onclick="addTitle(true)"><i class="fa fa-plus-circle"></i> Agregar categoría</a>
-                    </div>
-                </div>
-            </div>
-            <!-- titulo clone -->
-            <div class="item hidden titulo" id="cloneTitle">
-                <div class="row">
-                    <div class="col-10">
-                        <input class="form-control titulos" type="text" data-dato="categorias" data-name="nombre" value="Nombre de Categoría">
-                        <input type="hidden" value="categorias" data-dato="categorias" data-name="tipo" />
-                    </div>
-                    <div class="col-2 text-right">
-                        <button class="btn btn-default btn-sm" onclick="deleteItem(this)"><span class="fa fa-times-circle"></span></button>
-                        <button class="btn btn-default btn-sm handle"><span class="fa fa-reorder"></span></button>
-                    </div>
-                </div>
-            </div>
-            <!--/ titulo clone -->
-            <div class="preguntas">
-                <div id="sortable2" class="list-group">
-                </div>
-            </div>
-            <!--<a href="javascript:muestra()">Mostrar</a>
-            <button type="submit">Mandar</button>-->
-        </div>
-    </div>
-</fieldset>
 <h6>Información General</h6>
 <fieldset class="p-0">
     <h4 class="form-section"><i class="ft-command"></i> Información General</h4>
@@ -117,29 +59,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="label-control"  for="">Fecha inicial del evento <span class="required">*</span></label>
-                    <?php $class=($errors->has('fecha_inicio_evento'))?'form-control is-invalid':'form-control'; ?>
-                    {!! Form::date('fecha_inicio_evento', (isset($item))?date('Y-m-d', $item->fecha_inicio_evento):null, ['class'=>$class.' required']); !!}
-                    @if ($errors->has('fecha_inicio_evento'))
-                        <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('fecha_inicio_evento') }}</strong></span>
-                    @endif
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label class="label-control"  for="">Fecha final del evento <span class="required">*</span></label>
-                    <?php $class=($errors->has('fecha_fin_evento'))?'form-control is-invalid':'form-control'; ?>
-                    {!! Form::date('fecha_fin_evento', (isset($item))?date('Y-m-d', $item->fecha_fin_evento):null, ['class'=>$class.' required']); !!}
-                    @if ($errors->has('fecha_fin_evento'))
-                        <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('fecha_fin_evento') }}</strong></span>
-                    @endif
-            </div>
-        </div>
-    </div>
-    <div class="row">
+    <!--<div class="row">
         <div class="col-md-6">
             <?php $class=($errors->has('responsable'))?'is-invalid':''; ?>
             <div class="form-group {{$class}}">
@@ -151,7 +71,7 @@
                     @endif
             </div>
         </div>
-    </div>
+    </div>-->
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
@@ -176,101 +96,6 @@
 <fieldset class="p-0">
     <h4 class="form-section"><i class="ft-command"></i> Reglas para aplicar la Convocatoria</h4>
     <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="label-control" for="">Información de ventas registradas <span class="required">*</span></label>
-                <div>
-                    <div class="d-inline-block custom-control custom-radio mr-1">
-                        {!! Form::radio('ventas', "Si", null, ['id'=>'v1', 'class'=>'custom-control-input required']); !!}
-                        <label class="custom-control-label" for="v1">Si</label>
-                    </div>
-                    <div class="d-inline-block custom-control custom-radio mr-1">
-                        {!! Form::radio('ventas', "No", null, ['id'=>'v2', 'class'=>'custom-control-input required']); !!}
-                        <label class="custom-control-label" for="v2">No</label>
-                    </div>
-                    @if ($errors->has('ventas'))
-                        <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('ventas') }}</strong></span>
-                    @endif
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="label-control" for="">Tiene clientes <span class="required">*</span></label>
-                <div>
-                    <div class="d-inline-block custom-control custom-radio mr-1">
-                        {!! Form::radio('clientes', "Si", null, ['id'=>'c1', 'class'=>'custom-control-input required']); !!}
-                        <label class="custom-control-label" for="c1">Si</label>
-                    </div>
-                    <div class="d-inline-block custom-control custom-radio mr-1">
-                        {!! Form::radio('clientes', "No", null, ['id'=>'c2', 'class'=>'custom-control-input required']); !!}
-                        <label class="custom-control-label" for="c2">No</label>
-                    </div>
-                    @if ($errors->has('clientes'))
-                        <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('clientes') }}</strong></span>
-                    @endif
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="label-control" for="">Tiene usuarios <span class="required">*</span></label>
-                <div>
-                    <div class="d-inline-block custom-control custom-radio mr-1">
-                        {!! Form::radio('usuarios', "Si", null, ['id'=>'u1', 'class'=>'custom-control-input required']); !!}
-                        <label class="custom-control-label" for="u1">Si</label>
-                    </div>
-                    <div class="d-inline-block custom-control custom-radio mr-1">
-                        {!! Form::radio('usuarios', "No", null, ['id'=>'u2', 'class'=>'custom-control-input required']); !!}
-                        <label class="custom-control-label" for="u2">No</label>
-                    </div>
-                    @if ($errors->has('usuarios'))
-                        <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('usuarios') }}</strong></span>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="label-control" for="">Información Financiera registrada <span class="required">*</span></label>
-                <div>
-                    <div class="d-inline-block custom-control custom-radio mr-1">
-                        {!! Form::radio('financiera', "Si", null, ['id'=>'f1', 'class'=>'custom-control-input required']); !!}
-                        <label class="custom-control-label" for="f1">Si</label>
-                    </div>
-                    <div class="d-inline-block custom-control custom-radio mr-1">
-                        {!! Form::radio('financiera', "No", null, ['id'=>'f2', 'class'=>'custom-control-input required']); !!}
-                        <label class="custom-control-label" for="f2">No</label>
-                    </div>
-                    @if ($errors->has('financiera'))
-                        <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('financiera') }}</strong></span>
-                    @endif
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="label-control" for="">¿Se necesita Pago? <span class="required">*</span></label>
-                <div>
-                    <div class="d-inline-block custom-control custom-radio mr-1">
-                        {!! Form::radio('pago', "Si", null, ['id'=>'p1', 'class'=>'custom-control-input required']); !!}
-                        <label class="custom-control-label" for="p1">Si</label>
-                    </div>
-                    <div class="d-inline-block custom-control custom-radio mr-1">
-                        {!! Form::radio('pago', "No", null, ['id'=>'p2', 'class'=>'custom-control-input required']); !!}
-                        <label class="custom-control-label" for="p2">No</label>
-                    </div>
-                    @if ($errors->has('pago'))
-                        <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('pago') }}</strong></span>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
         <div class="col-md-6">
             <?php $class=($errors->has('quien'))?'is-invalid':''; ?>
             <div class="form-group {{$class}}">
@@ -286,19 +111,75 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="label-control">Comentarios adicionales</label>
+                <label class="label-control">Descripción de reglas</label>
                 <?php $class=($errors->has('comentarios'))?'form-control is-invalid':'form-control'; ?>
                 {!! Form::textarea('comentarios', null, ['class' =>'tinymce '. $class]) !!}
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-            <label class="label-control">URL de Pago</label>
-                <?php $class=($errors->has('pago_iframe'))?'form-control is-invalid':'form-control'; ?>
-                {!! Form::text('pago_iframe', null, ['class' => $class]) !!}
+</fieldset>
+<h6>Selección de preguntas</h6>
+<fieldset class="p-0">
+    <div class="cargador_preguntas hidden">
+        <div class="tit"><i class="fa fa-spin fa-cog"></i> Cargando preguntas</div>
+    </div>
+    <div class="row preguntas">
+        <div class="col-md-5">
+            <h4 class="form-section">Catálogos de preguntas</h4>
+            <div class="row head">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <div class="col-md-5 label-control">
+                            <div class="centrado">Selecciona una categoría</div>
+                        </div>
+                        <div class="col-md-7">
+                            {!! Form::select('catego', ['datos_usuario'=>'Datos del Usuario','datos_emprendimiento'=>'Datos del Emprendimiento','datos_catalogo'=>'Pregunta de Catálogo', 'datos_nueva'=>'Nueva Pregunta'], 'usuario', ['class'=> 'select2','id'=>'select_categoria']) !!}
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div class="preguntas">
+                <div id="sortable" class="list-group">
+                    @include('admin.convocatorias.datos-usuario')
+                    @include('admin.convocatorias.datos-catalogo')
+                    @include('admin.convocatorias.datos-nuevas')
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1 text-center">
+            <div class="btn btn-success flecha"><i class="fa fa-angle-double-right"></i></div>
+        </div>
+        <div class="col-md-6">
+            <h4 class="form-section">Arma tu convocatoria</h4>
+            <div class="row head">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div style="height: 55px;width: 100%;">
+                            <a href="javascript:;" class="centrado" onclick="addTitle(true)"><i class="fa fa-plus-circle"></i> Agregar categoría</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- titulo clone -->
+            <div class="item hidden titulo" id="cloneTitle">
+                <div class="row">
+                    <div class="col-10 pr-0">
+                        <input class="form-control titulos" type="text" data-dato="categorias" data-name="nombre" value="Nombre de Categoría">
+                        <input type="hidden" value="categorias" data-dato="categorias" data-name="tipo" />
+                    </div>
+                    <div class="col-2 text-right pl-0">
+                        <button class="btn btn-default btn-sm" onclick="deleteItem(this)"><span class="fa fa-times-circle"></span></button>
+                        <button class="btn btn-default btn-sm handle"><span class="fa fa-reorder"></span></button>
+                    </div>
+                </div>
+            </div>
+            <!--/ titulo clone -->
+            <div class="preguntas">
+                <div id="sortable2" class="list-group">
+                </div>
+            </div>
+            <!--<a href="javascript:muestra()">Mostrar</a>
+            <button type="submit">Mandar</button>-->
         </div>
     </div>
 </fieldset>

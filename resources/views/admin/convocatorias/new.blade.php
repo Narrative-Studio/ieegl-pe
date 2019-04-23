@@ -4,6 +4,12 @@
 @section('seccion') Convocatorias @endsection
 @section('accion') Nuevo @endsection
 
+@section('js')
+    <script type="text/javascript">
+        var json = '';
+    </script>
+@endsection
+
 @section('content')
     <div class="content-wrapper">
         <div class="content-body">
@@ -13,16 +19,9 @@
                     <div class="card">
                         <div class="card-content">
                             <div class="card-body">
-                                {!! Form::open(['action' => ['AdminConvocatorias@Save'], 'method'=>'POST', 'class'=>'form form-horizontal', 'files' => true]) !!}
-                                <div class="form-body">
-                                    <div class="panel-heading"></div>
-                                    @include('admin.convocatorias.partial')
-                                    <hr/>
-                                    <div class="panel-footer text-right">
-                                        <a href="{{ action('AdminConvocatorias@Index') }}" class="btn btn-default">Cancelar</a>
-                                        <button type="submit" class="btn btn-lg btn-primary pull-right"><i class="fa fa-save"></i> Guardar</button>
-                                    </div>
-                                </div>
+                                {!! Form::open(['action' => ['AdminConvocatorias@Save'], 'method'=>'POST', 'class'=>'form steps-validation wizard-circle', 'files' => true]) !!}
+                                <div class="panel-heading"></div>
+                                @include('admin.convocatorias.partial')
                                 {!! Form::close() !!}
                             </div>
                         </div>

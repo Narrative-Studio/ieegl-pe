@@ -23,8 +23,7 @@
                                 {!! Form::hidden('id', $item->_key); !!}
                                 <div class="panel-heading"></div>
                                 @include('admin.convocatorias.partial')
-                            </div>
-                            {!! Form::close() !!}
+                                {!! Form::close() !!}
                             </div>
                         </div>
                     </div>
