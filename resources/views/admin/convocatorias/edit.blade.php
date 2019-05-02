@@ -9,6 +9,7 @@
     var json = '<?php echo $json?>';
 </script>
 <script src="{{url("/")}}/app-assets/js/scripts/editors/editor-quill-sid.js" type="text/javascript"></script>
+<script src="{{url("/")}}/js/preguntas.min.js" type="text/javascript"></script>
 @endsection
 
 @section('content')
