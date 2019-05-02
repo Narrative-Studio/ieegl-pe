@@ -49,7 +49,7 @@ var MushCodeRules = function() {
  "look|"+
  "move|"+
  "go|"+
- "web|"+
+ "home|"+
  "follow|"+
  "unfollow|"+
  "desert|"+
@@ -109,7 +109,7 @@ var MushCodeRules = function() {
  "entrances|"+
  "exit|"+
  "followers|"+
- "web|"+
+ "home|"+
  "lcon|"+
  "lexits|"+
  "loc|"+

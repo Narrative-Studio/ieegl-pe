@@ -3,7 +3,7 @@
   Description: Template related app JS.
   ----------------------------------------------------------------------------------------
   Item Name: Robust - Responsive Admin Template
-  Version: 2.0
+  Version: 2.1
   Author: Pixinvent
   Author URL: hhttp://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
@@ -273,6 +273,10 @@
 
     // Add Children Class
     $('.navigation').find('li').has('ul').addClass('has-sub');
+
+    $('.carousel').carousel({
+      interval: 2000
+    });
 
     // Page full screen
     $('.nav-link-expand').on('click', function(e) {

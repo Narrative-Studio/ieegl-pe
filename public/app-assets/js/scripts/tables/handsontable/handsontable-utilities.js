@@ -3,7 +3,7 @@
     Description: Handsontable Utilities.
     ----------------------------------------------------------------------------------------
     Item Name: Robust - Responsive Admin Template
-    Version: 2.0
+    Version: 2.1
     Author: GeeksLabs
     Author URL: http://www.themeforest.net/user/geekslabs
 ==========================================================================================*/
@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function() {
         colHeaders: true,
         contextMenu: true,
         contextMenuCopyPaste: {
-            swfPath: '/bower_components/zeroclipboard/bootstrap-table/ZeroClipboard.swf'
+            swfPath: '/bower_components/zeroclipboard/dist/ZeroClipboard.swf'
         }
     });
 

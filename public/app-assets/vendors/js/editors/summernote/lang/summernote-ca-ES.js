@@ -1,4 +1,4 @@
-(function ($) {
+(function($) {
   $.extend($.summernote.lang, {
     'ca-ES': {
       font: {
@@ -32,14 +32,15 @@
         maximumFileSize: 'Mida màxima de l\'arxiu',
         maximumFileSizeError: 'La mida màxima de l\'arxiu s\'ha superat.',
         url: 'URL de la imatge',
-        remove: 'Eliminar imatge'
+        remove: 'Eliminar imatge',
+        original: 'Original'
       },
       video: {
         video: 'Vídeo',
         videoLink: 'Enllaç del vídeo',
         insert: 'Inserir vídeo',
         url: 'URL del vídeo?',
-        providers: '(YouTube, Vimeo, Vine, Instagram, DailyMotion, o Youku)'
+        providers: '(YouTube, Vimeo, Vine, Instagram, DailyMotion o Youku)'
       },
       link: {
         link: 'Enllaç',
@@ -51,14 +52,21 @@
         openInNewWindow: 'Obrir en una finestra nova'
       },
       table: {
-        table: 'Taula'
+        table: 'Taula',
+        addRowAbove: 'Add row above',
+        addRowBelow: 'Add row below',
+        addColLeft: 'Add column left',
+        addColRight: 'Add column right',
+        delRow: 'Delete row',
+        delCol: 'Delete column',
+        delTable: 'Delete table'
       },
       hr: {
         insert: 'Inserir línia horitzontal'
       },
       style: {
         style: 'Estil',
-        normal: 'Normal',
+        p: 'p',
         blockquote: 'Cita',
         pre: 'Codi',
         h1: 'Títol 1',
@@ -105,7 +113,7 @@
         documentStyle: 'Estil del document',
         extraKeys: 'Tecles adicionals'
       },
-      help : {
+      help: {
         'insertParagraph': 'Inserir paràgraf',
         'undo': 'Desfer l\'última acció',
         'redo': 'Refer l\'última acció',

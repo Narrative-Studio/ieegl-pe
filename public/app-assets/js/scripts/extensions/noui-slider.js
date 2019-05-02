@@ -3,7 +3,7 @@
 	Description: noUiSlider is a lightweight JavaScript range slider library.
 	----------------------------------------------------------------------------------------
 	Item Name: Robust - Responsive Admin Template
-	Version: 2.0
+	Version: 2.1
 	Author: PIXINVENT
 	Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/

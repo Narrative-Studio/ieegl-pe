@@ -10,14 +10,14 @@
     // like Node.
     module.exports = factory(require("chartist"));
   } else {
-    root['Chartist.plugins.tooltips'] = factory(Chartist);
+    root['Chartist.plugins.tooltip'] = factory(Chartist);
   }
 }(this, function (Chartist) {
 
   /**
-   * Chartist.js plugin to display a data label on top of the points in a line chart.
-   *
-   */
+  * Chartist.js plugin to display a data label on top of the points in a line chart.
+  *
+  */
   /* global Chartist */
   (function (window, document, Chartist) {
     'use strict';
@@ -41,9 +41,9 @@
 
       return function tooltip(chart) {
         var tooltipSelector = options.pointClass;
-        if (chart instanceof Chartist.Bar) {
+        if (chart.constructor.name == Chartist.Bar.prototype.constructor.name) {
           tooltipSelector = 'ct-bar';
-        } else if (chart instanceof Chartist.Pie) {
+        } else if (chart.constructor.name ==  Chartist.Pie.prototype.constructor.name) {
           // Added support for donut graph
           if (chart.options.donut) {
             tooltipSelector = 'ct-slice-donut';
@@ -71,7 +71,7 @@
         function on(event, selector, callback) {
           $chart.addEventListener(event, function (e) {
             if (!selector || hasClass(e.target, selector))
-              callback(e);
+            callback(e);
           });
         }
 
@@ -143,7 +143,7 @@
 
         on('mousemove', null, function (event) {
           if (false === options.anchorToPoint)
-            setPosition(event);
+          setPosition(event);
         });
 
         function setPosition(event) {
@@ -201,6 +201,6 @@
 
   } (window, document, Chartist));
 
-  return Chartist.plugins.tooltips;
+  return Chartist.plugins.tooltip;
 
 }));

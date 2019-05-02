@@ -3,7 +3,7 @@
     Description: Fullcalendar
     --------------------------------------------------------------------------------------
     Item Name: Robust - Responsive Admin Template
-    Version: 2.0
+    Version: 2.1
     Author: PIXINVENT
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
@@ -702,7 +702,7 @@ $(document).ready(function(){
       $('#lang-selector').append(
         $('<option/>')
           .attr('value', localeCode)
-          .prop('selected', localeCode == initialLocaleCode)
+          //.prop('selected', localeCode == initialLocaleCode)
           .text(localeCode)
       );
     });

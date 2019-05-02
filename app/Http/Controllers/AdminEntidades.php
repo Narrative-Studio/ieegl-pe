@@ -10,6 +10,7 @@ use ArangoDBClient\ClientException as ArangoClientException;
 use ArangoDBClient\ServerException as ArangoServerException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Session;
+use Intervention\Image\Facades\Image;
 
 
 class AdminEntidades extends Controller
@@ -94,16 +95,28 @@ class AdminEntidades extends Controller
 
         $document = [];
         $document['nombre'] = $request->get('nombre');
+        $document['descripcion'] = $request->get('descripcion');
 
         // Creando Nuevo Registro
         if($request->get('id')==''){
             $documentId = $this->ArangoDB->Save($this->collection, $document);
+            $key = str_replace($this->collection.'/','', $documentId);
             Session::flash('status_success', 'Registro Agregado');
         }else{
-        // Actualizando Registro
-            $documentId = $this->ArangoDB->Update($this->collection, $this->collection.'/'.$request->get('id'), $document);
+            $key = $request->get('id');
             Session::flash('status_success', 'Registro Actualizado');
         }
+
+        // Guardando imagen
+        if($_FILES['imagen']['size'] != 0 && $_FILES['imagen']['error'] == 0){
+            $img = Image::make($_FILES['imagen']['tmp_name']);
+            $ext= $request->file('imagen')->getClientOriginalExtension();
+            $img->save(public_path('/entidades_pics/imagen_'.$key .'.'.$ext, 100));
+            $document['ext'] = $ext;
+        }else{
+            Session::flash('status_success', 'Registro Guardado, pero no se pudo guardar la imágen.');
+        }
+        $documentId = $this->ArangoDB->Update($this->collection, $this->collection.'/'.$request->get('id'), $document);
 
         return redirect()->action($this->controller.'@Index');
     }

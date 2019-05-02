@@ -4,7 +4,7 @@
   initialization and manipulations
   ----------------------------------------------------------------------------------------
   Item Name: Robust - Responsive Admin Template
-  Version: 2.0
+  Version: 2.1
   Author: Pixinvent
   Author URL: hhttp://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
@@ -726,10 +726,18 @@
           // fromTop = menu_header_height + $this.position().top + parseInt($this.css( "border-top" ),10);
           var fromTop;
           if($this.css( "border-top" )){
-            fromTop = $this.position().top + parseInt($this.css( "border-top" ), 10);
+            if (menuObj.GetIEVersion() > 0)
+              fromTop = $this.offset().top + parseInt($this.css( "border-top" ), 10);
+            else 
+              fromTop = $this.position().top + parseInt($this.css( "border-top" ), 10);
+            // fromTop = $this.position().top + parseInt($this.css( "border-top" ), 10);
           }
           else{
-            fromTop = $this.position().top;
+            if (menuObj.GetIEVersion() > 0)
+              fromTop = $this.offset().top;
+            else 
+              fromTop = $this.position().top;
+            // fromTop = $this.position().top;
           }
           if($body.data('menu') !== 'vertical-compact-menu'){
             menuTitle.appendTo('.main-menu-content').css({
@@ -860,6 +868,22 @@
       });
     },
 
+    GetIEVersion: function (){
+      var sAgent = window.navigator.userAgent;
+      var Idx = sAgent.indexOf("MSIE");
+
+      // If IE, return version number.
+      if (Idx > 0) 
+        return parseInt(sAgent.substring(Idx+ 5, sAgent.indexOf(".", Idx)));
+
+      // If IE 11 then look for Updated user agent string.
+      else if (!!navigator.userAgent.match(/Trident\/7\./)) 
+        return 11;
+
+      else
+        return 0; //It is not IE
+    },
+
     /**
      * Ensure an admin submenu is within the visual viewport.
      * @param {jQuery} $menuItem The parent menu item containing the submenu.
@@ -871,7 +895,12 @@
       ul = $submenu.clone(true);
 
       menuHeaderHeight = $('.main-menu-header').height();
-      menutop          = $menuItem.position().top;
+      
+      if (this.GetIEVersion() > 0) 
+        menutop = $menuItem.offset().top;
+      else 
+        menutop = $menuItem.position().top;
+      
       winHeight        = $window.height() - $('.header-navbar').height();
       borderWidth      = 0;
       subMenuHeight    = $submenu.height();

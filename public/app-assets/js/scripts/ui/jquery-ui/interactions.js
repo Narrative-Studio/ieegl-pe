@@ -3,7 +3,7 @@
     Description: jQuery UI interactions
     ----------------------------------------------------------------------------------------
     Item Name: Robust - Responsive Admin Template
-    Version: 2.0
+    Version: 2.1
     Author: PIXINVENT
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
@@ -281,7 +281,7 @@ $(document).ready(function(){
 	});
 
 	/********************************
-	*			Sortable.js			*
+	*			Sortable			*
 	********************************/
 
 	// Simple Sort
@@ -300,7 +300,7 @@ $(document).ready(function(){
     });
     $( ".sortable-placeholder" ).disableSelection();
 
-    // Sortable.js and disabled drop targets
+    // Sortable and disabled drop targets
     $( ".sortable-list1" ).sortable({
       items: "li:not(.ui-state-disabled)"
     });

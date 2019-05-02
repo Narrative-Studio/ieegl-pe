@@ -1,4 +1,4 @@
-(function ($) {
+(function($) {
   $.extend($.summernote.lang, {
     'hu-HU': {
       font: {
@@ -9,6 +9,8 @@
         height: 'Sorköz',
         name: 'Betűtípus',
         strikethrough: 'Áthúzott',
+        subscript: 'Subscript',
+        superscript: 'Superscript',
         size: 'Betűméret'
       },
       image: {
@@ -20,18 +22,25 @@
         floatLeft: 'Igazítás balra',
         floatRight: 'Igazítás jobbra',
         floatNone: 'Igazítás törlése',
+        shapeRounded: 'Shape: Rounded',
+        shapeCircle: 'Shape: Circle',
+        shapeThumbnail: 'Shape: Thumbnail',
+        shapeNone: 'Shape: None',
         dragImageHere: 'Ide húzhat képet vagy szöveget',
         dropImage: 'Engedje el a képet vagy szöveget',
         selectFromFiles: 'Fájlok kiválasztása',
+        maximumFileSize: 'Maximum file size',
+        maximumFileSizeError: 'Maximum file size exceeded.',
         url: 'Kép URL címe',
-        remove: 'Kép törlése'
+        remove: 'Kép törlése',
+        original: 'Original'
       },
       video: {
         video: 'Videó',
         videoLink: 'Videó hivatkozás',
         insert: 'Videó beszúrása',
         url: 'Videó URL címe',
-        providers: '(YouTube, Vimeo, Vine, Instagram, DailyMotion, vagy Youku)'
+        providers: '(YouTube, Vimeo, Vine, Instagram, DailyMotion vagy Youku)'
       },
       link: {
         link: 'Hivatkozás',
@@ -43,14 +52,21 @@
         openInNewWindow: 'Megnyitás új ablakban'
       },
       table: {
-        table: 'Táblázat'
+        table: 'Táblázat',
+        addRowAbove: 'Add row above',
+        addRowBelow: 'Add row below',
+        addColLeft: 'Add column left',
+        addColRight: 'Add column right',
+        delRow: 'Delete row',
+        delCol: 'Delete column',
+        delTable: 'Delete table'
       },
       hr: {
         insert: 'Elválasztó vonal beszúrása'
       },
       style: {
         style: 'Stílus',
-        normal: 'Normál',
+        p: 'Normál',
         blockquote: 'Idézet',
         pre: 'Kód',
         h1: 'Fejléc 1',
@@ -94,7 +110,8 @@
         textFormatting: 'Szöveg formázása',
         action: 'Művelet',
         paragraphFormatting: 'Bekezdés formázása',
-        documentStyle: 'Dokumentumstílus'
+        documentStyle: 'Dokumentumstílus',
+        extraKeys: 'Extra keys'
       },
       help: {
         'insertParagraph': 'Új bekezdés',
@@ -128,8 +145,11 @@
       history: {
         undo: 'Visszavonás',
         redo: 'Újra'
+      },
+      specialChar: {
+        specialChar: 'SPECIAL CHARACTERS',
+        select: 'Select Special characters'
       }
-
     }
   });
 })(jQuery);

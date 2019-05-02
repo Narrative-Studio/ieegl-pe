@@ -1,11 +1,19 @@
-.make-me-red {
-  color: #f00; }
+.make-me-red
+{
+    color: #f00;
+}
 
-.scroll-container .wtHolder {
-  height: 350px !important; }
+.scroll-container .wtHolder
+{
+    height: 350px !important;
+}
 
-.currentRow {
-  background-color: #F9F9FB !important; }
+.currentRow
+{
+    background-color: #f9f9fb !important;
+}
 
-.currentCol {
-  background-color: #E7E8EF !important; }
+.currentCol
+{
+    background-color: #e7e8ef !important;
+}

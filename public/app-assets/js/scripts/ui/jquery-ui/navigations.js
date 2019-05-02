@@ -3,7 +3,7 @@
     Description: jQuery UI navigations
     ----------------------------------------------------------------------------------------
     Item Name: Robust - Responsive Admin Template
-    Version: 2.0
+    Version: 2.1
     Author: PIXINVENT
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
@@ -27,7 +27,7 @@ $(document).ready(function(){
 		heightStyle: "content"
     });
 
-    // Sortable.js
+    // Sortable
     $(".accordion-sortable")
     .accordion({
 		collapsible: true,
@@ -90,7 +90,7 @@ $(document).ready(function(){
         event: "mouseover"
     });
 
-    // Sortable.js Tabs
+    // Sortable Tabs
     var tabs = $( ".tabs-sortable" ).tabs();
     tabs.find( ".ui-tabs-nav" ).sortable({
       axis: "x",

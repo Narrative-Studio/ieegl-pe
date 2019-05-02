@@ -4,15 +4,12 @@
   float: left;
   border: 1px solid transparent;
   margin-bottom: 16px;
-  width: 325px;
+  width: 360px;
   margin-right: 16px;
 }
-.lobilist-wrapper{
-  position: relative;
-}
 .lobilists .lobilist {
-  /* max-height: 100%;
-  overflow: auto; */
+  max-height: 100%;
+  overflow: auto;
   background-color: #FFF;
   -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
@@ -59,11 +56,11 @@
   background-color: #eeeeee;
 }
 .lobilists .lobilist.lobilist-danger {
-  border: 1px solid #FF394F;
+  border: 1px solid #dc5f5c;
 }
 .lobilists .lobilist.lobilist-danger .lobilist-header {
-  border-bottom: 1px solid #FF394F;
-  background-color: #FF4961;
+  border-bottom: 1px solid #dc5f5c;
+  background-color: #e27c79;
 }
 .lobilists .lobilist.lobilist-danger .lobilist-header input {
   background-color: transparent;
@@ -78,22 +75,21 @@
 }
 .lobilists .lobilist.lobilist-danger .btn-show-form {
   color: #FFF;
-  border: none;
 }
 .lobilists .lobilist.lobilist-danger .lobilist-form-footer {
-  border-top: 1px solid #FF394F;
-  background-color: #FF4961;
+  border-top: 1px solid #dc5f5c;
+  background-color: #e27c79;
 }
 .lobilists .lobilist.lobilist-danger .lobilist-footer {
-  border-top: 1px solid #FF394F;
-  background-color: #FF4961;
+  border-top: 1px solid #dc5f5c;
+  background-color: #e27c79;
 }
 .lobilists .lobilist.lobilist-success {
-  border: 1px solid #1EC481;
+  border: 1px solid #49a749;
 }
 .lobilists .lobilist.lobilist-success .lobilist-header {
-  border-bottom: 1px solid #1EC481;
-  background-color: #28D094;
+  border-bottom: 1px solid #49a749;
+  background-color: #5cb85c;
 }
 .lobilists .lobilist.lobilist-success .lobilist-header input {
   background-color: transparent;
@@ -108,22 +104,21 @@
 }
 .lobilists .lobilist.lobilist-success .btn-show-form {
   color: #FFF;
-  border: none;
 }
 .lobilists .lobilist.lobilist-success .lobilist-form-footer {
-  border-top: 1px solid #1EC481;
-  background-color: #28D094;
+  border-top: 1px solid #49a749;
+  background-color: #5cb85c;
 }
 .lobilists .lobilist.lobilist-success .lobilist-footer {
-  border-top: 1px solid #1EC481;
-  background-color: #28D094;
+  border-top: 1px solid #49a749;
+  background-color: #5cb85c;
 }
 .lobilists .lobilist.lobilist-warning {
-  border: 1px solid #FF7E39;
+  border: 1px solid #ed9e2d;
 }
 .lobilists .lobilist.lobilist-warning .lobilist-header {
-  border-bottom: 1px solid #FF7E39;
-  background-color: #FF9149;
+  border-bottom: 1px solid #ed9e2d;
+  background-color: #f0ad4e;
 }
 .lobilists .lobilist.lobilist-warning .lobilist-header input {
   background-color: transparent;
@@ -138,22 +133,21 @@
 }
 .lobilists .lobilist.lobilist-warning .btn-show-form {
   color: #FFF;
-  border: none;
 }
 .lobilists .lobilist.lobilist-warning .lobilist-form-footer {
-  border-top: 1px solid #FF7E39;
-  background-color: #FF9149;
+  border-top: 1px solid #ed9e2d;
+  background-color: #f0ad4e;
 }
 .lobilists .lobilist.lobilist-warning .lobilist-footer {
-  border-top: 1px solid #FF7E39;
-  background-color: #FF9149;
+  border-top: 1px solid #ed9e2d;
+  background-color: #f0ad4e;
 }
 .lobilists .lobilist.lobilist-info {
-  border: 1px solid #168DEE;
+  border: 1px solid #3db5d8;
 }
 .lobilists .lobilist.lobilist-info .lobilist-header {
-  border-bottom: 1px solid #168DEE;
-  background-color: #1E9FF2;
+  border-bottom: 1px solid #3db5d8;
+  background-color: #5bc0de;
 }
 .lobilists .lobilist.lobilist-info .lobilist-header input {
   background-color: transparent;
@@ -168,22 +162,21 @@
 }
 .lobilists .lobilist.lobilist-info .btn-show-form {
   color: #FFF;
-  border: none;
 }
 .lobilists .lobilist.lobilist-info .lobilist-form-footer {
-  border-top: 1px solid #168DEE;
-  background-color: #1E9FF2;
+  border-top: 1px solid #3db5d8;
+  background-color: #5bc0de;
 }
 .lobilists .lobilist.lobilist-info .lobilist-footer {
-  border-top: 1px solid #168DEE;
-  background-color: #1E9FF2;
+  border-top: 1px solid #3db5d8;
+  background-color: #5bc0de;
 }
 .lobilists .lobilist.lobilist-primary {
-  border: 1px solid #535BE2;
+  border: 1px solid #2c689c;
 }
 .lobilists .lobilist.lobilist-primary .lobilist-header {
-  border-bottom: 1px solid #535BE2;
-  background-color: #666EE8;
+  border-bottom: 1px solid #2c689c;
+  background-color: #337ab7;
 }
 .lobilists .lobilist.lobilist-primary .lobilist-header input {
   background-color: transparent;
@@ -195,19 +188,17 @@
 }
 .lobilists .lobilist.lobilist-primary .lobilist-actions .btn {
   color: #FFF;
-  padding: 4px 5px;
 }
 .lobilists .lobilist.lobilist-primary .btn-show-form {
   color: #FFF;
-  border: none;
 }
 .lobilists .lobilist.lobilist-primary .lobilist-form-footer {
-  border-top: 1px solid #535BE2;
-  background-color: #666EE8;
+  border-top: 1px solid #2c689c;
+  background-color: #337ab7;
 }
 .lobilists .lobilist.lobilist-primary .lobilist-footer {
-  border-top: 1px solid #535BE2;
-  background-color: #666EE8;
+  border-top: 1px solid #2c689c;
+  background-color: #337ab7;
 }
 .lobilists .btn-finish-title-editing,
 .lobilists .btn-cancel-title-editing {
@@ -222,9 +213,6 @@
   background-color: transparent;
   height: 30px;
 }
-.lobilists .lobilist-header.title-editing .lobilist-title{
-  display: none;
-}
 .lobilists .lobilist-header.title-editing .lobilist-actions {
   opacity: 1;
 }
@@ -234,10 +222,10 @@
 .lobilists .lobilist-header.title-editing .lobilist-actions .btn-finish-title-editing,
 .lobilists .lobilist-header.title-editing .lobilist-actions .btn-cancel-title-editing {
   display: inline-block;
-  /*font-size: 18px;
+  font-size: 18px;
   line-height: 30px;
   width: 30px;
-  height: 30px;*/
+  height: 30px;
 }
 .lobilists .lobilist-header:before,
 .lobilists .lobilist-header:after {
@@ -283,42 +271,42 @@
   background-color: #e2e2e2;
 }
 .lobilists .lobilist-actions .dropdown-menu .lobilist-danger {
-  background-color: #FF4961;
+  background-color: #e27c79;
 }
 .lobilists .lobilist-actions .dropdown-menu .lobilist-danger:hover {
   background-color: #de6764;
 }
 .lobilists .lobilist-actions .dropdown-menu .lobilist-success {
-  background-color: #28D094;
+  background-color: #5cb85c;
 }
 .lobilists .lobilist-actions .dropdown-menu .lobilist-success:hover {
   background-color: #4cae4c;
 }
 .lobilists .lobilist-actions .dropdown-menu .lobilist-warning {
-  background-color: #FF9149;
+  background-color: #f0ad4e;
 }
 .lobilists .lobilist-actions .dropdown-menu .lobilist-warning:hover {
   background-color: #eea236;
 }
 .lobilists .lobilist-actions .dropdown-menu .lobilist-info {
-  background-color: #1E9FF2;
+  background-color: #5bc0de;
 }
 .lobilists .lobilist-actions .dropdown-menu .lobilist-info:hover {
   background-color: #46b8da;
 }
 .lobilists .lobilist-actions .dropdown-menu .lobilist-primary {
-  background-color: #666EE8;
+  background-color: #337ab7;
 }
 .lobilists .lobilist-actions .dropdown-menu .lobilist-primary:hover {
   background-color: #2e6da4;
 }
-.lobilists .lobilist-actions .btn {
+.lobilists .lobilist-actions .btn.btn-default {
   background-color: transparent;
   border-color: transparent;
   width: 26px;
   height: 26px;
 }
-.lobilists .lobilist-actions .btn:hover {
+.lobilists .lobilist-actions .btn.btn-default:hover {
   background-color: rgba(0, 0, 0, 0.04);
 }
 .lobilists .lobilist-title {
@@ -356,12 +344,12 @@
 }
 .lobilists .lobilist-item .todo-actions {
   position: absolute;
-  top: 0px;
+  top: 2px;
   right: 4px;
   text-align: center;
   white-space: nowrap;
-  font-size: 14px;
-  color: #808080;
+  font-size: 10px;
+  color: #9d9d9d;
   line-height: 16px;
 }
 .lobilists .lobilist-item .todo-action {
@@ -381,17 +369,15 @@
   font-size: 16px;
 }
 .lobilists .lobilist-item-description {
-  /*font-style: italic;*/
-    font-style: normal;
-    line-height: 1.6;
-    font-size: 0.9rem;
+  font-style: italic;
 }
 .lobilists .lobilist-item-duedate {
   position: absolute;
+  top: 2px;
   left: 12px;
-  top:0px;
+  font-style: italic;
   color: #777777;
-  font-size: 75%;
+  font-size: 85%;
 }
 .lobilists .lobilist-check {
   position: absolute;
@@ -447,14 +433,10 @@
   }
 }
 .lobilists.single-line {
-  /* overflow-x: auto;
-  overflow-y: hidden; */
+  overflow-x: auto;
+  overflow-y: hidden;
   white-space: nowrap;
-  /*height: 450px;*/
-}
-.lobilists-wrapper{
-  height: 450px;
-  position: relative;
+  height: 400px;
 }
 .lobilists.single-line .lobilist-wrapper,
 .lobilists.single-line .lobilist-placeholder {

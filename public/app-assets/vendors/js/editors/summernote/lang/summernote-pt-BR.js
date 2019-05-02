@@ -1,4 +1,4 @@
-(function ($) {
+(function($) {
   $.extend($.summernote.lang, {
     'pt-BR': {
       font: {
@@ -9,27 +9,38 @@
         height: 'Altura da linha',
         name: 'Fonte',
         strikethrough: 'Riscado',
+        subscript: 'Subscript',
+        superscript: 'Superscript',
         size: 'Tamanho da fonte'
       },
       image: {
         image: 'Imagem',
         insert: 'Inserir imagem',
-        resizeFull: 'Resize Full',
-        resizeHalf: 'Resize Half',
-        resizeQuarter: 'Resize Quarter',
-        floatLeft: 'Float Left',
-        floatRight: 'Float Right',
-        floatNone: 'Float None',
+        resizeFull: 'Redimensionar Completamente',
+        resizeHalf: 'Redimensionar pela Metade',
+        resizeQuarter: 'Redimensionar um Quarto',
+        floatLeft: 'Flutuar para Esquerda',
+        floatRight: 'Flutuar para Direira',
+        floatNone: 'Não Flutuar',
+        shapeRounded: 'Shape: Rounded',
+        shapeCircle: 'Shape: Circle',
+        shapeThumbnail: 'Shape: Thumbnail',
+        shapeNone: 'Shape: None',
         dragImageHere: 'Arraste uma imagem para cá',
+        dropImage: 'Drop image or Text',
         selectFromFiles: 'Selecione a partir dos arquivos',
-        url: 'URL da image'
+        maximumFileSize: 'Maximum file size',
+        maximumFileSizeError: 'Maximum file size exceeded.',
+        url: 'URL da imagem',
+        remove: 'Remove Image',
+        original: 'Original'
       },
       video: {
         video: 'Vídeo',
         videoLink: 'Link para vídeo',
         insert: 'Inserir vídeo',
         url: 'URL do vídeo?',
-        providers: '(YouTube, Vimeo, Vine, Instagram, DailyMotion, ou Youku)'
+        providers: '(YouTube, Vimeo, Vine, Instagram, DailyMotion ou Youku)'
       },
       link: {
         link: 'Link',
@@ -41,7 +52,14 @@
         openInNewWindow: 'Abrir em uma nova janela'
       },
       table: {
-        table: 'Tabela'
+        table: 'Tabela',
+        addRowAbove: 'Adicionar linha acima',
+        addRowBelow: 'Adicionar linha abaixo',
+        addColLeft: 'Adicionar coluna a esquerda',
+        addColRight: 'Adicionar coluna a direita',
+        delRow: 'Excluir linha',
+        delCol: 'Excluir coluna',
+        delTable: 'Delete table'
       },
       hr: {
         insert: 'Inserir linha horizontal'
@@ -92,11 +110,45 @@
         textFormatting: 'Formatação de texto',
         action: 'Ação',
         paragraphFormatting: 'Formatação de parágrafo',
-        documentStyle: 'Estilo de documento'
+        documentStyle: 'Estilo de documento',
+        extraKeys: 'Extra keys'
+      },
+      help: {
+        'insertParagraph': 'Inserir Parágrafo',
+        'undo': 'Desfazer o último comando',
+        'redo': 'Refazer o último comando',
+        'tab': 'Tab',
+        'untab': 'Desfazer tab',
+        'bold': 'Colocar em negrito',
+        'italic': 'Colocar em itálico',
+        'underline': 'Sublinhado',
+        'strikethrough': 'Tachado',
+        'removeFormat': 'Remover estilo',
+        'justifyLeft': 'Alinhar à esquerda',
+        'justifyCenter': 'Centralizar',
+        'justifyRight': 'Alinhar à esquerda',
+        'justifyFull': 'Justificar',
+        'insertUnorderedList': 'Lista não ordenada',
+        'insertOrderedList': 'Lista ordenada',
+        'outdent': 'Recuar parágrafo atual',
+        'indent': 'Avançar parágrafo atual',
+        'formatPara': 'Alterar formato do bloco para parágrafo(tag P)',
+        'formatH1': 'Alterar formato do bloco para H1',
+        'formatH2': 'Alterar formato do bloco para H2',
+        'formatH3': 'Alterar formato do bloco para H3',
+        'formatH4': 'Alterar formato do bloco para H4',
+        'formatH5': 'Alterar formato do bloco para H5',
+        'formatH6': 'Alterar formato do bloco para H6',
+        'insertHorizontalRule': 'Inserir régua horizontal',
+        'linkDialog.show': 'Inserir um Hiperlink'
       },
       history: {
         undo: 'Desfazer',
         redo: 'Refazer'
+      },
+      specialChar: {
+        specialChar: 'SPECIAL CHARACTERS',
+        select: 'Select Special characters'
       }
     }
   });

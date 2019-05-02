@@ -5,9 +5,6 @@
 @section('accion') Ver Aplicación @endsection
 
 @section('content')
-    <div class="content-wrapper">
-        @include('layouts.breadcrum')
-        <div class="content-body">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -136,6 +133,4 @@
                     <a href="javascript:window.history.go(-1);" class="btn btn-lg btn-success mt-2" style="zoom: 1;"><i class="fa fa-arrow-left"></i> Regresar a Aplicaciones</a>
                 </div>
             </div>
-        </div>
-    </div>
 @endsection

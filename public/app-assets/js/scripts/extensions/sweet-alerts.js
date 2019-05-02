@@ -3,7 +3,7 @@
 	Description: A beautiful replacement for javascript alerts
 	----------------------------------------------------------------------------------------
 	Item Name: Robust Admin - Responsive Admin Theme
-	Version: 2.0
+	Version: 2.1
 	Author: Pixinvent
 	Author URL: hhttp://www.themeforest.net/user/pixinvent
 ==========================================================================================*/

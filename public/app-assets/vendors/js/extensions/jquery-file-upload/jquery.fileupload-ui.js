@@ -6,7 +6,7 @@
  * https://blueimp.net
  *
  * Licensed under the MIT license:
- * http://www.opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  */
 
 /* jshint nomen:false */
@@ -28,7 +28,11 @@
         // Node/CommonJS:
         factory(
             require('jquery'),
-            require('blueimp-tmpl')
+            require('blueimp-tmpl'),
+            require('./jquery.fileupload-image'),
+            require('./jquery.fileupload-audio'),
+            require('./jquery.fileupload-video'),
+            require('./jquery.fileupload-validate')
         );
     } else {
         // Browser globals:
@@ -151,7 +155,7 @@
                         .find('.progress').addClass(
                             !$.support.transition && 'progress-animated'
                         )
-                        .attr('value', 100)
+                        .attr('aria-valuenow', 100)
                         .children().first().css(
                             'width',
                             '100%'
@@ -283,7 +287,7 @@
                 if (data.context) {
                     data.context.each(function () {
                         $(this).find('.progress')
-                            .attr('value', progress)
+                            .attr('aria-valuenow', progress)
                             .children().first().css(
                                 'width',
                                 progress + '%'
@@ -309,7 +313,7 @@
                 }
                 globalProgressNode
                     .find('.progress')
-                    .attr('value', progress)
+                    .attr('aria-valuenow', progress)
                     .children().first().css(
                         'width',
                         progress + '%'
@@ -344,7 +348,7 @@
                 that._transition($(this).find('.fileupload-progress')).done(
                     function () {
                         $(this).find('.progress')
-                            .attr('value', '0')
+                            .attr('aria-valuenow', '0')
                             .children().first().css('width', '0%');
                         $(this).find('.progress-extended').html('&nbsp;');
                         deferred.resolve();

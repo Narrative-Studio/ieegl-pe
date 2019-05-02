@@ -46,18 +46,19 @@ class PanelConvocatorias extends Controller
      * @throws ArangoException
      */
     public function Index(Request $request){
-        $query = '
+        $query_aql = '
         FOR convocatoria IN convocatorias
-            FOR quien IN quien
-                FILTER convocatoria.quien == quien._key AND convocatoria.activo == "Si" AND convocatoria.fecha_inicio_convocatoria <= \''.time().'\' AND convocatoria.fecha_fin_convocatoria <= \''.time().'\'
-                SORT convocatoria._key ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'
-                RETURN merge(convocatoria, {quien_nombre: quien.nombre} )
+            FOR entidad IN entidades
+                FOR quien IN quien
+                    FILTER convocatoria.quien == quien._key AND convocatoria.activo == "Si" AND convocatoria.fecha_inicio_convocatoria <= \''.time().'\' AND convocatoria.fecha_fin_convocatoria <= \''.time().'\'  AND convocatoria.entidad  == entidad._key
+                    SORT convocatoria._key ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'        
         ';
+        $query = $query_aql. ' RETURN merge(convocatoria, {quien_nombre: quien.nombre}, {entidad: entidad.nombre,  entidad_desc: entidad.descripcion, entidad_key: entidad._key, entidad_ext: entidad.ext} )';
         $convocatorias = $this->ArangoDB->Query($query);
         if($request->get('total')!=''){
             $total = $request->get('total');
         }else{
-            $total = $this->ArangoDB->Query('FOR doc IN '.$this->collection.' COLLECT WITH COUNT INTO length RETURN length');
+            $total = $this->ArangoDB->Query($query_aql.' COLLECT WITH COUNT INTO length RETURN length');
             $total = (int)$total[0];
         }
         $convocatorias = $this->ArangoDB->Pagination($convocatorias, $total, $this->PaginationQuery());
@@ -81,7 +82,7 @@ class PanelConvocatorias extends Controller
                 FOR entidad IN entidades
                     FOR quien IN quien
                         FILTER convocatoria.responsable == users._key AND convocatoria.entidad  == entidad._key AND convocatoria.quien  == quien._key
-                        RETURN merge(convocatoria, {responsable: {username: users.username, nombre: CONCAT(users.nombre," ", users.apellidos)}}, {entidad: entidad.nombre}, {quien: quien.nombre, quien_key:quien._key} )';
+                        RETURN merge(convocatoria, {responsable: {username: users.username, nombre: CONCAT(users.nombre," ", users.apellidos)}}, {entidad: entidad.nombre,  entidad_desc: entidad.descripcion, entidad_key: entidad._key, entidad_ext: entidad.ext}, {quien: quien.nombre, quien_key:quien._key} )';
         $item = $this->ArangoDB->Query($query);
         $item = $item[0];
 
@@ -99,7 +100,7 @@ class PanelConvocatorias extends Controller
             // Si la convocatoria no es exclusva para "Emprendedor sin idea pero con inquietud de emprender" se obtienen los emprendimientos
             if($item->quien!='6375236'){
                 //Emprendimientos
-                $emprendimientos = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc.userKey == "'.auth()->user()->_key.'" '.$filter.' RETURN {_key: doc._key, nombre:doc.nombre}',true);
+                $emprendimientos = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc.userKey == "'.auth()->user()->_key.'" '.$filter.' SORT doc.nombre RETURN {_key: doc._key, nombre:doc.nombre}',true);
                 $emprendimientos = $this->ArangoDB->SelectFormat($emprendimientos, '_key', 'nombre');
             }
         }

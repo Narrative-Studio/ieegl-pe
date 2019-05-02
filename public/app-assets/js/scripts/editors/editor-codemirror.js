@@ -3,7 +3,7 @@
     Description: Code Mirror JS for code editor
     ----------------------------------------------------------------------------------------
     Item Name: Robust - Responsive Admin Template
-    Version: 2.0
+    Version: 2.1
     Author: GeeksLabs
     Author URL: http://www.themeforest.net/user/geekslabs
 ==========================================================================================*/

@@ -1158,7 +1158,7 @@ snippet llVolumeDetect\n\
 	llVolumeDetect(${1:integer detect});\n\
 	$0\n\
 snippet llWanderWithin\n\
-	llWanderWithin(${1:vector origin}, ${2:vector bootstrap-table}, ${3:list options});\n\
+	llWanderWithin(${1:vector origin}, ${2:vector dist}, ${3:list options});\n\
 	$0\n\
 snippet llWater\n\
 	llWater(${1:vector offset});\n\

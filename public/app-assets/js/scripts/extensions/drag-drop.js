@@ -3,7 +3,7 @@
     Description: drag & drop elements using dragula js
     --------------------------------------------------------------------------------------
     Item Name: Robust - Responsive Admin Template
-    Version: 2.0
+    Version: 2.1
     Author: PIXINVENT
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
@@ -14,14 +14,14 @@ $(document).ready(function(){
 	// Draggable Cards
     dragula([document.getElementById('card-drag-area')]);
 
-    // Sortable.js Lists
+    // Sortable Lists
     dragula([document.getElementById('basic-list-group')]);
     dragula([document.getElementById('list-group-tags')]);
     dragula([document.getElementById('list-group-buttons')]);
     dragula([document.getElementById('list-group-classes')]);
 
 
-    // Sortable.js Tabs
+    // Sortable Tabs
     dragula([document.getElementById('tabs-icon-drag')]);
     dragula([document.getElementById('tab-top-line-drag')]);
     dragula([document.getElementById('tab-bottom-line-drag')]);
@@ -30,7 +30,7 @@ $(document).ready(function(){
     dragula([document.getElementById('tab-icon-top-line-drag')]);
 
 
-    // Sortable.js Pills
+    // Sortable Pills
     dragula([document.getElementById('basic-pills-drag')]);
     dragula([document.getElementById('bordered-pills-drag')]);
     dragula([document.getElementById('toolbar-pills-drag')]);
@@ -39,14 +39,14 @@ $(document).ready(function(){
     dragula([document.getElementById('left-icon-pills-drag')]);
 
 
-    // Sortable.js Navs
+    // Sortable Navs
     dragula([document.getElementById('base-nav-drag')]);
     dragula([document.getElementById('nav-divider-drag')]);
     dragula([document.getElementById('heading-icon-drag')]);
     dragula([document.getElementById('both-side-link-icons-drag')]);
 
 
-    // Sortable.js Collapsibles
+    // Sortable Collapsibles
     dragula([document.getElementById('basic-accordion-drag')]);
     dragula([document.getElementById('accordion-icon-drag')]);
     dragula([document.getElementById('headingCollapse1')]);

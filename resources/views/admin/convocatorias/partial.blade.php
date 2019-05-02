@@ -59,7 +59,7 @@
             </div>
         </div>
     </div>
-    <!--<div class="row">
+    <div class="row">
         <div class="col-md-6">
             <?php $class=($errors->has('responsable'))?'is-invalid':''; ?>
             <div class="form-group {{$class}}">
@@ -71,7 +71,7 @@
                     @endif
             </div>
         </div>
-    </div>-->
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">

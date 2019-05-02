@@ -4,7 +4,7 @@
 				use CSS3 for animations, and data-attributes for local title storage.
 	----------------------------------------------------------------------------------------
 	Item Name: Robust - Responsive Admin Template
-	Version: 2.0
+	Version: 2.1
 	Author: PIXINVENT
 	Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/

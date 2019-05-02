@@ -1,34 +1,31 @@
 /*!
- * Bootstrap-checkbox v1.4.0 (https://vsn4ik.github.io/bootstrap-checkbox/)
- * Copyright 2013-2016 Vasily A. (https://github.com/vsn4ik)
+ * Bootstrap-checkbox v1.5.0 (https://vsn4ik.github.io/bootstrap-checkbox/)
+ * Copyright 2013-2018 Vasilii A. (https://github.com/vsn4ik)
  * Licensed under the MIT license
  */
 
 /**
  * $.inArray: friends with IE8. Use Array.prototype.indexOf in future.
- * Use this.element.hidden in future.
  * $.proxy: friends with IE8. Use Function.prototype.bind in future.
  */
 
 'use strict';
 
 (function(factory) {
-  if (typeof define == 'function' && define.amd) {
+  if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module
     define(['jquery'], factory);
-  }
-  else if (typeof exports == 'object') {
+  } else if (typeof exports === 'object') {
     // Node/CommonJS
     module.exports = factory(require('jquery'));
-  }
-  else {
+  } else {
     // Browser globals
     factory(jQuery);
   }
 })(function($) {
-  $.create = function() {
+  function create() {
     return $($.map(arguments, $.proxy(document, 'createElement')));
-  };
+  }
 
   function Checkboxpicker(element, options) {
     this.element = element;
@@ -59,10 +56,10 @@
       return;
     }
 
-    this.$group = $.create('div');
+    this.$group = create('div');
 
     // .btn-group-justified works with <a> elements as the <button> doesn't pick up the styles
-    this.$buttons = $.create('a', 'a');
+    this.$buttons = create('a', 'a');
 
     this.$off = this.$buttons.eq(this.options.reverse ? 1 : 0);
     this.$on = this.$buttons.eq(this.options.reverse ? 0 : 1);
@@ -74,7 +71,7 @@
     init: function() {
       var fn = this.options.html ? 'html' : 'text';
 
-      this.$element.addClass('hidden');
+      this.element.hidden = true;
       this.$group.addClass(this.options.baseGroupCls).addClass(this.options.groupCls);
       this.$buttons.addClass(this.options.baseCls).addClass(this.options.cls);
 
@@ -93,7 +90,7 @@
         }
 
         // $.addClass for XSS check
-        $.create('span').addClass(this.options.iconCls).addClass(this.options.offIconCls).prependTo(this.$off);
+        create('span').addClass(this.options.iconCls).addClass(this.options.offIconCls).prependTo(this.$off);
       }
 
       if (this.options.onIconCls) {
@@ -103,15 +100,14 @@
         }
 
         // $.addClass for XSS check
-        $.create('span').addClass(this.options.iconCls).addClass(this.options.onIconCls).prependTo(this.$on);
+        create('span').addClass(this.options.iconCls).addClass(this.options.onIconCls).prependTo(this.$on);
       }
 
       if (this.element.checked) {
         this.$on.addClass('active');
         this.$on.addClass(this.options.onActiveCls);
         this.$off.addClass(this.options.offCls);
-      }
-      else {
+      } else {
         this.$off.addClass('active');
         this.$off.addClass(this.options.offActiveCls);
         this.$on.addClass(this.options.onCls);
@@ -119,8 +115,7 @@
 
       if (this.element.title) {
         this.$group.attr('title', this.element.title);
-      }
-      else {
+      } else {
         // Attribute title (offTitle, onTitle) on this.$buttons not work (native) if this.element.disabled, fine!
         if (this.options.offTitle) {
           this.$off.attr('title', this.options.offTitle);
@@ -144,14 +139,13 @@
       this.$group.append(this.$buttons).insertAfter(this.element);
 
       // Necessarily after this.$group.append() (autofocus)
-      if (this.element.disabled) {
+      if (this.element.readOnly || this.element.disabled) {
         this.$buttons.addClass('disabled');
 
         if (this.options.disabledCursor) {
           this.$group.css('cursor', this.options.disabledCursor);
         }
-      }
-      else {
+      } else {
         this.$group.attr('tabindex', this.element.tabIndex);
 
         if (this.element.autofocus) {
@@ -174,8 +168,7 @@
       if (this.element.disabled) {
         this.$group.attr('tabindex', this.element.tabIndex);
         this.$group.css('cursor', '');
-      }
-      else {
+      } else {
         this.$group.removeAttr('tabindex');
 
         if (this.options.disabledCursor) {
@@ -205,13 +198,12 @@
       this.$element.trigger('change');
     },
     keydown: function(event) {
-      if ($.inArray(event.keyCode, this.options.toggleKeyCodes) != -1) {
+      if ($.inArray(event.keyCode, this.options.toggleKeyCodes) !== -1) {
         // Off vertical scrolling on Spacebar
         event.preventDefault();
 
         this.change();
-      }
-      else if (event.keyCode == 13) {
+      } else if (event.keyCode === 13) {
         $(this.element.form).trigger('submit');
       }
     },
@@ -232,7 +224,7 @@
       set: function(element, value) {
         var data = $.data(element, 'bs.checkbox');
 
-        if (data && element.checked != value) {
+        if (data && element.checked !== value) {
           data.change(value);
         }
 
@@ -245,7 +237,7 @@
       set: function(element, value) {
         var data = $.data(element, 'bs.checkbox');
 
-        if (data && element.disabled != value) {
+        if (data && element.disabled !== value) {
           data.toggleDisabled();
         }
 
@@ -265,11 +257,9 @@
 
     if (this instanceof $) {
       $elements = this;
-    }
-    else if (typeof options == 'string') {
+    } else if (typeof options === 'string') {
       $elements = $(options);
-    }
-    else {
+    } else {
       $elements = $(elements);
     }
 
@@ -285,7 +275,7 @@
   };
 
   // HTML5 data-*.
-  // <input data-on-label="43"> --> $('input').data('onLabel') == '43'.
+  // <input data-on-label="43"> --> $('input').data('onLabel') === '43'.
   $.fn.checkboxpicker.defaults = {
     baseGroupCls: 'btn-group',
     baseCls: 'btn',

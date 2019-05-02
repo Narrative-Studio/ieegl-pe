@@ -13,7 +13,7 @@
                     <div class="card">
                         <div class="card-content">
                             <div class="card-body">
-                                {!! Form::model($item, ['action' => ['AdminEntidades@Save'], 'method'=>'POST', 'class'=>'form form-horizontal', 'files' => false]) !!}
+                                {!! Form::model($item, ['action' => ['AdminEntidades@Save'], 'method'=>'POST', 'class'=>'form form-horizontal', 'files' => true]) !!}
                                 {!! Form::hidden('id', $item->_key); !!}
                                 <div class="panel-heading"></div>
                                 <h4 class="form-section"><i class="ft-user"></i> Datos de la Entidad</h4>

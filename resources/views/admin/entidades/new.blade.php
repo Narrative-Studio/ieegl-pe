@@ -13,7 +13,7 @@
                     <div class="card">
                         <div class="card-content">
                             <div class="card-body">
-                                {!! Form::open(['action' => ['AdminEntidades@Save'], 'method'=>'POST', 'class'=>'form form-horizontal', 'files' => false]) !!}
+                                {!! Form::open(['action' => ['AdminEntidades@Save'], 'method'=>'POST', 'class'=>'form form-horizontal', 'files' => true]) !!}
                                 <div class="form-body">
                                     <div class="panel-heading"></div>
                                     <h4 class="form-section"><i class="ft-user"></i> Datos de la Entidad</h4>
