@@ -226,7 +226,6 @@
 <script src="//cdn.jsdelivr.net/npm/jquery-sortablejs@latest/jquery-sortable.js"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/editors/quill/quill.min.js" type="text/javascript"></script>
 
-<script src="{{url("/")}}/app-assets/js/scripts/editors/editor-quill-sid.js" type="text/javascript"></script>
 <script src="{{url("/")}}/js/custom.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/js/preguntas.min.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL JS-->
