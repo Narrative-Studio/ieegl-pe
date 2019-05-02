@@ -28,6 +28,9 @@
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/plugins/forms/extended/form-extended.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/extensions/zoom.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/editors/tinymce/tinymce.min.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/editors/quill/katex.min.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/editors/quill/monokai-sublime.min.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/editors/quill/quill.snow.css">
     <!-- END VENDOR CSS-->
     <!-- BEGIN ROBUST CSS-->
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/app.css">
@@ -221,6 +224,9 @@
 <script src="{{url("/")}}/app-assets/js/scripts/forms/convocatoria-steps.js" type="text/javascript"></script>
 <script src="{{url("/")}}/js/Sortable.js" type="text/javascript"></script>
 <script src="//cdn.jsdelivr.net/npm/jquery-sortablejs@latest/jquery-sortable.js"></script>
+<script src="{{url("/")}}/app-assets/vendors/js/editors/quill/quill.min.js" type="text/javascript"></script>
+
+<script src="{{url("/")}}/app-assets/js/scripts/editors/editor-quill-sid.js" type="text/javascript"></script>
 <script src="{{url("/")}}/js/custom.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/js/preguntas.min.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL JS-->

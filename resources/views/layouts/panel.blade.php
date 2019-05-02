@@ -134,6 +134,9 @@
 <script src="{{url("/")}}/app-assets/vendors/js/extensions/transition.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/forms/extended/maxlength/bootstrap-maxlength.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/extensions/zoom.min.js" type="text/javascript"></script>
+<script src="{{url("/")}}/app-assets/vendors/js/editors/quill/katex.min.js" type="text/javascript"></script>
+<script src="{{url("/")}}/app-assets/vendors/js/editors/quill/highlight.min.js" type="text/javascript"></script>
+<script src="{{url("/")}}/app-assets/vendors/js/editors/quill/quill.min.js" type="text/javascript"></script>
 <!-- END PAGE VENDOR JS-->
 
     <script src="{{url("/")}}/app-assets/vendors/js/ui/jquery.sticky.js"></script>
@@ -143,8 +146,8 @@
 <!-- BEGIN ROBUST JS-->
 <script src="{{url("/")}}/app-assets/js/core/app-menu.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/js/core/app.js" type="text/javascript"></script>
-<script src="{{url("/")}}/app-assets/js/scripts/forms/checkbox-radio.js" type="text/javascript"></script>
 
+<script src="{{url("/")}}/app-assets/js/scripts/forms/checkbox-radio.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/js/scripts/ui/breadcrumbs-with-stats.js"></script>
 
 <script src="{{url("/")}}/js/custom.min.js" type="text/javascript"></script>

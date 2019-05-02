@@ -23,12 +23,12 @@
                         <input type="hidden" value="usuarios" data-dato="usuarios" data-name="tipo" />
                     </div>
                     <div class="col-2 text-right pl-0">
-                        <div class="d-inline-block custom-control custom-checkbox mr-1">
+                        <div class="d-inline-block custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input bg-success" id="check_{{$campo}}" value="usuario_{{$campo}}">
                             <label class="custom-control-label" for="check_{{$campo}}"></label>
                         </div>
-                        <button class="btn btn-light btn-sm hidden" onclick="deleteItem(this)"><span class="fa fa-times-circle"></span></button>
-                        <button class="btn btn-light btn-sm handle hidden"><span class="fa fa-reorder" aria-hidden="true"></span></button>
+                        <div class="btn btn-light btn-sm hidden" onclick="deleteItem(this)"><span class="fa fa-times-circle"></span></div>
+                        <div class="btn btn-light btn-sm handle hidden"><span class="fa fa-reorder" aria-hidden="true"></span></div>
                     </div>
                 </div>
             </div>

@@ -26,8 +26,8 @@
                 </div>
             </div>
             <div class="col-2 text-right pl-0">
-                <button class="btn btn-light btn-sm hidden" onclick="deleteItem(this)"><span class="fa fa-times-circle"></span></button>
-                <button class="btn btn-light btn-sm handle hidden"><span class="fa fa-reorder" aria-hidden="true"></span></button>
+                <div class="btn btn-light btn-sm hidden" onclick="deleteItem(this)"><span class="fa fa-times-circle"></span></div>
+                <div class="btn btn-light btn-sm handle hidden"><span class="fa fa-reorder" aria-hidden="true"></span></div>
             </div>
         </div>
     </div>

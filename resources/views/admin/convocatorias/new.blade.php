@@ -19,7 +19,7 @@
                     <div class="card">
                         <div class="card-content">
                             <div class="card-body">
-                                {!! Form::open(['action' => ['AdminConvocatorias@Save'], 'method'=>'POST', 'class'=>'form steps-validation wizard-circle', 'files' => true]) !!}
+                                {!! Form::open(['action' => ['AdminConvocatorias@Save'], 'method'=>'POST', 'id'=>'formConvocatoria', 'class'=>'form steps-validation wizard-circle', 'files' => true]) !!}
                                 <div class="panel-heading"></div>
                                 @include('admin.convocatorias.partial')
                                 {!! Form::close() !!}

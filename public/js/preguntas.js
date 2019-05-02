@@ -57,6 +57,9 @@ function addNewQuestion(reordenar){
 }
 function deleteItem(item){
     let del = $(item).parents('.item');
+    var id = del.prop('id');
+    console.log('#'+id);
+    $("#sortable #"+id).find('input[type="checkbox"]').prop('checked', false);
     $(del).remove();
 }
 function muestra(){

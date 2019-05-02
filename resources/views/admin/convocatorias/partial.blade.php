@@ -26,14 +26,16 @@
             <div class="form-group">
                 <label class="label-control">Descripción corta <span class="required">*</span></label>
                 <?php $class=($errors->has('descripcion_corta'))?'form-control is-invalid':'form-control'; ?>
-                {!! Form::textarea('descripcion_corta', null, ['class' => 'tinymce '.$class.' required']) !!}
+                {!! Form::hidden('descripcion_corta', null) !!}
+                <div id="snow-descripcion_corta"><div class="editor">{!! $item->descripcion_corta !!}</div></div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label class="label-control">Descripción <span class="required">*</span></label>
                 <?php $class=($errors->has('descripcion'))?'form-control is-invalid':'form-control'; ?>
-                {!! Form::textarea('descripcion', null, ['class' => 'tinymce '.$class.' required']) !!}
+                {!! Form::hidden('descripcion', null) !!}
+                <div id="snow-descripcion"><div class="editor">{!! $item->descripcion !!}</div></div>
             </div>
         </div>
     </div>
@@ -113,7 +115,8 @@
             <div class="form-group">
                 <label class="label-control">Descripción de reglas</label>
                 <?php $class=($errors->has('comentarios'))?'form-control is-invalid':'form-control'; ?>
-                {!! Form::textarea('comentarios', null, ['class' =>'tinymce '. $class]) !!}
+                {!! Form::hidden('comentarios', null) !!}
+                <div id="snow-comentarios"><div class="editor">{!! $item->comentarios !!}</div></div>
             </div>
         </div>
     </div>
@@ -168,8 +171,8 @@
                         <input type="hidden" value="categorias" data-dato="categorias" data-name="tipo" />
                     </div>
                     <div class="col-2 text-right pl-0">
-                        <button class="btn btn-default btn-sm" onclick="deleteItem(this)"><span class="fa fa-times-circle"></span></button>
-                        <button class="btn btn-default btn-sm handle"><span class="fa fa-reorder"></span></button>
+                        <div class="btn btn-default btn-sm" onclick="deleteItem(this)"><span class="fa fa-times-circle"></span></div>
+                        <div class="btn btn-default btn-sm handle"><span class="fa fa-reorder"></span></div>
                     </div>
                 </div>
             </div>
