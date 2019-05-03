@@ -342,3 +342,6 @@ form .form-section {
 #sortable .custom-control-label::before {
     position: relative;
 }
+.ql-editor p{
+    margin-bottom: 1rem;
+}
