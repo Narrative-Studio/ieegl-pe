@@ -4,10 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="description" content="Robust admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template.">
-    <meta name="keywords" content="admin template, robust admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
-    <meta name="author" content="PIXINVENT">
-    <title>Administrador STARTUPS ID</title>
+    <title>Administrador STARTUP ID</title>
     <link rel="apple-touch-icon" href="{{url("/")}}/img/icon_sid.png">
     <link rel="shortcut icon" type="image/x-icon" href="{{url("/")}}/img/icon_sid.png">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Muli:300,400,500,700"
@@ -30,7 +27,7 @@
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/css/custom.min.css">
     <!-- END Custom CSS-->
 </head>
-<body class="vertical-layout vertical-menu 1-column   menu-expanded blank-page blank-page"
+<body class="vertical-layout vertical-menu 1-column  bg-full-screen-image menu-expanded blank-page blank-page"
       data-open="click" data-menu="vertical-menu" data-col="1-column">
 <!-- ////////////////////////////////////////////////////////////////////////////-->
 <div class="app-content content">
@@ -40,7 +37,7 @@
         <div class="content-body">
             <section class="flexbox-container">
                 <div class="col-12 d-flex align-items-center justify-content-center">
-                    <div class="col-md-4 col-10 box-shadow-2 p-0">
+                    <div class="col-md-6 col-12 box-shadow-2 p-0">
                         <div class="card border-grey border-lighten-3 m-0">
                             <div class="card-header border-0">
                                 <div class="card-title text-center">

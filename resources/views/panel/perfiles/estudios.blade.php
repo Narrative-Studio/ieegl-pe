@@ -67,14 +67,20 @@
             <div class="card">
                 <div class="card-content collapse show">
                     <div class="card-body">
-                        <ul class="nav nav-tabs nav-top-border no-hover-bg nav-justified mb-3">
-                            <li class="nav-item">
-                                <a class="nav-link"href="{{action('PanelPerfiles@Index')}}">Datos Personales</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active">Estudios</a>
-                            </li>
-                        </ul>
+
+                        <div class="icons-tab-steps wizard-circle wizard clearfix" role="application" id="steps-uid-0">
+                            <div class="steps clearfix">
+                                <ul role="tablist">
+                                    <li role="tab" class="first done" aria-disabled="false" aria-selected="false">
+                                        <a href="{{action('PanelPerfiles@Index')}}" id="steps-uid-0-t-0" href="#steps-uid-0-h-0" aria-controls="steps-uid-0-p-0"><span class="step"><i class="step-icon icon-note"></i></span> 1. Datos Personales</a>
+                                    </li>
+                                    <li role="tab" class="last current" aria-disabled="false" aria-selected="true">
+                                        <a id="steps-uid-0-t-1" href="#steps-uid-0-h-1" aria-controls="steps-uid-0-p-1"><span class="current-info audible">current step: </span><span class="step"><i class="step-icon icon-graduation"></i></span> 2. Estudios</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
                         {!! Form::model($item, ['action' => 'PanelPerfiles@SaveEstudios', 'method' => 'post', 'files'=>'false']) !!}
                         @if(isset($item->_key))
                             <input name="id" type="hidden" value="{{$item->_key}}">

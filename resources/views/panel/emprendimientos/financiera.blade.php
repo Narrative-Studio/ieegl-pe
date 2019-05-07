@@ -58,7 +58,7 @@
 @section('content')
     <div class="content-wrapper">
         @include('layouts.breadcrum')
-        <div class="content-body">
+        <div class="">
             <!-- Basic form layout section start -->
             <section id="basic-form-layouts">
                 <div class="row justify-content-md-center">

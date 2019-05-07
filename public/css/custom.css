@@ -11,7 +11,10 @@ html,body,.navigation,.breadcrumb,.header-navbar{
 .avatar-upload {
     position: relative;
     max-width: 205px;
-    margin: 50px auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    margin-bottom: 20px;
 }
 .bg-primary {
     background-color: #727d7e !important;

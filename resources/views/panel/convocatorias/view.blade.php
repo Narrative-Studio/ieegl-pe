@@ -16,6 +16,18 @@
         </div>
     </div>
 @endsection
+@section('breadright')
+    <div class="media width-250 float-right">
+        <div class="media-body media-right text-right">
+            @if($item->activo=='Si')
+                <h3 class="m-0 badge badge-default badge-success bg-light-green">ABIERTA</h3>
+            @else
+                <h3 class="m-0 badge badge-default badge-danger">CERRADA</h3>
+            @endif
+            <br><span class="text-muted">Status</span>
+        </div>
+    </div>
+@endsection
 
 @section('js')
     <script type="text/javascript">

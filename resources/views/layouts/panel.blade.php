@@ -21,6 +21,7 @@
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/plugins/forms/checkboxes-radios.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/plugins/forms/extended/form-extended.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/extensions/zoom.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/plugins/forms/wizard.css">
     <!-- END VENDOR CSS-->
     <!-- BEGIN ROBUST CSS-->
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/app.css">
@@ -68,8 +69,11 @@
     <div class="app-content content">
         <div class="content-wrapper">
             <div class="content-header row">
-                <div class="content-header-left col col-12 mb-2">
+                <div class="content-header-left col-md-6 col-12 mb-2">
                     @yield('breadcrumb')
+                </div>
+                <div class="content-header-right col-md-6 col-12">
+                    @yield('breadright')
                 </div>
             </div>
 

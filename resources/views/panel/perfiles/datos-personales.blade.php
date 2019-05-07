@@ -87,14 +87,19 @@
             <div class="card">
                 <div class="card-content collapse show">
                     <div class="card-body">
-                        <ul class="nav nav-tabs nav-top-border no-hover-bg nav-justified">
-                            <li class="nav-item">
-                                <a class="nav-link active">Datos Personales</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{action('PanelPerfiles@Estudios')}}">Estudios</a>
-                            </li>
-                        </ul>
+                        <div class="icons-tab-steps wizard-circle wizard clearfix" role="application" id="steps-uid-0">
+                            <div class="steps clearfix">
+                                <ul role="tablist">
+                                    <li role="tab" class="first current" aria-disabled="false" aria-selected="true">
+                                        <a id="steps-uid-0-t-0" href="#steps-uid-0-h-0" aria-controls="steps-uid-0-p-0"><span class="current-info audible">current step: </span><span class="step"><i class="step-icon icon-note"></i></span> 1. Datos Personales</a>
+                                    </li>
+                                    <li role="tab" class="disabled last" aria-disabled="false" aria-selected="false" disabled="">
+                                        <a href="{{action('PanelPerfiles@Estudios')}}" style="cursor: pointer;" id="steps-uid-0-t-1" href="#steps-uid-0-h-1" aria-controls="steps-uid-0-p-1"><span class="step"><i class="step-icon icon-graduation"></i></span> 2. Estudios</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
                         {!! Form::model($item, ['action' => 'PanelPerfiles@SaveDatosPersonales', 'method' => 'post', 'files'=>'true']) !!}
                         @if(isset($item->_key))
                             <input name="id" type="hidden" value="{{$item->_key}}">
@@ -120,32 +125,6 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="">Biografía corta.  <span class="required">*</span><small>Cuéntanos un poco de tu perfil profesional y emprendedor. (140 caracteres)</small></label>
-                                        <?php $class=($errors->has('biografia'))?'form-control is-invalid':'form-control'; ?>
-                                        {!! Form::textarea('biografia', null, ['class'=>'textarea-maxlength '.$class, 'rows'=>2, 'maxlength'=>140]); !!}
-                                        @if ($errors->has('biografia'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('biografia') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="">Sexo <span class="required">*</span></label>
-                                        <?php $class=($errors->has('sexo'))?'form-control is-invalid':'form-control'; ?>
-                                        {!! Form::select('sexo', ['Hombre' => 'Hombre', 'Mujer' => 'Mujer', 'No deseo especificar'=>'No deseo especificar'], null, ['placeholder' => 'Selecciona','class'=>$class]); !!}
-                                        @if ($errors->has('sexo'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('sexo') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Fecha de Nacimiento <span class="required">*</span></label>
@@ -154,6 +133,18 @@
                                         @if ($errors->has('fecha_nacimiento'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('fecha_nacimiento') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Sexo <span class="required">*</span></label>
+                                        <?php $class=($errors->has('sexo'))?'form-control is-invalid':'form-control'; ?>
+                                        {!! Form::select('sexo', ['Hombre' => 'Hombre', 'Mujer' => 'Mujer', 'No deseo especificar'=>'No deseo especificar'], null, ['placeholder' => 'Selecciona','class'=>$class]); !!}
+                                        @if ($errors->has('sexo'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('sexo') }}</strong>
                                             </span>
                                         @endif
                                     </div>
@@ -229,6 +220,20 @@
                                             </span>
                                         @endif
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="">Biografía corta.  <span class="required">*</span><small>Cuéntanos un poco de tu perfil profesional y emprendedor. (140 caracteres)</small></label>
+                                    <?php $class=($errors->has('biografia'))?'form-control is-invalid':'form-control'; ?>
+                                    {!! Form::textarea('biografia', null, ['class'=>'textarea-maxlength '.$class, 'rows'=>2, 'maxlength'=>140]); !!}
+                                    @if ($errors->has('biografia'))
+                                        <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('biografia') }}</strong>
+                                            </span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
