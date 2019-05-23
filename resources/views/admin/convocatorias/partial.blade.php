@@ -26,7 +26,7 @@
                 <label class="label-control">Descripción corta <span class="required">*</span></label>
                 <?php $class=($errors->has('descripcion_corta'))?'form-control is-invalid':'form-control'; ?>
                 {!! Form::hidden('descripcion_corta', null) !!}
-                <div id="snow-descripcion_corta"><div class="editor">{!! $item->descripcion_corta !!}</div></div>
+                <div id="snow-descripcion_corta"><div class="editor">@if(isset($item)){!! $item->descripcion_corta !!}@endif</div></div>
             </div>
         </div>
         <div class="col-md-6">
@@ -34,7 +34,7 @@
                 <label class="label-control">Descripción <span class="required">*</span></label>
                 <?php $class=($errors->has('descripcion'))?'form-control is-invalid':'form-control'; ?>
                 {!! Form::hidden('descripcion', null) !!}
-                <div id="snow-descripcion"><div class="editor">{!! $item->descripcion !!}</div></div>
+                <div id="snow-descripcion"><div class="editor">@if(isset($item)){!! $item->descripcion !!}@endif</div></div>
             </div>
         </div>
     </div>
@@ -114,7 +114,7 @@
                 <label class="label-control">Descripción de reglas</label>
                 <?php $class=($errors->has('comentarios'))?'form-control is-invalid':'form-control'; ?>
                 {!! Form::hidden('comentarios', null) !!}
-                <div id="snow-comentarios"><div class="editor">{!! $item->comentarios !!}</div></div>
+                <div id="snow-comentarios"><div class="editor">@if(isset($item)){!! $item->comentarios !!}@endif</div></div>
             </div>
         </div>
     </div>
