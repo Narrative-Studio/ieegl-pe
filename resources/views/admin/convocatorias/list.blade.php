@@ -41,7 +41,7 @@
                                                 <p class="text-bold-600 font-small-3">{{\Illuminate\Support\Carbon::createFromTimestamp($item->fecha_fin_convocatoria)->formatLocalized('%d %B %Y')}}</p>
                                             </td>
                                             <td class="text-center">
-                                                <a href="#" class="text-bold-600">56</a>
+                                                <a href="#" class="text-bold-600">{{$item->total}}</a>
                                             </td>
                                             <td>
                                                 @if($item->activo=='No')
