@@ -350,6 +350,9 @@ form .form-section {
     border: 1px solid transparent;
 }
 /**/
+.invalid-feedback{
+    display: block !important;
+}
 #snow-descripcion_corta .editor, #snow-descripcion .editor{
     height: 200px;
     overflow: auto;

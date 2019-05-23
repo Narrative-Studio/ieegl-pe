@@ -25,6 +25,9 @@ class AdminConvocatorias extends Controller
     private $perPage = 25;
     private $campos_usuario =  [
         'Datos personales' => [
+            'nombre'         =>'Nombre',
+            'apellidos'         =>'Apellidos',
+            'telefono'         =>'Celular',
             'biografia'         =>'Biografía',
             'sexo'              =>'Sexo',
             'fecha_nacimiento'  =>'Fecha de Nacimiento',
