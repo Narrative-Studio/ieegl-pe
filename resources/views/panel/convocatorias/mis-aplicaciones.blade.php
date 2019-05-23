@@ -21,25 +21,26 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">Listado de Aplicaciones</h4>
-            </div>
-            <div class="card-content collapse show">
-                @if($convocatorias)
+            <div class="card-body">
+                <div class="card-header">
+                    <h4 class="card-title">Listado de Aplicaciones</h4>
+                </div>
+                <div class="card-content collapse show">
+                    @if($convocatorias)
 
 
-                    <div class="table-responsive">
-                        <table id="project-bugs-list" class="table table-white-space table-bordered row-grouping display no-wrap icheck table-middle">
-                            <thead>
-                            <tr>
-                                <th>Convocatoria</th>
-                                <th>Fecha</th>
-                                <th>Emprendimiento</th>
-                                <th>Estatus</th>
-                                <th>Acciones</th>
-                            </tr>
-                            </thead>
-                            <tbody>
+                        <div class="table-responsive">
+                            <table id="project-bugs-list" class="table table-white-space table-bordered row-grouping display no-wrap icheck table-middle">
+                                <thead>
+                                <tr>
+                                    <th>Convocatoria</th>
+                                    <th>Fecha</th>
+                                    <th>Emprendimiento</th>
+                                    <th>Estatus</th>
+                                    <th>Acciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
                                 @foreach($convocatorias as $item)
                                     <tr>
                                         <td class="text-left">
@@ -50,12 +51,12 @@
                                             <p class="text-bold-600 font-small-3">{{\Illuminate\Support\Carbon::createFromTimestamp($item->fecha_registro)->formatLocalized('%d %B %Y')}}</p>
                                         </td>
                                         <td><span href="#" class="text-bold-600">
-                                                @if($item->quien!='6375236')
+                                            @if($item->quien!='6375236')
                                                     {{$item->emprendimiento}}
                                                 @else
                                                     <i>No aplica</i>
                                                 @endif
-                                            </span>
+                                        </span>
                                         </td>
                                         <td>
                                             @if($item->aprobado==1) <div class="badge badge-warning">Pendiente</div> @endif
@@ -68,35 +69,27 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <th>Emprendimiento</th>
-                                <th>Convocatoria</th>
-                                <th>Fecha</th>
-                                <th>Estatus</th>
-                                <th>Acciones</th>
-                            </tr>
-                            </tfoot>
-                        </table>
-                        <div class="col-sm-12">
-                            <div class="dataTables_paginate paging_full_numbers">
-                                {!! $convocatorias->appends(['total' => (int)$total]+\Illuminate\Support\Facades\Input::except('page'))->render() !!}
-                            </div>
-                        </div>
-                    </div>
-                @else
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="bs-callout-warning callout-border-left p-1">
-                                    <strong>Aún no tenemos Convocatorias</strong>
-                                    <p>Muy pronto tendrémos convocatorias para que puedas aplicar tus Emprendimientos.</p>
+                                </tbody>
+                            </table>
+                            <div class="col-sm-12">
+                                <div class="dataTables_paginate paging_full_numbers">
+                                    {!! $convocatorias->appends(['total' => (int)$total]+\Illuminate\Support\Facades\Input::except('page'))->render() !!}
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endif
+                    @else
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="bs-callout-warning callout-border-left p-1">
+                                        <strong>Aún no tenemos Convocatorias</strong>
+                                        <p>Muy pronto tendrémos convocatorias para que puedas aplicar tus Emprendimientos.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

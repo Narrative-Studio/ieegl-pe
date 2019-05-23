@@ -7,33 +7,25 @@
 @section('js')
     <script type="text/javascript">
         $(document).ready(function () {
-            <?php $clase_otra = 'invisible';?>
+            <?php $clase_tec = 'invisible';?>
             @if($item)
-                @if(isset($item->universidad))
-                    @if($item->universidad==1)
-                        <?php $clase_otra = '';?>
+                @if(isset($item->actualmente_cursando_carrera))
+                    @if($item->actualmente_cursando_carrera=='Preparatoria en el Tec' || $item->actualmente_cursando_carrera=='Licenciatura en el Tec' || $item->actualmente_cursando_carrera=='Posgrado en el Tec')
+                        <?php $clase_tec = '';?>
                     @endif
                 @endif
             @endif
-            @if(old('universidad')=='1')
-                <?php $clase_otra = '';?>
+            @if(old('actualmente_cursando_carrera')=='Preparatoria en el Tec' || old('actualmente_cursando_carrera')=='Licenciatura en el Tec' || old('actualmente_cursando_carrera')=='Posgrado en el Tec')
+                <?php $clase_tec = '';?>
             @endif
 
-            $('#universidad').on('select2:select',function (e) {
+            $('#estudiando').on('select2:select',function (e) {
                 var data = e.params.data;
-                if(data.id=='3961308'){
-                    $('#campus_tec').css('visibility','visible').css('height','auto');
-                    $('#otra').addClass('invisible');
-                    $('#universidad_otra').val('');
+                if(data.id=='Preparatoria en el Tec' || data.id=='Licenciatura en el Tec' || data.id=='Posgrado en el Tec'){
+                    $('#campus_tec').removeClass('invisible');
                 }else{
-                    if(data.id=='1'){
-                        $('#otra').removeClass('invisible');
-                    }else{
-                        $('#campus_tec').css('visibility','hidden').css('height','0');
-                        $('#otra').addClass('invisible');
-                    }
-                    $('#universidad_otra').val('');
-                    $('#camous').val('');
+                    $('#campus_tec').addClass('invisible');
+                    $('#campus').val('').change();
                     $('#matricula').val('');
                 }
             })
@@ -51,16 +43,10 @@
             </ol>
         </div>
     </div>
+    {{$item->actualmente_cursando_carrera}} {{old('actualmente_cursando_carrera')}}
 @endsection
 
 @section('content')
-    <style>
-        #campus_tec{
-            visibility: hidden;
-            height: 0;
-        }
-    </style>
-
 <section id="basic-form-layouts">
     <div class="row justify-content-md-center">
         <div class="col-md-12">
@@ -89,22 +75,9 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="">¿Te encuentras actualmente cursando tu carrera profesional? <span class="required">*</span></label>
+                                        <label for="">¿Estás estudiando? <span class="required">*</span></label>
                                         <?php $class=($errors->has('actualmente_cursando_carrera'))?'form-control is-invalid':'form-control'; ?>
-                                        <div class="row skin skin-flat">
-                                            <div class="col-sm-1">
-                                                <fieldset>
-                                                    {!! Form::radio('actualmente_cursando_carrera', "Si", null, ['id'=>'s1', 'class'=>$class]); !!}
-                                                    <label for="s1">Si</label>
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <fieldset>
-                                                    {!! Form::radio('actualmente_cursando_carrera', "No", null, ['id'=>'s2', 'class'=>$class]); !!}
-                                                    <label for="s2">No</label>
-                                                </fieldset>
-                                            </div>
-                                        </div>
+                                        {!! Form::select('actualmente_cursando_carrera', $estudiando, null, ['placeholder' => 'Selecciona','class'=> 'select2 form-control '.$class, 'id'=>'estudiando']); !!}
                                         @if ($errors->has('actualmente_cursando_carrera'))
                                             <span class="invalid-feedback" role="alert" style="display: block;">
                                                 <strong>{{ $errors->first('actualmente_cursando_carrera') }}</strong>
@@ -113,53 +86,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <?php $class=($errors->has('universidad'))?'is-invalid':''; ?>
-                                    <div class="form-group {{$class}}">
-                                        <label for="">Universidad donde cursaste tus estudios o estás actualmente estudiando <span class="required">*</span></label>
-                                        {!! Form::select('universidad', $universidades+['1'=>'Otra Universidad'], null, ['placeholder' => 'Selecciona','class'=> 'select2 form-control '.$class, 'id'=>'universidad']); !!}
-                                        @if ($errors->has('universidad'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('universidad') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group {{$clase_otra}}" id="otra">
-                                        <label for="">Otra <span class="required">*</span></label>
-                                        <?php $class=($errors->has('universidad_otra'))?'form-control is-invalid':'form-control'; ?>
-                                        {!! Form::text('universidad_otra', null, ['class'=>$class, 'id'=>'universidad_otra']); !!}
-                                        @if ($errors->has('universidad_otra'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('universidad_otra') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row" id="campus_tec"
-                                    @if($errors->has('campus'))
-                                        style="visibility: visible;height: auto;"
-                                    @else
-                                        @if(old('universidad')=='3961308')
-                                            style="visibility: visible;height: auto;"
-                                        @else
-                                            @if(old('universidad')=='' && isset($item))
-                                                @if(isset($item->universidad))
-                                                    @if($item->universidad=='3961308')
-                                                        style="visibility: visible;height: auto;"
-                                                    @endif
-                                                @endif
-                                            @endif
-                                        @endif
-                                    @endif>
+                            <div class="row {{$clase_tec}}" id="campus_tec">
                                 <div class="col-md-6">
                                     <?php $class=($errors->has('campus'))?'is-invalid':''; ?>
                                     <div class="form-group {{$class}}">
-                                        <label for="">Campus <span class="required">*</span></label>
-                                        {!! Form::select('campus', $campus, null, ['placeholder' => 'Selecciona','class'=> 'select2 form-control '.$class]); !!}
+                                        <label for="">Si estudiaste o estudias en el Tecnológico de Monterrey, selecciona un campus <span class="required">*</span></label>
+                                        {!! Form::select('campus', $campus, null, ['placeholder' => 'Selecciona','class'=> 'select2 form-control '.$class,'id'=>'campus']); !!}
                                         @if ($errors->has('campus'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('campus') }}</strong>
@@ -169,26 +101,12 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="">Matrícula</label>
+                                        <label for="">Matricula (solo para estudiantes del Tec) <span class="required">*</span></label>
                                         <?php $class=($errors->has('matricula'))?'form-control is-invalid':'form-control'; ?>
-                                        {!! Form::text('matricula', null, ['class'=>$class]); !!}
+                                        {!! Form::text('matricula', null, ['class'=>$class, 'id'=>'matricula']); !!}
                                         @if ($errors->has('matricula'))
                                             <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('matricula') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="">Fecha en la que te graduaste o te vas a graduar <span class="required">*</span></label>
-                                        <?php $class=($errors->has('fecha_graduacion'))?'form-control is-invalid':'form-control'; ?>
-                                        {!! Form::date('fecha_graduacion', null, ['class'=>$class]); !!}
-                                        @if ($errors->has('fecha_graduacion'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('fecha_graduacion') }}</strong>
+                                                <strong>{{ $errors->first('matricula') }} El formato válido es A+8 dígitos ejemplo: A00123456 </strong>
                                             </span>
                                         @endif
                                     </div>

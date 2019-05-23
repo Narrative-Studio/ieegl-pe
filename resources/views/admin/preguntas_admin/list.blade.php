@@ -37,6 +37,7 @@
                                         <thead>
                                         <tr class="bg-primary white">
                                             <th>Pregunta</th>
+                                            <th>Categoría</th>
                                             <th>Tipo</th>
                                             <th width="250">Acciones</th>
                                         </tr>
@@ -45,6 +46,7 @@
                                         @foreach($datos as $item)
                                             <tr>
                                                 <td>{{$item->pregunta}}</td>
+                                                <td>{{$categorias[$item->categoria]}}</td>
                                                 <td style="text-transform: capitalize;">{{$item->tipo}}</td>
                                                 <td>
                                                     <a href="{{ action('AdminPreguntas@Edit',$item->_key) }}" class="btn btn-sm btn-info mr-1"><i class="fas fa-edit"></i> Editar</a>

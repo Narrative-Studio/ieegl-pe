@@ -1,6 +1,5 @@
 <h6>Información General</h6>
 <fieldset class="p-0">
-    <h4 class="form-section"><i class="ft-command"></i> Información General</h4>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -96,7 +95,6 @@
 </fieldset>
 <h6>Reglas para aplicar</h6>
 <fieldset class="p-0">
-    <h4 class="form-section"><i class="ft-command"></i> Reglas para aplicar la Convocatoria</h4>
     <div class="row">
         <div class="col-md-6">
             <?php $class=($errors->has('quien'))?'is-invalid':''; ?>
@@ -127,40 +125,13 @@
         <div class="tit"><i class="fa fa-spin fa-cog"></i> Cargando preguntas</div>
     </div>
     <div class="row preguntas">
-        <div class="col-md-5">
-            <h4 class="form-section">Catálogos de preguntas</h4>
-            <div class="row head">
-                <div class="col-md-12">
-                    <div class="form-group row">
-                        <div class="col-md-5 label-control">
-                            <div class="centrado">Selecciona una categoría</div>
-                        </div>
-                        <div class="col-md-7">
-                            {!! Form::select('catego', ['datos_usuario'=>'Datos del Usuario','datos_emprendimiento'=>'Datos del Emprendimiento','datos_catalogo'=>'Pregunta de Catálogo', 'datos_nueva'=>'Nueva Pregunta'], 'usuario', ['class'=> 'select2','id'=>'select_categoria']) !!}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="preguntas">
-                <div id="sortable" class="list-group">
-                    @include('admin.convocatorias.datos-usuario')
-                    @include('admin.convocatorias.datos-catalogo')
-                    @include('admin.convocatorias.datos-nuevas')
-                </div>
-            </div>
-        </div>
-        <div class="col-md-1 text-center">
-            <div class="btn btn-success flecha"><i class="fa fa-angle-double-right"></i></div>
-        </div>
-        <div class="col-md-6">
+        <div class="col-md-7">
             <h4 class="form-section">Arma tu convocatoria</h4>
             <div class="row head">
-                <div class="form-group">
-                    <div class="col-md-12">
+                    <div class="col-md-12 text-right">
                         <div style="height: 55px;width: 100%;">
-                            <a href="javascript:;" class="centrado" onclick="addTitle(true)"><i class="fa fa-plus-circle"></i> Agregar categoría</a>
+                            <a href="javascript:;" class="btn btn-success" onclick="addTitle(true)"><i class="fa fa-plus-circle"></i> NUEVA SECCIÓN</a>
                         </div>
-                    </div>
                 </div>
             </div>
             <!-- titulo clone -->
@@ -184,11 +155,33 @@
             <!--<a href="javascript:muestra()">Mostrar</a>
             <button type="submit">Mandar</button>-->
         </div>
+        <div class="col-md-5">
+            <h4 class="form-section">Catálogos de preguntas</h4>
+            <div class="row head">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <div class="col-md-5 label-control">
+                            <div class="centrado">Selecciona una categoría</div>
+                        </div>
+                        <div class="col-md-7">
+                            {!! Form::select('catego', ['datos_usuario'=>'Datos del Usuario','datos_emprendimiento'=>'Datos del Emprendimiento','datos_catalogo'=>'Pregunta de Catálogo', 'datos_nueva'=>'Nueva Pregunta'], 'usuario', ['class'=> 'select2','id'=>'select_categoria']) !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="preguntas">
+                <div id="sortable" class="list-group">
+                    @include('admin.convocatorias.datos-usuario')
+                    @include('admin.convocatorias.datos-emprendimiento')
+                    @include('admin.convocatorias.datos-catalogo')
+                    @include('admin.convocatorias.datos-nuevas')
+                </div>
+            </div>
+        </div>
     </div>
 </fieldset>
 <h6>Finalizar</h6>
 <fieldset class="p-0">
-    <h4 class="form-section"><i class="ft-command"></i> Publicar Convocatoria</h4>
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">

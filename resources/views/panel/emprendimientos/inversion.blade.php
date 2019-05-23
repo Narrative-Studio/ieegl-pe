@@ -123,9 +123,6 @@
 @endsection
 
 @section('content')
-    <div class="content-wrapper">
-        @include('layouts.breadcrum')
-        <div class="">
             <!-- Basic form layout section start -->
             <section id="basic-form-layouts">
                 <div class="row justify-content-md-center">
@@ -134,7 +131,7 @@
                             <div class="card-content collapse show">
                                 <div class="card-body">
                                     <ul class="nav nav-tabs nav-top-border no-hover-bg nav-justified mb-3">
-                                        <?php $e_active = 'inversion';?>
+                                        <?php $e_active = 4;?>
                                         @include('panel.emprendimientos.inc.nav')
                                     </ul>
                                     {!! Form::model($item, ['action' => 'PanelEmprendimientos@SaveInversion', 'method' => 'post', 'files'=>'false']) !!}
@@ -155,12 +152,11 @@
                                                 @endif
                                             </div>
                                     </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
             <!-- // Basic form layout section end -->
-        </div>
-    </div>
 @endsection

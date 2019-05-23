@@ -9,9 +9,6 @@
 @endsection
 
 @section('content')
-    <div class="content-wrapper">
-        @include('layouts.breadcrum')
-        <div class="">
             <!-- Basic form layout section start -->
             <section id="basic-form-layouts">
                 <div class="row justify-content-md-center">
@@ -20,7 +17,7 @@
                             <div class="card-content collapse show">
                                 <div class="card-body">
                                     <ul class="nav nav-tabs nav-top-border no-hover-bg nav-justified mb-3">
-                                        <?php $e_active = 'medios';?>
+                                        <?php $e_active = 2;?>
                                         @include('panel.emprendimientos.inc.nav')
                                     </ul>
                                     {!! Form::model($item, ['action' => 'PanelEmprendimientos@SaveMediosDigitales', 'method' => 'post', 'files'=>'true']) !!}
@@ -48,6 +45,4 @@
                 </div>
             </section>
             <!-- // Basic form layout section end -->
-        </div>
-    </div>
 @endsection

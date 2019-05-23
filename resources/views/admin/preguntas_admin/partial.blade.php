@@ -9,10 +9,10 @@
     </div>
 </div>
 <div class="form-group row">
-    <label class="col-md-2 label-control">Placeholder</label>
+    <label class="col-md-2 label-control">Descripción del campo</label>
     <div class="col-md-10">
-        <?php $class=($errors->has('placeholder'))?'form-control is-invalid':'form-control'; ?>
-        {!! Form::text('placeholder', null, ['class' => $class]) !!}
+        <?php $class=($errors->has('descripcion'))?'form-control is-invalid':'form-control'; ?>
+        {!! Form::text('descripcion', null, ['class' => $class]) !!}
     </div>
 </div>
 <?php $class=($errors->has('categoria'))?'is-invalid':''; ?>
@@ -20,7 +20,7 @@
     <label class="col-md-2 label-control">Categoría</label>
     <div class="col-md-10">
         <?php $class=($errors->has('categoria'))?'form-control is-invalid':'form-control'; ?>
-        {!! Form::select('categoria', ['Datos Generales'=>'Datos Generales','Medios Digitales'=>'Medios Digitales','Mercado'=>'Mercado','Inversión'=>'Inversión','Información Financiera'=>'Información Financiera'], null, ['placeholder' => 'Selecciona','class'=> 'select2 '.$class, 'id'=>'categoria']) !!}
+        {!! Form::select('categoria', $categorias, null, ['placeholder' => 'Selecciona','class'=> 'select2 '.$class, 'id'=>'categoria']) !!}
         @if ($errors->has('categoria'))
             <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('categoria') }}</strong></span>
         @endif

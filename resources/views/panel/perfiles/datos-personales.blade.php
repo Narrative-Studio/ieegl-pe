@@ -141,7 +141,7 @@
                                     <div class="form-group">
                                         <label for="">Sexo <span class="required">*</span></label>
                                         <?php $class=($errors->has('sexo'))?'form-control is-invalid':'form-control'; ?>
-                                        {!! Form::select('sexo', ['Hombre' => 'Hombre', 'Mujer' => 'Mujer', 'No deseo especificar'=>'No deseo especificar'], null, ['placeholder' => 'Selecciona','class'=>$class]); !!}
+                                        {!! Form::select('sexo', $sexo, null, ['placeholder' => 'Selecciona','class'=>$class]); !!}
                                         @if ($errors->has('sexo'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('sexo') }}</strong>
@@ -155,7 +155,7 @@
                                     <div class="form-group">
                                         <label for="">¿A qué te dedicas? <span class="required">*</span><small>.</small></label>
                                         <?php $class=($errors->has('a_que_se_dedica'))?'form-control is-invalid':'form-control'; ?>
-                                        {!! Form::select('a_que_se_dedica', ['Empleado' => 'Empleado', 'Empleado con Negocio Propio' => 'Empleado con Negocio Propio', 'Estudiante'=>'Estudiante','Estudiante con Negocio Propio'=>'Estudiante con Negocio Propio', 'Negocio Propio'=>'Negocio Propio'], null, ['placeholder' => 'Selecciona','class'=>$class]); !!}
+                                        {!! Form::select('a_que_se_dedica', $dedicas, null, ['placeholder' => 'Selecciona','class'=>$class]); !!}
                                         @if ($errors->has('a_que_se_dedica'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('a_que_se_dedica') }}</strong>

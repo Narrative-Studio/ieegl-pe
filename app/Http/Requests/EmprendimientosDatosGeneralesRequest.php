@@ -26,7 +26,7 @@ class EmprendimientosDatosGeneralesRequest extends FormRequest
                     $rules =  [
                         'nombre'             => 'required|max:255',
                         'descripcion'             => 'required|max:140',
-                        'numero_colaboradores'                  => 'required',
+                        'fecha_fundacion'                  => 'required|date',
                         'pais'                  => 'required',
                         'ciudad'                => 'required',
                         'industria_o_sector'                => 'required',
@@ -38,7 +38,6 @@ class EmprendimientosDatosGeneralesRequest extends FormRequest
                         'diferenciador_modelo_negocio'                => 'required',
                         'investigacion_desarrollo'                => 'required',
                         'numero_socios'                => 'required',
-                        'prototipo_o_mvp'                => 'required',
                     ];
                     if (Request::input('como_te_enteraste') != '') {
                         $rules['como_te_enteraste_cual']      = 'required';

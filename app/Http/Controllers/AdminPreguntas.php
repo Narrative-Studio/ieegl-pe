@@ -53,7 +53,8 @@ class AdminPreguntas extends Controller
             $total = (int)$total[0];
         }
         $datos = $this->ArangoDB->Pagination($data, $total, $this->PaginationQuery());
-        return view('admin.'.$this->collection.'.list', compact('datos','total'));
+        $categorias = $this->categoria_preguntas;
+        return view('admin.'.$this->collection.'.list', compact('datos','total','categorias'));
     }
 
     /**
@@ -61,7 +62,8 @@ class AdminPreguntas extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function New(){
-        return view('admin.'.$this->collection.'.new');
+        $categorias = $this->categoria_preguntas;
+        return view('admin.'.$this->collection.'.new', compact('categorias'));
     }
 
     /**
@@ -80,7 +82,8 @@ class AdminPreguntas extends Controller
         if(!$item){
             return redirect()->action($this->controller.'@Index')->with('status_error','El registro no existe');
         }
-        return view('admin.'.$this->collection.'.edit', compact('item'));
+        $categorias = $this->categoria_preguntas;
+        return view('admin.'.$this->collection.'.edit', compact('item','categorias'));
     }
 
     /**
@@ -94,7 +97,7 @@ class AdminPreguntas extends Controller
 
         $document = [];
         $document['pregunta'] = $request->get('pregunta');
-        $document['placeholder'] = $request->get('placeholder');
+        $document['descripcion'] = $request->get('descripcion');
         $document['tipo'] = $request->get('tipo');
         $document['categoria'] = $request->get('categoria');
         $document['respuestas'] = ($document['tipo']=='text' || $document['tipo'] =='textarea')?'':$request->get('respuestas');

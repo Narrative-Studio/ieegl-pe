@@ -25,7 +25,7 @@ class AdminConvocatorias extends Controller
     private $perPage = 25;
     private $campos_usuario =  [
         'Datos personales' => [
-            'biografia'         =>'Biografía corta',
+            'biografia'         =>'Biografía',
             'sexo'              =>'Sexo',
             'fecha_nacimiento'  =>'Fecha de Nacimiento',
             'a_que_se_dedica'   =>'¿A qué te dedicas?',
@@ -33,16 +33,56 @@ class AdminConvocatorias extends Controller
             'pais'              =>'País de residencia',
             'estado'            =>'Estado/Región',
             'ciudad'            =>'Ciudad',
-            'biografia'         =>'Biografía'
         ],
         'Estudios'=> [
             'actualmente_cursando_carrera'  =>'¿Te encuentras actualmente cursando tu carrera profesional? ',
-            'universidad'                   =>'Universidad donde cursaste tus estudios o estás actualmente estudiando',
-            'universidad_otra'              =>'Otra',
             'campus'                        =>'Campus',
-            'matricula'                     =>'Matrícula',
-            'fecha_graduacion'              =>'Fecha en la que te graduaste o te vas a graduar',
+            'matricula'                     =>'Matrícula'
         ]
+    ];
+    private $campos_emprendimiento =  [
+        'Datos Generales' => [
+            'nombre'         =>'Nombre comercial del emprendimiento',
+            'fecha_fundacion'  =>'Fecha de fundación de tu emprendimiento',
+            'descripcion'   =>'Descripción del Emprendimiento',
+            'pais'   =>'País donde está establecido',
+            'ciudad'          =>'Ciudad',
+            'industria_o_sector'              =>'Industria o Sector de Emprendimiento',
+            'etapa_emprendimiento'            =>'¿En qué etapa se encuentra tu Emprendimiento?',
+            'mercado_cliente'            =>'¿A qué mercado/cliente atiende tu Emprendimiento?',
+            'problema_soluciona'            =>'¿Qué problema le soluciona tu Emprendimiento a tu mercado/cliente?',
+            'competencia'            =>'¿Quién es tu competencia? ',
+            'diferencia_competencia'            =>'¿Cómo te diferencías de tu competencia?',
+            'diferenciador_modelo_negocio'            =>'¿Cuál es el gran diferenciador de tu modelo de negocio?',
+            'investigacion_desarrollo'            =>'¿Actualmente, tu Emprendimiento lleva un proceso de investigación y desarrollo basado en ciencia y tecnología?',
+            'numero_socios'            =>'Número de socios fundadores en tu emprendimiento',
+        ],
+        'Medios Digitales'=> [
+            'sitio_web'  =>'Sitio Web de tu Emprendimiento',
+            'red_social' =>'Red social mas utilizada por tu Emprendimiento',
+            'video' =>'Video de tu Emprendimiento',
+        ],
+        'Mercado'=> [
+            'tiene_clientes'  =>'¿Tienes clientes?',
+            'clientes_activos'  =>'Si tienes clientes, ¿Cuántos están activos en tu emprendimiento?',
+            'tiene_usuarios'  =>'¿Tienes usuarios? ',
+            'usuarios_activos'  =>'Si tienes usuarios, ¿Cuántos están activos en tu emprendimiento?',
+        ],
+        'Inversión'=> [
+            'levantado_capital'  =>'¿Has levantado capital? ',
+            'recibido_capital_cuanto'  =>'Si has levandato capital, ¿Cuánto ha sido? (USD)',
+            'recibido_inversion'  =>'¿Has recibido inversión?',
+            'recibido_inversion_cuanto'  =>'Si has recibido inversión, ¿Cuánto ha sido? (USD)',
+            'buscando_capital'  =>'¿Actualmente estás buscando capital?',
+            'capital_cuanto'  =>'Si estas buscando capital, ¿Cuánto capital estás buscando? (USD)',
+        ],
+        'Información Financiera'=> [
+            'lanzar_producto'  =>'¿Ya lanzaste tu producto/servicio al mercado?',
+            'fecha_lanzamiento'  =>'Si ya lanzaste tu producto, ¿En qué fecha fue?',
+            'patente_ip'  =>'¿Tienes una Patente o IP de tu producto o servicio?',
+            'realizado_ventas'  =>'¿Has tenido ventas?',
+            'socio_exit_empresa'  =>'¿Alguno de tus socios ha tenido un "exit" o ha venido de una empresa?',
+        ],
     ];
 
     /**
@@ -71,9 +111,14 @@ class AdminConvocatorias extends Controller
         FOR convocatoria IN convocatorias
             FOR users IN users
                 FOR entidad IN entidades
+                  LET aplicaciones = (
+                    FOR a IN usuario_convocatoria
+                      FILTER a.convocatoria_id == convocatoria._key
+                      COLLECT WITH COUNT INTO length RETURN length
+                    )            
                     FILTER convocatoria.responsable == users._key AND convocatoria.entidad  == entidad._key
                     SORT convocatoria._key ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'
-                    RETURN merge(convocatoria, {responsable: {username: users.username, nombre: CONCAT(users.nombre," ", users.apellidos)}}, {entidad: entidad.nombre} )
+                    RETURN merge(convocatoria, {responsable: {username: users.username, nombre: CONCAT(users.nombre," ", users.apellidos)}}, {entidad: entidad.nombre}, {total: aplicaciones})
         ';
         $data = $this->ArangoDB->Query($query);
         if($request->get('total')!=''){
@@ -108,6 +153,7 @@ class AdminConvocatorias extends Controller
 
         /***** Preguntas ********/
         $campos_usuario = $this->campos_usuario;
+        $campos_emprendimiento = $this->campos_emprendimiento;
         $preguntas_catalogo = [];
         $preguntas = $this->ArangoDB->Query('FOR doc IN preguntas_admin RETURN doc', false);
         foreach ($preguntas as $preg){
@@ -122,7 +168,7 @@ class AdminConvocatorias extends Controller
                 RETURN doc', true);
         $usuarios = $this->ArangoDB->SelectFormat($usuarios, '_key', 'nombre');
 
-        return view('admin.'.$this->collection.'.new', compact('entidades','quien','usuarios','campos_usuario','preguntas_catalogo'));
+        return view('admin.'.$this->collection.'.new', compact('entidades','quien','usuarios','campos_usuario','preguntas_catalogo','campos_emprendimiento'));
     }
 
     /**
@@ -160,6 +206,7 @@ class AdminConvocatorias extends Controller
         }
         /***** Preguntas ********/
         $campos_usuario = $this->campos_usuario;
+        $campos_emprendimiento = $this->campos_emprendimiento;
         $preguntas_catalogo = [];
         $preguntas = $this->ArangoDB->Query('FOR doc IN preguntas_admin RETURN doc', false);
         foreach ($preguntas as $preg){
@@ -168,16 +215,14 @@ class AdminConvocatorias extends Controller
 
         if(isset($item->preguntas)){
             $array = json_decode(json_encode($item->preguntas), true);
-            $preguntas_array = [];
-            foreach($array as $p){ $preguntas_array += $p;}
-            ksort($preguntas_array);
-            $json = str_replace('\r\n', '|', json_encode($preguntas_array));
+            ksort($array);
+            $json = str_replace('\r\n', '|', json_encode($array));
         }else{
             $json = '';
         }
 
         /************************/
-        return view('admin.'.$this->collection.'.edit', compact('item','entidades','quien','usuarios','campos_usuario','preguntas_catalogo','json'));
+        return view('admin.'.$this->collection.'.edit', compact('item','entidades','quien','usuarios','campos_usuario','preguntas_catalogo','json','campos_emprendimiento'));
     }
 
     /**

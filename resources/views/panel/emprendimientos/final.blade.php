@@ -12,9 +12,6 @@
 @endsection
 
 @section('content')
-    <div class="content-wrapper">
-        @include('layouts.breadcrum')
-        <div class="">
             <!-- Basic form layout section start -->
             <section id="basic-form-layouts">
                 <div class="row justify-content-md-center">
@@ -42,7 +39,4 @@
                     </div>
                 </div>
             </section>
-            <!-- // Basic form layout section end -->
-        </div>
-    </div>
 @endsection

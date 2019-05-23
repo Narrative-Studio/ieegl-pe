@@ -41,11 +41,11 @@ class PanelPerfiles extends Controller
         //Obteniendo perfil
         $data = $this->ArangoDB->Query('FOR doc IN perfiles FILTER doc.userKey == "'.auth()->user()->_key.'" RETURN doc');
         $item = (count($data)>0)?$data[0]:[];
-        // Paises
-        $paises = $this->paises;
-        // Estados
-        $estados = $this->estados;
-        return view('panel.'.$this->collection.'.datos-personales', compact('paises','estados', 'item'));
+        $paises = $this->paises; // Paises
+        $estados = $this->estados; // Estados
+        $sexo = $this->sexo;
+        $dedicas = $this->a_que_te_dedicas;
+        return view('panel.'.$this->collection.'.datos-personales', compact('paises','estados', 'item', 'sexo', 'dedicas'));
     }
 
     /**
@@ -62,7 +62,8 @@ class PanelPerfiles extends Controller
         // Obteniendo Universidades
         $universidades = $this->ArangoDB->Query('FOR doc IN universidades RETURN doc', true);
         $universidades = $this->ArangoDB->SelectFormat($universidades, '_key','nombre');
-        return view('panel.'.$this->collection.'.estudios', compact('item','universidades','campus'));
+        $estudiando = $this->estudiando;
+        return view('panel.'.$this->collection.'.estudios', compact('item','universidades','campus','estudiando'));
     }
 
     /**
@@ -137,11 +138,8 @@ class PanelPerfiles extends Controller
 
         $document = [];
         $document['actualmente_cursando_carrera'] = $request->get('actualmente_cursando_carrera');
-        $document['universidad'] = $request->get('universidad');
-        $document['universidad_otra'] = $request->get('universidad_otra');
-        $document['fecha_graduacion'] = $request->get('fecha_graduacion');
         $document['userKey'] = auth()->user()->_key;
-        if($request->get('universidad')=='3961308'){
+        if($request->get('actualmente_cursando_carrera')=='Preparatoria en el Tec' || $request->get('actualmente_cursando_carrera')=='Licenciatura en el Tec' || $request->get('actualmente_cursando_carrera')=='Posgrado en el Tec'){
             $document['campus'] = $request->get('campus');
             $document['matricula'] = $request->get('matricula');
         }else{

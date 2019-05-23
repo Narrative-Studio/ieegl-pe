@@ -26,7 +26,7 @@ class PanelController extends Controller
         }else{
             $perfil = $data[0];
             $niveles = $this->nivel_tlr;
-            $emprendimientos = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc.userKey == "'.auth()->user()->_key.'"  OR  "'.auth()->user()->_key.'" IN doc.socios RETURN doc');
+            $emprendimientos = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc.userKey == "'.auth()->user()->_key.'"  OR  "'.auth()->user()->_key.'" IN doc.socios SORT doc._key desc RETURN doc');
             return view('panel.dashboard',compact('emprendimientos','perfil','niveles'));
         }
     }

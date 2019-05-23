@@ -8,6 +8,14 @@ html,body,.navigation,.breadcrumb,.header-navbar{
 .mce-content-body {
     font-family: 'Montserrat', sans-serif !important;
 }
+.bg-gradient-x-info {
+    background-image: -webkit-gradient(linear, left top, right top, from(#00c099), to(#9c76e3));
+    background-image: -webkit-linear-gradient(left, #00c099 0%, #9c76e3 100%);
+    background-image: -moz-linear-gradient(left, #00c099 0%, #9c76e3 100%);
+    background-image: -o-linear-gradient(left, #00c099 0%, #9c76e3 100%);
+    background-image: linear-gradient(to right, #00c099 0%, #9c76e3 100%);
+    background-repeat: repeat-x;
+}
 .avatar-upload {
     position: relative;
     max-width: 205px;
@@ -232,13 +240,8 @@ form .form-section {
 .preguntas .head{
     height: 70px;
 }
-.preguntas .head a{
-    font-size: 18px;
-    color: #00c099;
-    display: inline-block;
-    width: 250px;
-    text-transform: uppercase;
-    position: absolute;
+.app-content .wizard > .steps{
+    margin-bottom: 30px;
 }
 .preguntas .centrado{
     position: absolute;
@@ -261,16 +264,16 @@ form .form-section {
     padding: 5px;
 }
 .preguntas .item .fa-reorder{
-    color: #D8D8D8;
+    color: #dfdfdf;
 }
 .preguntas .item.titulo .fa-reorder{
-    color: #9e9e9e;
+    color: #dfdfdf;
 }
 .preguntas .item .fa-times-circle{
-    color: #e88d8d;
+    color: #dfdfdf;
 }
 .preguntas .item.titulo .fa-times-circle{
-    color: #ec6363;
+    color: #dfdfdf;
 }
 .preguntas .sortable-drag{
     boder-bottom:none;
@@ -281,12 +284,14 @@ form .form-section {
     background: #b4b4b1;
 }
 .preguntas .titulo{
-    background: #C6C6C6;
+    background: #b1b1b1;
     color: #fff;
 }
 .preguntas .titulos{
     padding: 5px 10px;
     border: 0;
+    background-color: #e5efff;
+    font-weight: bold;
 }
 .preguntas .select2{
     margin-top: 10px;
@@ -297,6 +302,9 @@ form .form-section {
     top: 500px;
     transform: translateX(-50%);
     cursor: auto !important;
+}
+.preguntas .campo_descripcion{
+    font-style: italic;
 }
 .navbar-semi-dark .navbar-header {
     background: #ffffff;

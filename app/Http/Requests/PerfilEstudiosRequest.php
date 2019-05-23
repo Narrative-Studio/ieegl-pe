@@ -26,17 +26,10 @@ class PerfilEstudiosRequest extends FormRequest
                 {
                     $rules =  [
                         'actualmente_cursando_carrera'  => 'required',
-                        'fecha_graduacion'              => 'required|date',
                     ];
-                    if (Request::input('universidad_otra') == '') {
-                        $rules['universidad']      = 'required';
-                    }
-                    if (Request::input('universidad') == '1') {
-                        $rules['universidad_otra']      = 'required';
-                    }
-                    if (Request::input('universidad') == '3961308') {
+                    if (Request::input('actualmente_cursando_carrera') == 'Preparatoria en el Tec' || Request::input('actualmente_cursando_carrera') == 'Licenciatura en el Tec' || Request::input('actualmente_cursando_carrera') == 'Posgrado en el Tec') {
                         $rules['campus']        = 'required';
-                        $rules['matricula']     = 'required';
+                        $rules['matricula']     = 'required|regex:/^A\d{8}/m';
                     }
                     return $rules;
                     break;

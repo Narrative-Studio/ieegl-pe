@@ -11,12 +11,8 @@
                     <div class="col-10 pr-0">
                         <span class="custom-checkbox">{{$item->pregunta}}</span>
                         <fieldset class="form-group form-group-style hidden m-0">
-                            <label for="input_{{$item->_key}}">Nombre</label>
-                            <input type="text" class="form-control" value="{{$item->pregunta}}" data-dato="catalogos" data-name="nombre" id="input_{{$item->_key}}"/>
-                        </fieldset>
-                        <fieldset class="form-group form-group-style hidden m-0">
-                            <label for="input_{{$item->_key}}">Descripción del campo</label>
-                            <input type="text" class="form-control m-0" value="" data-dato="catalogos" data-name="desc" style="margin-top: 10px;" placeholder="" id="input_{{$item->_key}}"/>
+                            <input type="text" class="form-control" value="{{$item->pregunta}}" placeholder="Nombre" data-dato="catalogos" data-name="nombre" id="input_{{$item->_key}}"/>
+                            <input type="text" class="form-control m-0 campo_descripcion" value="" data-dato="catalogos" data-name="desc" style="margin-top: 10px;" placeholder="Descripción del campo" id="input_{{$item->_key}}"/>
                         </fieldset>
                         <input type="hidden" value="{{$item->_key}}" data-dato="catalogos" data-name="campo"/>
                         <input type="hidden" value="catalogos" data-dato="catalogos" data-name="tipo" />

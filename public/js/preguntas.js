@@ -35,12 +35,14 @@ $(document).ready(function(){
 });
 function addTitle(reordenar){
     var item = $('#cloneTitle').clone().removeClass('hidden').removeAttr('id').appendTo( "#sortable2" );
+    window.scrollTo(0,document.body.scrollHeight);
     if(reordenar){reorder()}else{return item};
 }
 function addQuestion(question, reordenar){
     var item = $('#'+question).clone().appendTo( "#sortable2" );
     $('#sortable2 #'+question+' .hidden').removeClass('hidden');
     $('#sortable2 #'+question+' .custom-checkbox').remove();
+    window.scrollTo(0,document.body.scrollHeight);
     if(reordenar){reorder()}else{return item};
 }
 function addNewQuestion(reordenar){
@@ -51,15 +53,15 @@ function addNewQuestion(reordenar){
     $('.hidden', $new).removeClass('hidden');
     $('.form-actions', $new).remove();
     $( "#sortable2" ).append( $new );
+    window.scrollTo(0,document.body.scrollHeight);
     if(reordenar){reorder()}else{return $new};
-    $("#campo_nuevo input, #campo_nuevo textarea").val('');
+    $("#campo_nuevo input[type='text'], #campo_nuevo textarea").val('');
     $('#campo_nuevo select').prop('selectedIndex',0);
 }
 function deleteItem(item){
     let del = $(item).parents('.item');
     var id = del.prop('id');
-    console.log('#'+id);
-    $("#sortable #"+id).find('input[type="checkbox"]').prop('checked', false);
+    if(id!='') $("#sortable #"+id).find('input[type="checkbox"]').prop('checked', false);
     $(del).remove();
 }
 function muestra(){
@@ -70,7 +72,7 @@ function reorder(){
     $('#sortable2 .item').each(function(index) {
         var $this = $(this);
        $("input,select,textarea", $this).each(function(i) {
-           var name= 'preguntas['+$(this).attr('data-dato')+']['+index+']['+$(this).attr('data-name')+']';
+           var name= 'preguntas['+index+']['+$(this).attr('data-name')+']';
            $(this).attr('name', name);
         });
     });
@@ -88,7 +90,6 @@ function cambioTipoPregunta(obj){
 function parsePreguntas(){
     $('.cargador_preguntas').removeClass('hidden');
     var preguntas_json = JSON.parse(json);
-    for(var i in preguntas_json) {
         var pregunta = preguntas_json[i];
         //console.log(pregunta);
         switch(pregunta.tipo){
@@ -96,9 +97,15 @@ function parsePreguntas(){
                 var item = addTitle(false);
                 $(item).find('.titulos').val(pregunta.nombre);
                 break;
-            case 'usuarios':
+            case 'usuario':
                 var item = addQuestion('usuario_'+pregunta.campo, false);
                 $('#sortable #usuario_'+pregunta.campo).find('input[type="checkbox"]').prop('checked', true);
+                $("input[data-name='nombre']", item).val(pregunta.nombre);
+                $("input[data-name='desc']", item).val(pregunta.desc);
+                break;
+            case 'emprendimiento':
+                var item = addQuestion('emprendimiento_'+pregunta.campo, false);
+                $('#sortable #emprendimiento_'+pregunta.campo).find('input[type="checkbox"]').prop('checked', true);
                 $("input[data-name='nombre']", item).val(pregunta.nombre);
                 $("input[data-name='desc']", item).val(pregunta.desc);
                 break;

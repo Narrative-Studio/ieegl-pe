@@ -24,22 +24,11 @@ class EmprendimientosFinancieraRequest extends FormRequest
             case 'PUT':
             case 'POST':
                 {
-
-                    $rules =  [
-                        'lanzar_producto'             => 'required',
-                        'fecha_fundacion'             => 'required|date',
-                        'cedula_identificacion'       => 'mimes:jpg,jpeg,pdf',
-                    ];
-                    if (Request::input('lanzar_producto') == 'Si') {
-                        $rules['fecha_lanzamiento']      = 'required';
-                        $rules['modelo_ventas']      = 'required';
-                        $rules['realizado_ventas']      = 'required';
-                        $rules['fecha_fundacion']      = 'required';
-                        $rules['patente_ip']      = 'required';
-                        $rules['socio_exit_empresa']      = 'required';
-                        $rules['gasto_mensual']      = 'required';
-                        $rules['pierde_dinero']      = 'required';
-                    }
+                    $rules['lanzar_producto']       = 'required';
+                    $rules['fecha_lanzamiento']     = 'required|date';
+                    $rules['realizado_ventas']      = 'required';
+                    $rules['patente_ip']            = 'required';
+                    $rules['socio_exit_empresa']    = 'required';
                     return $rules;
                     break;
                 }

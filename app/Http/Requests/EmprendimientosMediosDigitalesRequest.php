@@ -29,7 +29,7 @@ class EmprendimientosMediosDigitalesRequest extends FormRequest
                         'red_social'          => 'required',
                         'video'               => 'required',
                     ];
-                    if (Request::input('logo_file')) {
+                    /*if (Request::input('logo_file')) {
                         $rules['logo']      = 'mimes:png,gif,jpg,jpeg';
                     }else{
                         $rules['logo']      = 'required|mimes:png,gif,jpg,jpeg';
@@ -38,7 +38,7 @@ class EmprendimientosMediosDigitalesRequest extends FormRequest
                         $rules['presentacion']      = 'mimes:pdf,jpg,jpeg';
                     }else{
                         $rules['presentacion']      = 'required|mimes:pdf,jpg,jpeg';
-                    }
+                    }*/
 
                     return $rules;
                     break;

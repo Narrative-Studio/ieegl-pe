@@ -31,12 +31,15 @@
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/editors/quill/katex.min.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/editors/quill/monokai-sublime.min.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/editors/quill/quill.snow.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}./app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/tables/extensions/rowReorder.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/vendors/css/tables/extensions/responsive.dataTables.min.css">
     <!-- END VENDOR CSS-->
     <!-- BEGIN ROBUST CSS-->
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/app.css">
     <!-- END ROBUST CSS-->
     <!-- BEGIN Page Level CSS-->
-    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/core/menu/menu-types/vertical-menu.css">
+    <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/core/menu/menu-types/vertical-compact-menu.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/core/colors/palette-gradient.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/plugins/calendars/clndr.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/app-assets/css/plugins/animate/animate.css">
@@ -54,118 +57,110 @@
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/css/custom.min.css">
     <!-- END Custom CSS-->
 </head>
-<body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar"
-      data-open="click" data-menu="vertical-menu" data-col="2-columns">
+
+<body class="vertical-layout vertical-compact-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-compact-menu" data-col="2-columns">
 <!-- fixed-top-->
-<nav class="header-navbar navbar-expand-md navbar navbar-with-menu fixed-top navbar-semi-dark navbar-shadow">
+<nav class="header-navbar navbar-expand-md navbar navbar-with-menu fixed-top navbar-dark bg-success navbar-shadow navbar-brand-center">
     <div class="navbar-wrapper">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
                 <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
-                <li class="nav-item" style="width: 100%;">
-                    <a class="navbar-brand" href="{{action("AdminController@Index")}}" style="width: 100%;">
-                        <img class="brand-logo" alt="" src="{{url("/")}}/img/logo_SID.png" style="width: auto;height: 54px;margin-left: auto;margin-right: auto;margin-top: -8px;">
-                    </a>
-                </li>
-                <li class="nav-item d-md-none">
-                    <a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="fa fa-ellipsis-v"></i></a>
-                </li>
+                <li class="nav-item"><a class="navbar-brand" href="{{action("AdminController@Index")}}"><img class="height-50" alt="robust admin logo" src="{{url("/")}}/img/logo_SID.png">
+                    </a></li>
+                <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="fa fa-ellipsis-v"></i></a></li>
             </ul>
         </div>
         <div class="navbar-container content">
             <div class="collapse navbar-collapse" id="navbar-mobile">
                 <ul class="nav navbar-nav mr-auto float-left">
+                    <li class="nav-item d-none d-md-block"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu">         </i></a></li>
                 </ul>
                 <ul class="nav navbar-nav float-right">
-                    <li class="dropdown dropdown-user nav-item">
-                        <a class="nav-link" href="#">
-                            Hola {{auth()->user()->nombre}}!
-                        </a>
+                    <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"><span class="avatar avatar-online"><i></i></span><span class="user-name">{{auth()->user()->nombre}}</span></a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                           <a class="dropdown-item" href="{{route('logout')}}"><i class="ft-power"></i> Salir</a>
+                        </div>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
 </nav>
+
 <!-- ////////////////////////////////////////////////////////////////////////////-->
-<div class="main-menu menu-fixed menu-dark menu-accordion    menu-shadow " data-scroll-to-active="true">
+<div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-            <li class=" nav-item"><a href="{{action("AdminController@Index")}}"><i class="icon-home"></i><span class="menu-title">Dashboard</span></a></li>
-            <?php if(\App\Http\Controllers\AdminRoles::getAccess('usuarios')):?>
-                <li class=" navigation-header">
-                    <span>Usuarios</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Layouts"></i>
-                </li>
-            <?php endif;?>
-            <?php if(\App\Http\Controllers\AdminRoles::getAccess('usuarios')):?>
-                <li class=" nav-item"><a href="{{action('AdminUsuarios@Index')}}"><i class="ft-users"></i><span class="menu-title">Usuarios</span></a></li>
-            <?php endif;?>
-            <?php if(\App\Http\Controllers\AdminRoles::getAccess('administradores')):?>
-                <li class=" nav-item"><a href="{{action('AdminAdministradores@Index')}}"><i class="ft-user-plus"></i><span class="menu-title">Administradores</span></a></li>
-            <?php endif;?>
-            <?php if(\App\Http\Controllers\AdminRoles::getAccess('roles')):?>
-                <li class=" nav-item"><a href="{{action('\App\Http\Controllers\AdminRoles@Index')}}"><i class="ft-shield"></i><span class="menu-title">Roles</span></a></li>
+            <li class=" nav-item"><a href="{{action("AdminController@Index")}}"><i class="icon-home"></i><span class="menu-title" data-i18n="nav.dash.project">Dashboard</span></a></li>
+            <?php if(\App\Http\Controllers\AdminRoles::getAccess('convocatorias')):?>
+            <li class=" nav-item"><a href="{{action('AdminConvocatorias@Index')}}"><i class="icon-grid"></i><span class="menu-title" data-i18n="nav.layouts.temp">Convocatorias</span></a>
+                <ul class="menu-content">
+                    <li><a class="menu-item" href="{{action('AdminConvocatorias@Index')}}" data-i18n="nav.page_layouts.main">Abiertas</a>
+                    </li>
+                    <li><a class="menu-item" href="{{action('AdminConvocatorias@Index')}}" data-i18n="nav.navbars.main">Cerradas</a>
+                    </li>
+                    <li><a class="menu-item" href="{{action('AdminConvocatorias@Index')}}" data-i18n="nav.vertical_nav.main">Pendientes de Aprobación</a>
+                    </li>
+                </ul>
+            </li>
             <?php endif;?>
             <?php if(\App\Http\Controllers\AdminRoles::getAccess('solicitudes')):?>
-                <li class=" navigation-header">
-                    <span>Convocatorias</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Layouts"></i>
-                </li>
-                <li class=" nav-item"><a href="{{action('AdminSolicitudes@Index')}}"><i class="fa fa-check"></i><span class="menu-title">Solicitudes</span></a></li>
-            <?php endif;?>
-
-            <li class=" navigation-header">
-                <span>Catálogos</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Layouts"></i>
+            <li class=" nav-item"><a href="#"><i class="icon-check"></i><span class="menu-title" data-i18n="nav.category.general">Aplicaciones</span></a>
+                <ul class="menu-content">
+                    <li><a class="menu-item" href="{{action('AdminSolicitudes@Index')}}" data-i18n="nav.color_palette.main">Por Revisar</a></li>
+                    <li><a class="menu-item" href="{{action('AdminSolicitudes@Index')}}" data-i18n="nav.changelog.main">Aceptadas</a></li>
+                    <li><a class="menu-item" href="{{action('AdminSolicitudes@Index')}}" data-i18n="nav.rechazadas.main">Rechazadas</a></li>
+                </ul>
             </li>
-            <?php if(\App\Http\Controllers\AdminRoles::getAccess('convocatorias')):?>
-                <li class=" nav-item"><a href="{{action('AdminConvocatorias@Index')}}"><i class="fa fa-comments"></i><span class="menu-title">Convocatorias</span></a></li>
             <?php endif;?>
-            <?php if(\App\Http\Controllers\AdminRoles::getAccess('universidades')):?>
-                <li class=" nav-item"><a href="{{action('AdminUniversidades@Index')}}"><i class="fa fa-graduation-cap"></i><span class="menu-title">Universidades</span></a></li>
-            <?php endif;?>
-            <?php if(\App\Http\Controllers\AdminRoles::getAccess('industrias_y_sectores')):?>
-                <li class=" nav-item"><a href="{{action("AdminIndustrias@Index")}}"><i class="fa fa-building"></i><span class="menu-title">Industrias y Sectores</span></a></li>
-            <?php endif;?>
-            <?php if(\App\Http\Controllers\AdminRoles::getAccess('etapas_emprendimientos')):?>
-                <li class=" nav-item"><a href="{{action("AdminEtapas@Index")}}"><i class="fa fa-seedling"></i><span class="menu-title">Etapas Emprendimientos</span></a></li>
-            <?php endif;?>
-            <?php if(\App\Http\Controllers\AdminRoles::getAccess('terminos_capital')):?>
-                <li class=" nav-item"><a href="{{action("AdminTerminos@Index")}}"><i class="fa fa-seedling"></i><span class="menu-title">Términos Capital</span></a></li>
-            <?php endif;?>
-            <?php if(\App\Http\Controllers\AdminRoles::getAccess('entidades')):?>
-                <li class=" nav-item"><a href="{{action("AdminEntidades@Index")}}"><i class="fa fa-globe"></i><span class="menu-title">Entidades</span></a></li>
-            <?php endif;?>
-            <?php if(\App\Http\Controllers\AdminRoles::getAccess('quien_aplica')):?>
-                <li class=" nav-item"><a href="{{action("AdminQuien@Index")}}"><i class="fa fa-address-card"></i><span class="menu-title">Quien Aplica</span></a></li>
-            <?php endif;?>
-            <?php if(\App\Http\Controllers\AdminRoles::getAccess('preguntas_admin')):?>
-            <li class=" nav-item"><a href="{{action("AdminPreguntas@Index")}}"><i class="fa fa-address-card"></i><span class="menu-title">Preguntas</span></a></li>
-            <?php endif;?>
-
-            <li class=" navigation-header">
-                <span>Reportes</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Reportes"></i>
+            <li class=" nav-item"><a href="#"><i class="icon-book-open"></i><span class="menu-title" data-i18n="nav.category.general">Catálogos</span></a>
+                <ul class="menu-content">
+                    <?php if(\App\Http\Controllers\AdminRoles::getAccess('universidades')):?>
+                    <li class=" nav-item"><a href="{{action('AdminUniversidades@Index')}}"><i class="fa fa-graduation-cap"></i><span class="menu-title">Universidades</span></a></li>
+                    <?php endif;?>
+                    <?php if(\App\Http\Controllers\AdminRoles::getAccess('industrias_y_sectores')):?>
+                    <li class=" nav-item"><a href="{{action("AdminIndustrias@Index")}}"><i class="fa fa-building"></i><span class="menu-title">Industrias y Sectores</span></a></li>
+                    <?php endif;?>
+                    <?php if(\App\Http\Controllers\AdminRoles::getAccess('etapas_emprendimientos')):?>
+                    <li class=" nav-item"><a href="{{action("AdminEtapas@Index")}}"><i class="fa fa-seedling"></i><span class="menu-title">Etapas Emprendimientos</span></a></li>
+                    <?php endif;?>
+                    <?php if(\App\Http\Controllers\AdminRoles::getAccess('terminos_capital')):?>
+                    <li class=" nav-item"><a href="{{action("AdminTerminos@Index")}}"><i class="fa fa-seedling"></i><span class="menu-title">Términos Capital</span></a></li>
+                    <?php endif;?>
+                    <?php if(\App\Http\Controllers\AdminRoles::getAccess('entidades')):?>
+                    <li class=" nav-item"><a href="{{action("AdminEntidades@Index")}}"><i class="fa fa-globe"></i><span class="menu-title">Entidades</span></a></li>
+                    <?php endif;?>
+                    <?php if(\App\Http\Controllers\AdminRoles::getAccess('quien_aplica')):?>
+                    <li class=" nav-item"><a href="{{action("AdminQuien@Index")}}"><i class="fa fa-address-card"></i><span class="menu-title">Quien Aplica</span></a></li>
+                    <?php endif;?>
+                    <?php if(\App\Http\Controllers\AdminRoles::getAccess('preguntas_admin')):?>
+                    <li class=" nav-item"><a href="{{action("AdminPreguntas@Index")}}"><i class="fa fa-question-circle"></i><span class="menu-title">Preguntas</span></a></li>
+                    <?php endif;?>
+                </ul>
             </li>
             <?php if(\App\Http\Controllers\AdminRoles::getAccess('reportes')):?>
-                <li class=" nav-item"><a href="{{action('AdminReportes@Usuarios')}}"><i class="fas fa-address-card"></i><span class="menu-title">Usuarios</span></a></li>
-                <li class=" nav-item"><a href="{{action('AdminReportes@UsuariosEmprendimientos')}}"><i class="fa fa-pie-chart"></i><span class="menu-title">Usuarios sin emprendimientos</span></a></li>
-                <li class=" nav-item"><a href="{{action('AdminReportes@UsuariosFull')}}"><i class="fas fa-address-card"></i><span class="menu-title">Usuarios Full</span></a></li>
-                <li class=" nav-item"><a href="{{action('AdminReportes@Emprendimientos')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Emprendimientos</span></a></li>
-                <li class=" nav-item"><a href="{{action('AdminReportes@EmprendedoresTec')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Emprendedores ITESM</span></a></li>
-                <li class=" nav-item"><a href="{{action('AdminReportes@EmprendimientosFull')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Emprendimientos Full</span></a></li>
+            <li class=" nav-item"><a href="#"><i class="icon-graph"></i><span class="menu-title" data-i18n="nav.category.ui">Reportes</span></a>
+                <ul class="menu-content">
+                    <li class=" nav-item"><a href="{{action('AdminReportes@Usuarios')}}"><i class="fas fa-address-card"></i><span class="menu-title">Usuarios</span></a></li>
+                    <li class=" nav-item"><a href="{{action('AdminReportes@UsuariosEmprendimientos')}}"><i class="fa fa-pie-chart"></i><span class="menu-title">Usuarios sin emprend.</span></a></li>
+                    <li class=" nav-item"><a href="{{action('AdminReportes@UsuariosFull')}}"><i class="fas fa-address-card"></i><span class="menu-title">Usuarios Full</span></a></li>
+                    <li class=" nav-item"><a href="{{action('AdminReportes@Emprendimientos')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Emprendimientos</span></a></li>
+                    <li class=" nav-item"><a href="{{action('AdminReportes@EmprendedoresTec')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Emprendedores ITESM</span></a></li>
+                    <li class=" nav-item"><a href="{{action('AdminReportes@EmprendimientosFull')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Emprendimientos Full</span></a></li>
+                </ul>
+            </li>
             <?php endif;?>
-
-            <hr/>
-            <li class=" nav-item"><a href="{{route('logout')}}"><i class="icon-logout"></i><span class="menu-title">Salir</span></a></li>
+            <li class=" nav-item"><a href="{{route('logout')}}"><i class="icon-logout"></i><span class="menu-title" data-i18n="nav.category.forms">Salir</span></a></li>
         </ul>
     </div>
 </div>
+<!-- ////////////////////////////////////////////////////////////////////////////-->
 <div class="app-content content">
     @yield('content')
 </div>
 <!-- ////////////////////////////////////////////////////////////////////////////-->
-<footer class="footer footer-static footer-light navbar-border">
-    <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
-        <span class="float-md-left d-block d-md-inline-block">Copyright &copy; {{date('Y')}} <a class="text-bold-800 grey darken-2" href="#" target="_blank">Tecnológico de Monterrey </a>, All rights reserved. </span>
-    </p>
+<footer class="footer footer-static footer-dark navbar-border navbar-shadow">
+    <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2"><span class="float-md-left d-block d-md-inline-block">Copyright &copy; {{date('Y')}} <a class="text-bold-800 grey darken-2" href="#" target="_blank">Tecnológico de Monterrey </a>, All rights reserved. </span></p>
 </footer>
 
 <!-- MESSAGE BOX-->
@@ -210,6 +205,10 @@
 <script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/extensions/jquery.steps.min.js" type="text/javascript"></script>
 <script src="{{url("/")}}/app-assets/vendors/js/forms/validation/jquery.validate.min.js" type="text/javascript"></script>
+<script src="{{url("/")}}/app-assets/vendors/js/tables/jquery.dataTables.min.js"></script>
+<script src="{{url("/")}}/app-assets/vendors/js/tables/datatable/dataTables.bootstrap4.min.js"></script>
+<script src="{{url("/")}}/app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js"></script>
+<script src="{{url("/")}}/app-assets/vendors/js/tables/datatable/dataTables.rowReorder.min.js"></script>
 <!-- END PAGE VENDOR JS-->
 <!-- BEGIN ROBUST JS-->
 <script src="{{url("/")}}/app-assets/js/core/app-menu.js" type="text/javascript"></script>
