@@ -26,7 +26,7 @@ class ConvocatoriasRequest extends FormRequest
                     $rules =  [
                         'nombre'             => 'required|max:255',
                         'descripcion'             => 'required',
-                        'descripcion_corta'             => 'required|max:255',
+                        'descripcion_corta'             => 'required',
                         'entidad'             => 'required',
                         'quien'             => 'required',
                         //'responsable'             => 'required',
@@ -36,7 +36,7 @@ class ConvocatoriasRequest extends FormRequest
                         //'activo'             => 'required',
                         //'pago'             => 'required',
                         'fecha_inicio_convocatoria'      => 'required|date',
-                        'fecha_fin_convocatoria'                  => 'required',
+                        'fecha_fin_convocatoria'                  => 'required|date',
                         //'fecha_inicio_evento'                  => 'required',
                         //'fecha_fin_evento'                  => 'required',
                         'imagen'                => 'image:jpg,jpeg',
@@ -49,11 +49,11 @@ class ConvocatoriasRequest extends FormRequest
                     $rules =  [
                         'nombre'             => 'required|max:255',
                         'descripcion'             => 'required',
-                        'descripcion_corta'             => 'required|max:255',
+                        'descripcion_corta'             => 'required',
                         'entidad'             => 'required',
                         'quien'             => 'required',
                         'fecha_inicio_convocatoria'      => 'required|date',
-                        'fecha_fin_convocatoria'                  => 'required',
+                        'fecha_fin_convocatoria'                  => 'required|date',
                     ];
                     return $rules;
                     break;

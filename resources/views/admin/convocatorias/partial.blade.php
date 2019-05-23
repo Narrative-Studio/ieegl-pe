@@ -6,6 +6,9 @@
                 <label class="label-control">Nombre <span class="required">*</span></label>
                 <?php $class=($errors->has('nombre'))?'form-control is-invalid':'form-control'; ?>
                 {!! Form::text('nombre', null, ['class' => $class.' required']) !!}
+                @if ($errors->has('nombre'))
+                    <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('nombre') }}</strong></span>
+                @endif
             </div>
         </div>
         <div class="col-md-6">
@@ -27,6 +30,9 @@
                 <?php $class=($errors->has('descripcion_corta'))?'form-control is-invalid':'form-control'; ?>
                 {!! Form::hidden('descripcion_corta', null) !!}
                 <div id="snow-descripcion_corta"><div class="editor">@if(isset($item)){!! $item->descripcion_corta !!}@endif</div></div>
+                @if ($errors->has('descripcion_corta'))
+                    <span class="invalid-feedback" style="display: block;" role="alert"><strong>{{ $errors->first('descripcion_corta') }}</strong></span>
+                @endif
             </div>
         </div>
         <div class="col-md-6">
@@ -35,6 +41,9 @@
                 <?php $class=($errors->has('descripcion'))?'form-control is-invalid':'form-control'; ?>
                 {!! Form::hidden('descripcion', null) !!}
                 <div id="snow-descripcion"><div class="editor">@if(isset($item)){!! $item->descripcion !!}@endif</div></div>
+                @if ($errors->has('descripcion'))
+                    <span class="invalid-feedback" style="display: block;" role="alert"><strong>{{ $errors->first('descripcion') }}</strong></span>
+                @endif
             </div>
         </div>
     </div>
@@ -115,6 +124,9 @@
                 <?php $class=($errors->has('comentarios'))?'form-control is-invalid':'form-control'; ?>
                 {!! Form::hidden('comentarios', null) !!}
                 <div id="snow-comentarios"><div class="editor">@if(isset($item)){!! $item->comentarios !!}@endif</div></div>
+                @if ($errors->has('comentarios'))
+                    <span class="invalid-feedback" style="display: block;" role="alert"><strong>{{ $errors->first('comentarios') }}</strong></span>
+                @endif
             </div>
         </div>
     </div>
