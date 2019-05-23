@@ -65,7 +65,7 @@
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
                 <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
-                <li class="nav-item"><a class="navbar-brand" href="{{action("AdminController@Index")}}"><img class="height-50" alt="robust admin logo" src="{{url("/")}}/img/logo_SID.png">
+                <li class="nav-item"><a class="navbar-brand" href="{{action("AdminController@Index")}}" style="padding: 5px 0 0 0;"><img class="height-50" alt="robust admin logo" src="{{url("/")}}/img/logo_SID_white.png">
                     </a></li>
                 <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="fa fa-ellipsis-v"></i></a></li>
             </ul>
@@ -92,6 +92,19 @@
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
             <li class=" nav-item"><a href="{{action("AdminController@Index")}}"><i class="icon-home"></i><span class="menu-title" data-i18n="nav.dash.project">Dashboard</span></a></li>
+            <li class=" nav-item"><a href="#"><i class="icon-user"></i><span class="menu-title" data-i18n="nav.templates.main">Usuarios</span></a>
+                <ul class="menu-content">
+                    <?php if(\App\Http\Controllers\AdminRoles::getAccess('usuarios')):?>
+                        <li><a class="menu-item" href="{{action('AdminUsuarios@Index')}}" data-i18n="nav.changelog.main">Emprendedores</a></li>
+                    <?php endif;?>
+                    <?php if(\App\Http\Controllers\AdminRoles::getAccess('administradores')):?>
+                        <li><a class="menu-item" href="{{action('AdminAdministradores@Index')}}" data-i18n="nav.templates.horz.main">Administradores</a></li>
+                    <?php endif;?>
+                    <?php if(\App\Http\Controllers\AdminRoles::getAccess('roles')):?>
+                        <li><a class="menu-item" href="{{action('AdminRoles@Index')}}" data-i18n="nav.templates.horz.main">Roles</a></li>
+                    <?php endif;?>
+                </ul>
+            </li>
             <?php if(\App\Http\Controllers\AdminRoles::getAccess('convocatorias')):?>
             <li class=" nav-item"><a href="{{action('AdminConvocatorias@Index')}}"><i class="icon-grid"></i><span class="menu-title" data-i18n="nav.layouts.temp">Convocatorias</span></a>
                 <ul class="menu-content">
@@ -113,7 +126,27 @@
                 </ul>
             </li>
             <?php endif;?>
-            <li class=" nav-item"><a href="#"><i class="icon-book-open"></i><span class="menu-title" data-i18n="nav.category.general">Catálogos</span></a>
+            <li class=" nav-item"><a href="#"><i class="icon-layers"></i><span class="menu-title" data-i18n="nav.category.pages">Emprendimientos</span></a>
+                <ul class="menu-content">
+                    <li><a class="menu-item" href="email-application.html" data-i18n="nav.email-application.main">Email Application</a>
+                    </li>
+                    <li><a class="menu-item" href="chat-application.html" data-i18n="nav.chat-application.main">Chat Application</a>
+                    </li>
+                </ul>
+            </li>
+            <?php if(\App\Http\Controllers\AdminRoles::getAccess('reportes')):?>
+            <li class=" nav-item"><a href="#"><i class="icon-graph"></i><span class="menu-title" data-i18n="nav.category.ui">Reportes</span></a>
+                <ul class="menu-content">
+                    <li class=" nav-item"><a href="{{action('AdminReportes@Usuarios')}}"><i class="fas fa-address-card"></i><span class="menu-title">Usuarios</span></a></li>
+                    <li class=" nav-item"><a href="{{action('AdminReportes@UsuariosEmprendimientos')}}"><i class="fa fa-pie-chart"></i><span class="menu-title">Usuarios sin emprend.</span></a></li>
+                    <li class=" nav-item"><a href="{{action('AdminReportes@UsuariosFull')}}"><i class="fas fa-address-card"></i><span class="menu-title">Usuarios Full</span></a></li>
+                    <li class=" nav-item"><a href="{{action('AdminReportes@Emprendimientos')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Emprendimientos</span></a></li>
+                    <li class=" nav-item"><a href="{{action('AdminReportes@EmprendedoresTec')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Emprendedores ITESM</span></a></li>
+                    <li class=" nav-item"><a href="{{action('AdminReportes@EmprendimientosFull')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Emprendimientos Full</span></a></li>
+                </ul>
+            </li>
+            <?php endif;?>
+            <li class=" nav-item"><a href="#"><i class="icon-settings"></i><span class="menu-title" data-i18n="nav.category.forms">Configuración</span></a>
                 <ul class="menu-content">
                     <?php if(\App\Http\Controllers\AdminRoles::getAccess('universidades')):?>
                     <li class=" nav-item"><a href="{{action('AdminUniversidades@Index')}}"><i class="fa fa-graduation-cap"></i><span class="menu-title">Universidades</span></a></li>
@@ -138,18 +171,6 @@
                     <?php endif;?>
                 </ul>
             </li>
-            <?php if(\App\Http\Controllers\AdminRoles::getAccess('reportes')):?>
-            <li class=" nav-item"><a href="#"><i class="icon-graph"></i><span class="menu-title" data-i18n="nav.category.ui">Reportes</span></a>
-                <ul class="menu-content">
-                    <li class=" nav-item"><a href="{{action('AdminReportes@Usuarios')}}"><i class="fas fa-address-card"></i><span class="menu-title">Usuarios</span></a></li>
-                    <li class=" nav-item"><a href="{{action('AdminReportes@UsuariosEmprendimientos')}}"><i class="fa fa-pie-chart"></i><span class="menu-title">Usuarios sin emprend.</span></a></li>
-                    <li class=" nav-item"><a href="{{action('AdminReportes@UsuariosFull')}}"><i class="fas fa-address-card"></i><span class="menu-title">Usuarios Full</span></a></li>
-                    <li class=" nav-item"><a href="{{action('AdminReportes@Emprendimientos')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Emprendimientos</span></a></li>
-                    <li class=" nav-item"><a href="{{action('AdminReportes@EmprendedoresTec')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Emprendedores ITESM</span></a></li>
-                    <li class=" nav-item"><a href="{{action('AdminReportes@EmprendimientosFull')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Emprendimientos Full</span></a></li>
-                </ul>
-            </li>
-            <?php endif;?>
             <li class=" nav-item"><a href="{{route('logout')}}"><i class="icon-logout"></i><span class="menu-title" data-i18n="nav.category.forms">Salir</span></a></li>
         </ul>
     </div>

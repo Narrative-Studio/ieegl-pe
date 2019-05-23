@@ -70,7 +70,7 @@
                                 <div class="row">
                                     <div class="col-8">
                                         <h2 class="card-title">{{$item->entidad}}</h2>
-                                        <small class="block">{{$item->entidad_desc}}</small>
+                                        <small class="block">{!! $item->descripcion_corta !!}</small>
                                     </div>
                                     <div class="col text-right">
 

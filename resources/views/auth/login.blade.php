@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <title>STARTUP IDENTIFICATION</title>
+    <title>Login</title>
     <link rel="apple-touch-icon" href="{{url("/")}}/img/icon_sid.png">
     <link rel="shortcut icon" type="image/x-icon" href="{{url("/")}}/img/icon_sid.png">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Muli:300,400,500,700"
@@ -41,7 +41,7 @@
                         <div class="card border-grey border-lighten-3 m-0">
                             <div class="card-header border-0">
                                 <div class="card-title text-center">
-                                    <img src="{{url("/")}}/img/logo_SID.png" alt="branding logo" style="height: 60px;">
+                                    <img src="{{url("/")}}/img/logo_SID.png" alt="" style="height: 60px;">
                                 </div>
                             </div>
                             <div class="card-content">

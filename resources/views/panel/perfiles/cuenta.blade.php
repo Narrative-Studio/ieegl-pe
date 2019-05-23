@@ -53,7 +53,13 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="telefono">Correo Electrónico</label>
+                                        {!! Form::text('email', null, ['class'=>$class, 'disabled'=>'disabled', 'readonly'=>'readonly']); !!}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="telefono">Celular (10 dígitos)</label>
                                         <?php $class=($errors->has('telefono'))?'form-control is-invalid':'form-control'; ?>

@@ -5,9 +5,7 @@
 @section('accion') Aplicar @endsection
 
 @section('content')
-    <div class="content-wrapper">
-        @include('layouts.breadcrum')
-        <div class="content-body">
+        <div class="">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -199,5 +197,4 @@
                 </div>
             </div>
         @endif
-    </div>
 @endsection

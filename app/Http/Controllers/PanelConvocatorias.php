@@ -186,11 +186,11 @@ class PanelConvocatorias extends Controller
             // Verificando que no se duplique el emprendimiento en la convicatoria
             $verificar = $this->VerificarEmeprendimiento($request->get('emprendimiento'), $key);
 
-            //Emprendimiento seleccionado
+            //Emprendimiento seleccionado*/
             $emprendimiento = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc._key=="' . $request->get('emprendimiento') . '" AND doc.userKey == "' . auth()->user()->_key . '" RETURN doc');
             $emprendimiento = $emprendimiento[0];
 
-            // Debe tener Datos Generales
+            /*// Debe tener Datos Generales
             if($emprendimiento->module_datos==false){
                 $puede_aplicar = false;
                 $errores['generales'] = 'Debes tener Datos Generales';
@@ -319,13 +319,13 @@ class PanelConvocatorias extends Controller
             // Verificando que no se duplique el emprendimiento en la convicatoria
             $verificar = $this->VerificarEmeprendimiento($request->get('emprendimiento'), $key);
 
-            if($verificar == false){
+            if($verificar == false){*/
 
                 //Emprendimiento seleccionado
                 $emprendimiento = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc._key=="' . $request->get('emprendimiento') . '" AND doc.userKey == "' . auth()->user()->_key . '" RETURN doc');
                 $emprendimiento = $emprendimiento[0];
 
-                // Debe tener Datos Generales
+                /*// Debe tener Datos Generales
                 if($emprendimiento->module_datos==false){
                     $puede_aplicar = false;
                 }

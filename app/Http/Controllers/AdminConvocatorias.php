@@ -27,6 +27,7 @@ class AdminConvocatorias extends Controller
         'Datos personales' => [
             'nombre'         =>'Nombre',
             'apellidos'         =>'Apellidos',
+            'email'         =>'Correo Electrónico',
             'telefono'         =>'Celular',
             'biografia'         =>'Biografía',
             'sexo'              =>'Sexo',

@@ -309,6 +309,11 @@ form .form-section {
 }
 .preguntas .campo_descripcion{
     font-style: italic;
+    color: #8e8e8e !important;
+    font-size: 11px;
+    height: 25px;
+    padding: 0;
+    padding-bottom: 5px;
 }
 .navbar-semi-dark .navbar-header {
     background: #ffffff;
