@@ -259,7 +259,7 @@ class AdminConvocatorias extends Controller
         // Creando Nuevo Registro
         if($request->get('id')==''){
             $document['created_at'] = date('Y-m-d'); // Agregando fecha de creacion
-            $preguntas['preguntas'] = $request->get('preguntas');
+            $document['preguntas'] = $request->get('preguntas');
             $documentId = $this->ArangoDB->Save($this->collection, $document);
             $key = str_replace($this->collection.'/','', $documentId);
             Session::flash('status_success', 'Registro Agregado');
