@@ -146,6 +146,10 @@ figure.effect-bubba h2 {
 .carousel-item img{
     width: 100%;
 }
+#convocatorias_list .select2{
+    width: 50% !important;
+    margin-left: 10px;
+}
 .iframe-pago iframe{
     width: 100%;
     border: 0;
@@ -355,4 +359,12 @@ form .form-section {
 }
 .ql-editor p{
     margin-bottom: 1rem;
+}
+.pagination .page-item.active .page-link {
+    border-color: #00c099;
+    background-color: #00c099;
+}
+.pagination .page-link {
+    color: #00c099;
+    border: 1px solid #adb5bd;
 }

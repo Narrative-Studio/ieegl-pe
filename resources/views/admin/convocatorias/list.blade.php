@@ -34,7 +34,7 @@
                                         @foreach($datos as $item)
                                         <tr>
                                             <td class="text-left" style="white-space:normal ;">
-                                                <a href="#" class="text-bold-600">{{$item->nombre}}</a>
+                                                <a href="{{ action('AdminConvocatorias@Edit',$item->_key) }}" class="text-bold-600">{{$item->nombre}}</a>
                                                 <div class="text-muted font-small-2" style="white-space:normal;">{!! $item->descripcion_corta !!}</div>
                                             </td>
                                             <td class="text-center">

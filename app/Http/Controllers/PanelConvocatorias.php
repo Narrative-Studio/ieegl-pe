@@ -181,7 +181,7 @@ class PanelConvocatorias extends Controller
         $item = $item[0];
 
         // Si la convocatoria requiere un Emprendimiento
-        if($item->quien_key!='6375236') {
+        /*if($item->quien_key!='6375236') {
 
             // Verificando que no se duplique el emprendimiento en la convicatoria
             $verificar = $this->VerificarEmeprendimiento($request->get('emprendimiento'), $key);
@@ -189,10 +189,6 @@ class PanelConvocatorias extends Controller
             //Emprendimiento seleccionado
             $emprendimiento = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc._key=="' . $request->get('emprendimiento') . '" AND doc.userKey == "' . auth()->user()->_key . '" RETURN doc');
             $emprendimiento = $emprendimiento[0];
-
-            /********************************/
-            /* Validaciones de Convocatoria */
-            /********************************/
 
             // Debe tener Datos Generales
             if($emprendimiento->module_datos==false){
@@ -282,7 +278,8 @@ class PanelConvocatorias extends Controller
         }else{
             // Verificando que no se duplique el emprendimiento en la convicatoria
             $verificar = $this->VerificarEmeprendimiento('', $key);
-        }
+        }*/
+        $verificar = $this->VerificarEmeprendimiento('', $key);
 
         return view('panel.convocatorias.aplicar', compact('item','emprendimiento', 'puede_aplicar', 'errores', 'verificar'));
     }
@@ -317,7 +314,7 @@ class PanelConvocatorias extends Controller
         $user = $user[0];
 
         // Si la convocatoria requiere un Emprendimiento
-        if($item->quien!='6375236') {
+        /*if($item->quien!='6375236') {
 
             // Verificando que no se duplique el emprendimiento en la convicatoria
             $verificar = $this->VerificarEmeprendimiento($request->get('emprendimiento'), $key);
@@ -327,10 +324,6 @@ class PanelConvocatorias extends Controller
                 //Emprendimiento seleccionado
                 $emprendimiento = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc._key=="' . $request->get('emprendimiento') . '" AND doc.userKey == "' . auth()->user()->_key . '" RETURN doc');
                 $emprendimiento = $emprendimiento[0];
-
-                /********************************/
-                /* Validaciones de Convocatoria */
-                /********************************/
 
                 // Debe tener Datos Generales
                 if($emprendimiento->module_datos==false){
@@ -413,7 +406,11 @@ class PanelConvocatorias extends Controller
             $verificar = $this->VerificarEmeprendimiento('', $key);
             if($verificar==true) abort(404);
             $emprendimiento = false;
-        }
+        }*/
+
+        $verificar = $this->VerificarEmeprendimiento('', $key);
+        if($verificar==true) abort(404);
+        $emprendimiento = false;
 
         if($puede_aplicar){
             $document = [];

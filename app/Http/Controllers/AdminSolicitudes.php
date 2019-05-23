@@ -46,13 +46,16 @@ class AdminSolicitudes extends Controller
      * @throws ArangoException
      */
     public function Index(Request $request){
+        $query_convo = ($request->get('convocatoria')!='')?' AND doc.convocatoria_id=="'.$request->get('convocatoria').'"':'';
+        $query_user = (auth()->user()->isAdmin != 1)?'doc.responsable_id == "'.auth()->user()->_key.'" AND':'';
         $query = '
         FOR doc IN usuario_convocatoria
             FOR conv IN convocatorias
-                FOR usuario IN users
-                    FILTER doc.responsable_id == "'.auth()->user()->_key.'" AND conv._key  == doc.convocatoria_id AND usuario._key == doc.userKey
-                    SORT doc._key ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'
-                    RETURN merge(doc, {convocatoria: conv}, {usuario: usuario} )
+                FOR emp IN emprendimientos
+                    FOR usuario IN users
+                        FILTER '.$query_user.' conv._key  == doc.convocatoria_id AND usuario._key == doc.userKey AND emp._key == doc.emprendimiento_id '.$query_convo.'
+                        SORT doc._key ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'
+                        RETURN merge(doc, {convocatoria: conv}, {usuario: usuario}, {emprendimiento: emp.nombre} )
         ';
         $data = $this->ArangoDB->Query($query);
         if($request->get('total')!=''){
@@ -62,13 +65,23 @@ class AdminSolicitudes extends Controller
             FOR doc IN usuario_convocatoria
                 FOR conv IN convocatorias
                     FOR usuario IN users
-                        FILTER doc.responsable_id == "'.auth()->user()->_key.'" AND conv._key  == doc.convocatoria_id AND usuario._key == doc.userKey
+                        FILTER '.$query_user.' conv._key  == doc.convocatoria_id AND usuario._key == doc.userKey '.$query_convo.'
                         SORT doc._key ASC COLLECT WITH COUNT INTO length RETURN length
             ');
             $total = (int)$total[0];
         }
+        // Lista de Convocatorias
+        $query = '
+            FOR doc IN convocatorias
+                FILTER '.$query_user.' 1==1
+                SORT doc.nombre ASC
+                RETURN {_key: doc._key, nombre: doc.nombre}
+        ';
+        $convocatorias = $this->ArangoDB->Query($query, true);
+        $convocatorias = $this->ArangoDB->SelectFormat($convocatorias, '_key','nombre');
+
         $datos = $this->ArangoDB->Pagination($data, $total, $this->PaginationQuery());
-        return view('admin.solicitudes.list', compact('datos','total'));
+        return view('admin.solicitudes.list', compact('datos','total','convocatorias'));
     }
 
 

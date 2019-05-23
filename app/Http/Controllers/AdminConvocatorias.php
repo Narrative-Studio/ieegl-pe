@@ -107,6 +107,7 @@ class AdminConvocatorias extends Controller
      * @throws ArangoException
      */
     public function Index(Request $request){
+        $query_user = (auth()->user()->isAdmin != 1)?'convocatoria.responsable == "'.auth()->user()->_key.'" AND':'';
         $query = '
         FOR convocatoria IN convocatorias
             FOR users IN users
@@ -116,7 +117,7 @@ class AdminConvocatorias extends Controller
                       FILTER a.convocatoria_id == convocatoria._key
                       COLLECT WITH COUNT INTO length RETURN length
                     )            
-                    FILTER convocatoria.responsable == users._key AND convocatoria.entidad  == entidad._key
+                    FILTER '.$query_user.' convocatoria.responsable == users._key AND convocatoria.entidad  == entidad._key
                     SORT convocatoria._key ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'
                     RETURN merge(convocatoria, {responsable: {username: users.username, nombre: CONCAT(users.nombre," ", users.apellidos)}}, {entidad: entidad.nombre}, {total: aplicaciones[0]})
         ';
@@ -126,10 +127,10 @@ class AdminConvocatorias extends Controller
         }else{
             $total = $this->ArangoDB->Query( '
             FOR convocatoria IN convocatorias
-            FOR users IN users
-                FOR entidad IN entidades
-                    FILTER convocatoria.responsable == users._key AND convocatoria.entidad == entidad._key
-                    SORT convocatoria._key ASC COLLECT WITH COUNT INTO length RETURN length');
+                FOR users IN users
+                    FOR entidad IN entidades
+                        FILTER '.$query_user.' convocatoria.responsable == users._key AND convocatoria.entidad == entidad._key
+                        SORT convocatoria._key ASC COLLECT WITH COUNT INTO length RETURN length');
             $total = (int)$total[0];
         }
         $datos = $this->ArangoDB->Pagination($data, $total, $this->PaginationQuery());
@@ -254,11 +255,11 @@ class AdminConvocatorias extends Controller
         $document['pago_iframe'] = $request->get('pago_iframe');
         $document['pago'] = $request->get('pago');
         $document['activo'] = $request->get('activo');
-        $document['preguntas'] = null;
 
         // Creando Nuevo Registro
         if($request->get('id')==''){
             $document['created_at'] = date('Y-m-d'); // Agregando fecha de creacion
+            $preguntas['preguntas'] = $request->get('preguntas');
             $documentId = $this->ArangoDB->Save($this->collection, $document);
             $key = str_replace($this->collection.'/','', $documentId);
             Session::flash('status_success', 'Registro Agregado');

@@ -4,66 +4,98 @@
 @section('seccion') Solicitudes @endsection
 @section('accion') Listado @endsection
 
+@section('js')
+    <script type="text/javascript">
+        $(function(){
+            $('#convocatoria').on('change',function(){
+               window.location.href="{{action('AdminSolicitudes@Index')}}?convocatoria="+$(this).val();
+            });
+        });
+    </script>
+@endsection
+
 @section('content')
     <div class="content-wrapper">
-        <div class="content-body">
+        <div class="content-body"><!-- project stats -->
             <div class="row">
-                <div class="col-md-12">
-                    @include('layouts.breadcrum')
+                <div class="col-12">
                     <div class="card">
+                        <div class="card-header">
+                            <h3 >Aplicaciones</h3>
+                            <a class="heading-elements-toggle"><i class="ft-ellipsis-h font-medium-3"></i></a>
+                        </div>
                         <div class="card-content">
-                            @if(count($datos)>0)
-                                <div class="table-responsive">
-                                    <table class="table mb-0">
-                                        <thead class="bg-primary white">
-                                        <tr>
-                                            <th>Convocatoria</th>
-                                            <th>Usuario</th>
-                                            <th>Fecha Aplicación</th>
-                                            <th>Estatus</th>
-                                            <th width="150">&nbsp;</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($datos as $item)
-                                            <tr>
-                                                <td>{{$item->convocatoria->nombre}}</td>
-                                                <td>{{$item->usuario->nombre}}</td>
-                                                <td style="text-transform: capitalize;">{{\Illuminate\Support\Carbon::createFromTimestamp($item->fecha_registro)->formatLocalized('%d %B %Y')}}</td>
-                                                <td>
-                                                    @if($item->aprobado==1) <div class="badge badge-warning">Pendiente</div> @endif
-                                                    @if($item->aprobado==2) <div class="badge badge-danger">Rechazada</div> @endif
-                                                    @if($item->aprobado==3) <div class="badge badge-success">Aprobada</div> @endif
-                                                    @if($item->aprobado==4) <div class="badge badge-success" style="background-color: #ffd95d;">Pendiente de Pago</div> @endif
-                                                </td>
-                                                <td>
-                                                    <a href="{{action('AdminSolicitudes@Edit',['id'=>$item->_key])}}" class="btn btn-sm btn-success mr-0"><i class="fa fa-edit"></i> Editar Aplicación</a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="dataTables_paginate paging_full_numbers">
-                                        {!! $datos->appends(['total' => (int)$total]+\Illuminate\Support\Facades\Input::except('page'))->render() !!}
-                                    </div>
-                                </div>
-                            @else
-                                <div class="row">
-                                    <div class="col-md-3"></div>
-                                    <div class="col-md-6">
-                                        <div class="alert round bg-warning alert-icon-right alert-dismissible mb-2 text-center" role="alert">
-                                            <span class="alert-icon"><i class="fa fa-info-circle"></i></span>
-                                            No hay datos
+                            <div class="card-body">
+                                <!-- Selector de Convocatoria -->
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-8 dataTables_length" id="convocatorias_list">
+                                            <label><b>Selecciona una convocatoria: </b></label>
+                                            {!! Form::select('convocatoria', $convocatorias, \Illuminate\Support\Facades\Input::get('convocatoria'), ['placeholder' => 'Todas las convocatorias', 'id'=>'convocatoria','class'=> 'select2 form-control', 'style'=>'width: 50% !important;']) !!}
                                         </div>
                                     </div>
                                 </div>
-                            @endif
+                                <!-- Task List table -->
+                                @if(count($datos)>0)
+                                    <div class="table-responsive">
+                                        <table id="project-bugs-list" class="table table-white-space table-bordered row-grouping display no-wrap icheck table-middle">
+                                            <thead>
+                                            <tr>
+                                                <th>Emprendimiento</th>
+                                                <th>Usuario</th>
+                                                <th>Fecha de Aplicación</th>
+                                                <th>Estatus</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($datos as $item)
+                                                <tr>
+                                                <td class="text-left">
+                                                    <a href="{{action('AdminSolicitudes@Edit',['id'=>$item->_key])}}" class="text-bold-600">{{$item->emprendimiento}}</a>
+                                                </td>
+                                                <td class="text-center">
+                                                    <p class="text-bold-600 font-small-3">{{$item->usuario->nombre}}</p>
+                                                </td>
+                                                <td class="text-center">
+                                                    <p class="text-bold-600 font-small-3">{{\Illuminate\Support\Carbon::createFromTimestamp($item->fecha_registro)->formatLocalized('%d %B %Y')}}</p>
+                                                </td>
+                                                <td>
+                                                    @if($item->aprobado==1) <span class="badge badge-warning round">Por Revisar</span> @endif
+                                                    @if($item->aprobado==2) <span class="badge badge-danger round">Rechazada</span> @endif
+                                                    @if($item->aprobado==3) <span class="badge badge-info round">Aprobada</span> @endif
+                                                    @if($item->aprobado==4) <span class="badge badge-success round" style="background-color: #ffd95d;">Pendiente de Pago</span> @endif
+                                                </td>
+                                                <td>
+                                                    <a href="{{action('AdminSolicitudes@Edit',['id'=>$item->_key])}}" class="btn btn-success btn-sm mt-1"><i class="fa fa-edit"></i> Editar Aplicación </a>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="dataTables_paginate paging_full_numbers">
+                                            {!! $datos->appends(['total' => (int)$total]+\Illuminate\Support\Facades\Input::except('page'))->render() !!}
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="row">
+                                        <div class="col-md-3"></div>
+                                        <div class="col-md-6">
+                                            <div class="alert round bg-warning alert-icon-right alert-dismissible mb-2 text-center" role="alert">
+                                                <span class="alert-icon"><i class="fa fa-info-circle"></i></span>
+                                                No hay datos
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!--/ project stats -->
         </div>
     </div>
 @endsection
