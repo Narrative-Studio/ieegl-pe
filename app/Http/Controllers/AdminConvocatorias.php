@@ -118,7 +118,7 @@ class AdminConvocatorias extends Controller
                     )            
                     FILTER convocatoria.responsable == users._key AND convocatoria.entidad  == entidad._key
                     SORT convocatoria._key ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'
-                    RETURN merge(convocatoria, {responsable: {username: users.username, nombre: CONCAT(users.nombre," ", users.apellidos)}}, {entidad: entidad.nombre}, {total: aplicaciones})
+                    RETURN merge(convocatoria, {responsable: {username: users.username, nombre: CONCAT(users.nombre," ", users.apellidos)}}, {entidad: entidad.nombre}, {total: aplicaciones[0]})
         ';
         $data = $this->ArangoDB->Query($query);
         if($request->get('total')!=''){
