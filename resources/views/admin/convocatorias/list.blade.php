@@ -53,7 +53,7 @@
                                             </td>
                                             <td>
                                                 <a href="{{ action('AdminConvocatorias@Edit',$item->_key) }}" class="btn btn-secondary btn-sm"><i class="icon-grid"></i> Ver Convocatoria</a><br>
-                                                <a href="" class="btn btn-success btn-sm mt-1"><i class="icon-check"></i> Ver Aplicaciones</a>
+                                                <a href="{{action('AdminSolicitudes@Index')}}?convocatoria={{$item->_key}}" class="btn btn-success btn-sm mt-1"><i class="icon-check"></i> Ver Aplicaciones</a>
                                                 <a href="#" class="btn btn-danger btn-sm mt-1" onclick="delete_row('item-{{$item->_key}}', '{{ action('AdminConvocatorias@Delete',$item->_key) }}')"><i class="fas fa-trash"></i> Borrar</a>
                                             </td>
                                         </tr>
