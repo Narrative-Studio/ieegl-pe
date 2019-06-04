@@ -1,0 +1,1 @@
+{!! Form::select($campo, $dedicas, $value, ['placeholder' => 'Selecciona','class'=>$class]); !!}

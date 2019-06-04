@@ -10,6 +10,7 @@
                         <textarea class="form-control m-0" rows="4" data-dato="nueva" data-name="respuestas" style="margin-top: 10px;" id="input_nueva_respuestas" placeholder="Una respuesta por renglón"></textarea>
                     </div>
                     <input type="hidden" value="nueva" data-dato="nueva" data-name="tipo" />
+                    <input type="hidden" value="" data-dato="nueva" data-name="campo" class="uuid" />
                     <div class="form-actions right">
                         <button type="button" class="btn btn-success" id="guardar_pregunta">
                             <i class="fa fa-save"></i> Guardar Pregunta

@@ -236,7 +236,7 @@ var MushCodeRules = function() {
  "val|"+
  "bound|"+
  "abs|"+
- "inc|"+
+ "campos|"+
  "dec|"+
  "dist2d|"+
  "dist3d|"+

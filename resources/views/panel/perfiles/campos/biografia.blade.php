@@ -1,0 +1,1 @@
+{!! Form::textarea($campo, $value, ['class'=>'textarea-maxlength '.$class, 'rows'=>2, 'maxlength'=>140]); !!}

@@ -4,185 +4,187 @@
 @section('seccion') Convocatorias @endsection
 @section('accion') Aplicar @endsection
 
+@section('breadcrumb')
+    <h3 class="content-header-title">CONVOCATORIAS</h3>
+    <div class="row breadcrumbs-top">
+        <div class="breadcrumb-wrapper col-12">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{action("PanelController@Index")}}">Inicio</a></li>
+                <li class="breadcrumb-item active">Convocatorias</li>
+                <li class="breadcrumb-item active">{{$item->nombre}}</li>
+                <li class="breadcrumb-item active">Aplicar</li>
+            </ol>
+        </div>
+    </div>
+@endsection
+
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{url('/')}}/app-assets/css/plugins/forms/wizard.css">
+    <link rel="stylesheet" type="text/css" href="{{url('/')}}/app-assets/css/plugins/pickers/daterange/daterange.css">
+@endsection
+
+@section('js')
+    <script src="{{url('/')}}/app-assets/vendors/js/forms/validation/jquery.validate.min.js"></script>
+    <script src="{{url('/')}}/app-assets/vendors/js/extensions/jquery.steps.min.js"></script>
+    <script src="{{url('/')}}/app-assets/js/scripts/forms/aplicar-steps.js"></script>
+@endsection
+
 @section('content')
-        <div class="">
-            <div class="row">
-                <div class="col-12">
+
+    @if($verificar!=true)
+        @if($puede_aplicar == false)
+            <section class="row">
+                <div class="col-md-12 col-sm-12">
                     <div class="card">
-                        <div class="card-content collapse show">
-                            <div class="card-body">
-                                <h2>{{$item->nombre}}</h2>
-                                <div class="card-text">
-                                    <p>{!! $item->descripcion_corta !!}</p>
+                        <div class="row">
+                            <div class="col-md-6 pt-4 offset-3">
+                                <div class="bs-callout-warning callout-border-left callout-bordered mb-2 p-1">
+                                    <strong>Lo sentimos</strong>
+                                    <p>No puedes aplicar a esta solicitud con tu emprendimiento.</p>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-12 text-center">
+                                <a href="{{action('PanelConvocatorias@Ver',$item->_key)}}" class="btn btn-lg btn-primary mt-2"><i class="fa fa-arrow-left"></i> Regresar a la convocatoria</a>
                             </div>
                         </div>
                     </div>
                 </div>
+            </section>
+        @else
+            <section id="validation">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Completa la siguiente Información</h4>
+                            </div>
+                            <div class="card-content">
+                            <div class="card-body">
+                                {!! Form::open(['action' => ['PanelConvocatorias@Aplicacion', $item->_key], 'method'=>'POST', 'class'=>'form steps-validation wizard-notification', 'files' => false]) !!}
+                                {!! Form::hidden('emprendimiento_id', $emprendimiento->_key) !!}
+                                    <!-- Step 1 -->
+                                    <?php $i = 0; ?>
+                                    @foreach($item->preguntas as $pregunta)
+                                        <?php $i++; ?>
+                                        @if($pregunta->tipo=='categorias')
+                                            <?php if($i>1) echo '</div></fieldset>'; ?>
+                                            <h6>{{$pregunta->nombre}}</h6>
+                                            <?php echo '<fieldset><div class="row">'; ?>
+                                        @else
+                                            <?php $class='form-control required'; ?>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    @if($pregunta->tipo=='usuario')
+
+                                                        <label>{{$pregunta->nombre}} <span class="required">*</span></label>
+                                                        @include('panel.perfiles.campos.'.$pregunta->campo, ['campo'=>'perfil['.$pregunta->campo.']','value'=>$perfil[$pregunta->campo]])
+
+                                                    @elseif($pregunta->tipo=='cuenta')
+
+                                                        <label>{{$pregunta->nombre}} <span class="required">*</span></label>
+                                                        <?php $class='form-control'; ?>
+                                                        @include('panel.perfiles.campos.'.$pregunta->campo, ['campo'=>'cuenta['.$pregunta->campo.']','value'=>$cuenta[$pregunta->campo]])
+
+                                                    @elseif($pregunta->tipo=='emprendimiento')
+
+                                                        <?php $campo = ($pregunta->campo =='industria_o_sector')?"emprendimiento['industria_o_sector'][]":'emprendimiento['.$pregunta->campo.']'; ?>
+                                                        <label>{{$pregunta->nombre}} <span class="required">*</span></label>
+                                                        @include('panel.emprendimientos.campos.'.$pregunta->campo, ['campo'=>$campo,'value'=>$emprendimiento_array[$pregunta->campo],'columns'=>'5'])
+
+                                                    @elseif($pregunta->tipo=='catalogos')
+
+                                                        <?php $preg = $preguntas_catalogo[$pregunta->campo]; ?>
+                                                        <label>{{$preg['pregunta']}} <span class="required">*</span></label>
+                                                        <?php
+                                                        switch($preg['tipo']){
+                                                            case 'text':
+                                                                echo '<input type="text" name="catalogo[p_'.$preg['_key'].']" class="'.$class.'"/>';
+                                                                break;
+                                                            case 'textarea':
+                                                                echo '<textarea name="catalogo[p_'.$preg['_key'].']" class="'.$class.'"/></textarea>';
+                                                                break;
+                                                            case 'combo':
+                                                                echo '<select name="catalogo[p_'.$preg['_key'].']" class="'.$class.'""/>';
+                                                                $respuestas = preg_split('/\n|\r\n?/', $preg['respuestas']);
+                                                                foreach ($respuestas as $respuesta){
+                                                                    echo '<option value="'.$respuesta.'">'.$respuesta.'</option>';
+                                                                }
+                                                                echo '</select>';
+                                                                break;
+                                                            case 'multiple':
+                                                                echo '<div class="row">';
+                                                                $respuestas = preg_split('/\n|\r\n?/', $preg['respuestas']);
+                                                                foreach ($respuestas as $respuesta){
+                                                                    echo '<div class="radio_input col-md-6">';
+                                                                    echo '<label><input name="catalogo[p_'.$preg['_key'].'][]" class="required" type="checkbox" value="'.$respuesta.'"> '.$respuesta.'</label>';
+                                                                    echo '</div>';
+                                                                }
+                                                                echo '</div>';
+                                                                break;
+                                                        }
+                                                        ?>
+                                                    @else
+
+                                                        <label for="">{{$pregunta->nombre}} <span class="required">*</span></label>
+                                                        <?php
+                                                        switch($pregunta->tipo_pregunta){
+                                                            case 'text':
+                                                                echo '<input type="text" name="nueva[n_'.$pregunta->campo.']" class="'.$class.'"/>';
+                                                                break;
+                                                            case 'textarea':
+                                                                echo '<textarea name="nueva[n_'.$pregunta->campo.']" class="'.$class.'"/></textarea>';
+                                                                break;
+                                                            case 'combo':
+                                                                echo '<select name="nueva[n_'.$pregunta->campo.']" class="'.$class.'"/>';
+                                                                $respuestas = preg_split('/\n|\r\n?/', $pregunta->respuestas);
+                                                                foreach ($respuestas as $respuesta){
+                                                                    echo '<option value="'.$respuesta.'">'.$respuesta.'</option>';
+                                                                }
+                                                                echo '</select>';
+                                                                break;
+                                                            case 'multiple':
+                                                                echo '<div class="row">';
+                                                                $respuestas = preg_split('/\n|\r\n?/', $pregunta->respuestas);
+                                                                foreach ($respuestas as $respuesta){
+                                                                    echo '<div class="radio_input col-md-6">';
+                                                                    echo '<label><input name="nueva[n_'.$pregunta->campo.'][]" class="required" type="checkbox" value="'.$respuesta.'"> '.$respuesta.'</label>';
+                                                                    echo '</div>';
+                                                                }
+                                                                echo '</div>';
+                                                                break;
+                                                        }
+                                                        ?>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                    <?php echo '</div></fieldset>'; ?>
+                                {!! Form::close() !!}
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        @endif
+    @else
+        <section class="row justify-content-md-center">
+            <div class="col-md-6 col-sm-12">
+                <div class="bs-callout-danger callout-border-left callout-bordered mb-2 p-1">
+                    <strong>No puedes aplicar de nuevo</strong>
+                    <p>Ya tienes una aplicación de <b>{{$emprendimiento->nombre}}</b> a esta convocatoria, solo puedes aplicar una vez tu emprendimiento en la misma convocatoria.</p>
+                </div>
             </div>
+        </section>
+    @endif
 
-            <?php
-
-            ?>
-
-            @if($verificar!=true)
-                <section class="row justify-content-md-center">
-                    <div class="col-md-6 col-sm-12">
-                        @if($puede_aplicar == false)
-                            <div class="bs-callout-warning callout-border-left callout-bordered mb-2 p-1">
-                                <strong>Respuesta a solicitud:</strong>
-                                <p>En este momento no puede aplicar hasta que ingrese la información especificada abajo.</p>
-                            </div>
-                        @else
-                            <div class="bs-callout-success callout-border-left callout-bordered mb-2 p-1">
-                                <strong>Respuesta a solicitud:</strong>
-                                <p>¡Enhorabuena! Puedes aplicar a la convocatoria.</p>
-                            </div>
-                        @endif
-                    </div>
-                </section>
-                <section class="row">
-                    <div class="col-md-12 col-sm-12">
-                        <div id="with-header" class="card">
-                            <div class="card-content collapse show">
-                                <div class="card-body border-top-blue-grey border-top-lighten-5 ">
-
-                                    <ul class="list-group mb-0 card">
-                                        <li class="list-group-item d-flex justify-content-between lh-condensed">
-                                            <div>
-                                                <small class="text-muted">Emprendimiento</small>
-                                                <h3 class="">{{$emprendimiento->nombre}}</h3>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between lh-condensed">
-                                            <div class="row" style="width: 100%;">
-                                                <div class="col-md-4 col-sm-12 mt-2 mt-md-0">
-                                                    <h5>Datos Generales</h5>
-                                                    <h6 class="pr-md-2">
-                                                        @if(isset($errores['generales']) || isset($errores['mvp']))
-                                                            @if(isset($errores['generales']))
-                                                                <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
-                                                                    <span class="alert-icon"><i class="fa fa-warning"></i></span>
-                                                                     {{$errores['generales']}}
-                                                                </div>
-                                                            @endif
-                                                            @if(isset($errores['mvp']))
-                                                                <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
-                                                                    <span class="alert-icon"><i class="fa fa-warning"></i></span>
-                                                                     {{$errores['mvp']}}
-                                                                </div>
-                                                            @endif
-                                                            <a href="{{action('PanelEmprendimientos@DatosGenerales', $emprendimiento->_key)}}" class="btn btn-grey btn-sm"><i class="fa fa-edit"></i> Editar Datos Generales</a>
-                                                        @else
-                                                            <div class="badge badge-success">Aceptado</div>
-                                                        @endif
-                                                    </h6>
-                                                </div>
-                                                <div class="col-md-4 col-sm-12 mt-2 mt-md-0">
-                                                    <h5>Medios Digitales</h5>
-                                                    <h6 class="pr-md-2">
-                                                        @if(isset($errores['medios']))
-                                                            <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
-                                                                <span class="alert-icon"><i class="fa fa-warning"></i></span>
-                                                                {{$errores['medios']}}
-                                                            </div>
-                                                            <a href="{{action('PanelEmprendimientos@MediosDigitales', $emprendimiento->_key)}}" class="btn btn-grey btn-sm"><i class="fa fa-edit"></i> Editar Medios Digitales</a>
-                                                        @else
-                                                            <div class="badge badge-success">Aceptado</div>
-                                                        @endif
-                                                    </h6>
-                                                </div>
-                                                <div class="col-md-4 col-sm-12 mt-2 mt-md-0">
-                                                    <h5>Info. Financiera</h5>
-                                                    <h6 class="pr-md-2">
-                                                        @if(isset($errores['ventas']) || isset($errores['lanzado']) || isset($errores['financiera']))
-                                                            @if(isset($errores['ventas']))
-                                                                <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
-                                                                    <span class="alert-icon"><i class="fa fa-warning"></i></span>
-                                                                    {{$errores['ventas']}}
-                                                                </div>
-                                                            @endif
-                                                            @if(isset($errores['lanzado']))
-                                                                <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
-                                                                    <span class="alert-icon"><i class="fa fa-warning"></i></span>
-                                                                    {{$errores['lanzado']}}
-                                                                </div>
-                                                            @endif
-                                                            @if(isset($errores['financiera']))
-                                                                <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
-                                                                    <span class="alert-icon"><i class="fa fa-warning"></i></span>
-                                                                    {{$errores['financiera']}}
-                                                                </div>
-                                                            @endif
-                                                            <a href="{{action('PanelEmprendimientos@Financiera', $emprendimiento->_key)}}" class="btn btn-grey btn-sm"><i class="fa fa-edit"></i> Editar Información Financiera</a>
-                                                        @else
-                                                            <div class="badge badge-success">Aceptado</div>
-                                                        @endif
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between lh-condensed">
-                                            <div class="row" style="width: 100%;">
-                                                <div class="col-md-4 col-sm-12 mt-2 mt-md-0">
-                                                    <h5>Mercado</h5>
-                                                    <h6 class="pr-md-2">
-                                                        @if(isset($errores['clientes']) || isset($errores['usuarios']))
-                                                            @if(isset($errores['clientes']))
-                                                                <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
-                                                                    <span class="alert-icon"><i class="fa fa-warning"></i></span>
-                                                                    {{$errores['clientes']}}
-                                                                </div>
-                                                            @endif
-                                                            @if(isset($errores['usuarios']))
-                                                                <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
-                                                                    <span class="alert-icon"><i class="fa fa-warning"></i></span>
-                                                                    {{$errores['usuarios']}}
-                                                                </div>
-                                                            @endif
-                                                            <a href="{{action('PanelEmprendimientos@Mercado', $emprendimiento->_key)}}" class="btn btn-grey btn-sm"><i class="fa fa-edit"></i>  Editar Mercado</a>
-                                                        @else
-                                                            <div class="badge badge-success">Aceptado</div>
-                                                        @endif
-                                                    </h6>
-                                                </div>
-                                                <div class="col-md-4 col-sm-12 mt-2 mt-md-0">
-                                                    <h5>Inversión</h5>
-                                                    <h6 class="pr-md-2">
-                                                        @if(isset($errores['inversion']))
-                                                            <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
-                                                                <span class="alert-icon"><i class="fa fa-warning"></i></span>
-                                                                {{$errores['inversion']}}
-                                                            </div>
-                                                            <a href="{{action('PanelEmprendimientos@Inversion', $emprendimiento->_key)}}" class="btn btn-grey btn-sm"><i class="fa fa-edit"></i> Editar Inversión</a>
-                                                        @else
-                                                            <div class="badge badge-success">Aceptado</div>
-                                                        @endif
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            @else
-                <section class="row justify-content-md-center">
-                    <div class="col-md-6 col-sm-12">
-                        <div class="bs-callout-danger callout-border-left callout-bordered mb-2 p-1">
-                            <strong>No puedes aplicar de nuevo</strong>
-                            <p>Ya tienes una aplicación de <b>{{$emprendimiento->nombre}}</b> a esta convocatoria, solo puedes aplicar una vez tu emprendimiento en la misma convocatoria.</p>
-                        </div>
-                    </div>
-                </section>
-            @endif
-        </div>
-        @if($verificar!=true)
+        @if($verificar=='nada')
             @if($puede_aplicar==true)
                 {!! Form::open(['action' => ['PanelConvocatorias@Aplicacion', $item->_key], 'method'=>'POST', 'class'=>'form', 'files' => false]) !!}
-                {!! Form::hidden('emprendimiento', $emprendimiento->_key) !!}
+                {!! Form::hidden('emprendimiento_id', $emprendimiento->_key) !!}
                 <div class="row mt-2">
                     <div class="col-sm-12 text-center">
                         <button type="submit" class="btn btn-lg btn-success mt-2" style="zoom: 1.5;"><i class="fa fa-check"></i> Aplicar a esta convocatoria</button>
@@ -191,10 +193,5 @@
                 {!! Form::close() !!}
             @endif
         @else
-            <div class="row mt-2">
-                <div class="col-sm-12 text-center">
-                    <a href="javascript:window.history.back();" class="btn btn-lg btn-primary mt-2"><i class="fa fa-arrow-left"></i> Regresar a la convocatoria</a>
-                </div>
-            </div>
         @endif
 @endsection

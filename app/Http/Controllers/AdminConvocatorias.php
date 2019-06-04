@@ -23,12 +23,16 @@ class AdminConvocatorias extends Controller
     private $page;
     private $path;
     private $perPage = 25;
+    private $campos_cuenta = [
+        'Datos de cuenta' => [
+            'nombre'        =>'Nombre',
+            'apellidos'     =>'Apellidos',
+            'email'         =>'Correo Electrónico',
+            'telefono'      =>'Celular',
+        ],
+    ];
     private $campos_usuario =  [
         'Datos personales' => [
-            'nombre'         =>'Nombre',
-            'apellidos'         =>'Apellidos',
-            'email'         =>'Correo Electrónico',
-            'telefono'         =>'Celular',
             'biografia'         =>'Biografía',
             'sexo'              =>'Sexo',
             'fecha_nacimiento'  =>'Fecha de Nacimiento',
@@ -158,6 +162,7 @@ class AdminConvocatorias extends Controller
 
         /***** Preguntas ********/
         $campos_usuario = $this->campos_usuario;
+        $campos_cuenta = $this->campos_cuenta;
         $campos_emprendimiento = $this->campos_emprendimiento;
         $preguntas_catalogo = [];
         $preguntas = $this->ArangoDB->Query('FOR doc IN preguntas_admin RETURN doc', false);
@@ -173,7 +178,7 @@ class AdminConvocatorias extends Controller
                 RETURN doc', true);
         $usuarios = $this->ArangoDB->SelectFormat($usuarios, '_key', 'nombre');
 
-        return view('admin.'.$this->collection.'.new', compact('entidades','quien','usuarios','campos_usuario','preguntas_catalogo','campos_emprendimiento'));
+        return view('admin.'.$this->collection.'.new', compact('entidades','quien','usuarios','campos_usuario','preguntas_catalogo','campos_emprendimiento','campos_cuenta'));
     }
 
     /**
@@ -211,6 +216,7 @@ class AdminConvocatorias extends Controller
         }
         /***** Preguntas ********/
         $campos_usuario = $this->campos_usuario;
+        $campos_cuenta = $this->campos_cuenta;
         $campos_emprendimiento = $this->campos_emprendimiento;
         $preguntas_catalogo = [];
         $preguntas = $this->ArangoDB->Query('FOR doc IN preguntas_admin RETURN doc', false);
@@ -228,7 +234,7 @@ class AdminConvocatorias extends Controller
         }
 
         /************************/
-        return view('admin.'.$this->collection.'.edit', compact('item','entidades','quien','usuarios','campos_usuario','preguntas_catalogo','json','campos_emprendimiento'));
+        return view('admin.'.$this->collection.'.edit', compact('item','entidades','quien','usuarios','campos_usuario','preguntas_catalogo','json','campos_emprendimiento','campos_cuenta'));
     }
 
     /**

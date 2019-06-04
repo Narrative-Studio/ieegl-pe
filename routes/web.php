@@ -71,7 +71,7 @@ Route::prefix('panel')->group(function() {
         Route::get('/convocatorias/ver/{id}', 'PanelConvocatorias@Ver');
         Route::get('/convocatorias/ver-aplicacion/{id}', 'PanelConvocatorias@VerAplicacion');
         Route::get('/convocatorias/aplicaciones', 'PanelConvocatorias@Aplicaciones');
-        Route::post('/convocatorias/aplicar/{id}', 'PanelConvocatorias@Aplicar');
+        Route::any('/convocatorias/aplicar/{id}', 'PanelConvocatorias@Aplicar');
         Route::post('/convocatorias/aplicando/{id}', 'PanelConvocatorias@Aplicacion');
 
         /** Actividades **/

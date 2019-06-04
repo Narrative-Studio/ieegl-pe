@@ -1,0 +1,1 @@
+{!! Form::select($campo, $paises, $value, ['placeholder' => 'Selecciona','class'=> 'select2 '.$class, 'id'=>'pais']) !!}

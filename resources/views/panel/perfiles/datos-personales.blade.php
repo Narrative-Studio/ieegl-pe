@@ -129,7 +129,7 @@
                                     <div class="form-group">
                                         <label for="">Fecha de Nacimiento <span class="required">*</span></label>
                                         <?php $class=($errors->has('fecha_nacimiento'))?'form-control is-invalid':'form-control'; ?>
-                                        {!! Form::date('fecha_nacimiento', null, ['class'=>$class]); !!}
+                                        @include('panel.perfiles.campos.fecha_nacimiento', ['campo'=>'fecha_nacimiento','value'=>($item)?$item->fecha_nacimiento:''])
                                         @if ($errors->has('fecha_nacimiento'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('fecha_nacimiento') }}</strong>
@@ -141,7 +141,7 @@
                                     <div class="form-group">
                                         <label for="">Sexo <span class="required">*</span></label>
                                         <?php $class=($errors->has('sexo'))?'form-control is-invalid':'form-control'; ?>
-                                        {!! Form::select('sexo', $sexo, null, ['placeholder' => 'Selecciona','class'=>$class]); !!}
+                                        @include('panel.perfiles.campos.sexo', ['campo'=>'sexo','value'=>($item)?$item->sexo:''])
                                         @if ($errors->has('sexo'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('sexo') }}</strong>
@@ -155,7 +155,7 @@
                                     <div class="form-group">
                                         <label for="">¿A qué te dedicas? <span class="required">*</span><small>.</small></label>
                                         <?php $class=($errors->has('a_que_se_dedica'))?'form-control is-invalid':'form-control'; ?>
-                                        {!! Form::select('a_que_se_dedica', $dedicas, null, ['placeholder' => 'Selecciona','class'=>$class]); !!}
+                                        @include('panel.perfiles.campos.a_que_se_dedica', ['campo'=>'a_que_se_dedica','value'=>($item)?$item->a_que_se_dedica:''])
                                         @if ($errors->has('a_que_se_dedica'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('a_que_se_dedica') }}</strong>
@@ -167,7 +167,7 @@
                                     <div class="form-group">
                                         <label for="">Perfil Linkedin <small>Por favor inserta el URL a tu perfil público de linkedin, ejemplo: https://www.linkedin.com/in/username/</small></label>
                                         <?php $class=($errors->has('linkedin'))?'form-control is-invalid':'form-control'; ?>
-                                        {!! Form::text('linkedin', null, ['class'=>$class, 'placeholder'=>'https://www.linkedin.com/in/']); !!}
+                                        @include('panel.perfiles.campos.linkedin', ['campo'=>'linkedin','value'=>($item)?$item->linkedin:''])
                                     </div>
                                 </div>
                             </div>
@@ -177,7 +177,7 @@
                                     <div class="form-group {{$class}}">
                                         <label for="">País de residencia <span class="required">*</span></label>
                                         <?php $class=($errors->has('pais'))?'form-control is-invalid':'form-control'; ?>
-                                        {!! Form::select('pais', $paises, (!isset($item->pais))?121:$item->pais, ['placeholder' => 'Selecciona','class'=> 'select2 '.$class, 'id'=>'pais']) !!}
+                                        @include('panel.perfiles.campos.pais', ['campo'=>'pais','value'=>(!isset($item->pais))?121:$item->pais])
                                         @if ($errors->has('pais'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('pais') }}</strong>
@@ -191,7 +191,7 @@
                                         <label for="">Estado/Región <span class="required">*</span></label>
                                         <?php $class=($errors->has('estado'))?'form-control is-invalid':'form-control'; ?>
                                         <div id="estado">
-                                            {!! Form::select('estado', $estados, null, ['placeholder' => 'Selecciona','class'=>'select2 '.$class]) !!}
+                                            @include('panel.perfiles.campos.estado', ['campo'=>'estado','value'=>($item)?$item->estado:''])
                                         </div>
                                         <?php $class=($errors->has('estado_otro'))?'form-control is-invalid':'form-control'; ?>
                                         {!! Form::text('estado_otro', null, ['class'=>$class, 'id'=>'estado_otro']) !!}
@@ -213,7 +213,7 @@
                                     <div class="form-group">
                                         <label for="">Ciudad <span class="required">*</span></label>
                                         <?php $class=($errors->has('ciudad'))?'form-control is-invalid':'form-control'; ?>
-                                        {!! Form::text('ciudad', null, ['class'=>$class]); !!}
+                                        @include('panel.perfiles.campos.ciudad', ['campo'=>'ciudad','value'=>($item)?$item->ciudad:''])
                                         @if ($errors->has('ciudad'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('ciudad') }}</strong>
@@ -228,7 +228,7 @@
                                 <div class="form-group">
                                     <label for="">Biografía corta.  <span class="required">*</span><small>Cuéntanos un poco de tu perfil profesional y emprendedor. (140 caracteres)</small></label>
                                     <?php $class=($errors->has('biografia'))?'form-control is-invalid':'form-control'; ?>
-                                    {!! Form::textarea('biografia', null, ['class'=>'textarea-maxlength '.$class, 'rows'=>2, 'maxlength'=>140]); !!}
+                                    @include('panel.perfiles.campos.biografia', ['campo'=>'biografia','value'=>($item)?$item->biografia:''])
                                     @if ($errors->has('biografia'))
                                         <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('biografia') }}</strong>

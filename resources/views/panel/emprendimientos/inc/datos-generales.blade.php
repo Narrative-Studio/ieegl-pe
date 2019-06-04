@@ -47,7 +47,7 @@
             <div class="form-group">
                 <label for="">Nombre comercial del emprendimiento <span class="required">*</span></label>
                 <?php $class=($errors->has('nombre'))?'form-control is-invalid':'form-control'; ?>
-                {!! Form::text('nombre', null, ['class'=>$class]); !!}
+                @include('panel.emprendimientos.campos.nombre', ['campo'=>'nombre','value'=>($item)?$item->nombre:''])
                 @if ($errors->has('nombre'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('nombre') }}</strong></span>
                 @endif
@@ -57,7 +57,7 @@
             <div class="form-group">
                 <label for="">Fecha de fundación de tu emprendimiento <span class="required">*</span></label>
                 <?php $class=($errors->has('fecha_fundacion'))?'form-control is-invalid':'form-control'; ?>
-                {!! Form::date('fecha_fundacion', null, ['class'=>$class]) !!}
+                @include('panel.emprendimientos.campos.fecha_fundacion', ['campo'=>'fecha_fundacion','value'=>($item)?$item->fecha_fundacion:''])
                 @if ($errors->has('fecha_fundacion'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('fecha_fundacion') }}</strong></span>
                 @endif
@@ -69,7 +69,7 @@
             <div class="form-group">
                 <label for="">Descripción del Emprendimiento <span class="required">*</span><small>(140 caracteres)</small></label>
                 <?php $class=($errors->has('descripcion'))?'form-control is-invalid':'form-control'; ?>
-                {!! Form::textarea('descripcion', null, ['class'=>'textarea-maxlength '.$class, 'rows'=>2, 'maxlength'=>140]); !!}
+                @include('panel.emprendimientos.campos.descripcion', ['campo'=>'descripcion','value'=>($item)?$item->descripcion:''])
                 @if ($errors->has('descripcion'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('descripcion') }}</strong></span>
                 @endif
@@ -82,7 +82,7 @@
             <div class="form-group {{$class}}">
                 <label for="">País donde está establecido <span class="required">*</span></label>
                 <?php $class=($errors->has('pais'))?'form-control is-invalid':'form-control'; ?>
-                {!! Form::select('pais', $paises, null, ['placeholder' => 'Selecciona','class'=> 'select2 '.$class, 'id'=>'pais']) !!}
+                @include('panel.emprendimientos.campos.pais', ['campo'=>'pais','value'=>($item)?$item->pais:''])
                 @if ($errors->has('pais'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('pais') }}</strong></span>
                 @endif
@@ -92,7 +92,7 @@
             <div class="form-group">
                 <label for="">Ciudad <span class="required">*</span></label>
                 <?php $class=($errors->has('ciudad'))?'form-control is-invalid':'form-control'; ?>
-                {!! Form::text('ciudad', null, ['class'=>$class]); !!}
+                @include('panel.emprendimientos.campos.ciudad', ['campo'=>'ciudad','value'=>($item)?$item->ciudad:''])
                 @if ($errors->has('ciudad'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('ciudad') }}</strong></span>
                 @endif
@@ -103,16 +103,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="">Industria o Sector de Emprendimiento <small>Selecciona todas las que apliquen</small></label>
-                <div class="row skin skin-flat col-sm-12">
-                    @foreach($industrias as $item)
-                        <div class="radio_input col-sm-4 col-md-4 col-lg-3">
-                            <fieldset>
-                                {!! Form::checkbox('industria_o_sector[]', $item->_key, null, ['id'=>'industria_'.$item->_key, 'class'=>'form-control']); !!}
-                                <label for="industria_{{$item->_key}}">{{$item->nombre}}</label>
-                            </fieldset>
-                        </div>
-                    @endforeach
-                </div>
+                @include('panel.emprendimientos.campos.industria_o_sector', ['campo'=>'industria_o_sector[]','value'=>($item)?$item->industria_o_sector:'','columns'=>'3'])
                 @if ($errors->has('industria_o_sector'))
                     <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('industria_o_sector') }}</strong></span>
                 @endif
@@ -125,7 +116,7 @@
             <div class="form-group {{$class}}">
                 <label for="">¿En qué etapa se encuentra tu Emprendimiento? <span class="required">*</span></label>
                 <?php $class=($errors->has('etapa_emprendimiento'))?'form-control is-invalid':'form-control'; ?>
-                {!! Form::select('etapa_emprendimiento', $etapas, null, ['placeholder' => 'Selecciona','class'=> 'select2 '.$class]) !!}
+                @include('panel.emprendimientos.campos.etapa_emprendimiento', ['campo'=>'etapa_emprendimiento','value'=>($item)?$item->etapa_emprendimiento:''])
                 @if ($errors->has('etapa_emprendimiento'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('etapa_emprendimiento') }}</strong></span>
                 @endif
@@ -136,7 +127,7 @@
             <div class="form-group {{$class}}">
                 <label for="">¿A qué mercado/cliente atiende tu Emprendimiento? <span class="required">*</span></label>
                 <?php $class=($errors->has('mercado_cliente'))?'form-control is-invalid':'form-control'; ?>
-                {!! Form::text('mercado_cliente', null, ['class'=>$class]) !!}
+                @include('panel.emprendimientos.campos.mercado_cliente', ['campo'=>'mercado_cliente','value'=>($item)?$item->mercado_cliente:''])
                 @if ($errors->has('mercado_cliente'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('mercado_cliente') }}</strong></span>
                 @endif
@@ -148,7 +139,7 @@
             <div class="form-group">
                 <label for="">¿Qué problema le soluciona tu Emprendimiento a tu mercado/cliente? <span class="required">*</span></label>
                 <?php $class=($errors->has('problema_soluciona'))?'form-control is-invalid':'form-control'; ?>
-                {!! Form::textarea('problema_soluciona', null, ['class'=>$class, 'rows'=>2]); !!}
+                @include('panel.emprendimientos.campos.problema_soluciona', ['campo'=>'problema_soluciona','value'=>($item)?$item->problema_soluciona:''])
                 @if ($errors->has('problema_soluciona'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('problema_soluciona') }}</strong></span>
                 @endif
@@ -159,7 +150,7 @@
             <div class="form-group {{$class}}">
                 <label for="">¿Quién es tu competencia? <span class="required">*</span></label>
                 <?php $class=($errors->has('competencia'))?'form-control is-invalid':'form-control'; ?>
-                {!! Form::text('competencia', null, ['class'=>$class]) !!}
+                @include('panel.emprendimientos.campos.competencia', ['campo'=>'competencia','value'=>($item)?$item->competencia:''])
                 @if ($errors->has('competencia'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('competencia') }}</strong></span>
                 @endif
@@ -171,7 +162,7 @@
             <div class="form-group">
                 <label for="">¿Cómo te diferencías de tu competencia? <span class="required">*</span></label>
                 <?php $class=($errors->has('diferencia_competencia'))?'form-control is-invalid':'form-control'; ?>
-                {!! Form::textarea('diferencia_competencia', null, ['class'=>$class, 'rows'=>2]); !!}
+                @include('panel.emprendimientos.campos.diferencia_competencia', ['campo'=>'diferencia_competencia','value'=>($item)?$item->diferencia_competencia:''])
                 @if ($errors->has('diferencia_competencia'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('diferencia_competencia') }}</strong></span>
                 @endif
@@ -181,7 +172,7 @@
             <div class="form-group">
                 <label for="">¿Cuál es el gran diferenciador de tu modelo de negocio? <span class="required">*</span></label>
                 <?php $class=($errors->has('diferenciador_modelo_negocio'))?'form-control is-invalid':'form-control'; ?>
-                {!! Form::textarea('diferenciador_modelo_negocio', null, ['class'=>$class, 'rows'=>2]); !!}
+                @include('panel.emprendimientos.campos.diferenciador_modelo_negocio', ['campo'=>'diferenciador_modelo_negocio','value'=>($item)?$item->diferenciador_modelo_negocio:''])
                 @if ($errors->has('diferenciador_modelo_negocio'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('diferenciador_modelo_negocio') }}</strong></span>
                 @endif
@@ -194,20 +185,7 @@
         <div class="form-group">
             <label for="">¿Actualmente, tu Emprendimiento lleva un proceso de investigación y desarrollo basado en ciencia y tecnología? <span class="required">*</span><small>IMPORTANTE: No Apps, se refiere a temas de salud, creación de nuevas tecnologías, etc.</small></label>
             <?php $class=($errors->has('investigacion_desarrollo'))?'form-control is-invalid':'form-control'; ?>
-            <div class="row skin skin-flat">
-                <div class="col-sm-2">
-                    <fieldset>
-                        {!! Form::radio('investigacion_desarrollo', "Si", null, ['id'=>'in1', 'class'=>'investigacion_desarrollo '.$class]); !!}
-                        <label for="in1">Si</label>
-                    </fieldset>
-                </div>
-                <div class="col-sm-2">
-                    <fieldset>
-                        {!! Form::radio('investigacion_desarrollo', "No", null, ['id'=>'in2', 'class'=>'investigacion_desarrollo '.$class]); !!}
-                        <label for="in2">No</label>
-                    </fieldset>
-                </div>
-            </div>
+            @include('panel.emprendimientos.campos.investigacion_desarrollo', ['campo'=>'investigacion_desarrollo','value'=>($item)?$item->investigacion_desarrollo:''])
             @if ($errors->has('investigacion_desarrollo'))
                 <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('investigacion_desarrollo') }}</strong></span>
             @endif
@@ -217,7 +195,7 @@
         <div class="form-group">
             <label for="">Número de socios fundadores en tu emprendimiento <span class="required">*</span></label>
             <?php $class=($errors->has('numero_socios'))?'form-control is-invalid':'form-control'; ?>
-            {!! Form::number('numero_socios', null, ['class'=>$class, 'min'=>0])!!}
+            @include('panel.emprendimientos.campos.numero_socios', ['campo'=>'numero_socios','value'=>($item)?$item->numero_socios:''])
             @if ($errors->has('numero_socios'))
                 <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('numero_socios') }}</strong></span>
             @endif
@@ -243,7 +221,7 @@
         <div class="form-group {{$class}}">
             <label for="">¿Cómo te enteraste de nosotros? </label>
             <?php $class=($errors->has('como_te_enteraste'))?'form-control is-invalid':'form-control'; ?>
-            {!! Form::select('como_te_enteraste', $enteraste, null, ['placeholder' => 'Selecciona', 'id'=>'niveles','class'=> 'select2 '.$class, 'id'=>'como_te_enteraste']) !!}
+            @include('panel.emprendimientos.campos.como_te_enteraste', ['campo'=>'como_te_enteraste','value'=>($item)?$item->como_te_enteraste:''])
             @if ($errors->has('como_te_enteraste'))
                 <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('como_te_enteraste') }}</strong></span>
             @endif
@@ -254,7 +232,7 @@
         <div class="form-group {{$class}}">
             <label for="">¿Cuál? <span class="required">*</span></label>
             <?php $class=($errors->has('como_te_enteraste_cual'))?'form-control is-invalid':'form-control'; ?>
-            {!! Form::text('como_te_enteraste_cual', null, ['class'=>$class,'id'=>'como_te_enteraste_cual']) !!}
+            @include('panel.emprendimientos.campos.como_te_enteraste_cual', ['campo'=>'como_te_enteraste_cual','value'=>(isset($item->como_te_enteraste_cual))?$item->como_te_enteraste_cual:''])
             @if ($errors->has('como_te_enteraste_cual'))
                 <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('como_te_enteraste_cual') }}</strong></span>
             @endif

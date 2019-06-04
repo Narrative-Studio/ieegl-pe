@@ -176,13 +176,14 @@
                             <div class="centrado">Selecciona una categoría</div>
                         </div>
                         <div class="col-md-7">
-                            {!! Form::select('catego', ['datos_usuario'=>'Datos del Usuario','datos_emprendimiento'=>'Datos del Emprendimiento','datos_catalogo'=>'Pregunta de Catálogo', 'datos_nueva'=>'Nueva Pregunta'], 'usuario', ['class'=> 'select2','id'=>'select_categoria']) !!}
+                            {!! Form::select('catego', ['datos_usuario'=>'Datos del Usuario','datos_cuenta'=>'Datos de la Cuenta','datos_emprendimiento'=>'Datos del Emprendimiento','datos_catalogo'=>'Pregunta de Catálogo', 'datos_nueva'=>'Nueva Pregunta'], 'usuario', ['class'=> 'select2','id'=>'select_categoria']) !!}
                         </div>
                     </div>
                 </div>
             </div>
             <div class="preguntas">
                 <div id="sortable" class="list-group">
+                    @include('admin.convocatorias.datos-cuenta')
                     @include('admin.convocatorias.datos-usuario')
                     @include('admin.convocatorias.datos-emprendimiento')
                     @include('admin.convocatorias.datos-catalogo')

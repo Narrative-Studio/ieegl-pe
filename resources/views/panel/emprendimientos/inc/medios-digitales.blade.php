@@ -4,7 +4,7 @@
             <div class="form-group">
                 <label for="">Sitio Web de tu Emprendimiento <span class="required">*</span> <small>Ej. www.misitio.com</small></label>
                 <?php $class=($errors->has('sitio_web'))?'form-control is-invalid':'form-control'; ?>
-                {!! Form::text('sitio_web', null, ['class'=>$class, 'aria-describedby'=>'sitio_des']) !!}
+                @include('panel.emprendimientos.campos.sitio_web', ['campo'=>'sitio_web','value'=>($item)?$item->sitio_web:''])
                 @if ($errors->has('sitio_web'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('sitio_web') }}</strong></span>
                 @endif
@@ -14,7 +14,7 @@
             <div class="form-group">
                 <label for="">Red social mas utilizada por tu Emprendimiento <span class="required">*</span> <small>Incluye el nombre de usuario o nickname (Ej. www.facebook.com/usuario)</small></label>
                 <?php $class=($errors->has('red_social'))?'form-control is-invalid':'form-control'; ?>
-                {!! Form::text('red_social', null, ['class'=>$class, 'aria-describedby'=>'sitio_red']) !!}
+                @include('panel.emprendimientos.campos.red_social', ['campo'=>'red_social','value'=>($item)?$item->red_social:''])
                 @if ($errors->has('red_social'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('red_social') }}</strong></span>
                 @endif
@@ -26,7 +26,7 @@
             <div class="form-group">
                 <label for="">Video de tu Emprendimiento <span class="required">*</span> <small>Sube un video a youtube con tu pitch y copia el URL aquí.</small></label>
                 <?php $class=($errors->has('video'))?'form-control is-invalid':'form-control'; ?>
-                {!! Form::text('video', null, ['class'=>$class, 'aria-describedby'=>'sitio_video']) !!}
+                @include('panel.emprendimientos.campos.video', ['campo'=>'video','value'=>($item)?$item->video:''])
                 @if ($errors->has('video'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('video') }}</strong></span>
                 @endif

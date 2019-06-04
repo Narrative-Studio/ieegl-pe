@@ -19,7 +19,7 @@ snippet def\n\
 snippet exp\n\
 	-export([${1:function}/${2:arity}]).\n\
 # include directive\n\
-snippet inc\n\
+snippet campos\n\
 	-include(\"${1:file}\").${2}\n\
 # behavior directive\n\
 snippet beh\n\

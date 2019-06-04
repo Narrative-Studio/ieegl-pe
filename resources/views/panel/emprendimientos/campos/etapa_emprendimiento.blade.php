@@ -1,0 +1,1 @@
+{!! Form::select($campo, $etapas, $value, ['placeholder' => 'Selecciona','class'=> 'select2 '.$class]) !!}

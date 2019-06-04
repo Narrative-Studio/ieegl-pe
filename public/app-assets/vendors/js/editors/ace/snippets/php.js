@@ -97,7 +97,7 @@ snippet SS\n\
 	$_SESSION['${1:variable}']${2}\n\
 	\n\
 # the following are old ones\n\
-snippet inc\n\
+snippet campos\n\
 	include '${1:file}';${2}\n\
 snippet inc1\n\
 	include_once '${1:file}';${2}\n\

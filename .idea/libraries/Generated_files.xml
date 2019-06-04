@@ -3,11 +3,35 @@
     <properties>
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/public/app-assets/js/scripts/editors/editor-quill-sid.min.js" />
+        <item url="file://$PROJECT_DIR$/public/app-assets/js/scripts/forms/aplicar-steps.min.js" />
+        <item url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/ace/mode-assembly_x86.min.js" />
+        <item url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/ace/mode-clojure.min.js" />
+        <item url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/ace/mode-mushcode.min.js" />
+        <item url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/ace/mode-mushcode.min.min.js" />
+        <item url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/ace/snippets/erlang.min.js" />
+        <item url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/ace/snippets/php.min.js" />
+        <item url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/codemirror/mode/clojure/clojure.min.js" />
+        <item url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/codemirror/mode/clojure/clojure.min.min.js" />
+        <item url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/codemirror/mode/mirc/mirc.min.js" />
+        <item url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/codemirror/mode/mirc/mirc.min.min.js" />
+        <item url="file://$PROJECT_DIR$/public/app-assets/vendors/js/forms/validation/jquery.validate.min.min.js" />
         <item url="file://$PROJECT_DIR$/public/js/preguntas.min.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/public/app-assets/js/scripts/editors/editor-quill-sid.min.js" />
+      <root url="file://$PROJECT_DIR$/public/app-assets/js/scripts/forms/aplicar-steps.min.js" />
+      <root url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/ace/mode-assembly_x86.min.js" />
+      <root url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/ace/mode-clojure.min.js" />
+      <root url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/ace/mode-mushcode.min.js" />
+      <root url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/ace/mode-mushcode.min.min.js" />
+      <root url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/ace/snippets/erlang.min.js" />
+      <root url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/ace/snippets/php.min.js" />
+      <root url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/codemirror/mode/clojure/clojure.min.js" />
+      <root url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/codemirror/mode/clojure/clojure.min.min.js" />
+      <root url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/codemirror/mode/mirc/mirc.min.js" />
+      <root url="file://$PROJECT_DIR$/public/app-assets/vendors/js/editors/codemirror/mode/mirc/mirc.min.min.js" />
+      <root url="file://$PROJECT_DIR$/public/app-assets/vendors/js/forms/validation/jquery.validate.min.min.js" />
       <root url="file://$PROJECT_DIR$/public/js/preguntas.min.js" />
     </CLASSES>
     <SOURCES />

@@ -77,7 +77,7 @@
                                     <div class="form-group">
                                         <label for="">¿Estás estudiando? <span class="required">*</span></label>
                                         <?php $class=($errors->has('actualmente_cursando_carrera'))?'form-control is-invalid':'form-control'; ?>
-                                        {!! Form::select('actualmente_cursando_carrera', $estudiando, null, ['placeholder' => 'Selecciona','class'=> 'select2 form-control '.$class, 'id'=>'estudiando']); !!}
+                                        @include('panel.perfiles.campos.actualmente_cursando_carrera', ['campo'=>'actualmente_cursando_carrera','value'=>($item)?$item->actualmente_cursando_carrera:''])
                                         @if ($errors->has('actualmente_cursando_carrera'))
                                             <span class="invalid-feedback" role="alert" style="display: block;">
                                                 <strong>{{ $errors->first('actualmente_cursando_carrera') }}</strong>
@@ -91,7 +91,7 @@
                                     <?php $class=($errors->has('campus'))?'is-invalid':''; ?>
                                     <div class="form-group {{$class}}">
                                         <label for="">Si estudiaste o estudias en el Tecnológico de Monterrey, selecciona un campus <span class="required">*</span></label>
-                                        {!! Form::select('campus', $campus, null, ['placeholder' => 'Selecciona','class'=> 'select2 form-control '.$class,'id'=>'campus']); !!}
+                                        @include('panel.perfiles.campos.campus', ['campo'=>'campus','value'=>($item)?$item->campus:''])
                                         @if ($errors->has('campus'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('campus') }}</strong>
@@ -103,7 +103,7 @@
                                     <div class="form-group">
                                         <label for="">Matricula (solo para estudiantes del Tec) <span class="required">*</span></label>
                                         <?php $class=($errors->has('matricula'))?'form-control is-invalid':'form-control'; ?>
-                                        {!! Form::text('matricula', null, ['class'=>$class, 'id'=>'matricula']); !!}
+                                        @include('panel.perfiles.campos.matricula', ['campo'=>'matricula','value'=>($item)?$item->matricula:''])
                                         @if ($errors->has('matricula'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('matricula') }} El formato válido es A+8 dígitos ejemplo: A00123456 </strong>

@@ -1,0 +1,1 @@
+{!! Form::text($campo, $value, ['class'=>$class, 'placeholder'=>'https://www.linkedin.com/in/']); !!}

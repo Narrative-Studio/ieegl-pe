@@ -38,7 +38,7 @@ class PanelPerfiles extends Controller
      * @throws ArangoException
      */
     public function Index(){
-        //Obteniendo perfil
+        // Perfil
         $data = $this->ArangoDB->Query('FOR doc IN perfiles FILTER doc.userKey == "'.auth()->user()->_key.'" RETURN doc');
         $item = (count($data)>0)?$data[0]:[];
         $paises = $this->paises; // Paises

@@ -167,6 +167,7 @@ class PanelConvocatorias extends Controller
         $puede_aplicar = true; // validacion para aplicar a convocatoria
         $errores = []; // Errores de por que no fue aprobada la convicatoria
         $emprendimiento = "";
+        $msg = "";
 
         //Obteniendo Convocatoria
         $query = '
@@ -181,7 +182,7 @@ class PanelConvocatorias extends Controller
         $item = $item[0];
 
         // Si la convocatoria requiere un Emprendimiento
-        /*if($item->quien_key!='6375236') {
+        if($item->quien_key!='6375236') {
 
             // Verificando que no se duplique el emprendimiento en la convicatoria
             $verificar = $this->VerificarEmeprendimiento($request->get('emprendimiento'), $key);
@@ -190,8 +191,8 @@ class PanelConvocatorias extends Controller
             $emprendimiento = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc._key=="' . $request->get('emprendimiento') . '" AND doc.userKey == "' . auth()->user()->_key . '" RETURN doc');
             $emprendimiento = $emprendimiento[0];
 
-            /*// Debe tener Datos Generales
-            if($emprendimiento->module_datos==false){
+            // Debe tener Datos Generales
+            /*if($emprendimiento->module_datos==false){
                 $puede_aplicar = false;
                 $errores['generales'] = 'Debes tener Datos Generales';
             }
@@ -200,7 +201,7 @@ class PanelConvocatorias extends Controller
             if($emprendimiento->module_medios==false){
                 $puede_aplicar = false;
                 $errores['medios'] = 'Debes tener Medios Digitales';
-            }
+            }*/
 
             // Si quien puede aplicar es diferente a TODOS
             if($item->quien_key!='11536038') {
@@ -210,15 +211,15 @@ class PanelConvocatorias extends Controller
                     if (isset($emprendimiento->lanzar_producto)) {
                         if ($emprendimiento->lanzar_producto != "Si") {
                             $puede_aplicar = false;
-                            $errores['lanzado'] = 'Tue emprendimiento debe estar lanzado al mercado';
+                            $errores['lanzado'] = $msg = 'Tu emprendimiento debe estar lanzado al mercado';
                         }
                     } else {
                         $puede_aplicar = false;
-                        $errores['lanzado'] = 'Tue emprendimiento debe estar lanzado al mercado';
+                        $errores['lanzado'] = $msg = 'Tu emprendimiento debe estar lanzado al mercado';
                     }
                 }else{
                     // Si la convocatoria requiere Ventas Registradas
-                    if ($item->ventas == "Si") {
+                    /*if ($item->ventas == "Si") {
                         if (isset($emprendimiento->realizado_ventas)) {
                             if ($emprendimiento->realizado_ventas != "Si") {
                                 $puede_aplicar = false;
@@ -228,23 +229,23 @@ class PanelConvocatorias extends Controller
                             $puede_aplicar = false;
                             $errores['ventas'] = 'Debes tener ventas registradas';
                         }
-                    }
+                    }*/
                 }
 
                 if ($item->quien_key == '6375265'){ // Emprendimiento en validación o MVP
                     if (isset($emprendimiento->prototipo_o_mvp)) {
                         if ($emprendimiento->prototipo_o_mvp != "Si") {
                             $puede_aplicar = false;
-                            $errores['mvp'] = 'Tu emprendimiento debe contar con un prototipo o MVP';
+                            $errores['mvp'] = $msg =  'Tu emprendimiento debe contar con un prototipo o MVP';
                         }
                     } else {
                         $puede_aplicar = false;
-                        $errores['mvp'] = 'Tu emprendimiento debe contar con un prototipo o MVP';
+                        $errores['mvp'] = $msg =  'Tu emprendimiento debe contar con un prototipo o MVP';
                     }
                 }
 
                 // Si la convocatoria requiere Clientes
-                if ($item->clientes == "Si") {
+                /*if ($item->clientes == "Si") {
                     if(isset($emprendimiento->tiene_clientes)){
                         if($emprendimiento->tiene_clientes!="Si"){
                             $puede_aplicar = false;
@@ -273,15 +274,86 @@ class PanelConvocatorias extends Controller
                         $puede_aplicar = false;
                         $errores['financiera'] = 'Debes tener Información Financiera';
                     }
-                }
+                }*/
             }
         }else{
             // Verificando que no se duplique el emprendimiento en la convicatoria
             $verificar = $this->VerificarEmeprendimiento('', $key);
-        }*/
+        }
         $verificar = $this->VerificarEmeprendimiento('', $key);
 
-        return view('panel.convocatorias.aplicar', compact('item','emprendimiento', 'puede_aplicar', 'errores', 'verificar'));
+        if($request->get('type')!='json'){
+            // Datos del Perfil
+            $data = $this->ArangoDB->Query('FOR doc IN perfiles FILTER doc.userKey == "'.auth()->user()->_key.'" RETURN doc',true);
+            $perfil = (count($data)>0)?$data[0]:[];
+            $paises = $this->paises; // Paises
+            $estados = $this->estados; // Estados
+            $sexo = $this->sexo;
+            $dedicas = $this->a_que_te_dedicas;
+
+            // Cuenta
+            $data = $this->ArangoDB->Query('FOR doc IN users FILTER doc._key == "'.auth()->user()->_key.'" RETURN doc',true);
+            $cuenta = (count($data)>0)?$data[0]:[];
+
+            //Emprendimiento
+            $data = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc._key=="'.$request->get('emprendimiento').'" RETURN doc', true);
+            $emprendimiento_array = (count($data)>0)?$data[0]:[];
+
+            // Obteniendo Industrias
+            $industrias = $this->ArangoDB->Query('FOR doc IN industrias SORT doc.nombre ASC RETURN doc');
+
+            // Obteniendo Etapas
+            $etapas = $this->ArangoDB->Query('FOR doc IN etapas SORT doc.nombre ASC RETURN doc', true);
+            $etapas = $this->ArangoDB->SelectFormat($etapas, '_key', 'nombre');
+
+            //Niveles
+            $nivel_tlr = $this->nivel_tlr;
+
+            // Vehiculos de Inversion
+            $vehiculos = $this->vehiculos_inversion;
+
+            // Obteniendo Terminos
+            $terminos = $this->ArangoDB->Query('FOR doc IN terminos RETURN doc', true);
+            $terminos = $this->ArangoDB->SelectFormat($terminos, '_key', 'nombre');
+
+            $enteraste = $this->como_te_enteraste;
+
+            //Preguntas de Catálogo
+            $preg_cat = [];
+            $preg_cat_aql = [];
+            $preguntas_catalogo = [];
+            foreach($item->preguntas as $pregunta){
+                if($pregunta->tipo=="catalogos") $preg_cat[]=$pregunta->campo;
+            }
+            if(count($preg_cat)>0){
+                $preg_cat = implode('","', $preg_cat);
+                $preg_cat_aql = $this->ArangoDB->Query(' FOR preguntas IN preguntas_admin FILTER preguntas._key IN ["'.$preg_cat.'"] RETURN preguntas', true);
+            }
+            if(count($preg_cat_aql)>0){
+                foreach($preg_cat_aql as $pregunta) {
+                    $preguntas_catalogo[$pregunta['_key']] = [
+                        "_key"=>$pregunta['_key'],
+                        "placeholder"=>isset($pregunta['placeholder'])?$pregunta['placeholder']:'',
+                        "pregunta"=>isset($pregunta['pregunta'])?$pregunta['pregunta']:'',
+                        "respuestas"=>isset($pregunta['respuestas'])?$pregunta['respuestas']:'',
+                        "tipo"=>$pregunta['tipo'],
+                        "categoria"=>$pregunta['categoria'],
+                    ];
+                }
+            }
+
+            return view('panel.convocatorias.aplicar', compact('item','emprendimiento', 'puede_aplicar', 'errores', 'verificar',
+                'perfil','paises','estados','sexo','dedicas',
+                'cuenta','emprendimiento_array',
+                'industrias','nivel_tlr','enteraste','etapas','vehiculos','terminos',
+                'preguntas_catalogo'
+            ));
+        }else{
+            $response = [];
+            $response['puede_aplicar'] = $puede_aplicar;
+            $response['msg'] =  $msg;
+            echo json_encode($response);
+        }
     }
 
     /**
@@ -314,26 +386,26 @@ class PanelConvocatorias extends Controller
         $user = $user[0];
 
         // Si la convocatoria requiere un Emprendimiento
-        /*if($item->quien!='6375236') {
+        if($item->quien!='6375236') {
 
             // Verificando que no se duplique el emprendimiento en la convicatoria
-            $verificar = $this->VerificarEmeprendimiento($request->get('emprendimiento'), $key);
+            $verificar = $this->VerificarEmeprendimiento($request->get('emprendimiento_id'), $key);
 
-            if($verificar == false){*/
+            if($verificar == false){
 
                 //Emprendimiento seleccionado
-                $emprendimiento = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc._key=="' . $request->get('emprendimiento') . '" AND doc.userKey == "' . auth()->user()->_key . '" RETURN doc');
+                $emprendimiento = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc._key=="' . $request->get('emprendimiento_id') . '" AND doc.userKey == "' . auth()->user()->_key . '" RETURN doc');
                 $emprendimiento = $emprendimiento[0];
 
-                /*// Debe tener Datos Generales
-                if($emprendimiento->module_datos==false){
+                // Debe tener Datos Generales
+                /*if($emprendimiento->module_datos==false){
                     $puede_aplicar = false;
                 }
 
                 // Debe tener Medios digitales
                 if($emprendimiento->module_medios==false){
                     $puede_aplicar = false;
-                }
+                }*/
 
                 // Si quien peude aplicar es diferente a TODOS
                 if($item->quien!='11536038') {
@@ -349,7 +421,7 @@ class PanelConvocatorias extends Controller
                         }
                     }else{
                         // Si la convocatoria requiere Ventas Registradas
-                        if ($item->ventas == "Si") {
+                        /*if ($item->ventas == "Si") {
                             if (isset($emprendimiento->realizado_ventas)) {
                                 if ($emprendimiento->realizado_ventas != "Si") {
                                     $puede_aplicar = false;
@@ -357,7 +429,7 @@ class PanelConvocatorias extends Controller
                             } else {
                                 $puede_aplicar = false;
                             }
-                        }
+                        }*/
                     }
 
                     if ($item->quien == '6375265'){ // Emprendimiento tener un prototipo o MVP
@@ -371,7 +443,7 @@ class PanelConvocatorias extends Controller
                     }
 
                     // Si la convocatoria requiere Clientes
-                    if ($item->clientes == "Si") {
+                    /*if ($item->clientes == "Si") {
                         if(isset($emprendimiento->tiene_clientes)){
                             if($emprendimiento->tiene_clientes!="Si"){
                                 $puede_aplicar = false;
@@ -395,7 +467,7 @@ class PanelConvocatorias extends Controller
                         if($emprendimiento->module_financiera==false){
                             $puede_aplicar = false;
                         }
-                    }
+                    }*/
                 }
             }else{
                 $puede_aplicar = false;
@@ -406,11 +478,7 @@ class PanelConvocatorias extends Controller
             $verificar = $this->VerificarEmeprendimiento('', $key);
             if($verificar==true) abort(404);
             $emprendimiento = false;
-        }*/
-
-        $verificar = $this->VerificarEmeprendimiento('', $key);
-        if($verificar==true) abort(404);
-        $emprendimiento = false;
+        }
 
         if($puede_aplicar){
             $document = [];
@@ -420,9 +488,11 @@ class PanelConvocatorias extends Controller
             $document['fecha_aprobacion'] = null;
             $document['aprobado'] = 1;
             $document['comentarios'] = "";
+            $document['preguntas'] = $_POST;
+            $document['fecha'] = date('Y-m-d H:i:s');
             $document['responsable_id'] = $item->responsable;
             // Si la convocatoria requiere emprendimiento se guarda del request
-            $document['emprendimiento_id'] = ($item->quien!='6375236')?$request->get('emprendimiento'):null;
+            $document['emprendimiento_id'] = ($item->quien!='6375236')?$request->get('emprendimiento_id'):null;
 
             // Creando Nuevo Registro
             $documentId = $this->ArangoDB->Save($this->collection, $document);

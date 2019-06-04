@@ -1,0 +1,1 @@
+{!! Form::number($campo, $value, ['class'=>$class, 'value'=>'0', 'min'=>0]); !!}

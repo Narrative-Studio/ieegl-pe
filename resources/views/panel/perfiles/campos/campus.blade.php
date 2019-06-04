@@ -1,0 +1,1 @@
+{!! Form::select($campo, $campus, $value, ['placeholder' => 'Selecciona','class'=> 'select2 form-control '.$class,'id'=>'campus']); !!}

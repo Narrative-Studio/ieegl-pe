@@ -1,0 +1,1 @@
+{!! Form::textarea($campo, $value, ['class'=>$class, 'rows'=>2]); !!}

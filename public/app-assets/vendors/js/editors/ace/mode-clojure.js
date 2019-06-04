@@ -40,7 +40,7 @@ var ClojureHighlightRules = function() {
         'future-cancelled? future-done? future? gen-class gen-interface gensym ' +
         'get get-in get-method get-proxy-class get-thread-bindings get-validator ' +
         'hash hash-map hash-set identical? identity if-let if-not ifn? import ' +
-        'in-ns inc init-proxy instance? int int-array integer? interleave intern ' +
+        'in-ns campos init-proxy instance? int int-array integer? interleave intern ' +
         'interpose into into-array ints io! isa? iterate iterator-seq juxt key ' +
         'keys keyword keyword? last lazy-cat lazy-seq let letfn line-seq list ' +
         'list* list? load load-file load-reader load-string loaded-libs locking ' +
@@ -70,7 +70,7 @@ var ClojureHighlightRules = function() {
         'subvec supers swap! symbol symbol? sync syntax-symbol-anchor take ' +
         'take-last take-nth take-while test the-ns time to-array to-array-2d ' +
         'trampoline transient tree-seq true? type unchecked-add unchecked-dec ' +
-        'unchecked-divide unchecked-inc unchecked-multiply unchecked-negate ' +
+        'unchecked-divide unchecked-campos unchecked-multiply unchecked-negate ' +
         'unchecked-remainder unchecked-subtract underive unquote ' +
         'unquote-splicing update-in update-proxy use val vals var-get var-set ' +
         'var? vary-meta vec vector vector? when when-first when-let when-not ' +

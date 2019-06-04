@@ -31,9 +31,23 @@
 
 @section('js')
     <script type="text/javascript">
-        function Aplicar(value){
-            $('#form_emprendimiento').val(value);
-            $('#form_aplicar').submit();
+        function Aplicar(value, nombre){
+            $.ajax({
+                method: "GET",
+                url: "{{action('PanelConvocatorias@Aplicar',$item->_key)}}",
+                data: { type: "json", emprendimiento: value},
+                dataType: 'json'
+            }).done(function(data) {
+                console.log(data.puede_aplicar);
+                if(data.puede_aplicar==false){
+                    $("#errorModal #nombre").html(nombre);
+                    $("#errorModal #mensaje").html(data.msg);
+                    $("#errorModal").modal();
+                }else{
+                    $('#form_emprendimiento').val(value);
+                    $('#form_aplicar').submit();
+                }
+            })
         }
     </script>
 @endsection
@@ -91,17 +105,25 @@
                                                     </button>
                                                     <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 49px, 0px); top: 0px; left: 0px; will-change: transform;">
                                                         @foreach($emprendimientos as $k=>$v)
-                                                            <a class="dropdown-item" href="javascript:;" onclick="Aplicar('{{$k}}')">{{$v}}</a>
+                                                            <a class="dropdown-item" href="javascript:;" onclick="Aplicar('{{$k}}','{{$v}}')">{{$v}}</a>
                                                             <div class="dropdown-divider"></div>
                                                         @endforeach
                                                     </div>
                                                 </div>
                                                 {!! Form::close() !!}
                                             @else
-                                                {!! Form::open(['action' => ['PanelConvocatorias@Aplicacion', $item->_key], 'method'=>'POST', 'class'=>'form', 'files' => false]) !!}
-                                                <div class="row mt-2">
-                                                    <div class="col-sm-12 text-center">
-                                                        <button type="submit" class="btn btn-lg btn-success mt-2" style="zoom: 1.5;"><i class="fa fa-check"></i> Aplicar a esta convocatoria</button>
+                                                {!! Form::open(['action' => ['PanelConvocatorias@Aplicar', $item->_key], 'id'=>'form_aplicar','method'=>'POST', 'class'=>'form', 'files' => false]) !!}
+                                                <input type="hidden" name="emprendimiento" id="form_emprendimiento" value=""/>
+
+                                                <div class="btn-group mr-1 mb-1">
+                                                    <button type="button" class="btn btn-success dropdown-toggle btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fa fa-check"></i> APLICAR
+                                                    </button>
+                                                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 49px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                        @foreach($emprendimientos as $k=>$v)
+                                                            <a class="dropdown-item" href="javascript:;" onclick="Aplicar('{{$k}}')">{{$v}}</a>
+                                                            <div class="dropdown-divider"></div>
+                                                        @endforeach
                                                     </div>
                                                 </div>
                                                 {!! Form::close() !!}
@@ -177,4 +199,28 @@
             </div>
             <!--/ Bug Progress -->
         </section>
+
+        <!-- Modal -->
+        <div class="modal fade text-left" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="myModalLabel2"><i class="fa fa-road2"></i>No puedes aplicar</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Lo sentimos, no puedes aplicar con tu emprendimiento "<span class="text-bold-600" id="nombre"></span>" por esta razón:
+                        <div class="alert alert-icon-left alert-arrow-left alert-warning alert-dismissible mt-1 font-small-3" role="alert">
+                            <span class="alert-icon"><i class="fa fa-warning"></i></span>
+                            <span id="mensaje"></span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn grey btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 @endsection

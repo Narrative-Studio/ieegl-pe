@@ -1,0 +1,1 @@
+{!! Form::select($campo, $enteraste, $value, ['placeholder' => 'Selecciona', 'id'=>'niveles','class'=> 'select2 '.$class, 'id'=>'como_te_enteraste']) !!}

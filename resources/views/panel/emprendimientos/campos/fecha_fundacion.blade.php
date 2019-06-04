@@ -1,0 +1,1 @@
+{!! Form::date($campo, $value, ['class'=>$class]) !!}
