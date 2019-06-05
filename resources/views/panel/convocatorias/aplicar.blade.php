@@ -91,7 +91,7 @@
 
                                                         <?php $campo = ($pregunta->campo =='industria_o_sector')?"emprendimiento[industria_o_sector][]":'emprendimiento['.$pregunta->campo.']'; ?>
                                                         <label>{{$pregunta->nombre}} <span class="required">*</span></label>
-                                                        @include('panel.emprendimientos.campos.'.$pregunta->campo, ['campo'=>$campo,'value'=>$emprendimiento_array[$pregunta->campo],'columns'=>'5'])
+                                                        @include('panel.emprendimientos.campos.'.$pregunta->campo, ['campo'=>$campo,'value'=>(isset($emprendimiento_array[$pregunta->campo]))?$emprendimiento_array[$pregunta->campo]:'','columns'=>'5'])
 
                                                     @elseif($pregunta->tipo=='catalogos')
 
