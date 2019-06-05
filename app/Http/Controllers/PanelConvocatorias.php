@@ -169,6 +169,8 @@ class PanelConvocatorias extends Controller
         $emprendimiento = "";
         $msg = "";
 
+        if(!$_POST && $request->get('type')!='json')  abort(404);
+
         //Obteniendo Convocatoria
         $query = '
             FOR convocatoria IN convocatorias
@@ -504,14 +506,29 @@ class PanelConvocatorias extends Controller
             //Creando Edge
             $this->ArangoDB->CreateEdge(['label' => 'hasConvocatoria', 'created_time'=>now()], 'hasConvocatoria', 'users/'.auth()->user()->_key, $documentId);
 
+            print_r($document);
+
+            //////////////////////////////////////////////////////////////////
+            /// Actualizando Datos de Perfil, Cuenta y Emprendimiento
+            //////////////////////////////////////////////////////////////////
+            if(is_array($document['preguntas'])){
+                // Cuenta de Usuario
+                $this->ArangoDB->Update('users', 'users/'.auth()->user()->_key, $document['preguntas']['cuenta']);
+                // Perfil
+                $data_update = $this->ArangoDB->Query('FOR doc IN perfiles FILTER doc.userKey == "'.auth()->user()->_key.'" RETURN doc._key');
+                $this->ArangoDB->Update('perfiles', 'perfiles/'.$data_update[0], $document['preguntas']['usuario']);
+                // Emprendimiento
+                $this->ArangoDB->Update('emprendimientos', 'emprendimientos/'.$document['emprendimiento_id'], $document['preguntas']['emprendimiento']);
+            }
+            //////////////////////////////////////////////////////////////////
+
             // Enviando Mail al Administrador
             $document['responsable_email'] = $item->usuario->email;
             $document['usuario'] = $user->nombre.' '.$user->apellidos;
             $document['usuario_email'] = $user->email;
             $document['convocatoria_key'] = $item->_key;
             $document['convocatoria_nombre'] = $item->nombre;
-            Mail::to($document['responsable_email'])
-                ->send(new SolicitudAdmin($document));
+            Mail::to($document['responsable_email'])->send(new SolicitudAdmin($document));
         }
 
         return view('panel.convocatorias.aplicacion', compact('puede_aplicar','item','emprendimiento'));
