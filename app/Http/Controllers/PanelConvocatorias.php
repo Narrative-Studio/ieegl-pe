@@ -506,8 +506,6 @@ class PanelConvocatorias extends Controller
             //Creando Edge
             $this->ArangoDB->CreateEdge(['label' => 'hasConvocatoria', 'created_time'=>now()], 'hasConvocatoria', 'users/'.auth()->user()->_key, $documentId);
 
-            print_r($document);
-
             //////////////////////////////////////////////////////////////////
             /// Actualizando Datos de Perfil, Cuenta y Emprendimiento
             //////////////////////////////////////////////////////////////////
