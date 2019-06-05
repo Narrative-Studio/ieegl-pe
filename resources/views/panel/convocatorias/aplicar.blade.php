@@ -79,7 +79,7 @@
                                                     @if($pregunta->tipo=='usuario')
 
                                                         <label>{{$pregunta->nombre}} <span class="required">*</span></label>
-                                                        @include('panel.perfiles.campos.'.$pregunta->campo, ['campo'=>'perfil['.$pregunta->campo.']','value'=>$perfil[$pregunta->campo]])
+                                                        @include('panel.perfiles.campos.'.$pregunta->campo, ['campo'=>'usuario['.$pregunta->campo.']','value'=>$perfil[$pregunta->campo]])
 
                                                     @elseif($pregunta->tipo=='cuenta')
 
@@ -89,7 +89,7 @@
 
                                                     @elseif($pregunta->tipo=='emprendimiento')
 
-                                                        <?php $campo = ($pregunta->campo =='industria_o_sector')?"emprendimiento['industria_o_sector'][]":'emprendimiento['.$pregunta->campo.']'; ?>
+                                                        <?php $campo = ($pregunta->campo =='industria_o_sector')?"emprendimiento[industria_o_sector][]":'emprendimiento['.$pregunta->campo.']'; ?>
                                                         <label>{{$pregunta->nombre}} <span class="required">*</span></label>
                                                         @include('panel.emprendimientos.campos.'.$pregunta->campo, ['campo'=>$campo,'value'=>$emprendimiento_array[$pregunta->campo],'columns'=>'5'])
 
@@ -100,13 +100,13 @@
                                                         <?php
                                                         switch($preg['tipo']){
                                                             case 'text':
-                                                                echo '<input type="text" name="catalogo[p_'.$preg['_key'].']" class="'.$class.'"/>';
+                                                                echo '<input type="text" name="catalogos[p_'.$preg['_key'].']" class="'.$class.'"/>';
                                                                 break;
                                                             case 'textarea':
-                                                                echo '<textarea name="catalogo[p_'.$preg['_key'].']" class="'.$class.'"/></textarea>';
+                                                                echo '<textarea name="catalogos[p_'.$preg['_key'].']" class="'.$class.'"/></textarea>';
                                                                 break;
                                                             case 'combo':
-                                                                echo '<select name="catalogo[p_'.$preg['_key'].']" class="'.$class.'""/>';
+                                                                echo '<select name="catalogos[p_'.$preg['_key'].']" class="'.$class.'""/>';
                                                                 $respuestas = preg_split('/\n|\r\n?/', $preg['respuestas']);
                                                                 foreach ($respuestas as $respuesta){
                                                                     echo '<option value="'.$respuesta.'">'.$respuesta.'</option>';
@@ -118,7 +118,7 @@
                                                                 $respuestas = preg_split('/\n|\r\n?/', $preg['respuestas']);
                                                                 foreach ($respuestas as $respuesta){
                                                                     echo '<div class="radio_input col-md-6">';
-                                                                    echo '<label><input name="catalogo[p_'.$preg['_key'].'][]" class="required" type="checkbox" value="'.$respuesta.'"> '.$respuesta.'</label>';
+                                                                    echo '<label><input name="catalogos[p_'.$preg['_key'].'][]" class="required" type="checkbox" value="'.$respuesta.'"> '.$respuesta.'</label>';
                                                                     echo '</div>';
                                                                 }
                                                                 echo '</div>';
@@ -180,18 +180,4 @@
             </div>
         </section>
     @endif
-
-        @if($verificar=='nada')
-            @if($puede_aplicar==true)
-                {!! Form::open(['action' => ['PanelConvocatorias@Aplicacion', $item->_key], 'method'=>'POST', 'class'=>'form', 'files' => false]) !!}
-                {!! Form::hidden('emprendimiento_id', $emprendimiento->_key) !!}
-                <div class="row mt-2">
-                    <div class="col-sm-12 text-center">
-                        <button type="submit" class="btn btn-lg btn-success mt-2" style="zoom: 1.5;"><i class="fa fa-check"></i> Aplicar a esta convocatoria</button>
-                    </div>
-                </div>
-                {!! Form::close() !!}
-            @endif
-        @else
-        @endif
 @endsection

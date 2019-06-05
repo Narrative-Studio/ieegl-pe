@@ -1,1 +1,1 @@
-{!! Form::select($campo, $dedicas, $value, ['placeholder' => 'Selecciona','class'=>$class]); !!}
+{!! Form::select($campo, $dedicas, $value, ['placeholder' => 'Selecciona','class'=>'select2 '.$class]); !!}

@@ -280,7 +280,6 @@ class PanelConvocatorias extends Controller
             // Verificando que no se duplique el emprendimiento en la convicatoria
             $verificar = $this->VerificarEmeprendimiento('', $key);
         }
-        $verificar = $this->VerificarEmeprendimiento('', $key);
 
         if($request->get('type')!='json'){
             // Datos del Perfil
@@ -318,6 +317,12 @@ class PanelConvocatorias extends Controller
 
             $enteraste = $this->como_te_enteraste;
 
+            // Estudiando
+            $estudiando = $this->estudiando;
+
+            //Campus TEC
+            $campus = $this->campus;
+
             //Preguntas de Catálogo
             $preg_cat = [];
             $preg_cat_aql = [];
@@ -343,7 +348,7 @@ class PanelConvocatorias extends Controller
             }
 
             return view('panel.convocatorias.aplicar', compact('item','emprendimiento', 'puede_aplicar', 'errores', 'verificar',
-                'perfil','paises','estados','sexo','dedicas',
+                'perfil','paises','estados','sexo','dedicas','estudiando','campus',
                 'cuenta','emprendimiento_array',
                 'industrias','nivel_tlr','enteraste','etapas','vehiculos','terminos',
                 'preguntas_catalogo'

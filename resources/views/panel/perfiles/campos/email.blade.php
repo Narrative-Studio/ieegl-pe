@@ -1,1 +1,1 @@
-{!! Form::text($campo, $value, ['class'=>$class, 'disabled'=>'disabled']); !!}
+{!! Form::text($campo, $value, ['class'=>$class, 'readonly'=>'readonly']); !!}

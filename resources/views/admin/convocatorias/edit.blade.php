@@ -6,7 +6,7 @@
 
 @section('js')
 <script type="text/javascript">
-    var json = '<?php echo $json?>';
+    var json = <?php echo json_encode($json)?>;
 </script>
 <script src="{{url("/")}}/app-assets/js/scripts/editors/editor-quill-sid.js" type="text/javascript"></script>
 <script src="{{url("/")}}/js/preguntas.js" type="text/javascript"></script>

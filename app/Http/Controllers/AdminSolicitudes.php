@@ -92,6 +92,7 @@ class AdminSolicitudes extends Controller
      * @throws ArangoException
      */
     public function Edit($id){
+        $preguntas_solicitud = [];
         $query = '
         FOR doc IN usuario_convocatoria
             FOR conv IN convocatorias
@@ -111,14 +112,56 @@ class AdminSolicitudes extends Controller
             $emp = $this->ArangoDB->Query($query);
             $item = $emp[0];
 
+            // Obteniendo Industrias
+            $industrias = $this->ArangoDB->Query('FOR doc IN industrias SORT doc.nombre ASC RETURN doc', true);
+            $industrias = $this->ArangoDB->SelectFormat($industrias, '_key', 'nombre');
+
+            // Obteniendo Etapas
+            $etapas = $this->ArangoDB->Query('FOR doc IN etapas SORT doc.nombre ASC RETURN doc', true);
+            $etapas = $this->ArangoDB->SelectFormat($etapas, '_key', 'nombre');
+
+            //Niveles
+            $nivel_tlr = $this->nivel_tlr;
+
+            // Obteniendo Terminos
+            $terminos = $this->ArangoDB->Query('FOR doc IN terminos RETURN doc', true);
+            $terminos = $this->ArangoDB->SelectFormat($terminos, '_key', 'nombre');
+
+            // Como te enteraste
+            $enteraste = $this->como_te_enteraste;
+
+            // Obteniendo Universidades
+            $universidades = $this->ArangoDB->Query('FOR doc IN universidades RETURN doc', true);
+            $universidades = $this->ArangoDB->SelectFormat($universidades, '_key','nombre');
+
+            // Estudiando
+            $estudiando = $this->estudiando;
+
+            // Paises
+            $paises = $this->paises;
+
+            // Estados
+            $estados = $this->estados;
+
+            //Campus TEC
+            $campus = $this->campus;
+
+            if(isset($solicitud->preguntas)) $preguntas_solicitud = json_decode(json_encode($solicitud->preguntas), true);
+
             return view('admin.solicitudes.edit',
-                compact('solicitud', 'item')
+                compact('solicitud', 'item', 'preguntas_solicitud','industrias','etapas','nivel_tlr','terminos','enteraste','universidades','estudiando','campus','paises','estados')
             );
         }else{
             return view('admin.solicitudes.edit',
                 compact('solicitud')
             );
         }
+    }
+
+    static function returnRespuestas($preg, $array){
+        $r = [];
+        foreach ($preg as $p){ $r[] = $array[$p];}
+        return implode(', ',$r);
     }
 
     /**

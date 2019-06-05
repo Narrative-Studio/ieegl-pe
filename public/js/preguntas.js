@@ -18,6 +18,7 @@ $(document).ready(function(){
 
     //
     $('#sortable input[type="checkbox"]').on('change',function(){
+        console.log($(this).val());
         if($(this).is(':checked')){
             if($("#sortable2 #"+$(this).val()).length==0){
                 addQuestion($(this).val(),true);
@@ -35,14 +36,14 @@ $(document).ready(function(){
 });
 function addTitle(reordenar){
     var item = $('#cloneTitle').clone().removeClass('hidden').removeAttr('id').appendTo( "#sortable2" );
-    window.scrollTo(0,document.body.scrollHeight);
+    //window.scrollTo(0,document.body.scrollHeight);
     if(reordenar){reorder()}else{return item};
 }
 function addQuestion(question, reordenar){
     var item = $('#'+question).clone().appendTo( "#sortable2" );
     $('#sortable2 #'+question+' .hidden').removeClass('hidden');
     $('#sortable2 #'+question+' .custom-checkbox').remove();
-    window.scrollTo(0,document.body.scrollHeight);
+    //window.scrollTo(0,document.body.scrollHeight);
     if(reordenar){reorder()}else{return item};
 }
 function addNewQuestion(reordenar){
@@ -54,7 +55,7 @@ function addNewQuestion(reordenar){
     $('.form-actions', $new).remove();
     $('.uuid', $new).val(uuidv4());
     $( "#sortable2" ).append( $new );
-    window.scrollTo(0,document.body.scrollHeight);
+    //window.scrollTo(0,document.body.scrollHeight);
     if(reordenar){reorder()}else{return $new};
     $("#campo_nuevo input[type='text'], #campo_nuevo textarea").val('');
     $('#campo_nuevo select').prop('selectedIndex',0);
@@ -90,7 +91,6 @@ function cambioTipoPregunta(obj){
 function parsePreguntas(){
     $('.cargador_preguntas').removeClass('hidden');
     var preguntas_json = JSON.parse(json);
-    console.log(preguntas_json);
     for(var i=0;i<Object.keys(preguntas_json).length;i++){
         var pregunta = preguntas_json[i];
         if(preguntas_json[i]!=undefined) {
@@ -118,8 +118,8 @@ function parsePreguntas(){
                     $("input[data-name='desc']", item).val(pregunta.desc);
                     break;
                 case 'catalogos':
-                    var item = addQuestion('catalogo_' + pregunta.campo, false);
-                    $('#sortable #catalogo_' + pregunta.campo).find('input[type="checkbox"]').prop('checked', true);
+                    var item = addQuestion('catalogos_' + pregunta.campo, false);
+                    $('#sortable #catalogos_' + pregunta.campo).find('input[type="checkbox"]').prop('checked', true);
                     $("input[data-name='nombre']", item).val(pregunta.nombre);
                     $("input[data-name='desc']", item).val(pregunta.desc);
                     break;

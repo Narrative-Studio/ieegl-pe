@@ -138,7 +138,6 @@ class PanelEmprendimientos extends Controller
         $document['investigacion_desarrollo'] = $request->get('investigacion_desarrollo');
         $document['nivel_tlr'] = $request->get('nivel_tlr');
         $document['numero_socios'] = $request->get('numero_socios');
-        $document['socio_exit_empresa'] = $request->get('socio_exit_empresa');
         $document['socios'] = $request->get('socios');
         $document['como_te_enteraste'] = $request->get('como_te_enteraste');
         $document['diferenciador_modelo_negocio'] = $request->get('diferenciador_modelo_negocio');
