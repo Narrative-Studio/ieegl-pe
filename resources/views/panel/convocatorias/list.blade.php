@@ -35,7 +35,7 @@
                         }
                         ?>
 
-                        <div class="card-img-top img-fluid bg-cover height-200" style="background: url('{{$img}}?{{str_random(15)}}');"></div>
+                        <div class="card-img-top img-fluid bg-cover height-200" style="background: url('{{$img}}?{{str_random(15)}}');background-position: center center !important;"></div>
                         <div class="card-profile-image">
                             @if(isset($item->entidad_ext))
                                 @if(file_exists(public_path('/entidades_pics/imagen_'.$item->entidad_key.'.'.$item->entidad_ext)))
