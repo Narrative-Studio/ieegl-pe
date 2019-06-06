@@ -511,12 +511,18 @@ class PanelConvocatorias extends Controller
             //////////////////////////////////////////////////////////////////
             if(is_array($document['preguntas'])){
                 // Cuenta de Usuario
-                $this->ArangoDB->Update('users', 'users/'.auth()->user()->_key, $document['preguntas']['cuenta']);
+                if(isset($document['preguntas']['cuenta'])) {
+                    $this->ArangoDB->Update('users', 'users/' . auth()->user()->_key, $document['preguntas']['cuenta']);
+                }
+                if(isset($document['preguntas']['usuario'])) {
                 // Perfil
-                $data_update = $this->ArangoDB->Query('FOR doc IN perfiles FILTER doc.userKey == "'.auth()->user()->_key.'" RETURN doc._key');
-                $this->ArangoDB->Update('perfiles', 'perfiles/'.$data_update[0], $document['preguntas']['usuario']);
-                // Emprendimiento
-                $this->ArangoDB->Update('emprendimientos', 'emprendimientos/'.$document['emprendimiento_id'], $document['preguntas']['emprendimiento']);
+                    $data_update = $this->ArangoDB->Query('FOR doc IN perfiles FILTER doc.userKey == "'.auth()->user()->_key.'" RETURN doc._key');
+                    $this->ArangoDB->Update('perfiles', 'perfiles/'.$data_update[0], $document['preguntas']['usuario']);
+                }
+                if(isset($document['preguntas']['emprendimiento'])) {
+                    // Emprendimiento
+                    $this->ArangoDB->Update('emprendimientos', 'emprendimientos/' . $document['emprendimiento_id'], $document['preguntas']['emprendimiento']);
+                }
             }
             //////////////////////////////////////////////////////////////////
 
