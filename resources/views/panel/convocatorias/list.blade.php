@@ -54,7 +54,7 @@
                                 <small class="block"> {!! $item->descripcion_corta !!}</small>
                             </div>
                             <div class="card-body pb-0">
-                                <a href="{{action('PanelConvocatorias@Ver',['id'=>$item->_key])}}" class="btn btn-outline-secondary btn-md btn-square mr-1 mb-1">
+                                <a href="{{action('PanelConvocatorias@Ver',['id'=>$item->_key,'nombre'=>str_slug($item->nombre, '-')])}}" class="btn btn-outline-secondary btn-md btn-square mr-1 mb-1">
                                     <i class="fa fa-plus"></i> Ver
                                 </a>
                             </div>

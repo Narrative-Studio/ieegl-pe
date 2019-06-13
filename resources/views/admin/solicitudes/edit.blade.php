@@ -29,13 +29,13 @@
                             <div class="row mb-3">
                                 <div class="col-sm-12 col-md-6" >
                                     <h6><strong>Convocatoria:</strong></h6>
-                                    <a href=# >{{$solicitud->convocatoria->nombre}}</a>
+                                    <a href="{{action('AdminConvocatorias@Edit', $solicitud->convocatoria->_key)}}">{{$solicitud->convocatoria->nombre}}</a>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 col-md-4" >
                                     <h6><strong>Nombre del Emprendimiento:</strong></h6>
-                                    <a href=# >{{$item->nombre}}</a>
+                                    {{$item->nombre}}
                                 </div>
                                 <div class="col-sm-12 col-md-4" >
                                     <h6><strong>Fecha de Aplicación:</strong></h6>
@@ -124,7 +124,7 @@
                     @endif
                 @endforeach
                 </div></div></div></div>
-                <div class="card">
+                <div class="card datos-status">
                     <div class="card-header">
                         <h4 class="card-title">Datos de Status</h4>
                     </div>
@@ -134,7 +134,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">Estatus <span class="required">*</span></label>
-                                        {!! Form::select('aprobado', [1=>'Pendiente', 4=>'Pendiente de Pago',2=>'Rechazada', 3=>'Aprobada'], null, ['class'=> 'form-control select2 ']) !!}
+                                        {!! Form::select('aprobado', [1=>'Pendiente',2=>'Rechazada', 3=>'Aprobada'], null, ['class'=> 'form-control select2 ']) !!}
                                     </div>
                                 </div>
                             </div>
@@ -142,37 +142,13 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="firstName3">
-                                            Comentarios :
+                                            Comentarios para el emprendedor:
                                             <span class="danger">*</span>
                                         </label>
                                         {!! Form::textarea('comentarios', null, ['class'=> 'form-control', 'rows'=>3]) !!}
                                     </div>
                                 </div>
                             </div>
-                            @if($solicitud->convocatoria->pago == true)
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <label for="">Pagado <span class="required">*</span></label>
-                                        <div class="row skin skin-flat">
-                                            <div class="col-sm-1">
-                                                <fieldset>
-                                                    {!! Form::radio('pago', "Si", null, ['id'=>'f1', 'required'=>'required']); !!}
-                                                    <label for="f1">Si</label>
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <fieldset>
-                                                    {!! Form::radio('pago', "No", null, ['id'=>'f2', 'required'=>'required']); !!}
-                                                    <label for="f2">No</label>
-                                                </fieldset>
-                                            </div>
-                                        </div>
-                                        @if ($errors->has('pago'))
-                                            <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('pago') }}</strong></span>
-                                        @endif
-                                    </div>
-                                </div>
-                            @endif
                             <div class="row">
                                 <div class="col-sm-12 text-center">
                                     <input type="hidden" value="0" name="enviar" id="enviar">

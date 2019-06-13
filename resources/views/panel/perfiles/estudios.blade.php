@@ -43,7 +43,6 @@
             </ol>
         </div>
     </div>
-    {{$item->actualmente_cursando_carrera}} {{old('actualmente_cursando_carrera')}}
 @endsection
 
 @section('content')

@@ -4,6 +4,16 @@
 @section('seccion') Convocatorias @endsection
 @section('accion') Listado de Convocatorias @endsection
 
+@section('js')
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#status').on('change', function(){
+                $('#search').submit();
+            });
+        });
+    </script>
+@endsection
+
 @section('content')
     <div class="content-wrapper">
         <div class="content-body"><!-- project stats -->
@@ -18,6 +28,13 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body">
+                                {!! Form::open(['action' => ['AdminConvocatorias@Index'], 'method'=>'GET', 'id'=>'search', 'class'=>'form']) !!}
+                                <div class="row mb-2">
+                                    <div class="col-md-3">
+                                        {!! Form::select('status', [''=>'Todos los Estatus', 'Si'=>'Abierta','No'=>'Draft','aprobacion'=>'Para Aprobacion', 'cerrara'=>'Cerrada'], \Illuminate\Support\Facades\Input::get('status'), ['id'=>'status','class'=> 'select2']) !!}
+                                    </div>
+                                </div>
+                                {!! Form::close() !!}
                                 @if(count($datos)>0)
                                     <div class="table-responsive">
                                     <table id="project-bugs-list" class="table table-white-space table-bordered row-grouping display no-wrap icheck table-middle">
@@ -41,20 +58,28 @@
                                                 <p class="text-bold-600 font-small-3">{{\Illuminate\Support\Carbon::createFromTimestamp($item->fecha_fin_convocatoria)->formatLocalized('%d %B %Y')}}</p>
                                             </td>
                                             <td class="text-center">
-                                                <a href="#" class="text-bold-600">{{$item->total}}</a>
+                                                <a href="{{action('AdminSolicitudes@Index')}}?convocatoria={{$item->_key}}" class="text-bold-600">{{$item->total}}</a>
                                             </td>
                                             <td>
-                                                @if($item->activo=='No')
-                                                    <span class="badge badge-warning round">Draft</span>
-                                                @else
-                                                    <span class="badge badge-info round">Publicada</span>
-                                                @endif
+                                                @switch($item->activo)
+                                                    @case('No')
+                                                        <span class="badge badge-dark round">Draft</span>
+                                                    @break
+                                                    @case('Si')
+                                                        <span class="badge badge-success round">Activa</span>
+                                                    @break
+                                                    @case('revision')
+                                                        <span class="badge badge-warning round">Para Revisión</span>
+                                                    @break
+                                                    @case('cerrada')
+                                                        <span class="badge badge-danger round">Cerrada</span>
+                                                    @break
+                                                @endswitch
                                                 <!--<span class="badge badge-danger round">Cerrada</span>-->
                                             </td>
                                             <td>
-                                                <a href="{{ action('AdminConvocatorias@Edit',$item->_key) }}" class="btn btn-secondary btn-sm"><i class="icon-grid"></i> Ver Convocatoria</a><br>
-                                                <a href="{{action('AdminSolicitudes@Index')}}?convocatoria={{$item->_key}}" class="btn btn-success btn-sm mt-1"><i class="icon-check"></i> Ver Aplicaciones</a>
-                                                <a href="#" class="btn btn-danger btn-sm mt-1" onclick="delete_row('item-{{$item->_key}}', '{{ action('AdminConvocatorias@Delete',$item->_key) }}')"><i class="fas fa-trash"></i> Borrar</a>
+                                                <a href="{{ action('AdminConvocatorias@Edit',$item->_key) }}" class="btn btn-secondary btn-sm"><i class="icon-grid"></i> Ver Convocatoria</a>
+                                                <a href="#" class="btn btn-danger btn-sm" onclick="delete_row('item-{{$item->_key}}', '{{ action('AdminConvocatorias@Delete',$item->_key) }}')"><i class="fas fa-trash"></i> Borrar</a>
                                             </td>
                                         </tr>
                                         @endforeach

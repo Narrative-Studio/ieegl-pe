@@ -43,10 +43,9 @@
                         @if($item->aprobado==1) <h3 class="m-0 badge badge-default mb-2 badge-warning">Pendiente</h3> @endif
                         @if($item->aprobado==2) <h3 class="m-0 badge badge-default mb-2 badge-danger">Rechazada</h3> @endif
                         @if($item->aprobado==3) <h3 class="m-0 badge badge-default mb-2 badge-success">Aprobada</h3> @endif
-                        @if($item->aprobado==4) <h3 class="m-0 badge badge-default mb-2 badge-warning">Pendiente de Pago</h3> @endif
                         <div class="mb-2">
                             <h6><strong>Nombre del Emprendimiento:</strong></h6>
-                            <a href="#">{{$item->emprendimiento}}</a></div>
+                            <a href="{{action('PanelEmprendimientos@DatosGenerales', $item->emprendimiento_id)}}">{{$item->emprendimiento}}</a></div>
                         @if($item->comentarios!='')
                             <div class="mb-2">
                                 <h6><strong>Comentarios</strong></h6>
@@ -107,7 +106,7 @@
                             </div>
                             <div class="profile-card-with-cover-content text-center pt-1">
                                 <div class="card-body m-0">
-                                    <h4 class="card-title mb-1"><a href=#>{{$item->convocatoria->nombre}}</a> </h4>
+                                    <h4 class="card-title mb-1"><a href="{{action('PanelConvocatorias@Ver',['id'=>$item->convocatoria->_key])}}">{{$item->convocatoria->nombre}}</a> </h4>
                                     <small><strong> Del {{\Illuminate\Support\Carbon::createFromTimestamp($item->convocatoria->fecha_inicio_convocatoria)->formatLocalized('%d %B %Y')}} al {{\Illuminate\Support\Carbon::createFromTimestamp($item->convocatoria->fecha_fin_convocatoria)->formatLocalized('%d %B %Y')}}</strong></small>
                                     <small class="block">{!! $item->convocatoria->descripcion_corta !!}</small>
                                 </div>

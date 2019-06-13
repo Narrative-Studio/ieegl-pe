@@ -176,7 +176,7 @@
                             <div class="centrado">Selecciona una categoría</div>
                         </div>
                         <div class="col-md-7">
-                            {!! Form::select('catego', ['datos_usuario'=>'Datos del Usuario','datos_cuenta'=>'Datos de la Cuenta','datos_emprendimiento'=>'Datos del Emprendimiento','datos_catalogo'=>'Pregunta de Catálogo', 'datos_nueva'=>'Nueva Pregunta'], 'usuario', ['class'=> 'select2','id'=>'select_categoria']) !!}
+                            {!! Form::select('catego', ['datos_usuario'=>'Datos Personales','datos_cuenta'=>'Datos del Usuario','datos_emprendimiento'=>'Datos del Emprendimiento','datos_catalogo'=>'Pregunta de Catálogo', 'datos_nueva'=>'Nueva Pregunta'], 'usuario', ['class'=> 'select2','id'=>'select_categoria']) !!}
                         </div>
                     </div>
                 </div>
@@ -198,18 +198,43 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label class="label-control" for="">¿Será visible en la lista de convocatorias del sistema? <span class="required">*</span></label>
-                <div>
-                    @if(auth()->user()->rol_id=='7931855')
+                @if(auth()->user()->rol_id=='7931855')
+                    <label class="label-control" for="">Estatus de la Convocatoria<span class="required">*</span></label>
+                    <div>
                         <div class="d-inline-block custom-control custom-radio mr-1">
                             {!! Form::radio('activo', "Si", null, ['id'=>'a1', 'class'=>'custom-control-input required']); !!}
-                            <label class="custom-control-label" for="a1">Si</label>
+                            <label class="custom-control-label" for="a1">Abierta</label>
                         </div>
-                    @endif
-                    <div class="d-inline-block custom-control custom-radio mr-1">
-                        {!! Form::radio('activo', "No", null, ['id'=>'a2', 'class'=>'custom-control-input required']); !!}
-                        <label class="custom-control-label" for="a2">No</label>
+                        <div class="d-inline-block custom-control custom-radio mr-1">
+                            {!! Form::radio('activo', "No", null, ['id'=>'a2', 'class'=>'custom-control-input required']); !!}
+                            <label class="custom-control-label" for="a2">Draft</label>
+                        </div>
+                        <div class="d-inline-block custom-control custom-radio mr-1">
+                            {!! Form::radio('activo', "aprobacion", null, ['id'=>'a3', 'class'=>'custom-control-input required']); !!}
+                            <label class="custom-control-label" for="a3">Para aprobación</label>
+                        </div>
+                        <div class="d-inline-block custom-control custom-radio mr-1">
+                            {!! Form::radio('activo', "No", null, ['id'=>'a4', 'class'=>'custom-control-input required']); !!}
+                            <label class="custom-control-label" for="a4">Cerrada</label>
+                        </div>
                     </div>
+                @else
+                    <label class="label-control" for="">Estatus de la Convocatoria<span class="required">*</span></label>
+                    <div>
+                        <div class="d-inline-block custom-control custom-radio mr-1">
+                            {!! Form::radio('activo', "No", null, ['id'=>'a2', 'class'=>'custom-control-input required']); !!}
+                            <label class="custom-control-label" for="a2">Draft</label>
+                        </div>
+                        <div class="d-inline-block custom-control custom-radio mr-1">
+                            {!! Form::radio('activo', "aprobacion", null, ['id'=>'a3', 'class'=>'custom-control-input required']); !!}
+                            <label class="custom-control-label" for="a3">Para aprobación</label>
+                        </div>
+                        <div class="d-inline-block custom-control custom-radio mr-1">
+                            {!! Form::radio('activo', "No", null, ['id'=>'a4', 'class'=>'custom-control-input required']); !!}
+                            <label class="custom-control-label" for="a4">Cerrada</label>
+                        </div>
+                    </div>
+                @endif
                     @if ($errors->has('activo'))
                         <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('activo') }}</strong></span>
                     @endif

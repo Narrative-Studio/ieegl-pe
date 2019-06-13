@@ -89,8 +89,9 @@ class PanelConvocatorias extends Controller
         //$existe = $this->ArangoDB->Query('FOR doc IN '.$this->collection.' FILTER doc.userKey=="'.auth()->user()->_key.'" AND doc.convocatoria_id == "'.$key.'" AND doc.aprobado!=2 RETURN doc');
         //$verificar = (count($existe)>0)?true:false;
         $verificar = false;
+        $emprendimientos = [];
 
-        if($verificar==false){
+        if($verificar==false && auth()->user()){
 
             // Agregando filtro de 'Emprendimiento lanzado al mercado con o sin ventas'
             /*if($item->quien=='6375309'){
@@ -149,7 +150,7 @@ class PanelConvocatorias extends Controller
                         FOR entidad IN entidades
                             FOR responsable IN users
                             FILTER doc._key == "'.$key.'" AND conv._key  == doc.convocatoria_id AND emp._key == doc.emprendimiento_id AND quien._key  == conv.quien AND entidad._key == conv.entidad AND responsable._key == conv.responsable
-                                RETURN merge(doc, {convocatoria: conv}, {emprendimiento: emp.nombre}, {quien: quien.nombre}, {entidad: entidad.nombre,  entidad_desc: entidad.descripcion, entidad_key: entidad._key, entidad_ext: entidad.ext}, {responsable: CONCAT(responsable.nombre," ",responsable.apellidos)})
+                                RETURN merge(doc, {convocatoria: conv}, {emprendimiento: emp.nombre, emprendimiento_id: emp._key}, {quien: quien.nombre}, {entidad: entidad.nombre,  entidad_desc: entidad.descripcion, entidad_key: entidad._key, entidad_ext: entidad.ext}, {responsable: CONCAT(responsable.nombre," ",responsable.apellidos)})
         ';
         $item = $this->ArangoDB->Query($query);
         $item = $item[0];
@@ -506,7 +507,7 @@ class PanelConvocatorias extends Controller
             //Creando Edge
             $this->ArangoDB->CreateEdge(['label' => 'hasConvocatoria', 'created_time'=>now()], 'hasConvocatoria', 'users/'.auth()->user()->_key, $documentId);
 
-            //////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////                     ///////
             /// Actualizando Datos de Perfil, Cuenta y Emprendimiento
             //////////////////////////////////////////////////////////////////
             if(is_array($document['preguntas'])){

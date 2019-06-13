@@ -189,6 +189,7 @@ class AdminReportes extends Controller
                 'socios_operadores': doc.socios_operadores?:'',
                 'capital': doc.capital?:'',
                 'levantado_capital': doc.levantado_capital?:'',
+                'recibido_capital_cuanto': doc.recibido_capital_cuanto?:'',
                 'recibido_inversion': doc.recibido_inversion?:'',
                 'recibido_inversion_dequien': doc.recibido_inversion_dequien?:'',
                 'recibido_inversion_cuanto': doc.recibido_inversion_cuanto?:'',
@@ -223,7 +224,7 @@ class AdminReportes extends Controller
         foreach ($data as $item){
             if($item['nivel_tlr']!='') $item['nivel_tlr'] = $this->nivel_tlr[$item['nivel_tlr']];
             if($item['pais']!='') $item['pais'] = $this->paises[$item['pais']];
-            if($item['recibido_inversion_como']!='') $item['recibido_inversion_como'] = $this->GetFromMultipleArray($this->vehiculos_inversion, $item['recibido_inversion_como']);
+            /*if($item['recibido_inversion_como']!='') $item['recibido_inversion_como'] = $this->GetFromMultipleArray($this->vehiculos_inversion, $item['recibido_inversion_como']);
             if($item['vehiculo_inversion']!='') $item['vehiculo_inversion'] = $this->GetFromMultipleArray($this->vehiculos_inversion, $item['vehiculo_inversion']);
             if($item['recibido_inversion_vehiculo']!='') $item['recibido_inversion_vehiculo'] = $this->GetFromMultipleArray($this->vehiculos_inversion, $item['recibido_inversion_vehiculo']);
             if($item['clientes']!=''){
@@ -252,7 +253,7 @@ class AdminReportes extends Controller
                 $item['ventas_mes1'] = $item['ventas_mes2'] = $item['ventas_mes3'] = '';
             }
             if($item['gasto_mensual']!='') $item['gasto_mensual'] = $this->MoneyFormat($item['gasto_mensual']);
-            if($item['pierde_dinero']!='') $item['pierde_dinero'] = $this->MoneyFormat($item['pierde_dinero']);
+            if($item['pierde_dinero']!='') $item['pierde_dinero'] = $this->MoneyFormat($item['pierde_dinero']);*/
             if($item['logo_file']!='') $item['logo_file'] = url('/').$item['logo_file'];
             $items[] = $item;
         }
@@ -417,6 +418,7 @@ class AdminReportes extends Controller
               'socios_operadores': doc.socios_operadores?:'',
               'capital': doc.capital?:'',
               'levantado_capital': doc.levantado_capital?:'',
+              'recibido_capital_cuanto': doc.recibido_capital_cuanto?:'',
               'recibido_inversion': doc.recibido_inversion?:'',
               'recibido_inversion_dequien': doc.recibido_inversion_dequien?:'',
               'recibido_inversion_cuanto': doc.recibido_inversion_cuanto?:'',
@@ -464,7 +466,7 @@ class AdminReportes extends Controller
       foreach ($data as $item){
           if($item['nivel_tlr']!='') $item['nivel_tlr'] = $this->nivel_tlr[$item['nivel_tlr']];
           if($item['pais']!='') $item['pais'] = $this->paises[$item['pais']];
-          if($item['recibido_inversion_como']!='') $item['recibido_inversion_como'] = $this->GetFromMultipleArray($this->vehiculos_inversion, $item['recibido_inversion_como']);
+          /*if($item['recibido_inversion_como']!='') $item['recibido_inversion_como'] = $this->GetFromMultipleArray($this->vehiculos_inversion, $item['recibido_inversion_como']);
           if($item['vehiculo_inversion']!='') $item['vehiculo_inversion'] = $this->GetFromMultipleArray($this->vehiculos_inversion, $item['vehiculo_inversion']);
           if($item['recibido_inversion_vehiculo']!='') $item['recibido_inversion_vehiculo'] = $this->GetFromMultipleArray($this->vehiculos_inversion, $item['recibido_inversion_vehiculo']);
           if($item['clientes']!=''){
@@ -493,7 +495,7 @@ class AdminReportes extends Controller
               $item['ventas_mes1'] = $item['ventas_mes2'] = $item['ventas_mes3'] = '';
           }
           if($item['gasto_mensual']!='') $item['gasto_mensual'] = $this->MoneyFormat($item['gasto_mensual']);
-          if($item['pierde_dinero']!='') $item['pierde_dinero'] = $this->MoneyFormat($item['pierde_dinero']);
+          if($item['pierde_dinero']!='') $item['pierde_dinero'] = $this->MoneyFormat($item['pierde_dinero']);*/
           if($item['logo_file']!='') $item['logo_file'] = url('/').$item['logo_file'];
           if($item['cedula_file']!='') $item['cedula_file'] = url('/').$item['cedula_file'];
           $items[] = $item;

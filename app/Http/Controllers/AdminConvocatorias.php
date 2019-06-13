@@ -22,7 +22,7 @@ class AdminConvocatorias extends Controller
     private $controller = 'AdminConvocatorias';
     private $page;
     private $path;
-    private $perPage = 25;
+    private $perPage = 50;
     private $campos_cuenta = [
         'Datos de cuenta' => [
             'nombre'        =>'Nombre',
@@ -116,6 +116,7 @@ class AdminConvocatorias extends Controller
      */
     public function Index(Request $request){
         $query_user = (auth()->user()->isAdmin != 1)?'convocatoria.responsable == "'.auth()->user()->_key.'" AND':'';
+        $query_activo = ($request->get('status')!='')?'convocatoria.activo== "'.$request->get('status').'" AND ':'';
         $query = '
         FOR convocatoria IN convocatorias
             FOR users IN users
@@ -125,7 +126,7 @@ class AdminConvocatorias extends Controller
                       FILTER a.convocatoria_id == convocatoria._key
                       COLLECT WITH COUNT INTO length RETURN length
                     )            
-                    FILTER '.$query_user.' convocatoria.responsable == users._key AND convocatoria.entidad  == entidad._key
+                    FILTER '.$query_user.$query_activo.' convocatoria.responsable == users._key AND convocatoria.entidad  == entidad._key
                     SORT convocatoria._key ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'
                     RETURN merge(convocatoria, {responsable: {username: users.username, nombre: CONCAT(users.nombre," ", users.apellidos)}}, {entidad: entidad.nombre}, {total: aplicaciones[0]})
         ';
@@ -137,7 +138,7 @@ class AdminConvocatorias extends Controller
             FOR convocatoria IN convocatorias
                 FOR users IN users
                     FOR entidad IN entidades
-                        FILTER '.$query_user.' convocatoria.responsable == users._key AND convocatoria.entidad == entidad._key
+                        FILTER '.$query_user.$query_activo.' convocatoria.responsable == users._key AND convocatoria.entidad == entidad._key
                         SORT convocatoria._key ASC COLLECT WITH COUNT INTO length RETURN length');
             $total = (int)$total[0];
         }

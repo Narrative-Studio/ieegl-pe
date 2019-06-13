@@ -29,7 +29,12 @@ Route::post('recover-password-email', 'HomeController@PasswordRecoveryUpdate');
 // Pagina para Test
 Route::get('/arango', 'TestController@Index');
 
+// Convocatorias Desmilitarizadas
+Route::get('/convocatorias', 'PanelConvocatorias@Index');
+Route::get('/convocatoria/{id}/{nombre?}', 'PanelConvocatorias@Ver');
+
 Route::prefix('panel')->group(function() {
+
     Route::middleware('auth')->group(function () {
         Route::get('/', 'PanelController@Index')->name('dashboard');
 
@@ -67,8 +72,6 @@ Route::prefix('panel')->group(function() {
         Route::get('/emprendimientos/final/{id}', 'PanelEmprendimientos@Final');
 
         /** Convocatorias **/
-        Route::get('/convocatorias', 'PanelConvocatorias@Index');
-        Route::get('/convocatorias/ver/{id}', 'PanelConvocatorias@Ver');
         Route::get('/convocatorias/ver-aplicacion/{id}', 'PanelConvocatorias@VerAplicacion');
         Route::get('/convocatorias/aplicaciones', 'PanelConvocatorias@Aplicaciones');
         Route::any('/convocatorias/aplicar/{id}', 'PanelConvocatorias@Aplicar');

@@ -101,26 +101,32 @@ class AdminAdministradores extends Controller
      */
     public function Save(AdminRequest $request){
 
-        $document = [];
-        $document['nombre'] = $request->get('nombre');
-        $document['apellidos'] = $request->get('apellidos');
-        $document['email'] = $request->get('email');
-        $document['rol_id'] = $request->get('rol_id');
-        $document['active'] = ($request->get('active')=='')?0:1;
-        $document['isAdmin'] = 1;
-        if($request->get('password')!='') $document['password'] = Hash::make($request->get('password'));
+        $total = $this->ArangoDB->Query('FOR u IN '.$this->collection.' FILTER u.email=="'.$request->get('email').'" COLLECT WITH COUNT INTO length RETURN length');
+        if($total<1){
+            $document = [];
+            $document['nombre'] = $request->get('nombre');
+            $document['apellidos'] = $request->get('apellidos');
+            $document['email'] = $request->get('email');
+            $document['rol_id'] = $request->get('rol_id');
+            $document['active'] = ($request->get('active')=='')?0:1;
+            $document['isAdmin'] = 1;
+            if($request->get('password')!='') $document['password'] = Hash::make($request->get('password'));
 
-        // Creando Nuevo Registro
-        if($request->get('id')==''){
-            $documentId = $this->ArangoDB->Save($this->collection, $document);
-            Session::flash('status_success', 'Registro Agregado');
+            // Creando Nuevo Registro
+            if($request->get('id')==''){
+                $documentId = $this->ArangoDB->Save($this->collection, $document);
+                Session::flash('status_success', 'Registro Agregado');
+            }else{
+                // Actualizando Registro
+                $documentId = $this->ArangoDB->Update($this->collection, $this->collection.'/'.$request->get('id'), $document);
+                Session::flash('status_success', 'Registro Actualizado');
+            }
+
+            return redirect()->action($this->controller.'@Index');
         }else{
-        // Actualizando Registro
-            $documentId = $this->ArangoDB->Update($this->collection, $this->collection.'/'.$request->get('id'), $document);
-            Session::flash('status_success', 'Registro Actualizado');
+            Session::flash('status_error', 'Ya existe un usuario con ese email, por favor usar otro email.');
+            return redirect()->action($this->controller.'@Index');
         }
-
-        return redirect()->action($this->controller.'@Index');
     }
 
     /**

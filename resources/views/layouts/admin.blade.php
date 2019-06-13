@@ -53,12 +53,16 @@
 
     <!-- END Page Level CSS-->
     <!-- BEGIN Custom CSS-->
+    <link rel="stylesheet" type="text/css" media="print" href="{{url("/")}}/css/print.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="{{url("/")}}/css/custom.min.css">
     <!-- END Custom CSS-->
 </head>
 
 <body class="vertical-layout vertical-compact-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-compact-menu" data-col="2-columns">
+<div class="header-print" style="display: none;">
+    <img src="{{url("/")}}/img/logo_SID_white.png">
+</div>
 <!-- fixed-top-->
 <nav class="header-navbar navbar-expand-md navbar navbar-with-menu fixed-top navbar-dark bg-success navbar-shadow navbar-brand-center">
     <div class="navbar-wrapper">
@@ -106,35 +110,13 @@
                 </ul>
             </li>
             <?php if(\App\Http\Controllers\AdminRoles::getAccess('convocatorias')):?>
-            <li class=" nav-item"><a href="{{action('AdminConvocatorias@Index')}}"><i class="icon-grid"></i><span class="menu-title" data-i18n="nav.layouts.temp">Convocatorias</span></a>
-                <ul class="menu-content">
-                    <li><a class="menu-item" href="{{action('AdminConvocatorias@Index')}}" data-i18n="nav.page_layouts.main">Abiertas</a>
-                    </li>
-                    <li><a class="menu-item" href="{{action('AdminConvocatorias@Index')}}" data-i18n="nav.navbars.main">Cerradas</a>
-                    </li>
-                    <li><a class="menu-item" href="{{action('AdminConvocatorias@Index')}}" data-i18n="nav.vertical_nav.main">Pendientes de Aprobación</a>
-                    </li>
-                </ul>
-            </li>
+            <li class=" nav-item"><a href="{{action('AdminConvocatorias@Index')}}"><i class="icon-grid"></i><span class="menu-title" data-i18n="nav.layouts.temp">Convocatorias</span></a></li>
             <?php endif;?>
             <?php if(\App\Http\Controllers\AdminRoles::getAccess('solicitudes')):?>
-            <li class=" nav-item"><a href="#"><i class="icon-check"></i><span class="menu-title" data-i18n="nav.category.general">Aplicaciones</span></a>
-                <ul class="menu-content">
-                    <li><a class="menu-item" href="{{action('AdminSolicitudes@Index')}}" data-i18n="nav.color_palette.main">Por Revisar</a></li>
-                    <li><a class="menu-item" href="{{action('AdminSolicitudes@Index')}}" data-i18n="nav.changelog.main">Aceptadas</a></li>
-                    <li><a class="menu-item" href="{{action('AdminSolicitudes@Index')}}" data-i18n="nav.rechazadas.main">Rechazadas</a></li>
-                </ul>
-            </li>
+            <li class=" nav-item"><a href="{{action('AdminSolicitudes@Index')}}"><i class="icon-check"></i><span class="menu-title" data-i18n="nav.category.general">Aplicaciones</span></a></li>
             <?php endif;?>
-            <li class=" nav-item"><a href="#"><i class="icon-layers"></i><span class="menu-title" data-i18n="nav.category.pages">Emprendimientos</span></a>
-                <ul class="menu-content">
-                    <li><a class="menu-item" href="email-application.html" data-i18n="nav.email-application.main">Email Application</a>
-                    </li>
-                    <li><a class="menu-item" href="chat-application.html" data-i18n="nav.chat-application.main">Chat Application</a>
-                    </li>
-                </ul>
-            </li>
             <?php if(\App\Http\Controllers\AdminRoles::getAccess('reportes')):?>
+            <li class=" nav-item"><a href="{{action('AdminReportes@Emprendimientos')}}"><i class="icon-layers"></i><span class="menu-title" data-i18n="nav.category.pages">Emprendimientos</span></a></li>
             <li class=" nav-item"><a href="#"><i class="icon-graph"></i><span class="menu-title" data-i18n="nav.category.ui">Reportes</span></a>
                 <ul class="menu-content">
                     <li class=" nav-item"><a href="{{action('AdminReportes@Usuarios')}}"><i class="fas fa-address-card"></i><span class="menu-title">Usuarios</span></a></li>

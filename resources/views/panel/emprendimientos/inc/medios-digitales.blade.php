@@ -56,4 +56,34 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="col-md-12">
+                <label for="">Agrega tu presentación o pitch deck (PDF, JPG)  <span class="required">*</span></label>
+                <div class="row">
+                    <div class="col-md-4">
+                        @if(isset($item->presentacion_file))
+                            @if(file_exists(public_path($item->presentacion_file)))
+                                <?php $archivo = explode('.',$item->presentacion_file)?>
+                                @if($archivo[1]=='pdf')
+                                    <a class="btn btn-sm btn-primary" href="{{url($item->presentacion_file)}}" target="_blank"><i class="fa fa-search-plus"></i> Ver Presentación</a>
+                                    <input type="hidden" name="presentacion_file" value="{{$item->presentacion_file}}" />
+                                @else
+                                    <img src="{{url($item->presentacion_file)}}?{{str_random(15)}}" width="120" height="120" border="0" alt="" class="rounded img-fluid" data-action="zoom" />
+                                @endif
+                            @endif
+                        @else
+                            <img src="https://imgplaceholder.com/240x250/37bc9b/ffffff/fa-file-pdf-o?text=_none_&font-size=60" width="120" height="120" border="0" alt="" />
+                        @endif
+                    </div>
+                    <div class="col-md-8">
+                        <input type='file' name="presentacion" id="" accept=".pdf, .jpg, .jpeg" required="required" />
+                        @if ($errors->has('presentacion'))
+                            <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('presentacion') }}</strong></span>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

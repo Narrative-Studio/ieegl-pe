@@ -29,6 +29,28 @@
     </div>
 @endsection
 
+@section('header')
+    <meta content="Article" name="mediatype">
+    <meta content="index,follow" name="robots">
+
+    <meta property="og:title"              content="{{$item->nombre}}" />
+    <meta property="og:description"        content="{!! $item->descripcion_corta !!}" />
+    <meta property="article:author"        content="{{$item->entidad}}" />
+    <meta property="article:section"       content="Convocatorias" />
+    <meta property="og:image"              content="https://crea.incmty.com/propuestas_img/propuesta-528.jpg" />
+    @if(isset($item->entidad_ext))
+        @if(file_exists(public_path('/entidades_pics/imagen_'.$item->entidad_key.'.'.$item->entidad_ext)))
+            <meta property="og:image"              content="{{url('/entidades_pics/imagen_'.$item->entidad_key.'.'.$item->entidad_ext)}}" />
+        @endif
+    @endif
+    <meta property="og:url"                content="{{action('PanelConvocatorias@Ver',['id'=>$item->_key,'nombre'=>str_slug($item->nombre, '-')])}}" />
+    <!--<meta property="fb:app_id"             content="1426579487650492" />-->
+    <meta property="og:type"               content="article" />
+    <meta property="article:published"     content="2019-06-12" />
+    <meta property="og:locale"             content="es_LA" />
+    <meta property="og:site_name"          content="Startup Identification" />
+@endsection
+
 @section('js')
     <script type="text/javascript">
         function Aplicar(value, nombre){
@@ -50,6 +72,7 @@
             })
         }
     </script>
+    <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5cf97a9d4351e9001264f934&product=inline-share-buttons' async='async'></script>
 @endsection
 
 @section('content')
@@ -85,6 +108,7 @@
                                     <div class="col-8">
                                         <h2 class="card-title">{{$item->entidad}}</h2>
                                         <small class="block">{!! $item->descripcion_corta !!}</small>
+
                                     </div>
                                     <div class="col text-right">
 
@@ -95,40 +119,53 @@
                                                 </div>
                                             </div>
                                         @else
-                                            @if($item->quien_key!='6375236')
-                                                {!! Form::open(['action' => ['PanelConvocatorias@Aplicar', $item->_key], 'id'=>'form_aplicar','method'=>'POST', 'class'=>'form', 'files' => false]) !!}
-                                                <input type="hidden" name="emprendimiento" id="form_emprendimiento" value=""/>
+                                            @if(auth()->user())
+                                                @if($item->quien_key!='6375236')
+                                                    {!! Form::open(['action' => ['PanelConvocatorias@Aplicar', $item->_key], 'id'=>'form_aplicar','method'=>'POST', 'class'=>'form', 'files' => false]) !!}
+                                                    <input type="hidden" name="emprendimiento" id="form_emprendimiento" value=""/>
 
-                                                <div class="btn-group mr-1 mb-1">
-                                                    <button type="button" class="btn btn-success dropdown-toggle btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="fa fa-check"></i> APLICAR
-                                                    </button>
-                                                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 49px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                        @foreach($emprendimientos as $k=>$v)
-                                                            <a class="dropdown-item" href="javascript:;" onclick="Aplicar('{{$k}}','{{$v}}')">{{$v}}</a>
-                                                            <div class="dropdown-divider"></div>
-                                                        @endforeach
+                                                    <div class="btn-group mr-1 mb-1">
+                                                        <button type="button" class="btn btn-success dropdown-toggle btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="fa fa-check"></i> APLICAR
+                                                        </button>
+                                                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 49px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                            @foreach($emprendimientos as $k=>$v)
+                                                                <a class="dropdown-item" href="javascript:;" onclick="Aplicar('{{$k}}','{{$v}}')">{{$v}}</a>
+                                                                <div class="dropdown-divider"></div>
+                                                            @endforeach
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                {!! Form::close() !!}
+                                                    {!! Form::close() !!}
+                                                @else
+                                                    {!! Form::open(['action' => ['PanelConvocatorias@Aplicar', $item->_key], 'id'=>'form_aplicar','method'=>'POST', 'class'=>'form', 'files' => false]) !!}
+                                                    <input type="hidden" name="emprendimiento" id="form_emprendimiento" value=""/>
+
+                                                    <div class="btn-group mr-1 mb-1">
+                                                        <button type="button" class="btn btn-success dropdown-toggle btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="fa fa-check"></i> APLICAR
+                                                        </button>
+                                                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 49px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                            @foreach($emprendimientos as $k=>$v)
+                                                                <a class="dropdown-item" href="javascript:;" onclick="Aplicar('{{$k}}')">{{$v}}</a>
+                                                                <div class="dropdown-divider"></div>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                    {!! Form::close() !!}
+                                                @endif
                                             @else
-                                                {!! Form::open(['action' => ['PanelConvocatorias@Aplicar', $item->_key], 'id'=>'form_aplicar','method'=>'POST', 'class'=>'form', 'files' => false]) !!}
-                                                <input type="hidden" name="emprendimiento" id="form_emprendimiento" value=""/>
-
                                                 <div class="btn-group mr-1 mb-1">
-                                                    <button type="button" class="btn btn-success dropdown-toggle btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <a href="{{route('login')}}" class="btn btn-success btn-lg">
                                                         <i class="fa fa-check"></i> APLICAR
-                                                    </button>
-                                                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 49px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                        @foreach($emprendimientos as $k=>$v)
-                                                            <a class="dropdown-item" href="javascript:;" onclick="Aplicar('{{$k}}')">{{$v}}</a>
-                                                            <div class="dropdown-divider"></div>
-                                                        @endforeach
-                                                    </div>
+                                                    </a>
                                                 </div>
-                                                {!! Form::close() !!}
                                             @endif
                                         @endif
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="sharethis-inline-share-buttons"></div>
                                     </div>
                                 </div>
                             </div>

@@ -52,7 +52,8 @@
                                             @foreach($datos as $item)
                                                 <tr>
                                                 <td class="text-left">
-                                                    <a href="{{action('AdminSolicitudes@Edit',['id'=>$item->_key])}}" class="text-bold-600">{{$item->emprendimiento}}</a>
+                                                    <b>{{$item->emprendimiento}}</b><br>
+                                                    <a href="{{action('AdminConvocatorias@Edit',['id'=>$item->convocatoria->_key])}}" class="text-muted font-small-2" style="white-space:normal;">{{$item->convocatoria->nombre}}</a>
                                                 </td>
                                                 <td class="text-center">
                                                     <p class="text-bold-600 font-small-3">{{$item->usuario->nombre}}</p>

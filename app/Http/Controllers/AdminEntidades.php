@@ -85,8 +85,8 @@ class AdminEntidades extends Controller
     }
 
     /**
-     * Guardar datos de la Industrias
-     * @param Request $request
+     * Guardar datos de la Entidades
+     * @param UniversidadRequest $request
      * @return \Illuminate\Http\RedirectResponse
      * @throws ArangoClientException
      * @throws ArangoException
@@ -116,7 +116,7 @@ class AdminEntidades extends Controller
         }else{
             Session::flash('status_success', 'Registro Guardado, pero no se pudo guardar la imágen.');
         }
-        $documentId = $this->ArangoDB->Update($this->collection, $this->collection.'/'.$request->get('id'), $document);
+        $documentId = $this->ArangoDB->Update($this->collection, $this->collection.'/'.$key, $document);
 
         return redirect()->action($this->controller.'@Index');
     }

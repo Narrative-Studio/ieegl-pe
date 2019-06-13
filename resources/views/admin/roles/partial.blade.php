@@ -31,8 +31,8 @@
             </div>
             <div class="col-md-3 col-xs-6">
                 <div class="form-group">
-                    <i class="fa fa-database"></i> {{Form::label('', 'Solicitudes')}}
-                    <div class="checkbox"><label><input type="checkbox" name="permisos[]" value="solicitudes" @if(in_array("solicitudes", $permisos)) {{"checked='checked'"}} @endif> Solicitudes</label></div>
+                    <i class="fa fa-database"></i> {{Form::label('', 'Aplicaciones')}}
+                    <div class="checkbox"><label><input type="checkbox" name="permisos[]" value="solicitudes" @if(in_array("solicitudes", $permisos)) {{"checked='checked'"}} @endif> Aplicaciones</label></div>
                 </div>
             </div>
             <div class="col-md-3 col-xs-6">

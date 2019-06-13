@@ -1,0 +1,41 @@
+.main-menu{
+    display: none;
+}
+.app-content.content{
+    margin: 0 !important;
+}
+.footer{
+    display: none;
+}
+.content-wrapper{
+    padding: 0;
+}
+.navbar-header{
+    position: absolute;
+    top: 0;
+}
+.navbar-nav .d-none{
+    display: none !important;
+}
+.navbar-nav.float-right{
+    display: none !important;
+}
+header-navba{
+    display: block !important;
+}
+.card.datos-status{
+    display: none;
+}
+body{
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.header-print{
+    padding: 15px;
+    background-color: #8a8a8a;
+    display: block !important;
+    text-align: center;
+}
+.header-print img{
+    height: 40px;
+}

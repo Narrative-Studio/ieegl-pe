@@ -235,12 +235,12 @@ class PanelEmprendimientos extends Controller
         }
 
         // Guardando Presentacion
-        /*if($_FILES['presentacion']['size'] != 0 && $_FILES['presentacion']['error'] == 0){
+        if($_FILES['presentacion']['size'] != 0 && $_FILES['presentacion']['error'] == 0){
             $ext = Input::file('presentacion')->getClientOriginalExtension();
             $file_name = 'presentacion_'.$documentId.'.'.$ext;
             $request->file('presentacion')->move(public_path('/emprendimientos_pdf/'),$file_name);
             $document['presentacion_file'] = '/emprendimientos_pdf/'.$file_name;
-        }*/
+        }
         $this->ArangoDB->Update($this->collection, $this->collection.'/'.$documentId, $document);
 
         Session::flash('status_success', 'Medios Digitales Guardados');
@@ -493,12 +493,12 @@ class PanelEmprendimientos extends Controller
 
 
         // Guardando Cédula de Identificación Fiscal del Emprendimiento
-        /*if($_FILES['cedula_identificacion']['size'] != 0 && $_FILES['cedula_identificacion']['error'] == 0){
+        if($_FILES['cedula_identificacion']['size'] != 0 && $_FILES['cedula_identificacion']['error'] == 0){
             $ext = Input::file('cedula_identificacion')->getClientOriginalExtension();
             $file_name = 'cedula_'.$documentId.'.'.$ext;
             $request->file('cedula_identificacion')->move(public_path('/emprendimientos_pics/'),$file_name);
             $document['cedula_file'] = '/emprendimientos_pics/'.$file_name;
-        }*/
+        }
         $this->ArangoDB->Update($this->collection, $this->collection.'/'.$documentId, $document);
 
         Session::flash('status_success', 'Información Financiera Guardada');

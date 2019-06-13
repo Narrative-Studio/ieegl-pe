@@ -4,9 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="author" content="">
+    @yield('header')
     <title>STARTUP IDENTIFICATION</title>
     <link rel="apple-touch-icon" href="{{url("/")}}/img/icon_sid.png">
     <link rel="shortcut icon" type="image/x-icon" href="{{url("/")}}/img/icon_sid.png">
@@ -76,40 +74,48 @@
                     @yield('breadright')
                 </div>
             </div>
-
             <div class="main-menu menu-static menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
                 <div class="main-menu-content">
                     <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                        <li class=" nav-item">
-                            <a href="{{action("PanelController@Index")}}"><i class="icon-home"></i><span class="menu-title" data-i18n="nav.dash.main">Dashboard</span></a>
-                        </li>
-                        <li class=" navigation-header">
-                            <span data-i18n="nav.category.layouts">Mi Información</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Layouts"></i>
-                        </li>
-                        <li class=" nav-item">
-                            <a href="{{action('PanelPerfiles@Cuenta')}}"><i class="icon-user"></i><span class="menu-title" data-i18n="nav.users.main">Mi Cuenta</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{action('PanelPerfiles@Index')}}"><i class="icon-note"></i><span class="menu-title" data-i18n="nav.users.main">Perfil</span></a>
-                        </li>
-                        <li class=" nav-item">
-                            <a href="{{action('PanelEmprendimientos@Index')}}"><i class="icon-layers"></i><span class="menu-title" data-i18n="nav.page_layouts.main">Emprendimientos</span></a>
-                        </li>
-                        <li class=" navigation-header">
-                            <span data-i18n="nav.category.pages">Convocatorias</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right" data-original-title="Pages"></i>
-                        </li>
-                        <li class=" nav-item">
-                            <a href="{{action('PanelConvocatorias@Index')}}"><i class="icon-grid"></i><span class="menu-title" data-i18n="nav.project.project_summary">Convocatorias</span></a>
-                        </li>
-                        <li class=" nav-item">
-                            <a href="{{action('PanelConvocatorias@Aplicaciones')}}"><i class="icon-check"></i><span class="menu-title" data-i18n="nav.scrumboard.main">Mis Aplicaciones</span></a>
-                        </li>
-                        <li class=" navigation-header">
-                            <span data-i18n="nav.category.pages"></span>
-                        </li>
-                        <li class=" nav-item">
-                            <a href="{{route('logout')}}"><i class="icon-logout"></i><span class="menu-title">Salir</span></a>
-                        </li>
+                        @if(auth()->user())
+                            <li class=" nav-item">
+                                <a href="{{action("PanelController@Index")}}"><i class="icon-home"></i><span class="menu-title" data-i18n="nav.dash.main">Dashboard</span></a>
+                            </li>
+                            <li class=" navigation-header">
+                                <span data-i18n="nav.category.layouts">Mi Información</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right"></i>
+                            </li>
+                            <li class=" nav-item">
+                                <a href="{{action('PanelPerfiles@Cuenta')}}"><i class="icon-user"></i><span class="menu-title" data-i18n="nav.users.main">Mi Cuenta</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{action('PanelPerfiles@Index')}}"><i class="icon-note"></i><span class="menu-title" data-i18n="nav.users.main">Perfil</span></a>
+                            </li>
+                            <li class=" nav-item">
+                                <a href="{{action('PanelEmprendimientos@Index')}}"><i class="icon-layers"></i><span class="menu-title" data-i18n="nav.page_layouts.main">Emprendimientos</span></a>
+                            </li>
+                            <li class=" navigation-header">
+                                <span data-i18n="nav.category.pages">Convocatorias</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right"></i>
+                            </li>
+                            <li class=" nav-item">
+                                <a href="{{action('PanelConvocatorias@Index')}}"><i class="icon-grid"></i><span class="menu-title" data-i18n="nav.project.project_summary">Convocatorias</span></a>
+                            </li>
+                            <li class=" nav-item">
+                                <a href="{{action('PanelConvocatorias@Aplicaciones')}}"><i class="icon-check"></i><span class="menu-title" data-i18n="nav.scrumboard.main">Mis Aplicaciones</span></a>
+                            </li>
+                            <li class=" navigation-header">
+                                <span data-i18n="nav.category.pages"></span>
+                            </li>
+                            <li class=" nav-item">
+                                <a href="{{route('logout')}}"><i class="icon-logout"></i><span class="menu-title">Salir</span></a>
+                            </li>
+                        @else
+                            <li class=" navigation-header">
+                                <span data-i18n="nav.category.pages">Convocatorias</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right"></i>
+                            </li>
+                            <li class=" nav-item" style="margin-bottom: 20px;">
+                                <a href="{{action('PanelConvocatorias@Index')}}"><i class="icon-grid"></i><span class="menu-title" data-i18n="nav.project.project_summary">Convocatorias</span></a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </div>

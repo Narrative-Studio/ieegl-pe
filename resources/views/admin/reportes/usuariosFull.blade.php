@@ -46,10 +46,9 @@
                                         <th data-field="pais">País</th>
                                         <th data-field="estado">Estado</th>
                                         <th data-field="ciudad">Ciudad</th>
-                                        <th data-field="universidad">Universidad</th>
                                         <th data-field="campus">Campus Tec</th>
                                         <th data-field="carrera_cursando">Actualmente cursando carrera</th>
-                                        <th data-field="fecha_graduacion">Fecha Graduación</th>
+                                        <th data-field="matricula">Matricula</th>
                                         <th data-field="fecha">Fecha Alta</th>
                                         <th data-field="validated">Validado</th>
                                     </tr>
