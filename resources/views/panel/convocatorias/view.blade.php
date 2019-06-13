@@ -37,15 +37,12 @@
     <meta property="og:description"        content="{!! $item->descripcion_corta !!}" />
     <meta property="article:author"        content="{{$item->entidad}}" />
     <meta property="article:section"       content="Convocatorias" />
-    <meta property="og:image"              content="https://crea.incmty.com/propuestas_img/propuesta-528.jpg" />
     @if(file_exists(public_path('/convocatorias_pics/imagen_'.$item->_key.'.jpg')))
     <meta property="og:image"              content="{{url('/convocatorias_pics/imagen_'.$item->_key.'.jpg')}}" />
     @endif
     <meta property="og:url"                content="{{action('PanelConvocatorias@Ver',['id'=>$item->_key,'nombre'=>str_slug($item->nombre, '-')])}}" />
     <!--<meta property="fb:app_id"             content="1426579487650492" />-->
     <meta property="og:type"               content="article" />
-    <meta property="article:published"     content="2019-06-12" />
-    <meta property="og:locale"             content="es_LA" />
     <meta property="og:site_name"          content="Startup Identification" />
 @endsection
 
