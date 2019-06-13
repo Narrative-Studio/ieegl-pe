@@ -4,7 +4,7 @@
             <div class="form-group">
                 <label for="">¿Ya lanzaste tu producto/servicio al mercado? <span class="required">*</span></label>
                 <?php $class=($errors->has('lanzar_producto'))?'form-control is-invalid':'form-control'; ?>
-                @include('panel.emprendimientos.campos.lanzar_producto', ['campo'=>'lanzar_producto','value'=>($item)?$item->lanzar_producto:''])
+                @include('panel.emprendimientos.campos.lanzar_producto', ['campo'=>'lanzar_producto','value'=>(isset($item->lanzar_producto))?$item->lanzar_producto:''])
                 @if ($errors->has('lanzar_producto'))
                     <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('lanzar_producto') }}</strong></span>
                 @endif
@@ -14,7 +14,7 @@
             <div class="form-group">
                 <label for="">Si ya lanzaste tu producto, ¿En qué fecha fue? <span class="required">*</span></label>
                 <?php $class=($errors->has('fecha_lanzamiento'))?'form-control is-invalid':'form-control'; ?>
-                @include('panel.emprendimientos.campos.fecha_lanzamiento', ['campo'=>'fecha_lanzamiento','value'=>($item)?$item->fecha_lanzamiento:''])
+                @include('panel.emprendimientos.campos.fecha_lanzamiento', ['campo'=>'fecha_lanzamiento','value'=>(isset($item->fecha_lanzamiento))?$item->fecha_lanzamiento:''])
                 @if ($errors->has('fecha_lanzamiento'))
                     <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('fecha_lanzamiento') }}</strong></span>
                 @endif
@@ -26,7 +26,7 @@
                 <div class="form-group">
                     <label for="">¿Tienes una Patente o IP de tu producto o servicio? <span class="required">*</span></label>
                     <?php $class=($errors->has('patente_ip'))?'form-control is-invalid':'form-control'; ?>
-                    @include('panel.emprendimientos.campos.patente_ip', ['campo'=>'patente_ip','value'=>($item)?$item->patente_ip:''])
+                    @include('panel.emprendimientos.campos.patente_ip', ['campo'=>'patente_ip','value'=>(isset($item->patente_ip))?$item->patente_ip:''])
                     @if ($errors->has('patente_ip'))
                         <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('patente_ip') }}</strong></span>
                     @endif
@@ -36,7 +36,7 @@
                 <div class="form-group">
                     <label for="">¿Has tenido ventas? <span class="required">*</span></label>
                     <?php $class=($errors->has('realizado_ventas'))?'form-control is-invalid':'form-control'; ?>
-                    @include('panel.emprendimientos.campos.realizado_ventas', ['campo'=>'realizado_ventas','value'=>($item)?$item->realizado_ventas:''])
+                    @include('panel.emprendimientos.campos.realizado_ventas', ['campo'=>'realizado_ventas','value'=>(isset($item->realizado_ventas))?$item->realizado_ventas:''])
                     @if ($errors->has('realizado_ventas'))
                         <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('realizado_ventas') }}</strong></span>
                     @endif
@@ -81,7 +81,7 @@
                 <div class="form-group">
                     <label for="">¿Alguno de tus socios ha tenido un "exit" o ha venido de una empresa? <span class="required">*</span></label>
                     <?php $class=($errors->has('socio_exit_empresa'))?'form-control is-invalid':'form-control'; ?>
-                    @include('panel.emprendimientos.campos.socio_exit_empresa', ['campo'=>'socio_exit_empresa','value'=>($item)?$item->socio_exit_empresa:''])
+                    @include('panel.emprendimientos.campos.socio_exit_empresa', ['campo'=>'socio_exit_empresa','value'=>(isset($item->socio_exit_empresa))?$item->socio_exit_empresa:''])
                     @if ($errors->has('socio_exit_empresa'))
                         <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('socio_exit_empresa') }}</strong></span>
                     @endif
