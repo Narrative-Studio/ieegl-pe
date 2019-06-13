@@ -72,7 +72,7 @@
             })
         }
     </script>
-    <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5cf97a9d4351e9001264f934&product=inline-share-buttons' async='async'></script>
+    <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5d017f294351e90012650636&product=inline-share-buttons' async='async'></script>
 @endsection
 
 @section('content')
