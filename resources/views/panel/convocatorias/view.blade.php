@@ -38,10 +38,8 @@
     <meta property="article:author"        content="{{$item->entidad}}" />
     <meta property="article:section"       content="Convocatorias" />
     <meta property="og:image"              content="https://crea.incmty.com/propuestas_img/propuesta-528.jpg" />
-    @if(isset($item->entidad_ext))
-        @if(file_exists(public_path('/entidades_pics/imagen_'.$item->entidad_key.'.'.$item->entidad_ext)))
-            <meta property="og:image"              content="{{url('/entidades_pics/imagen_'.$item->entidad_key.'.'.$item->entidad_ext)}}" />
-        @endif
+    @if(file_exists(public_path('/convocatorias_pics/imagen_'.$item->_key.'.jpg')))
+    <meta property="og:image"              content="{{url('/convocatorias_pics/imagen_'.$item->_key.'.jpg')}}" />
     @endif
     <meta property="og:url"                content="{{action('PanelConvocatorias@Ver',['id'=>$item->_key,'nombre'=>str_slug($item->nombre, '-')])}}" />
     <!--<meta property="fb:app_id"             content="1426579487650492" />-->
