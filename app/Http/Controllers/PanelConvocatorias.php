@@ -6,6 +6,7 @@ use App\Http\Requests\PerfilDatosPersonalesRequest;
 use App\Http\Requests\PerfilEstudiosRequest;
 use App\Http\Requests\UserRequest;
 use App\Mail\SolicitudAdmin;
+use App\Mail\UpdateSolicitudAdmin;
 use Illuminate\Http\Request;
 use App\Repositories\ArangoDB;
 use ArangoDBClient\Exception as ArangoException;
@@ -364,6 +365,107 @@ class PanelConvocatorias extends Controller
         }
     }
 
+    public function EditarAplicacion($key, Request $request){
+        $errores = []; // Errores de por que no fue aprobada la convicatoria
+        $emprendimiento = "";
+        $msg = "";
+
+        // Aplicacion
+        $aplicacion = $this->ArangoDB->Query('FOR doc IN usuario_convocatoria FILTER doc._key=="'.$key.'" RETURN doc');
+        $aplicacion = $aplicacion[0];
+
+        //Obteniendo Convocatoria
+        $query = '
+            FOR convocatoria IN convocatorias
+            FILTER convocatoria._key=="'.$aplicacion->convocatoria_id.'"
+            FOR users IN users
+                FOR entidad IN entidades
+                    FOR quien IN quien
+                        FILTER convocatoria.responsable == users._key AND convocatoria.entidad  == entidad._key AND convocatoria.quien  == quien._key
+                        RETURN merge(convocatoria, {responsable: {username: users.username, nombre: CONCAT(users.nombre," ", users.apellidos)}}, {entidad: entidad.nombre}, {quien: quien.nombre, quien_key:quien._key} )';
+        $item = $this->ArangoDB->Query($query);
+        $item = $item[0];
+
+        //Emprendimiento seleccionado*/
+        $emprendimiento = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc._key=="'.$aplicacion->emprendimiento_id.'" RETURN doc');
+        $emprendimiento = $emprendimiento[0];
+
+
+        // Datos del Perfil
+        $data = $this->ArangoDB->Query('FOR doc IN perfiles FILTER doc.userKey == "'.$aplicacion->userKey.'" RETURN doc',true);
+        $perfil = (count($data)>0)?$data[0]:[];
+        $paises = $this->paises; // Paises
+        $estados = $this->estados; // Estados
+        $sexo = $this->sexo;
+        $dedicas = $this->a_que_te_dedicas;
+
+        // Cuenta
+        $data = $this->ArangoDB->Query('FOR doc IN users FILTER doc._key == "'.$aplicacion->userKey.'" RETURN doc',true);
+        $cuenta = (count($data)>0)?$data[0]:[];
+
+        //Emprendimiento
+        $data = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc._key=="'.$aplicacion->emprendimiento_id.'" RETURN doc', true);
+        $emprendimiento_array = (count($data)>0)?$data[0]:[];
+
+        // Obteniendo Industrias
+        $industrias = $this->ArangoDB->Query('FOR doc IN industrias SORT doc.nombre ASC RETURN doc');
+
+        // Obteniendo Etapas
+        $etapas = $this->ArangoDB->Query('FOR doc IN etapas SORT doc.nombre ASC RETURN doc', true);
+        $etapas = $this->ArangoDB->SelectFormat($etapas, '_key', 'nombre');
+
+        //Niveles
+        $nivel_tlr = $this->nivel_tlr;
+
+        // Vehiculos de Inversion
+        $vehiculos = $this->vehiculos_inversion;
+
+        // Obteniendo Terminos
+        $terminos = $this->ArangoDB->Query('FOR doc IN terminos RETURN doc', true);
+        $terminos = $this->ArangoDB->SelectFormat($terminos, '_key', 'nombre');
+
+        $enteraste = $this->como_te_enteraste;
+
+        // Estudiando
+        $estudiando = $this->estudiando;
+
+        //Campus TEC
+        $campus = $this->campus;
+
+        //Preguntas de Catálogo
+        $preg_cat = [];
+        $preg_cat_aql = [];
+        $preguntas_catalogo = [];
+        foreach($item->preguntas as $pregunta){
+            if($pregunta->tipo=="catalogos") $preg_cat[]=$pregunta->campo;
+        }
+        if(count($preg_cat)>0){
+            $preg_cat = implode('","', $preg_cat);
+            $preg_cat_aql = $this->ArangoDB->Query(' FOR preguntas IN preguntas_admin FILTER preguntas._key IN ["'.$preg_cat.'"] RETURN preguntas', true);
+        }
+        if(count($preg_cat_aql)>0){
+            foreach($preg_cat_aql as $pregunta) {
+                $preguntas_catalogo[$pregunta['_key']] = [
+                    "_key"=>$pregunta['_key'],
+                    "placeholder"=>isset($pregunta['placeholder'])?$pregunta['placeholder']:'',
+                    "pregunta"=>isset($pregunta['pregunta'])?$pregunta['pregunta']:'',
+                    "respuestas"=>isset($pregunta['respuestas'])?$pregunta['respuestas']:'',
+                    "tipo"=>$pregunta['tipo'],
+                    "categoria"=>$pregunta['categoria'],
+                ];
+            }
+        }
+
+        $respuestas_aplicacion  = json_decode(json_encode($aplicacion->preguntas), true);
+
+        return view('panel.convocatorias.editar-aplicacion', compact('item', 'aplicacion','emprendimiento', 'puede_aplicar', 'errores', 'verificar',
+            'perfil','paises','estados','sexo','dedicas','estudiando','campus',
+            'cuenta','emprendimiento_array',
+            'industrias','nivel_tlr','enteraste','etapas','vehiculos','terminos',
+            'preguntas_catalogo', 'respuestas_aplicacion'
+        ));
+    }
+
     /**
      * Aplicando Convocatoria
      * @param Request $request
@@ -537,6 +639,87 @@ class PanelConvocatorias extends Controller
         }
 
         return view('panel.convocatorias.aplicacion', compact('puede_aplicar','item','emprendimiento'));
+    }
+
+    /**
+     * Actualizando Aplicacion
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws ArangoClientException
+     * @throws ArangoException
+     */
+    public function UpdateAplicacion($key, Request $request){
+
+        // Aplicacion
+        $aplicacion = $this->ArangoDB->Query('FOR doc IN usuario_convocatoria FILTER doc._key=="'.$key.'" RETURN doc');
+        $aplicacion = $aplicacion[0];
+
+        //Obteniendo Convocatoria
+        //Obteniendo Convocatoria
+        $query = '
+        FOR convocatoria IN convocatorias 
+            FOR usuario IN users
+            FILTER convocatoria._key=="'.$aplicacion->convocatoria_id.'" AND usuario._key == convocatoria.responsable
+            RETURN merge(convocatoria, {usuario: usuario})
+        ';
+        $item = $this->ArangoDB->Query($query);
+        $item = $item[0];
+
+        //Obteniendo usuario
+        $query = '
+        FOR usuario IN users 
+            FILTER usuario._key=="'.$aplicacion->userKey.'"
+            RETURN usuario
+        ';
+        $user = $this->ArangoDB->Query($query);
+        $user = $user[0];
+
+        //Emprendimiento seleccionado
+        $emprendimiento = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc._key=="'.$aplicacion->emprendimiento_id.'" RETURN doc');
+        $emprendimiento = $emprendimiento[0];
+
+        if($aplicacion->aprobado==1 || $aplicacion->aprobado==4){
+            $document = [];
+            $document['preguntas'] = $_POST;
+            $document['fecha_update'] = date('Y-m-d H:i:s');
+
+            // Actualizando Aplicacion
+            $this->ArangoDB->Update('usuario_convocatoria', 'usuario_convocatoria/'.$key, $document);
+
+            //////////////////////////////////////////////////////////////////
+            /// Actualizando Datos de Perfil, Cuenta y Emprendimiento
+            //////////////////////////////////////////////////////////////////
+            if(is_array($document['preguntas'])){
+                // Cuenta de Usuario
+                if(isset($document['preguntas']['cuenta'])) {
+                    $this->ArangoDB->Update('users', 'users/' .$aplicacion->userKey, $document['preguntas']['cuenta']);
+                }
+                if(isset($document['preguntas']['usuario'])) {
+                    // Perfil
+                    $data_update = $this->ArangoDB->Query('FOR doc IN perfiles FILTER doc.userKey == "'.$aplicacion->userKey.'" RETURN doc._key');
+                    $this->ArangoDB->Update('perfiles', 'perfiles/'.$data_update[0], $document['preguntas']['usuario']);
+                }
+                if(isset($document['preguntas']['emprendimiento'])) {
+                    // Emprendimiento
+                    $this->ArangoDB->Update('emprendimientos', 'emprendimientos/' . $aplicacion->emprendimiento_id, $document['preguntas']['emprendimiento']);
+                }
+            }
+            //////////////////////////////////////////////////////////////////
+
+            // Enviando Mail al Administrador
+            $document['responsable_email'] = $item->usuario->email;
+            $document['usuario'] = $user->nombre.' '.$user->apellidos;
+            $document['usuario_email'] = $user->email;
+            $document['_key'] = $aplicacion->_key;
+            $document['convocatoria_nombre'] = $item->nombre;
+            Mail::to($document['responsable_email'])->send(new UpdateSolicitudAdmin($document));
+
+            $actualizada = true;
+        }else{
+            $actualizada = false;
+        }
+
+        return view('panel.convocatorias.aplicacion_actualizada', compact('item','actualizada'));
     }
 
     /**

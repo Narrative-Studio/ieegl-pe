@@ -35,8 +35,6 @@
 
     <meta property="og:title"              content="{{$item->nombre}}" />
     <meta property="og:description"        content="{!! $item->descripcion_corta !!}" />
-    <meta property="article:author"        content="{{$item->entidad}}" />
-    <meta property="article:section"       content="Convocatorias" />
     @if(file_exists(public_path('/convocatorias_pics/imagen_'.$item->_key.'.jpg')))
     <meta property="og:image"              content="{{url('/convocatorias_pics/imagen_'.$item->_key.'.jpg')}}" />
     @endif
@@ -176,12 +174,6 @@
                     <div class="card-head">
                         <div class="card-header">
                             <h4 class="card-title">DETALLES DE LA CONVOCATORIA</h4>
-                            <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
-                            <div class="heading-elements">
-                                <ul class="list-inline mb-0">
-                                    <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                     <div class="card-content">
@@ -212,12 +204,6 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">REGLAS PARA APLICAR</h4>
-                        <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
-                        <div class="heading-elements">
-                            <ul class="list-inline mb-0">
-                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                            </ul>
-                        </div>
                     </div>
                     <div class="card-content">
                         <div class="card-body">

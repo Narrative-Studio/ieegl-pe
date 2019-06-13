@@ -10,8 +10,8 @@
         <div class="breadcrumb-wrapper col-12">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{action("PanelController@Index")}}">Inicio</a></li>
-                <li class="breadcrumb-item active">Convocatorias</li>
-                <li class="breadcrumb-item active">{{$item->nombre}}</li>
+                <li class="breadcrumb-item"><a href="{{action("PanelConvocatorias@Index")}}">Convocatorias</a></li>
+                <li class="breadcrumb-item"><a href="{{action("PanelConvocatorias@Ver", $item->_key)}}">{{$item->nombre}}</a></li>
                 <li class="breadcrumb-item active">Aplicar</li>
             </ol>
         </div>
@@ -58,6 +58,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
+                                <h2>{{$item->nombre}}</h2>
                                 <h4 class="card-title">Completa la siguiente Información</h4>
                             </div>
                             <div class="card-content">

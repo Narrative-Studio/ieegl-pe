@@ -91,21 +91,23 @@
                 <div class="form-group">
                     <label for="">Adjunta la Cédula de Identificación Fiscal de tu Startup (PDF, JPG) <small>(si aplica)</small></label>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             @if(isset($item->cedula_file))
                                 @if(file_exists(public_path($item->cedula_file)))
                                     <?php $archivo = explode('.',$item->cedula_file)?>
                                     @if($archivo[1]=='pdf')
                                         <a class="btn btn-sm btn-primary" href="{{url($item->cedula_file)}}" target="_blank"><i class="fa fa-search-plus"></i> Ver Cédula</a>
+                                            <a class="btn btn-sm btn-danger" onclick="return confirm('¿Quieres borrar este archivo?')" href="{{action('PanelEmprendimientos@DeleteFile')}}?file={{$item->cedula_file}}&key={{$item->_key}}&seccion=Financiera"><i class="fa fa-trash-o"></i></a>
                                     @else
                                         <img src="{{url($item->cedula_file)}}?{{str_random(15)}}" width="120" height="120" border="0" alt="" class="rounded img-fluid" data-action="zoom" />
+                                        <a class="btn btn-sm btn-danger" onclick="return confirm('¿Quieres borrar este archivo?')" href="{{action('PanelEmprendimientos@DeleteFile')}}?file={{$item->cedula_file}}&key={{$item->_key}}&seccion=Financiera"><i class="fa fa-trash-o"></i></a>
                                     @endif
                                 @endif
                             @else
                                 <img src="https://imgplaceholder.com/240x250/37bc9b/ffffff/fa-file-pdf-o?text=_none_&font-size=60" width="120" height="120" border="0" alt="" />
                             @endif
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-7">
                             <input type='file' name="cedula_identificacion" id="" accept=".jpg, .jpeg, .pdf" />
                             @if ($errors->has('cedula_identificacion'))
                                 <span class="invalid-feedback" role="alert" style="display: block;"><strong>{{ $errors->first('cedula_identificacion') }}</strong></span>

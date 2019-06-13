@@ -34,7 +34,7 @@
                                 <thead>
                                 <tr>
                                     <th>Convocatoria</th>
-                                    <th>Fecha</th>
+                                    <th>Aplicación</th>
                                     <th>Emprendimiento</th>
                                     <th>Estatus</th>
                                     <th>Acciones</th>

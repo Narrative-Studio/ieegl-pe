@@ -56,16 +56,16 @@
                                                     <a href="{{action('AdminConvocatorias@Edit',['id'=>$item->convocatoria->_key])}}" class="text-muted font-small-2" style="white-space:normal;">{{$item->convocatoria->nombre}}</a>
                                                 </td>
                                                 <td class="text-center">
-                                                    <p class="text-bold-600 font-small-3">{{$item->usuario->nombre}}</p>
+                                                    <p class="text-bold-600 font-small-3">{{$item->usuario->nombre}} {{$item->usuario->apellidos}}</p>
                                                 </td>
                                                 <td class="text-center">
                                                     <p class="text-bold-600 font-small-3">{{\Illuminate\Support\Carbon::createFromTimestamp($item->fecha_registro)->formatLocalized('%d %B %Y')}}</p>
                                                 </td>
                                                 <td>
                                                     @if($item->aprobado==1) <span class="badge badge-warning round">Por Revisar</span> @endif
+                                                    @if($item->aprobado==4) <span class="badge badge-info round" style="background-color: #ffd95d;">Pendiente</span> @endif
                                                     @if($item->aprobado==2) <span class="badge badge-danger round">Rechazada</span> @endif
-                                                    @if($item->aprobado==3) <span class="badge badge-info round">Aprobada</span> @endif
-                                                    @if($item->aprobado==4) <span class="badge badge-success round" style="background-color: #ffd95d;">Pendiente de Pago</span> @endif
+                                                    @if($item->aprobado==3) <span class="badge badge-success round">Aprobada</span> @endif
                                                 </td>
                                                 <td>
                                                     <a href="{{action('AdminSolicitudes@Edit',['id'=>$item->_key])}}" class="btn btn-success btn-sm mt-1"><i class="fa fa-edit"></i> Editar Aplicación </a>

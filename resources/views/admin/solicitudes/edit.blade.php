@@ -26,27 +26,31 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <div class="row mb-3">
+                            <div class="row mb-1">
                                 <div class="col-sm-12 col-md-6" >
                                     <h6><strong>Convocatoria:</strong></h6>
                                     <a href="{{action('AdminConvocatorias@Edit', $solicitud->convocatoria->_key)}}">{{$solicitud->convocatoria->nombre}}</a>
+                                </div>
+                                <div class="col-sm-12 col-md-6 text-right" >
+                                    <h6><strong>Estatus de la Aplicación</strong></h6>
+                                    @if($solicitud->aprobado==1) <h3 class="m-0 mb-2 badge badge-warning round">Por Revisar</h3> @endif
+                                    @if($solicitud->aprobado==4) <h3 class="m-0 mb-2 badge badge-info round" style="background-color: #ffd95d;">Pendiente</h3> @endif
+                                    @if($solicitud->aprobado==2) <h3 class="m-0 mb-2 badge badge-danger round">Rechazada</h3> @endif
+                                    @if($solicitud->aprobado==3) <h3 class="m-0 mb-2 badge badge-success round">Aprobada</h3> @endif
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 col-md-4" >
                                     <h6><strong>Nombre del Emprendimiento:</strong></h6>
-                                    {{$item->nombre}}
+                                    ({{$item->_key}}) {{$item->nombre}}
                                 </div>
-                                <div class="col-sm-12 col-md-4" >
+                                <div class="col-sm-12 col-md-5" >
+                                    <h6><strong>Usuario:</strong></h6>
+                                    <a href="{{action('AdminUsuarios@Edit', $solicitud->usuario->_key)}}">{{$solicitud->usuario->nombre}} {{$solicitud->usuario->apellidos}}</a> ({{$solicitud->usuario->email}})
+                                </div>
+                                <div class="col-sm-12 col-md-3 text-right" >
                                     <h6><strong>Fecha de Aplicación:</strong></h6>
                                     <p>{{date('d/m/Y H:m', $solicitud->fecha_registro)}}</p>
-                                </div>
-                                <div class="col-sm-12 col-md-4 text-right" >
-                                    <h6><strong>Estatus de la Aplicación</strong></h6>
-                                    @if($solicitud->aprobado==1) <h3 class="m-0 mb-2 badge badge-warning round">Por Revisar</h3> @endif
-                                    @if($solicitud->aprobado==2) <h3 class="m-0 mb-2 badge badge-danger round">Rechazada</h3> @endif
-                                    @if($solicitud->aprobado==3) <h3 class="m-0 mb-2 badge badge-info round">Aprobada</h3> @endif
-                                    @if($solicitud->aprobado==4) <h3 class="m-0 mb-2 badge badge-success round" style="background-color: #ffd95d;">Pendiente de Pago</h3> @endif
                                 </div>
                             </div>
                         </div>
@@ -134,7 +138,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">Estatus <span class="required">*</span></label>
-                                        {!! Form::select('aprobado', [1=>'Pendiente',2=>'Rechazada', 3=>'Aprobada'], null, ['class'=> 'form-control select2 ']) !!}
+                                        {!! Form::select('aprobado', [4=>'Pendiente',3=>'Aprobada',2=>'Rechazada'], null, ['class'=> 'form-control select2 ']) !!}
                                     </div>
                                 </div>
                             </div>

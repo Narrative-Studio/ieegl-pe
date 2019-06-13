@@ -31,18 +31,14 @@
                 <div class="card-header">
                     <h4 class="card-title">DETALLES DE LA APLICACIÓN</h4>
                     <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
-                    <div class="heading-elements">
-                        <ul class="list-inline mb-0">
-                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                        </ul>
-                    </div>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
                         <h6><strong>Estatus de la Aplicación</strong></h6>
-                        @if($item->aprobado==1) <h3 class="m-0 badge badge-default mb-2 badge-warning">Pendiente</h3> @endif
-                        @if($item->aprobado==2) <h3 class="m-0 badge badge-default mb-2 badge-danger">Rechazada</h3> @endif
-                        @if($item->aprobado==3) <h3 class="m-0 badge badge-default mb-2 badge-success">Aprobada</h3> @endif
+                        @if($item->aprobado==1) <h3 class="m-0 badge mb-2 badge-warning">Por Revisar</h3> @endif
+                        @if($item->aprobado==4) <h3 class="m-0 badge mb-2 badge-info">Pendiente</h3> @endif
+                        @if($item->aprobado==2) <h3 class="m-0 badge mb-2 badge-danger">Rechazada</h3> @endif
+                        @if($item->aprobado==3) <h3 class="m-0 badge mb-2 badge-success">Aprobada</h3> @endif
                         <div class="mb-2">
                             <h6><strong>Nombre del Emprendimiento:</strong></h6>
                             <a href="{{action('PanelEmprendimientos@DatosGenerales', $item->emprendimiento_id)}}">{{$item->emprendimiento}}</a></div>
@@ -52,17 +48,10 @@
                                 {{$item->comentarios}}
                             </div>
                         @endif
-                        @if($item->convocatoria->pago==true)
-                            @if($item->aprobado==4)
-                                @if($item->pago == "No")
-                                    <div class="mb-2">
-                                        <h6><strong>Por favor realice su pago en</strong></h6>
-                                        <div class="iframe-pago">
-                                            <iframe src="{!! $item->convocatoria->pago_iframe !!}"></iframe>
-                                        </div>
-                                    </div>
-                                @endif
-                            @endif
+                        @if($item->aprobado==1 || $item->aprobado==4)
+                            <a href="{{action('PanelConvocatorias@EditarAplicacion', $item->_key)}}" class="btn btn-primary">Editar Aplicación</a>
+                        @else
+                            <a href="{{action('PanelConvocatorias@EditarAplicacion', $item->_key)}}" class="btn btn-secondary">Ver Aplicación</a>
                         @endif
                     </div>
                 </div>
@@ -74,12 +63,6 @@
                 <div class="card-head">
                     <div class="card-header">
                         <h4 class="card-title">DETALLES DE LA CONVOCATORIA</h4>
-                        <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
-                        <div class="heading-elements">
-                            <ul class="list-inline mb-0">
-                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <div class="card-content">

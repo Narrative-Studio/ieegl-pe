@@ -560,4 +560,12 @@ class PanelEmprendimientos extends Controller
         }
         return ['montos'=>$m, 'meses_items'=>$meses_item];
     }
+
+    public function DeleteFile(Request $request){
+        $file = $request->get('file');
+        $seccion = $request->get('seccion');
+        unlink(public_path($file)) or die("Couldn't delete file");
+        Session::flash('status_success', 'Archivo borrado');
+        return redirect()->action($this->controller.'@'.$seccion, ['id'=>$request->get('key')]);
+    }
 }

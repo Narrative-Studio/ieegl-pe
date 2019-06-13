@@ -56,6 +56,7 @@ Route::prefix('panel')->group(function() {
         // Medios Digitales
         Route::get('/emprendimientos/mediosDigitales/{id}', 'PanelEmprendimientos@MediosDigitales');
         Route::post('/emprendimientos/saveMediosDigitales', 'PanelEmprendimientos@SaveMediosDigitales');
+        Route::get('/emprendimientos/deleteFile/', 'PanelEmprendimientos@DeleteFile');
         // Ventas
         Route::get('/emprendimientos/ventas/{id}', 'PanelEmprendimientos@Ventas');
         Route::post('/emprendimientos/saveVentas', 'PanelEmprendimientos@SaveVentas');
@@ -76,6 +77,8 @@ Route::prefix('panel')->group(function() {
         Route::get('/convocatorias/aplicaciones', 'PanelConvocatorias@Aplicaciones');
         Route::any('/convocatorias/aplicar/{id}', 'PanelConvocatorias@Aplicar');
         Route::post('/convocatorias/aplicando/{id}', 'PanelConvocatorias@Aplicacion');
+        Route::get('/convocatorias/editar-aplicacion/{id}', 'PanelConvocatorias@EditarAplicacion');
+        Route::post('/convocatorias/actualizar-aplicacion/{id}', 'PanelConvocatorias@UpdateAplicacion');
 
         /** Actividades **/
         Route::get('/actividades', 'PanelActividades@Index');
