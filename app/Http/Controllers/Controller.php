@@ -40,7 +40,7 @@ class Controller extends BaseController
     ];
     public $estudiando = [
         'No estoy estudiando'=>'No estoy estudiando',
-        '¡Sí en el TEC'=>array(
+        'Sí en el TEC'=>array(
             'Preparatoria en el Tec'=>'Preparatoria',
             'Licenciatura en el Tec'=>'Licenciatura',
             'Posgrado en el Tec'=>'Posgrado',

@@ -17,7 +17,7 @@
                                     <p class="mt-3">Bienvenido <b>{{$nombre}}</b> a Startup Identification,<br/>entra con tu email y contraseña para completar tu Perfil de Usuario.</p>
                                     <hr/>
                                     <div class="form-actions center">
-                                        <a href="{{route("login")}}" class="btn btn-danger btn-min-width mr-1 mb-1"><i class="fa ft-unlock"></i> Entrar</a>
+                                        <a href="{{route("login")}}" class="btn btn-success btn-min-width mr-1 mb-1"><i class="fa ft-unlock"></i> Entrar</a>
                                     </div>
                                 </div>
                             @else

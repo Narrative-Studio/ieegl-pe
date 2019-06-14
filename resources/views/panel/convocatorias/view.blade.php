@@ -122,10 +122,14 @@
                                                             <i class="fa fa-check"></i> APLICAR
                                                         </button>
                                                         <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 49px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                            @foreach($emprendimientos as $k=>$v)
-                                                                <a class="dropdown-item" href="javascript:;" onclick="Aplicar('{{$k}}','{{$v}}')">{{$v}}</a>
-                                                                <div class="dropdown-divider"></div>
-                                                            @endforeach
+                                                            @if(count($emprendimientos)<1)
+                                                                <a class="dropdown-item" href="{{action('PanelEmprendimientos@DatosGenerales')}}">Crear nuevo emprendimiento</a>
+                                                            @else
+                                                                @foreach($emprendimientos as $k=>$v)
+                                                                    <a class="dropdown-item" href="javascript:;" onclick="Aplicar('{{$k}}','{{$v}}')">{{$v}}</a>
+                                                                    <div class="dropdown-divider"></div>
+                                                                @endforeach
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     {!! Form::close() !!}
@@ -138,10 +142,14 @@
                                                             <i class="fa fa-check"></i> APLICAR
                                                         </button>
                                                         <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 49px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                            @foreach($emprendimientos as $k=>$v)
-                                                                <a class="dropdown-item" href="javascript:;" onclick="Aplicar('{{$k}}')">{{$v}}</a>
-                                                                <div class="dropdown-divider"></div>
-                                                            @endforeach
+                                                            @if(count($emprendimientos)<1)
+                                                                <a class="dropdown-item" href="{{action('PanelEmprendimientos@DatosGenerales')}}">Crear nuevo emprendimiento</a>
+                                                            @else
+                                                                @foreach($emprendimientos as $k=>$v)
+                                                                    <a class="dropdown-item" href="javascript:;" onclick="Aplicar('{{$k}}','{{$v}}')">{{$v}}</a>
+                                                                    <div class="dropdown-divider"></div>
+                                                                @endforeach
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     {!! Form::close() !!}
