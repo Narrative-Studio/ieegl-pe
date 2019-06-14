@@ -82,28 +82,31 @@
                         }
                         ?>
                         <div class="card-img-top img-fluid bg-cover height-300" style="background: url('{{$img}}?{{str_random(15)}}') 50%;"></div>
-                        <div class="media profil-cover-details w-100">
-                            <div class="media-left pl-2 pt-2 pb-2">
-                                <div class="profile-image">
-                                    @if(isset($item->entidad_ext))
-                                        @if(file_exists(public_path('/entidades_pics/imagen_'.$item->entidad_key.'.'.$item->entidad_ext)))
-                                            <img src="{{url('/entidades_pics/imagen_'.$item->entidad_key.'.'.$item->entidad_ext)}}?{{str_random(15)}}" class="rounded-circle img-border height-100" />
-                                        @else
-                                            <img src="https://imgplaceholder.com/240x250/37bc9b/ffffff/fa-file-photo-o?text=_none_&font-size=60" class="rounded-circle img-border height-100" alt="" />
-                                        @endif
-                                    @else
-                                        <img src="https://imgplaceholder.com/240x250/37bc9b/ffffff/fa-file-photo-o?text=_none_&font-size=60" class="rounded-circle img-border height-100" alt="" />
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="media-body pt-2 px-2">
-                                <div class="row">
-                                    <div class="col-8">
-                                        <h2 class="card-title">{{$item->entidad}}</h2>
-                                        <small class="block">{!! $item->descripcion_corta !!}</small>
-
+                        <div class="">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="media profil-cover-details w-100">
+                                        <div class="media-left pl-2 pt-2 pb-2">
+                                            <div class="profile-image">
+                                                @if(isset($item->entidad_ext))
+                                                    @if(file_exists(public_path('/entidades_pics/imagen_'.$item->entidad_key.'.'.$item->entidad_ext)))
+                                                        <img src="{{url('/entidades_pics/imagen_'.$item->entidad_key.'.'.$item->entidad_ext)}}?{{str_random(15)}}" class="rounded-circle img-border height-100" />
+                                                    @else
+                                                        <img src="https://imgplaceholder.com/240x250/37bc9b/ffffff/fa-file-photo-o?text=_none_&font-size=60" class="rounded-circle img-border height-100" alt="" />
+                                                    @endif
+                                                @else
+                                                    <img src="https://imgplaceholder.com/240x250/37bc9b/ffffff/fa-file-photo-o?text=_none_&font-size=60" class="rounded-circle img-border height-100" alt="" />
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="media-body pt-2 px-2">
+                                            <h2 class="card-title">{{$item->entidad}}</h2>
+                                            <small class="block">{!! $item->descripcion_corta !!}</small>
+                                        </div>
                                     </div>
-                                    <div class="col text-right">
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="text-right" style=" position: relative;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);z-index: 100;">
 
                                         @if($verificar==true)
                                             <div class="row mt-2">
@@ -127,7 +130,7 @@
                                                             @else
                                                                 @foreach($emprendimientos as $k=>$v)
                                                                     <a class="dropdown-item" href="javascript:;" onclick="Aplicar('{{$k}}','{{$v}}')">{{$v}}</a>
-                                                                    <div class="dropdown-divider"></div>
+                                                                    @if(count($emprendimientos)>1)<div class="dropdown-divider"></div>@endif
                                                                 @endforeach
                                                             @endif
                                                         </div>
@@ -147,7 +150,7 @@
                                                             @else
                                                                 @foreach($emprendimientos as $k=>$v)
                                                                     <a class="dropdown-item" href="javascript:;" onclick="Aplicar('{{$k}}','{{$v}}')">{{$v}}</a>
-                                                                    <div class="dropdown-divider"></div>
+                                                                    @if(count($emprendimientos)>1)<div class="dropdown-divider"></div>@endif
                                                                 @endforeach
                                                             @endif
                                                         </div>
@@ -164,12 +167,11 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="sharethis-inline-share-buttons"></div>
-                                    </div>
-                                </div>
                             </div>
+
+                        </div>
+                        <div class="mb-2 mt-1 pr-1">
+                            <div class="sharethis-inline-share-buttons"></div>
                         </div>
                     </div>
 

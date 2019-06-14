@@ -106,10 +106,19 @@ class PanelPerfiles extends Controller
 
         // Creando Nuevo Registro
         if($request->get('id')==''){
-            $documentId = $this->ArangoDB->Save($this->collection, $document);
 
-            //Creando Edge
-            $this->ArangoDB->CreateEdge(['label' => 'hasPerfil', 'created_time'=>now()], 'hasPerfil', 'users/'.auth()->user()->_key, $documentId);
+            // Buscar que un perfil nuevo no se duplique
+            $total = $this->ArangoDB->Query('FOR doc IN perfiles FILTER doc.userKey="'.auth()->user()->_key.'" COLLECT WITH COUNT INTO length RETURN length');
+            $total = (int)$total[0];
+
+            if($total<1){
+                $documentId = $this->ArangoDB->Save($this->collection, $document);
+                //Creando Edge
+                $this->ArangoDB->CreateEdge(['label' => 'hasPerfil', 'created_time'=>now()], 'hasPerfil', 'users/'.auth()->user()->_key, $documentId);
+            }else{
+                Session::flash('status_error', 'Error guardando el perfil, vuelve a intentarlo');
+                return redirect()->action($this->controller.'@Index');
+            }
         }else{
             // Actualizando Registro
             $document['created_time'] = now();

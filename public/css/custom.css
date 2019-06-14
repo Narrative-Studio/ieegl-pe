@@ -376,3 +376,6 @@ form .form-section {
     color: #00c099;
     border: 1px solid #adb5bd;
 }
+.sharethis-inline-share-buttons .st-btn{
+   display: inline-block !important;
+}
