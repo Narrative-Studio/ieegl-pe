@@ -46,7 +46,7 @@
                             <div class="card-content collapse show">
                                 <div class="card-body">
                                     <div class="card-text">
-                                        <p>Texto de invitación al registrar la cuenta del Emprendedorasdfads.</p>
+                                        <p>Texto de invitación al registrar la cuenta del Emprendedor.</p>
                                     </div>
                                     <form method="POST" action="{{ route('register') }}" aria-label="{{ __('Register') }}">
                                         @csrf

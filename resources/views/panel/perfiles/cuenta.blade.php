@@ -31,7 +31,7 @@
                                     <div class="form-group">
                                         <label for="nombre">Nombre <span class="required">*</span></label>
                                         <?php $class=($errors->has('nombre'))?'form-control is-invalid':'form-control'; ?>
-                                        @include('panel.perfiles.campos.nombre', ['campo'=>'nombre','value'=>($item)?$item->nombre:''])
+                                        @include('panel.perfiles.campos.nombre', ['campo'=>'nombre','value'=>(isset($item->nombre))?$item->nombre:''])
                                         @if ($errors->has('nombre'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('nombre') }}</strong>
@@ -43,7 +43,7 @@
                                     <div class="form-group">
                                         <label for="apellidos">Apellidos <span class="required">*</span></label>
                                         <?php $class=($errors->has('apellidos'))?'form-control is-invalid':'form-control'; ?>
-                                        @include('panel.perfiles.campos.apellidos', ['campo'=>'apellidos','value'=>($item)?$item->apellidos:''])
+                                        @include('panel.perfiles.campos.apellidos', ['campo'=>'apellidos','value'=>(isset($item->apellidos))?$item->apellidos:''])
                                         @if ($errors->has('apellidos'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('apellidos') }}</strong>
@@ -56,14 +56,14 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="telefono">Correo Electrónico</label>
-                                        @include('panel.perfiles.campos.email', ['campo'=>'email','value'=>($item)?$item->email:''])
+                                        @include('panel.perfiles.campos.email', ['campo'=>'email','value'=>(isset($item->email))?$item->email:''])
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="telefono">Celular (10 dígitos)</label>
                                         <?php $class=($errors->has('telefono'))?'form-control is-invalid':'form-control'; ?>
-                                        @include('panel.perfiles.campos.telefono', ['campo'=>'telefono','value'=>($item)?$item->telefono:''])
+                                        @include('panel.perfiles.campos.telefono', ['campo'=>'telefono','value'=>(isset($item->telefono))?$item->telefono:''])
                                         @if ($errors->has('telefono'))
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('telefono') }}</strong>
