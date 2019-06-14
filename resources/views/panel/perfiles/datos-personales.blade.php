@@ -117,7 +117,7 @@
                                                 @if(file_exists(public_path('/users_pics/user_'. auth()->user()->_key .'.jpg')))
                                                     <div id="imagePreview" style="background-image: url({{url('/users_pics/user_'. auth()->user()->_key .'.jpg')}});"></div>
                                                 @else
-                                                    <div id="imagePreview" style="background-image: url({{url("/")}}/app-assets/images/avatar.jpg);"></div>
+                                                    <div id="imagePreview" style="background-image: url(https://www.tinygraphs.com/labs/isogrids/hexa16/AdanLuna?theme=bythepool&numcolors=4&size=180&fmt=svg);"></div>
                                                 @endif
                                             </div>
                                         </div>

@@ -25,7 +25,6 @@ class EmprendimientosFinancieraRequest extends FormRequest
             case 'POST':
                 {
                     $rules['lanzar_producto']       = 'required';
-                    $rules['fecha_lanzamiento']     = 'required|date';
                     $rules['realizado_ventas']      = 'required';
                     $rules['patente_ip']            = 'required';
                     $rules['socio_exit_empresa']    = 'required';
