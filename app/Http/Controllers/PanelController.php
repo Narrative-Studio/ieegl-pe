@@ -14,6 +14,7 @@ class PanelController extends Controller
     {
         $this->ArangoDB = $ArangoDB;
         $this->middleware('is_user');
+
     }
 
     public function Index(){

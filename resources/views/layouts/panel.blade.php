@@ -50,15 +50,13 @@
                     <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
                     <li class="nav-item"><a class="navbar-brand" href="{{action("PanelController@Index")}}"><img class="height-50" alt="robust admin logo" src="{{url("/")}}/img/logo_SID.png">
                         </a></li>
-                    <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="fa fa-ellipsis-v"></i></a></li>
                 </ul>
             </div>
             <div class="navbar-container content">
                 <div class="collapse navbar-collapse" id="navbar-mobile">
                     <ul class="nav navbar-nav mr-auto float-left">
-                        <li class="nav-item d-none d-md-block"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu">         </i></a></li>
+                        <li class="nav-item d-none d-md-block"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu"></i></a></li>
                     </ul>
-
                 </div>
             </div>
         </div>
@@ -84,22 +82,22 @@
                             <li class=" navigation-header">
                                 <span data-i18n="nav.category.layouts">Mi Información</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right"></i>
                             </li>
-                            <li class=" nav-item">
+                            <li class=" nav-item @if($controller=="PanelPerfiles" && $action=="Cuenta") active @endif">
                                 <a href="{{action('PanelPerfiles@Cuenta')}}"><i class="icon-user"></i><span class="menu-title" data-i18n="nav.users.main">Mi Cuenta</span></a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item @if($controller=="PanelPerfiles" && $action!="Cuenta") active @endif">
                                 <a href="{{action('PanelPerfiles@Index')}}"><i class="icon-note"></i><span class="menu-title" data-i18n="nav.users.main">Perfil</span></a>
                             </li>
-                            <li class=" nav-item">
+                            <li class=" nav-item @if($controller=="PanelEmprendimientos") active @endif">
                                 <a href="{{action('PanelEmprendimientos@Index')}}"><i class="icon-layers"></i><span class="menu-title" data-i18n="nav.page_layouts.main">Emprendimientos</span></a>
                             </li>
                             <li class=" navigation-header">
                                 <span data-i18n="nav.category.pages">Convocatorias</span><i class="ft-more-horizontal ft-minus" data-toggle="tooltip" data-placement="right"></i>
                             </li>
-                            <li class=" nav-item">
+                            <li class=" nav-item @if($controller=="PanelConvocatorias" && strpos($action, "Aplicacion")===false) active @endif">
                                 <a href="{{action('PanelConvocatorias@Index')}}"><i class="icon-grid"></i><span class="menu-title" data-i18n="nav.project.project_summary">Convocatorias</span></a>
                             </li>
-                            <li class=" nav-item">
+                            <li class=" nav-item @if($controller=="PanelConvocatorias" && strpos($action, "Aplicacion") !== false) active @endif">
                                 <a href="{{action('PanelConvocatorias@Aplicaciones')}}"><i class="icon-check"></i><span class="menu-title" data-i18n="nav.scrumboard.main">Mis Aplicaciones</span></a>
                             </li>
                             <li class=" navigation-header">

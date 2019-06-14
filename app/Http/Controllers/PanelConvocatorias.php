@@ -95,7 +95,7 @@ class PanelConvocatorias extends Controller
         if($verificar==false && auth()->user()){
 
             // Agregando filtro de 'Emprendimiento lanzado al mercado con o sin ventas'
-            /*if($item->quien=='6375309'){
+            /*if($item->quien=='637A5309'){
                 $filter = ' AND doc.module_ventas == true AND doc.lanzar_producto == "Si" ';
             }*/
 

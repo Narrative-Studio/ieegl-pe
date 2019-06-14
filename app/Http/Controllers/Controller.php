@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 setlocale(LC_TIME, 'es_ES.UTF-8');
 
+use http\Env\Request;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -54,6 +55,7 @@ class Controller extends BaseController
     ];
     public $como_te_enteraste = ['Redes sociales'=>'Redes sociales','Universidad'=>'Universidad','Organización'=>'Organización','Recomendación'=>'Recomendación','Otro'=>'Otro'];
     public $categoria_preguntas = ['Emprendimiento'=>'Emprendimiento','Emprendedor'=>'Emprendedor','Convocatoria'=>'Convocatoria'];
+    public $ruta;
 
     public function getMeses($cuantos, $time){
         $meses = [];
