@@ -106,7 +106,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2">
-                                    <div class="text-right" style=" position: relative;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);z-index: 100;">
+                                    <div class="text-center text-md-right" style=" position: relative;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);z-index: 100;">
 
                                         @if($verificar==true)
                                             <div class="row mt-2">
@@ -170,7 +170,7 @@
                             </div>
 
                         </div>
-                        <div class="mb-2 mt-1 pr-1">
+                        <div class="mb-2 pr-1">
                             <div class="sharethis-inline-share-buttons"></div>
                         </div>
                     </div>
