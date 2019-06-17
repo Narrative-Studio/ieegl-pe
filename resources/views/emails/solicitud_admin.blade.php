@@ -87,7 +87,7 @@
                             </tr>
                             <tr>
                                 <td style="">
-                                    <div class="cuerpo-mail">Para ver esta solicitud usa este enlace: <a href="{{ action('AdminConvocatorias@Edit', $data['convocatoria_key']) }}">{{ action('AdminConvocatorias@Edit',$data['convocatoria_key']) }}</a></div>
+                                    <div class="cuerpo-mail">Para ver esta solicitud usa este enlace: <a href="{{ action('AdminSolicitudes@Edit', $data['aplicacion_key']) }}">{{ action('AdminSolicitudes@Edit',$data['aplicacion_key']) }}</a></div>
                                 </td>
                             </tr>
                         </table>
