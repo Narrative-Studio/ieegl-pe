@@ -22,7 +22,11 @@
     <label class="col-md-2 label-control">Correo <span class="required">*</span></label>
     <div class="col-md-10">
         <?php $class=($errors->has('email'))?'form-control error':'form-control'; ?>
-        {!! Form::text('email', null, ['class' => $class, 'autocomplete'=>'nope']) !!}
+        @if(!isset($item->_key))
+            {!! Form::text('email', null, ['class' => $class, 'autocomplete'=>'nope']) !!}
+        @else
+            {!! Form::text('email', null, ['class' => $class, 'autocomplete'=>'nope', 'disabled'=>'disabled', 'readonly'=>'readonly']) !!}
+        @endif
         @if ($errors->has('email'))
             <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('email') }}</strong></span>
         @endif
