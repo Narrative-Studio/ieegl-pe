@@ -223,7 +223,7 @@ class AdminSolicitudes extends Controller
             Session::flash('status_success', 'Registro Actualizado y Correo Enviado');
         }
 
-        //return redirect()->action($this->controller.'@Index');
+        return redirect()->action($this->controller.'@Index');
     }
 
     /**
