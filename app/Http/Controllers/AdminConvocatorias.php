@@ -127,7 +127,7 @@ class AdminConvocatorias extends Controller
                       COLLECT WITH COUNT INTO length RETURN length
                     )            
                     FILTER '.$query_user.$query_activo.' convocatoria.responsable == users._key AND convocatoria.entidad  == entidad._key
-                    SORT convocatoria._key ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'
+                    SORT convocatoria.fecha ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'
                     RETURN merge(convocatoria, {responsable: {username: users.username, nombre: CONCAT(users.nombre," ", users.apellidos)}}, {entidad: entidad.nombre}, {total: aplicaciones[0]})
         ';
         $data = $this->ArangoDB->Query($query);
@@ -139,7 +139,7 @@ class AdminConvocatorias extends Controller
                 FOR users IN users
                     FOR entidad IN entidades
                         FILTER '.$query_user.$query_activo.' convocatoria.responsable == users._key AND convocatoria.entidad == entidad._key
-                        SORT convocatoria._key ASC COLLECT WITH COUNT INTO length RETURN length');
+                        SORT convocatoria.fecha ASC COLLECT WITH COUNT INTO length RETURN length');
             $total = (int)$total[0];
         }
         $datos = $this->ArangoDB->Pagination($data, $total, $this->PaginationQuery());
