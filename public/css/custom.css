@@ -379,3 +379,6 @@ form .form-section {
 .sharethis-inline-share-buttons .st-btn{
    display: inline-block !important;
 }
+.table-responsive td, table-responsive th{
+    font-size: .9rem !important;
+}
