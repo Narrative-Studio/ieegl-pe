@@ -84,7 +84,7 @@
                         <div class="card-img-top img-fluid bg-cover height-300" style="background: url('{{$img}}?{{str_random(15)}}') 50%;"></div>
                         <div class="">
                             <div class="row">
-                                <div class="col-md-10">
+                                <div class="col-md-9">
                                     <div class="media profil-cover-details w-100">
                                         <div class="media-left pl-2 pt-2 pb-2">
                                             <div class="profile-image">
@@ -105,7 +105,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <div class="text-center text-md-right" style=" position: relative;top: 50%;-ms-transform: translateY(-50%);transform: translateY(-50%);z-index: 100;">
 
                                         @if($verificar==true)
