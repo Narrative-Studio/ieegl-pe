@@ -61,7 +61,7 @@
                                         <td>
 
                                             @if($item->aprobado==1) <span class="badge badge-warning">Por Revisar</span> @endif
-                                            @if($item->aprobado==4) <span class="badge badge-info" style="background-color: #ffd95d;">Pendiente</span> @endif
+                                            @if($item->aprobado==4) <span class="badge badge-info">Pendiente</span> @endif
                                             @if($item->aprobado==2) <span class="badge badge-danger">Rechazada</span> @endif
                                             @if($item->aprobado==3) <span class="badge badge-success">Aprobada</span> @endif
                                         </td>

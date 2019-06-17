@@ -100,7 +100,7 @@
                                             </div>
                                         </div>
                                         <div class="media-body pt-2 px-2">
-                                            <h2 class="card-title">{{$item->entidad}}</h2>
+                                            <h2 class="card-title">{{$item->nombre}}</h2>
                                             <small class="block">{!! $item->descripcion_corta !!}</small>
                                         </div>
                                     </div>
@@ -115,54 +115,56 @@
                                                 </div>
                                             </div>
                                         @else
-                                            @if(auth()->user())
-                                                @if($item->quien_key!='6375236')
-                                                    {!! Form::open(['action' => ['PanelConvocatorias@Aplicar', $item->_key], 'id'=>'form_aplicar','method'=>'POST', 'class'=>'form', 'files' => false]) !!}
-                                                    <input type="hidden" name="emprendimiento" id="form_emprendimiento" value=""/>
+                                            @if($item->activo!="cerrada")
+                                                @if(auth()->user())
+                                                    @if($item->quien_key!='6375236')
+                                                        {!! Form::open(['action' => ['PanelConvocatorias@Aplicar', $item->_key], 'id'=>'form_aplicar','method'=>'POST', 'class'=>'form', 'files' => false]) !!}
+                                                        <input type="hidden" name="emprendimiento" id="form_emprendimiento" value=""/>
 
-                                                    <div class="btn-group mr-1 mb-1">
-                                                        <button type="button" class="btn btn-success dropdown-toggle btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="fa fa-check"></i> APLICAR
-                                                        </button>
-                                                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 49px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                            @if(count($emprendimientos)<1)
-                                                                <a class="dropdown-item" href="{{action('PanelEmprendimientos@DatosGenerales')}}">Crear nuevo emprendimiento</a>
-                                                            @else
-                                                                @foreach($emprendimientos as $k=>$v)
-                                                                    <a class="dropdown-item" href="javascript:;" onclick="Aplicar('{{$k}}','{{$v}}')">{{$v}}</a>
-                                                                    @if(count($emprendimientos)>1)<div class="dropdown-divider"></div>@endif
-                                                                @endforeach
-                                                            @endif
+                                                        <div class="btn-group mr-1 mb-1">
+                                                            <button type="button" class="btn btn-success dropdown-toggle btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <i class="fa fa-check"></i> APLICAR
+                                                            </button>
+                                                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 49px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                                @if(count($emprendimientos)<1)
+                                                                    <a class="dropdown-item" href="{{action('PanelEmprendimientos@DatosGenerales')}}">Crear nuevo emprendimiento</a>
+                                                                @else
+                                                                    @foreach($emprendimientos as $k=>$v)
+                                                                        <a class="dropdown-item" href="javascript:;" onclick="Aplicar('{{$k}}','{{$v}}')">{{$v}}</a>
+                                                                        @if(count($emprendimientos)>1)<div class="dropdown-divider"></div>@endif
+                                                                    @endforeach
+                                                                @endif
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    {!! Form::close() !!}
+                                                        {!! Form::close() !!}
+                                                    @else
+                                                        {!! Form::open(['action' => ['PanelConvocatorias@Aplicar', $item->_key], 'id'=>'form_aplicar','method'=>'POST', 'class'=>'form', 'files' => false]) !!}
+                                                        <input type="hidden" name="emprendimiento" id="form_emprendimiento" value=""/>
+
+                                                        <div class="btn-group mr-1 mb-1">
+                                                            <button type="button" class="btn btn-success dropdown-toggle btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <i class="fa fa-check"></i> APLICAR
+                                                            </button>
+                                                            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 49px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                                @if(count($emprendimientos)<1)
+                                                                    <a class="dropdown-item" href="{{action('PanelEmprendimientos@DatosGenerales')}}">Crear nuevo emprendimiento</a>
+                                                                @else
+                                                                    @foreach($emprendimientos as $k=>$v)
+                                                                        <a class="dropdown-item" href="javascript:;" onclick="Aplicar('{{$k}}','{{$v}}')">{{$v}}</a>
+                                                                        @if(count($emprendimientos)>1)<div class="dropdown-divider"></div>@endif
+                                                                    @endforeach
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                        {!! Form::close() !!}
+                                                    @endif
                                                 @else
-                                                    {!! Form::open(['action' => ['PanelConvocatorias@Aplicar', $item->_key], 'id'=>'form_aplicar','method'=>'POST', 'class'=>'form', 'files' => false]) !!}
-                                                    <input type="hidden" name="emprendimiento" id="form_emprendimiento" value=""/>
-
                                                     <div class="btn-group mr-1 mb-1">
-                                                        <button type="button" class="btn btn-success dropdown-toggle btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <a href="{{route('login')}}" class="btn btn-success btn-lg">
                                                             <i class="fa fa-check"></i> APLICAR
-                                                        </button>
-                                                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 49px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                            @if(count($emprendimientos)<1)
-                                                                <a class="dropdown-item" href="{{action('PanelEmprendimientos@DatosGenerales')}}">Crear nuevo emprendimiento</a>
-                                                            @else
-                                                                @foreach($emprendimientos as $k=>$v)
-                                                                    <a class="dropdown-item" href="javascript:;" onclick="Aplicar('{{$k}}','{{$v}}')">{{$v}}</a>
-                                                                    @if(count($emprendimientos)>1)<div class="dropdown-divider"></div>@endif
-                                                                @endforeach
-                                                            @endif
-                                                        </div>
+                                                        </a>
                                                     </div>
-                                                    {!! Form::close() !!}
                                                 @endif
-                                            @else
-                                                <div class="btn-group mr-1 mb-1">
-                                                    <a href="{{route('login')}}" class="btn btn-success btn-lg">
-                                                        <i class="fa fa-check"></i> APLICAR
-                                                    </a>
-                                                </div>
                                             @endif
                                         @endif
                                     </div>
