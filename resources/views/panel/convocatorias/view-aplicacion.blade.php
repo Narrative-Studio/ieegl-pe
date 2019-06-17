@@ -79,12 +79,12 @@
                             <div class="card-profile-image">
                                 @if(isset($item->entidad_ext))
                                     @if(file_exists(public_path('/entidades_pics/imagen_'.$item->entidad_key.'.'.$item->entidad_ext)))
-                                        <img src="{{url('/entidades_pics/imagen_'.$item->entidad_key.'.'.$item->entidad_ext)}}?{{str_random(15)}}" class="rounded-circle img-border box-shadow-1 height-100" />
+                                        <img src="{{url('/entidades_pics/imagen_'.$item->entidad_key.'.'.$item->entidad_ext)}}?{{str_random(15)}}" class="rounded-circle img-border box-shadow-1 bg-white width-100 height-100" />
                                     @else
-                                        <img src="https://imgplaceholder.com/240x250/37bc9b/ffffff/fa-file-photo-o?text=_none_&font-size=60" class="rounded-circle img-border box-shadow-1 height-100" alt="" />
+                                        <img src="https://imgplaceholder.com/240x250/37bc9b/ffffff/fa-file-photo-o?text=_none_&font-size=60" class="rounded-circle img-border box-shadow-1  bg-white width-100 height-100" alt="" />
                                     @endif
                                 @else
-                                    <img src="https://imgplaceholder.com/240x250/37bc9b/ffffff/fa-file-photo-o?text=_none_&font-size=60" class="rounded-circle img-border box-shadow-1 height-100" alt="" />
+                                    <img src="https://imgplaceholder.com/240x250/37bc9b/ffffff/fa-file-photo-o?text=_none_&font-size=60" class="rounded-circle img-border box-shadow-1  bg-white width-100 height-100" alt="" />
                                 @endif
                             </div>
                             <div class="profile-card-with-cover-content text-center pt-1">

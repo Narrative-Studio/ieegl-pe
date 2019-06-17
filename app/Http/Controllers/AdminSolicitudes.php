@@ -54,7 +54,7 @@ class AdminSolicitudes extends Controller
                 FOR emp IN emprendimientos
                     FOR usuario IN users
                         FILTER '.$query_user.' conv._key  == doc.convocatoria_id AND usuario._key == doc.userKey AND emp._key == doc.emprendimiento_id '.$query_convo.'
-                        SORT doc._key ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'
+                        SORT doc.fecha DESC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'
                         RETURN merge(doc, {convocatoria: conv}, {usuario: usuario}, {emprendimiento: emp.nombre} )
         ';
         $data = $this->ArangoDB->Query($query);
@@ -66,7 +66,7 @@ class AdminSolicitudes extends Controller
                 FOR conv IN convocatorias
                     FOR usuario IN users
                         FILTER '.$query_user.' conv._key  == doc.convocatoria_id AND usuario._key == doc.userKey '.$query_convo.'
-                        SORT doc._key ASC COLLECT WITH COUNT INTO length RETURN length
+                        SORT doc.fecha DESC COLLECT WITH COUNT INTO length RETURN length
             ');
             $total = (int)$total[0];
         }
@@ -200,8 +200,8 @@ class AdminSolicitudes extends Controller
             $sol = $this->ArangoDB->Query($query);
             $item = $sol[0];
 
-            if($item->aprobado=='1') $aprobacion = '<span style="color:#FFAB00;">Pendiente</span>';
-            if($item->aprobado=='4') $aprobacion = '<span style="color:#ffd95d;">Pendiente de Pago</span>';
+            if($item->aprobado=='1') $aprobacion = '<span style="color:#ffa71d;">Por Revisar</span>';
+            if($item->aprobado=='4') $aprobacion = '<span style="color:#2c54ff;">Pendiente</span>';
             if($item->aprobado=='2') $aprobacion = '<span style="color:#880000;">Rechazada</span>';
             if($item->aprobado=='3') $aprobacion = '<span style="color:#008000;">Aprobada</span>';
 
@@ -213,13 +213,17 @@ class AdminSolicitudes extends Controller
             $data['mensaje'] = $item->comentarios;
 
             // Enviando con actualización de solicitud
-            Mail::to($data['email'])
-                ->send(new SolicitudEmail($data));
+            try{
+                Mail::to($data['email'])
+                    ->send(new SolicitudEmail($data));
+            }catch (Exception $e) {
+                echo 'Excepción capturada: ',  $e->getMessage(), "\n";exit();
+            }
 
             Session::flash('status_success', 'Registro Actualizado y Correo Enviado');
         }
 
-        return redirect()->action($this->controller.'@Index');
+        //return redirect()->action($this->controller.'@Index');
     }
 
     /**
