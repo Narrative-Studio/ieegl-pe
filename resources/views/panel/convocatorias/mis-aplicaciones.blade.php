@@ -59,10 +59,10 @@
                                         </span>
                                         </td>
                                         <td>
-                                            @if($item->aprobado==1) <div class="badge badge-warning">Pendiente</div> @endif
-                                            @if($item->aprobado==2) <div class="badge badge-danger">Rechazada</div> @endif
-                                            @if($item->aprobado==3) <div class="badge badge-success">Aprobada</div> @endif
-                                            @if($item->aprobado==4) <div class="badge badge-success" style="background-color: #ffd95d;">Pendiente de Pago</div> @endif
+                                            @if($item->aprobado==1) <span class="badge badge-warning">Por Revisar</span> @endif
+                                            @if($item->aprobado==4) <span class="badge badge-info" style="background-color: #ffd95d;">Pendiente</span> @endif
+                                            @if($item->aprobado==2) <span class="badge badge-danger">Rechazada</span> @endif
+                                            @if($item->aprobado==3) <span class="badge badge-success">Aprobada</span> @endif
                                         </td>
                                         <td>
                                             <a href="{{action('PanelConvocatorias@VerAplicacion',['id'=>$item->_key])}}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i> Ver Aplicación</a>
