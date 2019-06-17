@@ -25,7 +25,7 @@
         @if(!isset($item->_key))
             {!! Form::text('email', null, ['class' => $class, 'autocomplete'=>'nope']) !!}
         @else
-            {!! Form::text('email', null, ['class' => $class, 'autocomplete'=>'nope', 'disabled'=>'disabled', 'readonly'=>'readonly']) !!}
+            {!! Form::text('email', null, ['class' => $class, 'autocomplete'=>'nope', 'disabled'=>'disabled']) !!}
         @endif
         @if ($errors->has('email'))
             <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('email') }}</strong></span>

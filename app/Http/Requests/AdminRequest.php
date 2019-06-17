@@ -34,7 +34,6 @@ class AdminRequest extends FormRequest
                     return [
                         'nombre'                    => 'required|string|max:255',
                         'apellidos'                 => 'required|string|max:255',
-                        'email'                     => 'required|string|email|max:255',
                         'rol_id'                     => 'required',
                         'activo'                    => 'activo',
                     ];
