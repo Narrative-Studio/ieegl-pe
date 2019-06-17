@@ -458,7 +458,7 @@ class PanelConvocatorias extends Controller
 
         $respuestas_aplicacion  = json_decode(json_encode($aplicacion->preguntas), true);
 
-        return view('panel.convocatorias.editar-aplicacion', compact('item', 'aplicacion','emprendimiento', 'errores', 'verificar',
+        return view('panel.convocatorias.editar-aplicacion', compact('item', 'aplicacion','emprendimiento', 'errores',
             'perfil','paises','estados','sexo','dedicas','estudiando','campus',
             'cuenta','emprendimiento_array',
             'industrias','nivel_tlr','enteraste','etapas','vehiculos','terminos',
