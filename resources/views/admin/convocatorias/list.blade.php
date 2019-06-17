@@ -68,8 +68,8 @@
                                                     @case('Si')
                                                         <span class="badge badge-success round">Activa</span>
                                                     @break
-                                                    @case('revision')
-                                                        <span class="badge badge-warning round">Para Revisión</span>
+                                                    @case('aprobacion')
+                                                        <span class="badge badge-warning round">Para Aprobación</span>
                                                     @break
                                                     @case('cerrada')
                                                         <span class="badge badge-danger round">Cerrada</span>

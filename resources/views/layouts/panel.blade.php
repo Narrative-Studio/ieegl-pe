@@ -76,7 +76,7 @@
                 <div class="main-menu-content">
                     <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
                         @if(auth()->user())
-                            <li class=" nav-item">
+                            <li class=" nav-item @if($controller=="PanelController") active @endif">
                                 <a href="{{action("PanelController@Index")}}"><i class="icon-home"></i><span class="menu-title" data-i18n="nav.dash.main">Dashboard</span></a>
                             </li>
                             <li class=" navigation-header">
