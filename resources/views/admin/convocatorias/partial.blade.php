@@ -230,7 +230,7 @@
                             <label class="custom-control-label" for="a3">Para aprobación</label>
                         </div>
                         <div class="d-inline-block custom-control custom-radio mr-1">
-                            {!! Form::radio('activo', "cerrafda", null, ['id'=>'a4', 'class'=>'custom-control-input required']); !!}
+                            {!! Form::radio('activo', "cerrada", null, ['id'=>'a4', 'class'=>'custom-control-input required']); !!}
                             <label class="custom-control-label" for="a4">Cerrada</label>
                         </div>
                     </div>
