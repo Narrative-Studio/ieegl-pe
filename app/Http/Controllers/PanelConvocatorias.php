@@ -630,10 +630,11 @@ class PanelConvocatorias extends Controller
             //////////////////////////////////////////////////////////////////
 
             // Enviando Mail al Administrador
+            $aplicacion_key = explode('/',$documentId);
             $document['responsable_email'] = $item->usuario->email;
             $document['usuario'] = $user->nombre.' '.$user->apellidos;
             $document['usuario_email'] = $user->email;
-            $document['aplicacion_key'] = $documentId;
+            $document['aplicacion_key'] = $aplicacion_key[1];
             $document['convocatoria_nombre'] = $item->nombre;
             Mail::to($document['responsable_email'])->send(new SolicitudAdmin($document));
         }
