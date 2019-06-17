@@ -31,7 +31,7 @@
                                 {!! Form::open(['action' => ['AdminConvocatorias@Index'], 'method'=>'GET', 'id'=>'search', 'class'=>'form']) !!}
                                 <div class="row mb-2">
                                     <div class="col-md-3">
-                                        {!! Form::select('status', [''=>'Todos los Estatus', 'Si'=>'Abierta','No'=>'Draft','aprobacion'=>'Para Aprobacion', 'cerrara'=>'Cerrada'], \Illuminate\Support\Facades\Input::get('status'), ['id'=>'status','class'=> 'select2']) !!}
+                                        {!! Form::select('status', [''=>'Todos los Estatus', 'Si'=>'Abierta','No'=>'Draft','aprobacion'=>'Para Aprobacion', 'cerrada'=>'Cerrada'], \Illuminate\Support\Facades\Input::get('status'), ['id'=>'status','class'=> 'select2']) !!}
                                     </div>
                                 </div>
                                 {!! Form::close() !!}
