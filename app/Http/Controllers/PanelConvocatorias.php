@@ -631,7 +631,7 @@ class PanelConvocatorias extends Controller
 
             // Enviando Mail al Administrador
             $aplicacion_key = explode('/',$documentId);
-            $document['responsable_email'] = $item->usuario->email;
+            $document['responsable_email'] = "adanluna@gmail.com";
             $document['usuario'] = $user->nombre.' '.$user->apellidos;
             $document['usuario_email'] = $user->email;
             $document['aplicacion_key'] = $aplicacion_key[1];
