@@ -111,6 +111,7 @@ class AdminAdministradores extends Controller
             // Creando Nuevo Registro
             if($request->get('id')==''){
                 $document['isAdmin'] = 1;
+                $document['validated'] = 1;
                 $document['email'] = $request->get('email');
                 $documentId = $this->ArangoDB->Save($this->collection, $document);
                 Session::flash('status_success', 'Registro Agregado');
