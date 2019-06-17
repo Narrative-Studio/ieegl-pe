@@ -102,6 +102,7 @@ class AdminAdministradores extends Controller
     public function Save(AdminRequest $request){
 
         $total = $this->ArangoDB->Query('FOR u IN '.$this->collection.' FILTER u.email=="'.$request->get('email').'" COLLECT WITH COUNT INTO length RETURN length');
+        $total = (int) $total[0];
         if($total<1){
             $document = [];
             $document['nombre'] = $request->get('nombre');
