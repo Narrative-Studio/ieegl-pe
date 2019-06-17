@@ -39,7 +39,7 @@
                                             <th>Nombre</th>
                                             <th>Correo</th>
                                             <th>Activo</th>
-                                            <th width="250">Acciones</th>
+                                            <th width="200">Acciones</th>
                                         </tr>
                                         </thead>
                                         <tbody>

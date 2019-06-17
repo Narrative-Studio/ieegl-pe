@@ -39,7 +39,7 @@
                                             <th>Correo</th>
                                             <th>Teléfono</th>
                                             <th>Validado</th>
-                                            <th width="350">Acciones</th>
+                                            <th width="200">Acciones</th>
                                         </tr>
                                         </thead>
                                         <tbody>
