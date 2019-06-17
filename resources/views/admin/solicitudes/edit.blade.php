@@ -45,7 +45,7 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-4" >
                                     <h6><strong>Nombre del Emprendimiento:</strong></h6>
-                                    ({{$item->_key}}) {{$item->nombre}}
+                                    {{$item->nombre}}
                                 </div>
                                 <div class="col-sm-12 col-md-5" >
                                     <h6><strong>Usuario:</strong></h6>
