@@ -37,7 +37,7 @@
                                 <div class="col-sm-12 col-md-6 text-right" >
                                     <h6><strong>Estatus de la Aplicación</strong></h6>
                                     @if($solicitud->aprobado==1) <h3 class="m-0 mb-2 badge badge-warning round">Por Revisar</h3> @endif
-                                    @if($solicitud->aprobado==4) <h3 class="m-0 mb-2 badge badge-info round" style="background-color: #ffd95d;">Pendiente</h3> @endif
+                                    @if($solicitud->aprobado==4) <h3 class="m-0 mb-2 badge badge-info round">Pendiente</h3> @endif
                                     @if($solicitud->aprobado==2) <h3 class="m-0 mb-2 badge badge-danger round">Rechazada</h3> @endif
                                     @if($solicitud->aprobado==3) <h3 class="m-0 mb-2 badge badge-success round">Aprobada</h3> @endif
                                 </div>
