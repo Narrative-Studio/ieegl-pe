@@ -52,7 +52,7 @@
                                                 <td>@if($item->validated==0) <div class="badge badge-warning">No</div> @else <div class="badge badge-success">Si</div> @endif</td>
                                                 <td>
                                                     <a href="{{ action('AdminUsuarios@Edit',$item->_key) }}" class="btn btn-sm btn-info mr-1"><i class="fas fa-edit"></i> Editar</a>
-                                                    <a href="#" onclick="delete_row('item-{{$item->_key}}', '{{ action('AdminUsuarios@Delete',$item->_key) }}')" class="btn btn-sm  btn-danger mr-1"><i class="fas fa-trash"></i> Borrar</a>
+                                                    <a href="#" onclick="delete_row('item-{{$item->_key}}', '{{ action('AdminUsuarios@Delete',$item->_key) }}')" class="btn btn-sm  btn-danger mr-1"><i class="fas fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach
