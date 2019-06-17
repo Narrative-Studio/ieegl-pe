@@ -28,9 +28,9 @@
                         <div class="card-profile-image text-center">
 
                             @if(file_exists(public_path('/users_pics/user_'. auth()->user()->_key .'.jpg')))
-                                <img src="{{url('/users_pics/user_'. auth()->user()->_key .'.jpg')}}" class="rounded-circle img-border box-shadow-1" height="105" alt="Card image">
+                                <img src="{{url('/users_pics/user_'. auth()->user()->_key .'.jpg')}}" class="rounded-circle img-border width-100 bg-white box-shadow-1" height="105" alt="Card image">
                             @else
-                                <img src="https://www.tinygraphs.com/isogrids/sidtec?theme=seascape&numcolors=4&size=105&fmt=svg" height="105" class="rounded-circle img-border box-shadow-1" alt="Card image">
+                                <img src="https://www.tinygraphs.com/isogrids/sidtec?theme=seascape&numcolors=4&size=105&fmt=svg" height="105" class="rounded-circle width-100 bg-white img-border box-shadow-1" alt="Card image">
                             @endif
                         </div>
                         <div class="text-center">

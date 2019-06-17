@@ -37,7 +37,7 @@ class PanelController extends Controller
                     FOR entidad IN entidades
                         FOR quien IN quien
                             FILTER convocatoria.quien == quien._key AND convocatoria.activo == "Si" AND convocatoria.fecha_inicio_convocatoria <= \''.time().'\' AND convocatoria.fecha_fin_convocatoria <= \''.time().'\'  AND convocatoria.entidad  == entidad._key
-                            SORT convocatoria._key ASC LIMIT 3
+                            SORT convocatoria.created_at ASC LIMIT 3
                             RETURN merge(convocatoria, {quien_nombre: quien.nombre}, {entidad: entidad.nombre,  entidad_desc: entidad.descripcion, entidad_key: entidad._key, entidad_ext: entidad.ext} )
                 )    
                     

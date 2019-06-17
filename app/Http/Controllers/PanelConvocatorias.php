@@ -52,7 +52,7 @@ class PanelConvocatorias extends Controller
             FOR entidad IN entidades
                 FOR quien IN quien
                     FILTER convocatoria.quien == quien._key AND convocatoria.activo == "Si" AND convocatoria.fecha_inicio_convocatoria <= \''.time().'\' AND convocatoria.fecha_fin_convocatoria <= \''.time().'\'  AND convocatoria.entidad  == entidad._key
-                    SORT convocatoria._key ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'        
+                    SORT convocatoria.created_at ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'        
         ';
         $query = $query_aql. ' RETURN merge(convocatoria, {quien_nombre: quien.nombre}, {entidad: entidad.nombre,  entidad_desc: entidad.descripcion, entidad_key: entidad._key, entidad_ext: entidad.ext} )';
         $convocatorias = $this->ArangoDB->Query($query);
@@ -122,7 +122,7 @@ class PanelConvocatorias extends Controller
             FOR conv IN convocatorias
                 FOR emp IN emprendimientos
                     FILTER doc.userKey == "'.auth()->user()->_key.'" AND conv._key  == doc.convocatoria_id AND emp._key == doc.emprendimiento_id
-                    SORT doc._key ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'
+                    SORT doc.fecha ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'
                     RETURN merge(doc, {nombre: conv.nombre}, {quien: conv.quien}, {emprendimiento: emp.nombre}, {descripcion: conv.descripcion_corta}, {fecha_inicio_convocatoria: conv.fecha_inicio_convocatoria}, {fecha_fin_convocatoria: conv.fecha_fin_convocatoria} )
         ';
         $data = $this->ArangoDB->Query($query);
