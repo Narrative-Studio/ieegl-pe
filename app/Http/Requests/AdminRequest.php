@@ -25,8 +25,9 @@ class AdminRequest extends FormRequest
                     'nombre'                    => 'required|string|max:255',
                     'apellidos'                 => 'required|string|max:255',
                     'email'                     => 'required|string|email|max:255',
-                    'password'                  => 'required|string',
-                    'rol_id'                  => 'required',
+                    'password'                  => 'required',
+                    'rol_id'                    => 'required',
+                    'activo'                    => 'activo',
                 ];
             case 'POST':
                 {
@@ -34,7 +35,8 @@ class AdminRequest extends FormRequest
                         'nombre'                    => 'required|string|max:255',
                         'apellidos'                 => 'required|string|max:255',
                         'email'                     => 'required|string|email|max:255',
-                        'rol_id'                  => 'required',
+                        'rol_id'                     => 'required',
+                        'activo'                    => 'activo',
                     ];
                     break;
                 }

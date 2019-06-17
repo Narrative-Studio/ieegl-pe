@@ -41,6 +41,7 @@
                                         <table id="project-bugs-list" class="table table-white-space table-bordered row-grouping display no-wrap icheck table-middle">
                                             <thead>
                                             <tr>
+                                                <th>Convocatoria</th>
                                                 <th>Emprendimiento</th>
                                                 <th>Usuario</th>
                                                 <th>Fecha de Aplicación</th>
@@ -51,9 +52,11 @@
                                             <tbody>
                                             @foreach($datos as $item)
                                                 <tr>
+                                                <td>
+                                                    <a href="{{action('AdminConvocatorias@Edit',['id'=>$item->convocatoria->_key])}}" style="white-space:normal;">{{$item->convocatoria->nombre}}</a>
+                                                </td>
                                                 <td class="text-left">
-                                                    <b>{{$item->emprendimiento}}</b><br>
-                                                    <a href="{{action('AdminConvocatorias@Edit',['id'=>$item->convocatoria->_key])}}" class="text-muted font-small-2" style="white-space:normal;">{{$item->convocatoria->nombre}}</a>
+                                                    <b>{{$item->emprendimiento}}</b>
                                                 </td>
                                                 <td class="text-center">
                                                     <p class="text-bold-600 font-small-3">{{$item->usuario->nombre}} {{$item->usuario->apellidos}}</p>
