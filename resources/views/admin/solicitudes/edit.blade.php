@@ -24,7 +24,7 @@
                     <div class="card-header">
                         <h4 class="card-title">DETALLES DE LA APLICACIÓN</h4>
                         <div class="heading-elements">
-                            <button class="btn btn-primary btn-sm" onclick="window.print();"><i class="ft-download white"></i> Descargar</button>
+                            <a class="btn btn-primary btn-sm" href="javascript:window.print();"><i class="ft-download white"></i> Descargar</a>
                         </div>
                     </div>
                     <div class="card-content">
