@@ -144,6 +144,7 @@ class PanelEmprendimientos extends Controller
         $document['prototipo_o_mvp'] = $request->get('prototipo_o_mvp');
         $document['como_te_enteraste_cual'] = $request->get('como_te_enteraste_cual');
         $document['module_datos'] = true;
+        $document['created_at'] = date('Y-m-d');
 
         if($request->get('id')==''){
             // Agregando variable de modulos

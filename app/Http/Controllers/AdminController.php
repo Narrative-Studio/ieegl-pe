@@ -21,7 +21,11 @@ class AdminController extends Controller
             LET usuarios_dia = (FOR e IN users FILTER e.isAdmin==0  && e.created_time.date!=null && DATE_FORMAT(DATE_TIMESTAMP(e.created_time.date), "%dd.%mm.%yyyy")==DATE_FORMAT(DATE_NOW(), "%dd.%mm.%yyyy") COLLECT WITH COUNT INTO length RETURN length)
             LET usuarios_mes = (FOR e IN users FILTER e.isAdmin==0  && e.created_time.date!=null && DATE_FORMAT(DATE_TIMESTAMP(e.created_time.date), "%mm.%yyyy")==DATE_FORMAT(DATE_NOW(), "%mm.%yyyy") COLLECT WITH COUNT INTO length RETURN length)
             LET total_empre = (FOR e IN emprendimientos COLLECT WITH COUNT INTO length RETURN length)
+            LET empre_dia = (FOR e IN emprendimientos FILTER e.created_at!=null && DATE_FORMAT(DATE_TIMESTAMP(e.created_at), "%dd.%mm.%yyyy")==DATE_FORMAT(DATE_NOW(), "%dd.%mm.%yyyy") COLLECT WITH COUNT INTO length RETURN length)
+            LET empre_mes = (FOR e IN emprendimientos FILTER e.created_at!=null && DATE_FORMAT(DATE_TIMESTAMP(e.created_at), "%mm.%yyyy")==DATE_FORMAT(DATE_NOW(), "%mm.%yyyy") COLLECT WITH COUNT INTO length RETURN length)            
             LET total_convo = (FOR e IN convocatorias COLLECT WITH COUNT INTO length RETURN length)
+            LET convo_dia = (FOR e IN convocatorias FILTER e.created_at!=null && DATE_FORMAT(DATE_TIMESTAMP(e.created_at), "%dd.%mm.%yyyy")==DATE_FORMAT(DATE_NOW(), "%dd.%mm.%yyyy") COLLECT WITH COUNT INTO length RETURN length)
+            LET convo_mes = (FOR e IN convocatorias FILTER e.created_at!=null && DATE_FORMAT(DATE_TIMESTAMP(e.created_at), "%mm.%yyyy")==DATE_FORMAT(DATE_NOW(), "%mm.%yyyy") COLLECT WITH COUNT INTO length RETURN length)            
             LET total_apps = (FOR e IN usuario_convocatoria COLLECT WITH COUNT INTO length RETURN length)
             
             LET convocatorias = (FOR convocatoria IN convocatorias
@@ -39,8 +43,8 @@ class AdminController extends Controller
             
             return {
                 usuarios: {total:total_usuarios[0], dia: usuarios_dia[0], mes: usuarios_mes[0]}, 
-                empre: {total:total_empre[0], dia: usuarios_dia[0], mes: usuarios_mes[0]}, 
-                convo: {total:total_convo[0], dia: usuarios_dia[0], mes: usuarios_mes[0]}, 
+                empre: {total:total_empre[0], dia: empre_dia[0], mes: empre_mes[0]}, 
+                convo: {total:total_convo[0], dia: convo_dia[0], mes: convo_mes[0]},
                 apps: {total:total_apps[0]},
                 convocatorias: convocatorias
             }        

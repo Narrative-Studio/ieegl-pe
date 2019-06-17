@@ -99,7 +99,7 @@
                     <div class="card">
                         <div class="card-content">
                             <div class="card-body text-center">
-                                <div class="card-header mb-2">
+                                <div class="card-header">
                                     <span class="success darken-1">Total de Aplicaciones</span>
                                     <h3 class="font-large-2 grey darken-1 text-bold-200">{{$dashboard->apps->total}}</h3>
                                 </div>
@@ -124,7 +124,7 @@
                 <div class="col-xl-8 col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Convocatorias Pendientes de Revisión</h4>
+                            <h4 class="card-title">Convocatorias Pendientes de Aprobación</h4>
                             <a class="heading-elements-toggle"><i class="ft-more-horizontal font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <a href="{{action('AdminConvocatorias@Index')}}">Ver todas <i class="ft-arrow-right"></i></a></span></p>
