@@ -115,8 +115,8 @@ class AdminConvocatorias extends Controller
      * @throws ArangoException
      */
     public function Index(Request $request){
-        $query_user = (auth()->user()->rol_id != 7931855)?'convocatoria.responsable == "'.auth()->user()->_key.'" AND':'';
-        $query_activo = ($request->get('status')!='')?'convocatoria.activo== "'.$request->get('status').'" AND ':'';
+        $query_user = (auth()->user()->rol_id != 7931855)?' convocatoria.responsable == "'.auth()->user()->_key.'" AND ':'';
+        $query_activo = ($request->get('status')!='')?' convocatoria.activo== "'.$request->get('status').'" AND ':'';
         $query = '
         FOR convocatoria IN convocatorias
             FOR users IN users

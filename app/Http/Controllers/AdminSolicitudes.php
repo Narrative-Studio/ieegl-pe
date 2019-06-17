@@ -47,7 +47,7 @@ class AdminSolicitudes extends Controller
      */
     public function Index(Request $request){
         $query_convo = ($request->get('convocatoria')!='')?' AND doc.convocatoria_id=="'.$request->get('convocatoria').'"':'';
-        $query_user = (auth()->user()->rol_id != 7931855)?'doc.responsable_id == "'.auth()->user()->_key.'" AND':'';
+        $query_user = (auth()->user()->rol_id != 7931855)?' doc.responsable_id == "'.auth()->user()->_key.'" AND ':'';
         $query = '
         FOR doc IN usuario_convocatoria
             FOR conv IN convocatorias
