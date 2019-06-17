@@ -66,7 +66,7 @@
                                                         <span class="badge badge-dark round">Draft</span>
                                                     @break
                                                     @case('Si')
-                                                        <span class="badge badge-success round">Activa</span>
+                                                        <span class="badge badge-success round">Abierta</span>
                                                     @break
                                                     @case('aprobacion')
                                                         <span class="badge badge-warning round">Para Aprobación</span>
