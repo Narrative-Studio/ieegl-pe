@@ -69,6 +69,8 @@ class AdminConvocatorias extends Controller
             'sitio_web'  =>'Sitio Web de tu Emprendimiento',
             'red_social' =>'Red social mas utilizada por tu Emprendimiento',
             'video' =>'Video de tu Emprendimiento',
+            'logo_file' => 'Logo de tu Emprendimiento',
+            'presentacion_file' => 'Presentación o pitch deck',
         ],
         'Mercado'=> [
             'tiene_clientes'  =>'¿Tienes clientes?',
@@ -90,6 +92,7 @@ class AdminConvocatorias extends Controller
             'patente_ip'  =>'¿Tienes una Patente o IP de tu producto o servicio?',
             'realizado_ventas'  =>'¿Has tenido ventas?',
             'socio_exit_empresa'  =>'¿Alguno de tus socios ha tenido un "exit" o ha venido de una empresa?',
+            'cedula_file' => 'Cédula de Identificación Fiscal',
         ],
     ];
 

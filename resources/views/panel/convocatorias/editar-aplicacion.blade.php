@@ -66,13 +66,13 @@
                                     <div class="form-group">
                                         @if($pregunta->tipo=='usuario')
 
-                                            <label>{{$pregunta->nombre}} <span class="required">*</span></label>
+                                            <label>{{$pregunta->nombre}} @if($pregunta->campo!='matricula') <span class="required">*</span> @endif</label>
+                                            <?php $class=($pregunta->campo=='matricula')?'form-control':$class; ?>
                                             @include('panel.perfiles.campos.'.$pregunta->campo, ['campo'=>'usuario['.$pregunta->campo.']','value'=>$perfil[$pregunta->campo]])
 
                                         @elseif($pregunta->tipo=='cuenta')
 
                                             <label>{{$pregunta->nombre}} <span class="required">*</span></label>
-                                            <?php $class='form-control'; ?>
                                             @include('panel.perfiles.campos.'.$pregunta->campo, ['campo'=>'cuenta['.$pregunta->campo.']','value'=>$cuenta[$pregunta->campo]])
 
                                         @elseif($pregunta->tipo=='emprendimiento')

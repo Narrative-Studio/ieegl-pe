@@ -54,7 +54,7 @@ $(".steps-validation").steps({
 
 // Initialize validation
 $(".steps-validation").validate({
-    ignore: 'input[type=hidden]', // ignore hidden fields
+    //ignore: 'input[type=hidden]', // ignore hidden fields
     errorClass: 'danger',
     successClass: 'success',
     highlight: function(element, errorClass) {
@@ -64,7 +64,8 @@ $(".steps-validation").validate({
         $(element).removeClass(errorClass);
     },
     errorPlacement: function(error, element) {
-        if(element.attr("type")=='checkbox' || element.attr("type")=='radio' ){
+        console.log(element.attr("class"));
+        if(element.attr("type")=='checkbox' || element.attr("type")=='radio' || element.attr("class")=='money2' ){
             error.insertAfter($(element).closest('.row'));
         }else{
             error.insertAfter(element);

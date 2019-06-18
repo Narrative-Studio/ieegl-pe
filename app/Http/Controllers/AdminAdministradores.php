@@ -113,19 +113,20 @@ class AdminAdministradores extends Controller
                 $document['isAdmin'] = 1;
                 $document['validated'] = 1;
                 $document['email'] = $request->get('email');
-                $documentId = $this->ArangoDB->Save($this->collection, $document);
-                Session::flash('status_success', 'Registro Agregado');
-            }else{
+
                 $total = $this->ArangoDB->Query('FOR u IN '.$this->collection.' FILTER u.email=="'.$request->get('email').'" COLLECT WITH COUNT INTO length RETURN length');
                 $total = (int) $total[0];
                 if($total<1){
-                    // Actualizando Registro
-                    $documentId = $this->ArangoDB->Update($this->collection, $this->collection.'/'.$request->get('id'), $document);
-                    Session::flash('status_success', 'Registro Actualizado');
+                    $documentId = $this->ArangoDB->Save($this->collection, $document);
+                    Session::flash('status_success', 'Registro Agregado');
                 }else{
                     Session::flash('status_error', 'Ya existe un usuario con ese email, por favor usar otro email.');
                     return redirect()->action($this->controller.'@New')->withInput();
                 }
+            }else{
+                // Actualizando Registro
+                $documentId = $this->ArangoDB->Update($this->collection, $this->collection.'/'.$request->get('id'), $document);
+                Session::flash('status_success', 'Registro Actualizado');
             }
 
             return redirect()->action($this->controller.'@Index');

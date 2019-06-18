@@ -85,7 +85,7 @@
                                                     @elseif($pregunta->tipo=='cuenta')
 
                                                         <label>{{$pregunta->nombre}} <span class="required">*</span></label>
-                                                        <?php $class='form-control'; ?>
+                                                        <?php //$class='form-control required'; ?>
                                                         @include('panel.perfiles.campos.'.$pregunta->campo, ['campo'=>'cuenta['.$pregunta->campo.']','value'=>$cuenta[$pregunta->campo]])
 
                                                     @elseif($pregunta->tipo=='emprendimiento')
