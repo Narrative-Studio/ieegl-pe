@@ -111,6 +111,15 @@
                                 case 'campus':
                                     $respuesta = $campus[$preg];
                                     break;
+                                case 'cedula_file':
+                                    $respuesta = '<a href="'.url($preg).'" target="_blank">'.url($preg).'</a>';
+                                    break;
+                                case 'logo_file':
+                                    $respuesta = '<img src="'.url($preg).'" width="120"/>';
+                                    break;
+                                case 'presentacion_file':
+                                    $respuesta = '<a href="'.url($preg).'" target="_blank">'.url($preg).'</a>';
+                                    break;
                                 default:
                                     if((is_array($preg))){
                                         $respuesta = (is_array($preg))?implode(', ',$preg):$preg;
@@ -126,7 +135,7 @@
                         ?>
                         <div class="col-md-6">
                             <h6><strong>{{$pregunta->nombre}}:</strong></h6>
-                            <p>{{$respuesta}}</p>
+                            <p>{!! $respuesta !!}</p>
                         </div>
                     @endif
                 @endforeach

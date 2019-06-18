@@ -11,5 +11,5 @@
 @else
         <span class="small">Tu emprendimiento no tiene este documento, puedes actualizarlo directamente en tu <a href="{{action('PanelEmprendimientos@MediosDigitales', $emprendimiento->_key)}}" target="_blank">emprendimiento</a>.</span>
 @endif
-{!! Form::hidden($campo, $value) !!}
+{!! Form::hidden($campo, $value, ["class"=>$class]) !!}
 </p>

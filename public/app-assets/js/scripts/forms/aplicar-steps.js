@@ -64,8 +64,9 @@ $(".steps-validation").validate({
         $(element).removeClass(errorClass);
     },
     errorPlacement: function(error, element) {
-        console.log(element.attr("class"));
-        if(element.attr("type")=='checkbox' || element.attr("type")=='radio' || element.attr("class")=='money2' ){
+        if(element.attr("class")=='money2 form-control required'){
+            error.insertAfter($(element).closest('.input-group'));
+        }else if(element.attr("type")=='checkbox' || element.attr("type")=='radio' ){
             error.insertAfter($(element).closest('.row'));
         }else{
             error.insertAfter(element);
