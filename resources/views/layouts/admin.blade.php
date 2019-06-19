@@ -125,6 +125,7 @@
                     <li class=" nav-item"><a href="{{action('AdminReportes@Emprendimientos')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Emprendimientos</span></a></li>
                     <li class=" nav-item"><a href="{{action('AdminReportes@EmprendedoresTec')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Emprendedores ITESM</span></a></li>
                     <li class=" nav-item"><a href="{{action('AdminReportes@EmprendimientosFull')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Emprendimientos Full</span></a></li>
+                    <li class=" nav-item"><a href="{{action('AdminReportes@Convocatorias')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Aplicaciones</span></a></li>
                 </ul>
             </li>
             <?php endif;?>

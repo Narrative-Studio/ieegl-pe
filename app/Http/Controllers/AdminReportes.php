@@ -18,7 +18,7 @@ class AdminReportes extends Controller
     protected $ArangoDB;
     private $page;
     private $path;
-    private $perPage = 25;
+    private $perPage = 50;
 
     /**
      * Reportes constructor.
@@ -29,6 +29,8 @@ class AdminReportes extends Controller
         $this->ArangoDB = $ArangoDB;
         ArangoException::enableLogging();
         $this->middleware('auth:admin');
+        $this->page = LengthAwarePaginator::resolveCurrentPage('page');
+        $this->path = LengthAwarePaginator::resolveCurrentPath();
     }
 
     /**
@@ -577,6 +579,207 @@ class AdminReportes extends Controller
         return json_encode($datos);
     }
 
+
+    public function Convocatorias(Request $request){
+        $query_activo = ($request->get('status')!='')?' convocatoria.activo== "'.$request->get('status').'" AND ':'';
+        $query = '
+        FOR convocatoria IN convocatorias
+            FOR users IN users
+                FOR entidad IN entidades
+                  LET aplicaciones = (
+                    FOR a IN usuario_convocatoria
+                      FILTER a.convocatoria_id == convocatoria._key
+                      COLLECT WITH COUNT INTO length RETURN length
+                    )            
+                    FILTER '.$query_activo.' convocatoria.responsable == users._key AND convocatoria.entidad  == entidad._key
+                    SORT convocatoria.created_at DESC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'
+                    RETURN merge(convocatoria, {responsable: {username: users.username, nombre: CONCAT(users.nombre," ", users.apellidos)}}, {entidad: entidad.nombre}, {total: aplicaciones[0]})
+        ';
+        $data = $this->ArangoDB->Query($query);
+        if($request->get('total')!=''){
+            $total = $request->get('total');
+        }else{
+            $total = $this->ArangoDB->Query( '
+            FOR convocatoria IN convocatorias
+                FOR users IN users
+                    FOR entidad IN entidades
+                        FILTER '.$query_activo.' convocatoria.responsable == users._key AND convocatoria.entidad == entidad._key
+                        SORT convocatoria.created_at DESC COLLECT WITH COUNT INTO length RETURN length');
+            $total = (int)$total[0];
+        }
+        $datos = $this->ArangoDB->Pagination($data, $total, $this->PaginationQuery());
+        return view('admin.reportes.convocatorias', compact('datos','total'));
+    }
+
+    public function Aplicaciones($key){
+
+        $convocatoria = $this->ArangoDB->Query("
+        FOR conv IN convocatorias
+            FILTER conv._key== '".$key."'
+            RETURN {nombre:conv.nombre, preguntas: conv.preguntas}"
+            , true);
+
+        // Campos de Convocatoria
+        $nombre = $convocatoria[0]['nombre'];
+        $campos_convocatoria = [];
+        foreach ($convocatoria[0]['preguntas'] as $preg){
+            if($preg->tipo!='categorias'){
+                if($preg->tipo=='emprendimiento' && $preg->campo=='nombre'){
+                    $campos_convocatoria['nombre_emprendimiento'] = $preg->nombre;
+                }else{
+                    $campo = $preg->campo;
+                    if($preg->tipo=='nueva')$campo = "n_".$campo;
+                    if($preg->tipo=='catalogos')$campo = "p_".$campo;
+                    $campos_convocatoria[$campo] = $preg->nombre;
+                }
+            }
+        }
+        return view('admin.reportes.aplicaciones', compact('key','campos_convocatoria','nombre'));
+    }
+
+    public function AplicacionesAjax($key, Request $request){
+
+        $search_txt = "";
+        $offset = $request->get('offset');
+        $limit = $request->get('limit');
+        $search = trim($request->get('search'));
+        $sort = ($request->get('sort')!='')?$request->get('sort'):'nombre';
+        $order = trim($request->get('order'));
+
+        //if($search!='') $search_txt = 'AND app.nombre LIKE "%'.strtolower($search).'%"';
+
+        $aplicaciones = $this->ArangoDB->Query("
+        FOR app IN usuario_convocatoria
+            FOR usuario IN users
+                FOR emp IN emprendimientos
+                    FILTER app.convocatoria_id=='".$key."' AND usuario._key  == app.userKey AND emp._key == app.emprendimiento_id
+                    LIMIT $offset,$limit
+                    SORT app.$sort $order  
+                    RETURN merge(app, {nombre_usuario: CONCAT(usuario.nombre,' ',usuario.apellidos)}, {usuario_email:usuario.email}, {emprendimiento_nombre: emp.nombre})"
+        , true);
+
+        $data_total = $this->ArangoDB->Query("
+        FOR app IN usuario_convocatoria
+            FOR usuario IN users
+                FOR emp IN emprendimientos        
+                    FILTER app.convocatoria_id=='".$key."' AND usuario._key  == app.userKey AND emp._key == app.emprendimiento_id
+                    COLLECT WITH COUNT INTO length
+                    RETURN length"
+        , true);
+
+        // Obteniendo Industrias
+        $industrias = $this->ArangoDB->Query('FOR doc IN industrias SORT doc.nombre ASC RETURN doc', true);
+        $industrias = $this->ArangoDB->SelectFormat($industrias, '_key', 'nombre');
+
+        // Obteniendo Etapas
+        $etapas = $this->ArangoDB->Query('FOR doc IN etapas SORT doc.nombre ASC RETURN doc', true);
+        $etapas = $this->ArangoDB->SelectFormat($etapas, '_key', 'nombre');
+
+        //Niveles
+        $nivel_tlr = $this->nivel_tlr;
+
+        // Obteniendo Terminos
+        $terminos = $this->ArangoDB->Query('FOR doc IN terminos RETURN doc', true);
+        $terminos = $this->ArangoDB->SelectFormat($terminos, '_key', 'nombre');
+
+        // Como te enteraste
+        $enteraste = $this->como_te_enteraste;
+
+        // Paises
+        $paises = $this->paises;
+
+        // Estados
+        $estados = $this->estados;
+
+        //Campus TEC
+        $campus = $this->campus;
+
+        // Formateando Campos de Aplicaciones
+        $items = [];
+        foreach ($aplicaciones as $app){
+
+            // Solucionando con el probrema que el nombre del usuario y del emprendimiento tiene la misma llave
+            if(isset($app['preguntas']->emprendimiento->nombre)){
+                $app['preguntas']->emprendimiento->nombre_emprendimiento = $app['preguntas']->emprendimiento->nombre;
+                unset($app['preguntas']->emprendimiento->nombre);
+            }
+            $datos_item =[];
+            $preguntas = [];
+            switch ($app['aprobado']){
+                case '1': $status="Por Revisar";break;
+                case '4': $status="Pendiente";break;
+                case '2': $status="Rechazada";break;
+                case '3': $status="Aprobada";break;
+                default: $status="Por Revisar";break;
+            }
+            $datos_item['aprobado'] = $status;
+            $datos_item['comentarios'] = $app['comentarios'];
+            //$datos_item['emprendimiento_id'] = $app['emprendimiento_id'];
+            $datos_item['fecha'] = date('d/m/Y H:i', strtotime($app['fecha']));
+            $datos_item['fecha_aprobacion'] = ($app['fecha_aprobacion']!=null)?date('d/m/Y H:i', strtotime($app['fecha_aprobacion']->date)):'';
+            //$datos_item['nombre_usuario'] = $app['nombre_usuario'];
+            //$datos_item['usuario_email'] = $app['usuario_email'];
+            //$datos_item['emprendimiento_nombre'] = $app['emprendimiento_nombre'];
+            foreach ($app['preguntas'] as $preg){
+
+                $preg = json_decode(json_encode($preg), true);
+
+                if(is_array($preg)){
+                    $preg_array = [];
+                    foreach ($preg as $k=>$v){
+                        switch($k){
+                            case 'industria_o_sector':
+                                $respuesta = $this->returnRespuestas($v, $industrias);
+                                break;
+                            case 'etapa_emprendimiento':
+                                $respuesta = $etapas[$v];
+                                break;
+                            case 'como_te_enteraste':
+                                $respuesta = $enteraste[$v];
+                                break;
+                            case 'pais':
+                                $respuesta = $paises[$v];
+                                break;
+                            case 'estado':
+                                $respuesta = $estados[$v];
+                                break;
+                            case 'campus':
+                                $respuesta = $campus[$v];
+                                break;
+                            case 'cedula_file':
+                                $respuesta = '<a href="'.url($v).'" target="_blank">'.url($v).'</a>';
+                                break;
+                            case 'logo_file':
+                                $respuesta = '<a href="'.url($v).'" target="_blank">'.url($v).'</a>';
+                                break;
+                            case 'presentacion_file':
+                                $respuesta = '<a href="'.url($v).'" target="_blank">'.url($v).'</a>';
+                                break;
+                            default:
+                                if((is_array($v))){
+                                    $respuesta = (is_array($v))?implode(', ',$v):$v;
+                                }else{
+                                    if(preg_match_all('/\d{4}-\d{2}-\d{2}/m', $v)){
+                                        $respuesta = date('d/m/Y', strtotime($v));
+                                    }else{
+                                        $respuesta = $v;
+                                    }
+                                }
+                                break;
+                        }
+                        $preg_array[$k] = $respuesta;
+                    }
+                    $preguntas = $preguntas + $preg_array;
+                }
+            }
+            $items[]=$datos_item+$preguntas;
+        }
+
+        $datos['total'] = $data_total[0][0];
+        $datos['rows'] = $items;
+        return json_encode($datos);
+    }
+
     private function GetFromMultipleArray($origen, $destino){
         $return = [];
         foreach ($destino as $item){
@@ -610,5 +813,19 @@ class AdminReportes extends Controller
         $number = str_replace( ',', '', $number );
         $number = (is_float($number))?:(float)$number;
         return '$'.number_format($number, 2, '.', ',');
+    }
+
+    private function returnRespuestas($preg, $array){
+        $r = [];
+        foreach ($preg as $p){ $r[] = $array[$p];}
+        return implode(', ',$r);
+    }
+
+    /**
+     * Regresar variables para paginacion
+     * @return array
+     */
+    public function PaginationQuery(){
+        return ['page'=>$this->page, 'perPage' => $this->perPage, 'path'=>$this->path];
     }
 }

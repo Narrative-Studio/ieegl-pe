@@ -130,13 +130,6 @@ class AdminSolicitudes extends Controller
             // Como te enteraste
             $enteraste = $this->como_te_enteraste;
 
-            // Obteniendo Universidades
-            $universidades = $this->ArangoDB->Query('FOR doc IN universidades RETURN doc', true);
-            $universidades = $this->ArangoDB->SelectFormat($universidades, '_key','nombre');
-
-            // Estudiando
-            $estudiando = $this->estudiando;
-
             // Paises
             $paises = $this->paises;
 
@@ -149,7 +142,7 @@ class AdminSolicitudes extends Controller
             if(isset($solicitud->preguntas)) $preguntas_solicitud = json_decode(json_encode($solicitud->preguntas), true);
 
             return view('admin.solicitudes.edit',
-                compact('solicitud', 'item', 'preguntas_solicitud','industrias','etapas','nivel_tlr','terminos','enteraste','universidades','estudiando','campus','paises','estados')
+                compact('solicitud', 'item', 'preguntas_solicitud','industrias','etapas','nivel_tlr','terminos','enteraste','campus','paises','estados')
             );
         }else{
             return view('admin.solicitudes.edit',

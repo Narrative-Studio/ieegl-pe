@@ -194,5 +194,9 @@ Route::prefix('admin')->group(function() {
 
         Route::get('/reportes/usuariosFull', 'AdminReportes@UsuariosFull');
         Route::get('/reportes/ajax/usuariosFull', 'AdminReportes@UsuariosFullAjax')->name('reportes.usuariosFull');
+
+        Route::get('/reportes/convocatorias', 'AdminReportes@Convocatorias');
+        Route::get('/reportes/convocatorias/{key}', 'AdminReportes@Aplicaciones');
+        Route::get('/reportes/aplicaciones/{key}', 'AdminReportes@AplicacionesAjax')->name('reportes.aplicaciones_ajax');
     });
 });
