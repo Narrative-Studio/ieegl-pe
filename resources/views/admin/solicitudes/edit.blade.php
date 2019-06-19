@@ -91,46 +91,50 @@
                                     $campo = $pregunta->campo;
                                     break;
                             }
-                            $preg = $preguntas_solicitud[$pregunta->tipo][$campo];
-                            switch($pregunta->campo){
-                                case 'industria_o_sector':
-                                    $respuesta = \App\Http\Controllers\AdminSolicitudes::returnRespuestas($preg, $industrias);
-                                    break;
-                                case 'etapa_emprendimiento':
-                                    $respuesta = $etapas[$preg];
-                                    break;
-                                case 'como_te_enteraste':
-                                    $respuesta = $enteraste[$preg];
-                                    break;
-                                case 'pais':
-                                    $respuesta = $paises[$preg];
-                                    break;
-                                case 'estado':
-                                    $respuesta = $estados[$preg];
-                                    break;
-                                case 'campus':
-                                    $respuesta = $campus[$preg];
-                                    break;
-                                case 'cedula_file':
-                                    $respuesta = '<a href="'.url($preg).'" target="_blank">'.url($preg).'</a>';
-                                    break;
-                                case 'logo_file':
-                                    $respuesta = '<img src="'.url($preg).'" width="120"/>';
-                                    break;
-                                case 'presentacion_file':
-                                    $respuesta = '<a href="'.url($preg).'" target="_blank">'.url($preg).'</a>';
-                                    break;
-                                default:
-                                    if((is_array($preg))){
-                                        $respuesta = (is_array($preg))?implode(', ',$preg):$preg;
-                                    }else{
-                                        if(preg_match_all('/\d{4}-\d{2}-\d{2}/m', $preg)){
-                                            $respuesta = date('d/m/Y', strtotime($preg));
+                            if(isset($preguntas_solicitud[$pregunta->tipo][$campo])){  // si la pregunta existe por que si se agregaron nuevas preguntas en la convocatoria marcaria error
+                                $preg = $preguntas_solicitud[$pregunta->tipo][$campo];
+                                switch($pregunta->campo){
+                                    case 'industria_o_sector':
+                                        $respuesta = \App\Http\Controllers\AdminSolicitudes::returnRespuestas($preg, $industrias);
+                                        break;
+                                    case 'etapa_emprendimiento':
+                                        $respuesta = $etapas[$preg];
+                                        break;
+                                    case 'como_te_enteraste':
+                                        $respuesta = $enteraste[$preg];
+                                        break;
+                                    case 'pais':
+                                        $respuesta = $paises[$preg];
+                                        break;
+                                    case 'estado':
+                                        $respuesta = $estados[$preg];
+                                        break;
+                                    case 'campus':
+                                        $respuesta = $campus[$preg];
+                                        break;
+                                    case 'cedula_file':
+                                        $respuesta = '<a href="'.url($preg).'" target="_blank">'.url($preg).'</a>';
+                                        break;
+                                    case 'logo_file':
+                                        $respuesta = '<img src="'.url($preg).'" width="120"/>';
+                                        break;
+                                    case 'presentacion_file':
+                                        $respuesta = '<a href="'.url($preg).'" target="_blank">'.url($preg).'</a>';
+                                        break;
+                                    default:
+                                        if((is_array($preg))){
+                                            $respuesta = (is_array($preg))?implode(', ',$preg):$preg;
                                         }else{
-                                            $respuesta = $preg;
+                                            if(preg_match_all('/\d{4}-\d{2}-\d{2}/m', $preg)){
+                                                $respuesta = date('d/m/Y', strtotime($preg));
+                                            }else{
+                                                $respuesta = $preg;
+                                            }
                                         }
-                                    }
-                                    break;
+                                        break;
+                                }
+                            }else{
+                                $respuesta = '-';
                             }
                         ?>
                         <div class="col-md-6">

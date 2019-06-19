@@ -18,7 +18,7 @@
                     <div class="card">
                         <div class="card-content">
                             <div class="card-body">
-                                <h2>Convocatoria: {{$nombre}}</h2>
+                                <h2>{{$nombre}}</h2>
                                 <table id="dataTable"
                                         data-pagination="true"
                                         data-side-pagination="server"

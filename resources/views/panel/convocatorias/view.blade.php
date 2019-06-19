@@ -164,6 +164,7 @@
                                                             <i class="fa fa-check"></i> APLICAR
                                                         </a>
                                                     </div>
+                                                    <p class="small mr-1">Es necesario estar registrado en startupsid.mx para participar</p>
                                                 @endif
                                             @endif
                                         @endif

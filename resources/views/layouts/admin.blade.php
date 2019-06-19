@@ -119,13 +119,13 @@
             <li class=" nav-item"><a href="{{action('AdminReportes@Emprendimientos')}}"><i class="icon-layers"></i><span class="menu-title" data-i18n="nav.category.pages">Emprendimientos</span></a></li>
             <li class=" nav-item"><a href="#"><i class="icon-graph"></i><span class="menu-title" data-i18n="nav.category.ui">Reportes</span></a>
                 <ul class="menu-content">
+                    <li class=" nav-item"><a href="{{action('AdminReportes@Convocatorias')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Aplicaciones</span></a></li>
                     <li class=" nav-item"><a href="{{action('AdminReportes@Usuarios')}}"><i class="fas fa-address-card"></i><span class="menu-title">Usuarios</span></a></li>
                     <li class=" nav-item"><a href="{{action('AdminReportes@UsuariosEmprendimientos')}}"><i class="fa fa-pie-chart"></i><span class="menu-title">Usuarios sin emprend.</span></a></li>
                     <li class=" nav-item"><a href="{{action('AdminReportes@UsuariosFull')}}"><i class="fas fa-address-card"></i><span class="menu-title">Usuarios Full</span></a></li>
                     <li class=" nav-item"><a href="{{action('AdminReportes@Emprendimientos')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Emprendimientos</span></a></li>
                     <li class=" nav-item"><a href="{{action('AdminReportes@EmprendedoresTec')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Emprendedores ITESM</span></a></li>
                     <li class=" nav-item"><a href="{{action('AdminReportes@EmprendimientosFull')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Emprendimientos Full</span></a></li>
-                    <li class=" nav-item"><a href="{{action('AdminReportes@Convocatorias')}}"><i class="fa fa-line-chart"></i><span class="menu-title">Aplicaciones</span></a></li>
                 </ul>
             </li>
             <?php endif;?>

@@ -87,6 +87,11 @@
                             </tr>
                             <tr>
                                 <td style="padding-bottom: 20px;">
+                                    <div class="cuerpo-mail">Para ver tu solicitud: <a href="{{action('PanelConvocatorias@VerAplicacion', $data['solicitud_id'])}}">{{action('PanelConvocatorias@VerAplicacion', $data['solicitud_id'])}}</a></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding-bottom: 20px;">
                                     <div class="cuerpo-mail">Si tienes alguna duda o comentario comúnicate con nosotros.</div>
                                 </td>
                             </tr>

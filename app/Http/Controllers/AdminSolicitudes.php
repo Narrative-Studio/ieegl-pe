@@ -199,6 +199,7 @@ class AdminSolicitudes extends Controller
             if($item->aprobado=='3') $aprobacion = '<span style="color:#008000;">Aprobada</span>';
 
             $data['nombre'] = $item->usuario->nombre;
+            $data['solicitud_id'] = $request->get('id');
             $data['apellidos'] = $item->usuario->apellidos;
             $data['email'] = $item->usuario->email;
             $data['convocatoria'] = $item->convocatoria->nombre;
