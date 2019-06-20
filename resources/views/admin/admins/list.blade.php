@@ -38,6 +38,7 @@
                                         <tr class="bg-primary white">
                                             <th>Nombre</th>
                                             <th>Correo</th>
+                                            <th>Rol</th>
                                             <th>Activo</th>
                                             <th width="200">Acciones</th>
                                         </tr>
@@ -47,6 +48,7 @@
                                             <tr>
                                                 <td>{{$item->nombre}} @if(isset($item->apellidos)){{$item->apellidos}}@endif</td>
                                                 <td>{{$item->email}}</td>
+                                                <td>@if($item->rol->_key=="7931855")<b>{{$item->rol->nombre}}</b> @else {{$item->rol->nombre}} @endif</td>
                                                 <td>@if($item->active==0) <div class="badge badge-warning">No</div> @else <div class="badge badge-success">Si</div> @endif</td>
                                                 <td>
                                                     <a href="{{ action('AdminAdministradores@Edit',$item->_key) }}" class="btn btn-sm btn-info mr-1"><i class="fas fa-edit"></i> Editar</a>

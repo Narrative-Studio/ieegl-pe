@@ -166,7 +166,7 @@
                                                 @endswitch
                                             </td>
                                             <td>
-                                                <a href="{{ action('AdminConvocatorias@Edit',$item->_key) }}" class="btn btn-secondary btn-sm"><i class="icon-grid"></i> Ver</a>
+                                                <a href="{{ action('AdminConvocatorias@Edit',$item->_key) }}" class="btn btn-secondary btn-sm">Editar</a>
                                             </td>
                                         </tr>
                                     @endforeach

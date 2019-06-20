@@ -44,7 +44,7 @@ class AdminAdministradores extends Controller
      * @throws ArangoException
      */
     public function Index(Request $request){
-        $data = $this->ArangoDB->Query('FOR u IN '.$this->collection.' FILTER u.isAdmin==1 SORT u.nombre ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'  RETURN u');
+        $data = $this->ArangoDB->Query('FOR u IN '.$this->collection.' FOR r IN roles FILTER u.isAdmin==1 AND r._key==u.rol_id SORT u.nombre ASC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'  RETURN merge(u, {rol: r})');
         if($request->get('total')!=''){
             $total = $request->get('total');
         }else{

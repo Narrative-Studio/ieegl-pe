@@ -129,7 +129,7 @@ class AdminConvocatorias extends Controller
                       FILTER a.convocatoria_id == convocatoria._key
                       COLLECT WITH COUNT INTO length RETURN length
                     )            
-                    FILTER '.$query_user.$query_activo.' convocatoria.responsable == users._key AND convocatoria.entidad  == entidad._key
+                    FILTER '.$query_user.$query_activo.' convocatoria.responsable == users._key AND convocatoria.entidad  == entidad._key AND convocatoria.activo != "deleted"
                     SORT convocatoria.created_at DESC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'
                     RETURN merge(convocatoria, {responsable: {username: users.username, nombre: CONCAT(users.nombre," ", users.apellidos)}}, {entidad: entidad.nombre}, {total: aplicaciones[0]})
         ';
@@ -141,7 +141,7 @@ class AdminConvocatorias extends Controller
             FOR convocatoria IN convocatorias
                 FOR users IN users
                     FOR entidad IN entidades
-                        FILTER '.$query_user.$query_activo.' convocatoria.responsable == users._key AND convocatoria.entidad == entidad._key
+                        FILTER '.$query_user.$query_activo.' convocatoria.responsable == users._key AND convocatoria.entidad == entidad._key AND convocatoria.activo != "deleted"
                         SORT convocatoria.created_at DESC COLLECT WITH COUNT INTO length RETURN length');
             $total = (int)$total[0];
         }
@@ -194,6 +194,8 @@ class AdminConvocatorias extends Controller
     public function Edit($id){
         try{
             $item = $this->ArangoDB->GetById($this->collection, $this->collection.'/'.$id);
+
+            if($item->activo=="deleted") abort(404);
 
             // Obteniendo Entidades
             $entidades = $this->ArangoDB->Query('FOR doc IN entidades RETURN doc', true);
@@ -304,7 +306,8 @@ class AdminConvocatorias extends Controller
      */
     public function Delete($id){
         try {
-            $result = $this->ArangoDB->Delete($this->collection, $this->collection.'/'.$id);
+            $document['activo'] = "deleted";
+            $this->ArangoDB->Update($this->collection, $this->collection.'/'.$id, $document);
         } catch (ArangoServerException $e) {
             Session::flash('status_error', $e->getMessage());
             return redirect()->action($this->controller.'@Index');

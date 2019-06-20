@@ -87,6 +87,8 @@ class PanelConvocatorias extends Controller
         $item = $this->ArangoDB->Query($query);
         $item = $item[0];
 
+        if($item->activo=="deleted") abort(404);
+
         //$existe = $this->ArangoDB->Query('FOR doc IN '.$this->collection.' FILTER doc.userKey=="'.auth()->user()->_key.'" AND doc.convocatoria_id == "'.$key.'" AND doc.aprobado!=2 RETURN doc');
         //$verificar = (count($existe)>0)?true:false;
         $verificar = false;
@@ -123,7 +125,7 @@ class PanelConvocatorias extends Controller
                 FOR emp IN emprendimientos
                     FILTER doc.userKey == "'.auth()->user()->_key.'" AND conv._key  == doc.convocatoria_id AND emp._key == doc.emprendimiento_id
                     SORT doc.fecha DESC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'
-                    RETURN merge(doc, {nombre: conv.nombre}, {quien: conv.quien}, {emprendimiento: emp.nombre}, {descripcion: conv.descripcion_corta}, {fecha_inicio_convocatoria: conv.fecha_inicio_convocatoria}, {fecha_fin_convocatoria: conv.fecha_fin_convocatoria} )
+                    RETURN merge(doc, {activo: conv.activo}, {nombre: conv.nombre}, {quien: conv.quien}, {emprendimiento: emp.nombre}, {descripcion: conv.descripcion_corta}, {fecha_inicio_convocatoria: conv.fecha_inicio_convocatoria}, {fecha_fin_convocatoria: conv.fecha_fin_convocatoria} )
         ';
         $data = $this->ArangoDB->Query($query);
         if($request->get('total')!=''){
@@ -184,6 +186,8 @@ class PanelConvocatorias extends Controller
                         RETURN merge(convocatoria, {responsable: {username: users.username, nombre: CONCAT(users.nombre," ", users.apellidos)}}, {entidad: entidad.nombre}, {quien: quien.nombre, quien_key:quien._key} )';
         $item = $this->ArangoDB->Query($query);
         $item = $item[0];
+
+        if($item->activo=="deleted") abort(404);
 
         // Si la convocatoria requiere un Emprendimiento
         if($item->quien_key!='6375236') {
@@ -386,6 +390,8 @@ class PanelConvocatorias extends Controller
         $item = $this->ArangoDB->Query($query);
         $item = $item[0];
 
+        if($item->activo=="deleted") abort(404);
+
         //Emprendimiento seleccionado*/
         $emprendimiento = $this->ArangoDB->Query('FOR doc IN emprendimientos FILTER doc._key=="'.$aplicacion->emprendimiento_id.'" RETURN doc');
         $emprendimiento = $emprendimiento[0];
@@ -485,6 +491,8 @@ class PanelConvocatorias extends Controller
         ';
         $item = $this->ArangoDB->Query($query);
         $item = $item[0];
+
+        if($item->activo=="deleted") abort(404);
 
         //Obteniendo usuario
         $query = '
@@ -665,6 +673,8 @@ class PanelConvocatorias extends Controller
         ';
         $item = $this->ArangoDB->Query($query);
         $item = $item[0];
+
+        if($item->activo=="deleted") abort(404);
 
         //Obteniendo usuario
         $query = '

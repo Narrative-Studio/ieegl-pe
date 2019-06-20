@@ -23,10 +23,15 @@ class AdminController extends Controller
             LET total_empre = (FOR e IN emprendimientos COLLECT WITH COUNT INTO length RETURN length)
             LET empre_dia = (FOR e IN emprendimientos FILTER e.created_at!=null && DATE_FORMAT(DATE_TIMESTAMP(e.created_at), "%dd.%mm.%yyyy")==DATE_FORMAT(DATE_NOW(), "%dd.%mm.%yyyy") COLLECT WITH COUNT INTO length RETURN length)
             LET empre_mes = (FOR e IN emprendimientos FILTER e.created_at!=null && DATE_FORMAT(DATE_TIMESTAMP(e.created_at), "%mm.%yyyy")==DATE_FORMAT(DATE_NOW(), "%mm.%yyyy") COLLECT WITH COUNT INTO length RETURN length)            
-            LET total_convo = (FOR e IN convocatorias COLLECT WITH COUNT INTO length RETURN length)
-            LET convo_dia = (FOR e IN convocatorias FILTER e.created_at!=null && DATE_FORMAT(DATE_TIMESTAMP(e.created_at), "%dd.%mm.%yyyy")==DATE_FORMAT(DATE_NOW(), "%dd.%mm.%yyyy") COLLECT WITH COUNT INTO length RETURN length)
-            LET convo_mes = (FOR e IN convocatorias FILTER e.created_at!=null && DATE_FORMAT(DATE_TIMESTAMP(e.created_at), "%mm.%yyyy")==DATE_FORMAT(DATE_NOW(), "%mm.%yyyy") COLLECT WITH COUNT INTO length RETURN length)            
-            LET total_apps = (FOR e IN usuario_convocatoria COLLECT WITH COUNT INTO length RETURN length)
+            LET total_convo = (FOR e IN convocatorias FILTER e.activo!="deleted" COLLECT WITH COUNT INTO length RETURN length)
+            LET convo_dia = (FOR e IN convocatorias FILTER e.activo!="deleted" AND e.created_at!=null && DATE_FORMAT(DATE_TIMESTAMP(e.created_at), "%dd.%mm.%yyyy")==DATE_FORMAT(DATE_NOW(), "%dd.%mm.%yyyy") COLLECT WITH COUNT INTO length RETURN length)
+            LET convo_mes = (FOR e IN convocatorias FILTER e.activo!="deleted" AND e.created_at!=null && DATE_FORMAT(DATE_TIMESTAMP(e.created_at), "%mm.%yyyy")==DATE_FORMAT(DATE_NOW(), "%mm.%yyyy") COLLECT WITH COUNT INTO length RETURN length)            
+            LET total_apps = (
+                FOR e IN usuario_convocatoria
+                    FOR conv IN convocatorias
+                        FILTER e.convocatoria_id==conv._key AND conv.activo!="deleted" 
+                        COLLECT WITH COUNT INTO length RETURN length
+             )
             
             LET convocatorias = (FOR convocatoria IN convocatorias
                 FOR users IN users
@@ -36,7 +41,7 @@ class AdminController extends Controller
                           FILTER a.convocatoria_id == convocatoria._key
                           COLLECT WITH COUNT INTO length RETURN length
                         )            
-                        FILTER '.$query_user.' convocatoria.activo=="aprobacion" AND convocatoria.responsable == users._key AND convocatoria.entidad  == entidad._key
+                        FILTER '.$query_user.' convocatoria.activo=="aprobacion" AND convocatoria.responsable == users._key AND convocatoria.entidad  == entidad._key AND convocatoria.activo!="deleted"
                         SORT convocatoria._key ASC LIMIT 5
                     RETURN merge(convocatoria, {responsable: {username: users.username, nombre: CONCAT(users.nombre," ", users.apellidos)}}, {entidad: entidad.nombre}, {total: aplicaciones[0]})
             )         

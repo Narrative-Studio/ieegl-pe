@@ -42,10 +42,15 @@
                                 </thead>
                                 <tbody>
                                 @foreach($convocatorias as $item)
-                                    <tr>
+                                    <tr @if($item->activo=="deleted") style="background-color: #0000000f;color: #0000002e;" @endif>
                                         <td class="text-left">
-                                            <a href="{{action('PanelConvocatorias@VerAplicacion',['id'=>$item->_key])}}" class="text-bold-600">{{$item->nombre}}</a>
-                                            <div class="text-muted font-small-2" style="white-space:normal;">{!! $item->descripcion !!}</div>
+                                            @if($item->activo!="deleted")
+                                                <a href="{{action('PanelConvocatorias@VerAplicacion',['id'=>$item->_key])}}" class="text-bold-600">{{$item->nombre}}</a>
+                                                <div class="text-muted font-small-2" style="white-space:normal;">{!! $item->descripcion !!}</div>
+                                            @else
+                                                <span class="text-bold-600">{{$item->nombre}}</span> (no disponible)
+                                                <div class="font-small-2" style="white-space:normal;">{!! $item->descripcion !!}</div>
+                                            @endif
                                         </td>
                                         <td class="text-center">
                                             <p class="text-bold-600 font-small-3">{{\Illuminate\Support\Carbon::createFromTimestamp($item->fecha_registro)->formatLocalized('%d %B %Y')}}</p>
@@ -59,11 +64,14 @@
                                         </span>
                                         </td>
                                         <td>
-
-                                            @if($item->aprobado==1) <span class="badge badge-warning">Por Revisar</span> @endif
-                                            @if($item->aprobado==4) <span class="badge badge-info">Pendiente</span> @endif
-                                            @if($item->aprobado==2) <span class="badge badge-danger">Rechazada</span> @endif
-                                            @if($item->aprobado==3) <span class="badge badge-success">Aprobada</span> @endif
+                                            @if($item->activo=="deleted")
+                                                <span class="badge" style="background-color: #c6c6c685;">No disponible</span>
+                                            @else
+                                                @if($item->aprobado==1) <span class="badge badge-warning">Por Revisar</span> @endif
+                                                @if($item->aprobado==4) <span class="badge badge-info">Pendiente</span> @endif
+                                                @if($item->aprobado==2) <span class="badge badge-danger">Rechazada</span> @endif
+                                                @if($item->aprobado==3) <span class="badge badge-success">Aprobada</span> @endif
+                                            @endif
                                         </td>
                                         <td>
                                             <a href="{{action('PanelConvocatorias@VerAplicacion',['id'=>$item->_key])}}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i> Ver Aplicación</a>

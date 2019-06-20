@@ -53,7 +53,7 @@ class AdminSolicitudes extends Controller
             FOR conv IN convocatorias
                 FOR emp IN emprendimientos
                     FOR usuario IN users
-                        FILTER '.$query_user.' conv._key  == doc.convocatoria_id AND usuario._key == doc.userKey AND emp._key == doc.emprendimiento_id '.$query_convo.'
+                        FILTER '.$query_user.' conv._key  == doc.convocatoria_id AND usuario._key == doc.userKey AND emp._key == doc.emprendimiento_id '.$query_convo.' AND conv.activo != "deleted"
                         SORT doc.fecha DESC LIMIT '.($this->perPage*($this->page-1)).', '.$this->perPage.'
                         RETURN merge(doc, {convocatoria: conv}, {usuario: usuario}, {emprendimiento: emp.nombre} )
         ';
@@ -65,7 +65,7 @@ class AdminSolicitudes extends Controller
             FOR doc IN usuario_convocatoria
                 FOR conv IN convocatorias
                     FOR usuario IN users
-                        FILTER '.$query_user.' conv._key  == doc.convocatoria_id AND usuario._key == doc.userKey '.$query_convo.'
+                        FILTER '.$query_user.' conv._key  == doc.convocatoria_id AND usuario._key == doc.userKey '.$query_convo.' AND conv.activo != "deleted"
                         SORT doc.fecha DESC COLLECT WITH COUNT INTO length RETURN length
             ');
             $total = (int)$total[0];
@@ -102,6 +102,8 @@ class AdminSolicitudes extends Controller
         ';
         $sol = $this->ArangoDB->Query($query);
         $solicitud = $sol[0];
+
+        if($solicitud->convocatoria->activo=="deleted") abort(404);
 
         if( $solicitud->convocatoria->quien!='6375236') {
             $query = '
