@@ -233,9 +233,13 @@ class AdminConvocatorias extends Controller
 
         if(isset($item->preguntas)){
             $array = json_decode(json_encode($item->preguntas), true);
-            ksort($array);
-            $json = str_replace('\r\n', '|', json_encode($array));
-            $json = preg_replace('/\\\t/', '', $json);
+            if(is_array($array)){
+                ksort($array);
+                $json = str_replace('\r\n', '|', json_encode($array));
+                $json = preg_replace('/\\\t/', '', $json);
+            }else{
+                $json = '';
+            }
         }else{
             $json = '';
         }
