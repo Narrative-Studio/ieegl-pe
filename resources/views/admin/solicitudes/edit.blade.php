@@ -61,88 +61,90 @@
                 </div>
                 <!-- Sección 1 -->
                 <?php $i = 0; ?>
-                @foreach($solicitud->convocatoria->preguntas as $pregunta)
-                    <?php $i++; ?>
-                    @if($pregunta->tipo=='categorias')
-                        @if($i>1) </div></div></div></div> @endif
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">{{$pregunta->nombre}}</h4>
-                                <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
-                                <div class="heading-elements">
-                                    <ul class="list-inline mb-0">
-                                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                                    </ul>
+                @if(!empty($solicitud->convocatoria->preguntas ))
+                    @foreach($solicitud->convocatoria->preguntas as $pregunta)
+                        <?php $i++; ?>
+                        @if($pregunta->tipo=='categorias')
+                            @if($i>1) </div></div></div></div> @endif
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">{{$pregunta->nombre}}</h4>
+                                    <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                                    <div class="heading-elements">
+                                        <ul class="list-inline mb-0">
+                                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card-content collapse show">
-                                <div class="card-body">
-                                    <div class="row">
-                    @else
-                        <?php
-                            switch ($pregunta->tipo){
-                                case 'nueva':
-                                    $campo = 'n_'.$pregunta->campo;
-                                    break;
-                                case 'catalogos':
-                                    $campo = 'p_'.$pregunta->campo;
-                                    break;
-                                default:
-                                    $campo = $pregunta->campo;
-                                    break;
-                            }
-                            if(isset($preguntas_solicitud[$pregunta->tipo][$campo])){  // si la pregunta existe por que si se agregaron nuevas preguntas en la convocatoria marcaria error
-                                $preg = $preguntas_solicitud[$pregunta->tipo][$campo];
-                                switch($pregunta->campo){
-                                    case 'industria_o_sector':
-                                        $respuesta = \App\Http\Controllers\AdminSolicitudes::returnRespuestas($preg, $industrias);
+                                <div class="card-content collapse show">
+                                    <div class="card-body">
+                                        <div class="row">
+                        @else
+                            <?php
+                                switch ($pregunta->tipo){
+                                    case 'nueva':
+                                        $campo = 'n_'.$pregunta->campo;
                                         break;
-                                    case 'etapa_emprendimiento':
-                                        $respuesta = $etapas[$preg];
-                                        break;
-                                    case 'como_te_enteraste':
-                                        $respuesta = $enteraste[$preg];
-                                        break;
-                                    case 'pais':
-                                        $respuesta = $paises[$preg];
-                                        break;
-                                    case 'estado':
-                                        $respuesta = $estados[$preg];
-                                        break;
-                                    case 'campus':
-                                        $respuesta = $campus[$preg];
-                                        break;
-                                    case 'cedula_file':
-                                        $respuesta = '<a href="'.url($preg).'" target="_blank">'.url($preg).'</a>';
-                                        break;
-                                    case 'logo_file':
-                                        $respuesta = '<img src="'.url($preg).'" width="120"/>';
-                                        break;
-                                    case 'presentacion_file':
-                                        $respuesta = '<a href="'.url($preg).'" target="_blank">'.url($preg).'</a>';
+                                    case 'catalogos':
+                                        $campo = 'p_'.$pregunta->campo;
                                         break;
                                     default:
-                                        if((is_array($preg))){
-                                            $respuesta = (is_array($preg))?implode(', ',$preg):$preg;
-                                        }else{
-                                            if(preg_match_all('/\d{4}-\d{2}-\d{2}/m', $preg)){
-                                                $respuesta = date('d/m/Y', strtotime($preg));
-                                            }else{
-                                                $respuesta = $preg;
-                                            }
-                                        }
+                                        $campo = $pregunta->campo;
                                         break;
                                 }
-                            }else{
-                                $respuesta = '-';
-                            }
-                        ?>
-                        <div class="col-md-6">
-                            <h6><strong>{{$pregunta->nombre}}:</strong></h6>
-                            <p>{!! $respuesta !!}</p>
-                        </div>
-                    @endif
-                @endforeach
+                                if(isset($preguntas_solicitud[$pregunta->tipo][$campo])){  // si la pregunta existe por que si se agregaron nuevas preguntas en la convocatoria marcaria error
+                                    $preg = $preguntas_solicitud[$pregunta->tipo][$campo];
+                                    switch($pregunta->campo){
+                                        case 'industria_o_sector':
+                                            $respuesta = \App\Http\Controllers\AdminSolicitudes::returnRespuestas($preg, $industrias);
+                                            break;
+                                        case 'etapa_emprendimiento':
+                                            $respuesta = $etapas[$preg];
+                                            break;
+                                        case 'como_te_enteraste':
+                                            $respuesta = $enteraste[$preg];
+                                            break;
+                                        case 'pais':
+                                            $respuesta = $paises[$preg];
+                                            break;
+                                        case 'estado':
+                                            $respuesta = $estados[$preg];
+                                            break;
+                                        case 'campus':
+                                            $respuesta = $campus[$preg];
+                                            break;
+                                        case 'cedula_file':
+                                            $respuesta = '<a href="'.url($preg).'" target="_blank">'.url($preg).'</a>';
+                                            break;
+                                        case 'logo_file':
+                                            $respuesta = '<img src="'.url($preg).'" width="120"/>';
+                                            break;
+                                        case 'presentacion_file':
+                                            $respuesta = '<a href="'.url($preg).'" target="_blank">'.url($preg).'</a>';
+                                            break;
+                                        default:
+                                            if((is_array($preg))){
+                                                $respuesta = (is_array($preg))?implode(', ',$preg):$preg;
+                                            }else{
+                                                if(preg_match_all('/\d{4}-\d{2}-\d{2}/m', $preg)){
+                                                    $respuesta = date('d/m/Y', strtotime($preg));
+                                                }else{
+                                                    $respuesta = $preg;
+                                                }
+                                            }
+                                            break;
+                                    }
+                                }else{
+                                    $respuesta = '-';
+                                }
+                            ?>
+                            <div class="col-md-6">
+                                <h6><strong>{{$pregunta->nombre}}:</strong></h6>
+                                <p>{!! $respuesta !!}</p>
+                            </div>
+                        @endif
+                    @endforeach
+                @endif
                 </div></div></div></div>
                 <div class="card datos-status">
                     <div class="card-header">
