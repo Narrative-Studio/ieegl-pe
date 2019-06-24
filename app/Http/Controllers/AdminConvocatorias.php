@@ -225,7 +225,7 @@ class AdminConvocatorias extends Controller
         $campos_cuenta = $this->campos_cuenta;
         $campos_emprendimiento = $this->campos_emprendimiento;
         $preguntas_catalogo = [];
-        $preguntas = $this->ArangoDB->Query('FOR doc IN preguntas_admin FILTER doc._key=="0" RETURN doc', false);
+        $preguntas = $this->ArangoDB->Query('FOR doc IN preguntas_admin RETURN doc', false);
 
         if(count($preguntas)>0) {
             foreach ($preguntas as $preg) {
