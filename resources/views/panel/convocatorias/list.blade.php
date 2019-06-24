@@ -74,7 +74,6 @@
             <div class="col-md-12">
                 <div class="bs-callout-warning callout-border-left p-1">
                     <strong>Aún no tenemos Convocatorias</strong>
-                    <h6 style="color: #6a569c;"><span style="text-transform: capitalize;">{{\Illuminate\Support\Carbon::createFromTimestamp($item->fecha_inicio_convocatoria)->formatLocalized('%d %B %Y')}}</span> - <span style="text-transform: capitalize;">{{\Illuminate\Support\Carbon::createFromTimestamp($item->fecha_fin_convocatoria)->formatLocalized('%d %B %Y')}}</span></h6>
                     <p>Muy pronto tendrémos convocatorias para que puedas aplicar tus Emprendimientos.</p>
                 </div>
             </div>
