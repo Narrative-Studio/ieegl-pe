@@ -622,7 +622,7 @@ class AdminReportes extends Controller
         // Campos de Convocatoria
         $nombre = $convocatoria[0]['nombre'];
         $campos_convocatoria = [];
-        if(exist($convocatoria[0]['preguntas'])){
+        if(isset($convocatoria[0]['preguntas'])){
             foreach ($convocatoria[0]['preguntas'] as $preg){
                 if($preg->tipo!='categorias'){
                     if($preg->tipo=='emprendimiento' && $preg->campo=='nombre'){
