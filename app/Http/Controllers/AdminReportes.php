@@ -622,19 +622,23 @@ class AdminReportes extends Controller
         // Campos de Convocatoria
         $nombre = $convocatoria[0]['nombre'];
         $campos_convocatoria = [];
-        foreach ($convocatoria[0]['preguntas'] as $preg){
-            if($preg->tipo!='categorias'){
-                if($preg->tipo=='emprendimiento' && $preg->campo=='nombre'){
-                    $campos_convocatoria['nombre_emprendimiento'] = $preg->nombre;
-                }else{
-                    $campo = $preg->campo;
-                    if($preg->tipo=='nueva')$campo = "n_".$campo;
-                    if($preg->tipo=='catalogos')$campo = "p_".$campo;
-                    $campos_convocatoria[$campo] = $preg->nombre;
+        if(exist($convocatoria[0]['preguntas'])){
+            foreach ($convocatoria[0]['preguntas'] as $preg){
+                if($preg->tipo!='categorias'){
+                    if($preg->tipo=='emprendimiento' && $preg->campo=='nombre'){
+                        $campos_convocatoria['nombre_emprendimiento'] = $preg->nombre;
+                    }else{
+                        $campo = $preg->campo;
+                        if($preg->tipo=='nueva')$campo = "n_".$campo;
+                        if($preg->tipo=='catalogos')$campo = "p_".$campo;
+                        $campos_convocatoria[$campo] = $preg->nombre;
+                    }
                 }
             }
+            return view('admin.reportes.aplicaciones', compact('key','campos_convocatoria','nombre'));
+        }else{
+            abort(404);
         }
-        return view('admin.reportes.aplicaciones', compact('key','campos_convocatoria','nombre'));
     }
 
     public function AplicacionesAjax($key, Request $request){
