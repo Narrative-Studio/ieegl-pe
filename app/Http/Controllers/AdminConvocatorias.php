@@ -227,7 +227,7 @@ class AdminConvocatorias extends Controller
         $preguntas_catalogo = [];
         $preguntas = $this->ArangoDB->Query('FOR doc IN preguntas_admin RETURN doc', false);
 
-        if($preguntas) {
+        if(empty($preguntas)) {
             foreach ($preguntas as $preg) {
                 $preguntas_catalogo[$preg->categoria][] = $preg;
             }
