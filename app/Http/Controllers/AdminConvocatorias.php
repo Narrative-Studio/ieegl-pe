@@ -227,18 +227,15 @@ class AdminConvocatorias extends Controller
         $preguntas_catalogo = [];
         $preguntas = $this->ArangoDB->Query('FOR doc IN preguntas_admin RETURN doc', false);
 
-        if(count($preguntas)>0) {
-            foreach ($preguntas as $preg) {
-                $preguntas_catalogo[$preg->categoria][] = $preg;
-            }
-            if(isset($item->preguntas)){
-                $array = json_decode(json_encode($item->preguntas), true);
-                ksort($array);
-                $json = str_replace('\r\n', '|', json_encode($array));
-                $json = preg_replace('/\\\t/', '', $json);
-            }else{
-                $json = '';
-            }
+        foreach ($preguntas as $preg){
+            if(isset($preg->categoria)) $preguntas_catalogo[$preg->categoria][] = $preg;
+        }
+
+        if(isset($item->preguntas)){
+            $array = json_decode(json_encode($item->preguntas), true);
+            ksort($array);
+            $json = str_replace('\r\n', '|', json_encode($array));
+            $json = preg_replace('/\\\t/', '', $json);
         }else{
             $json = '';
         }
