@@ -108,7 +108,7 @@ class PanelPerfiles extends Controller
         if($request->get('id')==''){
 
             // Buscar que un perfil nuevo no se duplique
-            $total = $this->ArangoDB->Query('FOR doc IN perfiles FILTER doc.userKey="'.auth()->user()->_key.'" COLLECT WITH COUNT INTO length RETURN length');
+            $total = $this->ArangoDB->Query('FOR doc IN perfiles FILTER doc.userKey=="'.auth()->user()->_key.'" COLLECT WITH COUNT INTO length RETURN length');
             $total = (int)$total[0];
 
             if($total<1){
