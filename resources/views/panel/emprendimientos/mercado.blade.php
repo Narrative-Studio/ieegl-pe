@@ -6,60 +6,6 @@
 
 @section('js')
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('.tiene_clientes').on('ifChecked', function(event){
-                opt = ($('input[name="tiene_clientes"]:checked').val());
-                if(opt=="Si"){
-                    $('#montos_ventas_clientes').removeClass('invisible');
-                    $("#montos_ventas_clientes input").attr('value', '0');
-                    $("#montos_ventas_clientes input").attr('required', 'required');
-                }else{
-                    $('#montos_ventas_clientes').addClass('invisible');
-                    $("#montos_ventas_clientes input").removeAttr('value');
-                    $("#montos_ventas_clientes input").removeAttr('required');
-                }
-            });
-
-            @if(old('tiene_clientes'))
-                @if(old('tiene_clientes')=="Si")
-                    $('#montos_ventas_clientes').removeClass('invisible');
-                @else
-                    $("#montos_ventas_clientes input").removeAttr('required');
-                @endif
-            @else
-                @if(isset($item->tiene_clientes) &&  $item->tiene_clientes=="Si")
-                    $('#montos_ventas_clientes').removeClass('invisible');
-                @else
-                    $("#montos_ventas_clientes input").removeAttr('required');
-                @endif
-            @endif
-			$('.tiene_usuarios').on('ifChecked', function(event){
-                opt = ($('input[name="tiene_usuarios"]:checked').val());
-                if(opt=="Si"){
-                    $('#montos_ventas_usuarios').removeClass('invisible');
-                    $("#montos_ventas_usuarios input").attr('value', '0');
-                    $("#montos_ventas_usuarios input").attr('required', 'required');
-                }else{
-                    $('#montos_ventas_usuarios').addClass('invisible');
-                    $("#montos_ventas_usuarios input").removeAttr('value');
-                    $("#montos_ventas_usuarios input").removeAttr('required');
-                }
-            });
-
-            @if(old('tiene_usuarios'))
-                @if(old('tiene_usuarios')=="Si")
-                    $('#montos_ventas_usuarios').removeClass('invisible');
-                @else
-                    $("#montos_ventas_usuarios input").removeAttr('required');
-                @endif
-            @else
-                @if(isset($item->tiene_usuarios) &&  $item->tiene_usuarios=="Si")
-                    $('#montos_ventas_usuarios').removeClass('invisible');
-                @else
-                    $("#montos_ventas_usuarios input").removeAttr('required');
-                @endif
-            @endif					
-        })
     </script>
     @if($item->userKey!=auth()->user()->_key) @include('panel.emprendimientos.inc.cancelar-inputs') @endif
 @endsection

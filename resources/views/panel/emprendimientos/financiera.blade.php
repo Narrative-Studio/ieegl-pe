@@ -7,50 +7,6 @@
 @section('js')
     <script type="text/javascript">
         @if($item->userKey!=auth()->user()->_key) @include('panel.emprendimientos.inc.cancelar-inputs') @endif
-        $(document).ready(function () {
-            $('.lanzar').on('ifChecked', function(event){
-                opt = ($('input[name="lanzar_producto"]:checked').val());
-                if(opt=="Si"){
-                    $('#mas_ventas').removeClass('invisible');
-                }else{
-                    $('#mas_ventas').addClass('invisible');
-                }
-            });
-            $('.ventas').on('ifChecked', function(event){
-                opt = ($('input[name="realizado_ventas"]:checked').val());
-                if(opt=="Si"){
-                    $('#montos_ventas').removeClass('invisible');
-                    $(".money").attr('required', 'required');
-                }else{
-                    $('#montos_ventas').addClass('invisible');
-                    $(".money").removeAttr('required');
-                }
-            });
-
-            @if(old('lanzar_producto'))
-                @if(old('lanzar_producto')=="Si")
-                    $('#mas_ventas').removeClass('invisible');
-                @endif
-            @else
-                @if(isset($item->lanzar_producto) && $item->lanzar_producto=="Si")
-                    $('#mas_ventas').removeClass('invisible');
-                @endif
-            @endif
-
-            @if(old('realizado_ventas'))
-                @if(old('realizado_ventas')=="Si")
-                    $('#montos_ventas').removeClass('invisible');
-                @else
-                    $(".money").removeAttr('required');
-                @endif
-            @else
-                @if(isset($item->realizado_ventas) &&  $item->realizado_ventas=="Si")
-                    $('#montos_ventas').removeClass('invisible');
-                @else
-                    $(".money").removeAttr('required');
-                @endif
-            @endif
-        })
     </script>
     @if($item->userKey!=auth()->user()->_key) @include('panel.emprendimientos.inc.cancelar-inputs') @endif
 @endsection
