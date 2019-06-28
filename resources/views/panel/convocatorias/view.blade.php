@@ -34,7 +34,7 @@
     <meta content="index,follow" name="robots">
 
     <meta property="og:title"              content="{{$item->nombre}}" />
-    <meta property="og:description"        content="{!! $item->descripcion_corta !!}" />
+    <meta property="og:description"        content="{{$item->descripcion_corta}}" />
     @if(file_exists(public_path('/convocatorias_pics/imagen_'.$item->_key.'.jpg')))
     <meta property="og:image"              content="{{url('/convocatorias_pics/imagen_'.$item->_key.'.jpg')}}" />
     @endif
