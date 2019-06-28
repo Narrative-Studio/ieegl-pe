@@ -171,7 +171,9 @@ class AdminConvocatorias extends Controller
         $preguntas_catalogo = [];
         $preguntas = $this->ArangoDB->Query('FOR doc IN preguntas_admin RETURN doc', false);
         foreach ($preguntas as $preg){
-            $preguntas_catalogo[$preg->categoria][] = $preg;
+            if(isset($preg->categoria)){
+                $preguntas_catalogo[$preg->categoria][] = $preg;
+            }
         }
 
         // Obteniendo Usuarios Responsables
