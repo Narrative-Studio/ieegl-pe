@@ -80,13 +80,13 @@
                                                     @if($pregunta->tipo=='usuario')
 
                                                         <label>{{$pregunta->nombre}} <span class="required">*</span></label>
-                                                        @include('panel.perfiles.campos.'.$pregunta->campo, ['campo'=>'usuario['.$pregunta->campo.']','value'=>$perfil[$pregunta->campo]])
+                                                        @include('panel.perfiles.campos.'.$pregunta->campo, ['campo'=>'usuario['.$pregunta->campo.']','value'=>(isset($perfil[$pregunta->campo])?$perfil[$pregunta->campo]:'')])
 
                                                     @elseif($pregunta->tipo=='cuenta')
 
                                                         <label>{{$pregunta->nombre}} <span class="required">*</span></label>
                                                         <?php //$class='form-control required'; ?>
-                                                        @include('panel.perfiles.campos.'.$pregunta->campo, ['campo'=>'cuenta['.$pregunta->campo.']','value'=>$cuenta[$pregunta->campo]])
+                                                        @include('panel.perfiles.campos.'.$pregunta->campo, ['campo'=>'cuenta['.$pregunta->campo.']','value'=>(isset($cuenta[$pregunta->campo])?$cuenta[$pregunta->campo]:'')])
 
                                                     @elseif($pregunta->tipo=='emprendimiento')
 
